@@ -7,7 +7,7 @@
 
 <link rel='canonical' href='https://getshhi.github.io/'>
 
-<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="JZH-letere">
+<link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="JZH-letere">
 <meta property='og:description' content="演示说明">
 <meta property='og:url' content='https://getshhi.github.io/'>
 <meta property='og:site_name' content='JZH-letere'>
@@ -439,18 +439,22 @@
     }());
 </script>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
 <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
 <div id="aplayer"></div>
 
 <script>
+	const home = "https://getshhi.github.io/" + 'music/';
+	console.log(home);
 	const ap = new APlayer({
     container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
     audio: [{
-        name: 'name',
-        artist: 'artist',
-        url: 'url.mp3',
-        cover: 'cover.jpg'
+        name: '光るなら',
+        artist: 'Goose House',
+        url: home + '光るなら-Goose House/song.mp3',
+        cover: home + '光るなら-Goose House/cover.jpg',
+        lrc: home + '光るなら-Goose House/lyric.lrc'
     }]
 });
 </script>
