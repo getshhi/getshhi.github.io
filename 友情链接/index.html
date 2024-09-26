@@ -461,5 +461,20 @@
     }());
 </script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<div id="aplayer"></div>
+
+<script>
+	const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    audio: [{
+        name: 'name',
+        artist: 'artist',
+        url: 'url.mp3',
+        cover: 'cover.jpg'
+    }]
+});
+</script>
     </body>
 </html>
