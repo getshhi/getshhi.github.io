@@ -287,7 +287,7 @@
     
     <section class="powerby">
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.27.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -407,6 +407,38 @@
         lrc: home + '光るなら-Goose House/lyric.lrc'
     }]
 });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/pjax/pjax.js"></script>
+
+    
+    <script src=https://getshhi.github.io/js/topbar.min.js></script>
+
+<script>
+    var pjax = new Pjax({
+  selectors: [".main-container"]
+})
+pjax._handleResponse = pjax.handleResponse;
+
+pjax.handleResponse = function(responseText, request, href, options) {
+  if (request.responseText.match("<html")) {
+    
+    let newDom = new DOMParser().parseFromString(responseText, 'text/html');
+            
+            let bodyClass = newDom.body.className;
+            document.body.setAttribute("class", bodyClass)
+            
+            setTimeout(() => {pjax._handleResponse(responseText, request, href, options);},1000)
+  } else {
+    
+  }
+}
+document.addEventListener('pjax:send', () => {
+  topbar.show();
+})
+document.addEventListener('pjax:complete', () => {
+    window.Stack.init();
+    topbar.hide();
+})
 </script>
     </body>
 </html>
