@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>JZH-letere</title>
-        <link>https://getshhi.github.io/</link>
-        <description>Recent content on JZH-letere</description>
+        <title>博客 on JZH-letere</title>
+        <link>https://getshhi.github.io/categories/%E5%8D%9A%E5%AE%A2/</link>
+        <description>Recent content in 博客 on JZH-letere</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>JZH-letere</copyright>
-        <lastBuildDate>Fri, 27 Sep 2024 12:33:05 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 27 Sep 2024 12:33:05 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/categories/%E5%8D%9A%E5%AE%A2/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>JavaWeb</title>
         <link>https://getshhi.github.io/p/javaweb/</link>
         <pubDate>Fri, 27 Sep 2024 12:33:05 +0800</pubDate>
@@ -140,39 +140,6 @@
 &lt;p&gt;Socket：外卖员通过手机（Socket）与我们通信，告知外卖已到。&lt;/p&gt;
 &lt;p&gt;协议：我们默认使用中文对话。&lt;/p&gt;
 </description>
-        </item>
-        <item>
-        <title>归档</title>
-        <link>https://getshhi.github.io/archives/</link>
-        <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
-        
-        <guid>https://getshhi.github.io/archives/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>关于</title>
-        <link>https://getshhi.github.io/%E5%85%B3%E4%BA%8E/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://getshhi.github.io/%E5%85%B3%E4%BA%8E/</guid>
-        <description>&lt;p&gt;一个爱摸鱼的大学生试图通过写博客来摆脱摸鱼的生活，提升自己。😊&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>搜索</title>
-        <link>https://getshhi.github.io/search/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://getshhi.github.io/search/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>学习链接</title>
-        <link>https://getshhi.github.io/%E5%AD%A6%E4%B9%A0%E9%93%BE%E6%8E%A5/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://getshhi.github.io/%E5%AD%A6%E4%B9%A0%E9%93%BE%E6%8E%A5/</guid>
-        <description></description>
         </item>
         
     </channel>
