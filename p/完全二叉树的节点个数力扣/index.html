@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Docker出现的问题解决">
-<title>在Linux上部署Docker的代理</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="利用完全二叉树的特点进行解决">
+<title>完全二叉树的节点个数(力扣)</title>
 
-<link rel='canonical' href='https://getshhi.github.io/p/%E5%9C%A8linux%E4%B8%8A%E9%83%A8%E7%BD%B2docker%E7%9A%84%E4%BB%A3%E7%90%86/'>
+<link rel='canonical' href='https://getshhi.github.io/p/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0%E5%8A%9B%E6%89%A3/'>
 
-<link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="在Linux上部署Docker的代理">
-<meta property='og:description' content="Docker出现的问题解决">
-<meta property='og:url' content='https://getshhi.github.io/p/%E5%9C%A8linux%E4%B8%8A%E9%83%A8%E7%BD%B2docker%E7%9A%84%E4%BB%A3%E7%90%86/'>
+<link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="完全二叉树的节点个数(力扣)">
+<meta property='og:description' content="利用完全二叉树的特点进行解决">
+<meta property='og:url' content='https://getshhi.github.io/p/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0%E5%8A%9B%E6%89%A3/'>
 <meta property='og:site_name' content='JZH-letere'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='docker' /><meta property='article:published_time' content='2024-10-02T11:46:05&#43;08:00'/><meta property='article:modified_time' content='2024-10-02T11:46:05&#43;08:00'/>
-<meta name="twitter:title" content="在Linux上部署Docker的代理">
-<meta name="twitter:description" content="Docker出现的问题解决">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='java' /><meta property='article:published_time' content='2024-10-03T11:25:04&#43;08:00'/><meta property='article:modified_time' content='2024-10-03T11:25:04&#43;08:00'/>
+<meta name="twitter:title" content="完全二叉树的节点个数(力扣)">
+<meta name="twitter:description" content="利用完全二叉树的特点进行解决">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -244,12 +244,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/%E5%9C%A8linux%E4%B8%8A%E9%83%A8%E7%BD%B2docker%E7%9A%84%E4%BB%A3%E7%90%86/">在Linux上部署Docker的代理</a>
+            <a href="/p/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0%E5%8A%9B%E6%89%A3/">完全二叉树的节点个数(力扣)</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            Docker出现的问题解决
+            利用完全二叉树的特点进行解决
         </h3>
         
     </div>
@@ -269,7 +269,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2024-10-02</time>
+                <time class="article-time--published">2024-10-03</time>
             </div>
         
         
@@ -287,7 +287,7 @@
                 </time>
             </div>
         
-        <span class="post-word-count">793 words</span>
+        <span class="post-word-count">883 words</span>
     </footer>
     
     
@@ -298,45 +298,14 @@
     <section class="article-content">
     
     
-    <h4 id="docker的代理解决">docker的代理解决
-</h4><p>这几天在docker的代理上搞了好几天，我看网上弄的教程不是太全，因此搞了好了几天才成功，特意写这个给那些有着相同的问题提供解决方案和总结自己犯过的错误。</p>
-<h5 id="clash教程">clash教程
-</h5><p>首先打开clash,进入常规,然后打开局域网连接,我的端口为7890。
-<img src="/clash.jpg"
-	
-	
-	
-	loading="lazy"
-	
-		alt="图片"
-	
-	
->
-然后window键加r打开控制台输入ipconfig获取虚拟机的ip地址
-<img src="/vm.jpg"
-	
-	
-	
-	loading="lazy"
-	
-		alt="图片"
-	
-	
-></p>
-<h5 id="v2rayn教程">v2rayN教程
-</h5><p>首先打开v2rayN,进入设置，点参数设置，然后允许局域网连接(这个是在系统代理的前提上弄的)一般端口为10811
-<img src="/v2ray.jpg"
-	
-	
-	
-	loading="lazy"
-	
-		alt="图片"
-	
-	
->
-然后window键加r打开控制台输入ipconfig获取虚拟机的ip地址
-<img src="/vm.jpg"
+    <h3 id="题目分析">题目分析
+</h3><p><a class="link" href="https://leetcode.cn/problems/count-complete-tree-nodes/description/"  target="_blank" rel="noopener"
+    >力扣题目链接</a></p>
+<p>要统计二叉树的节点个数，一般是编历一遍二叉树直接统计(可以用后序遍历或者层序遍历，这里就不说了)。</p>
+<p>而这个是<strong>完全二叉树</strong>,我们可以根据<strong>完全二叉树</strong>的特点进行求解。</p>
+<p>完全二叉树的定义如下:在完全二叉树中，除了最底层节点可能没填满外，其余每层节点数都达到最大值，并且最下面的节点都集中在该层最左边的若干位置。若最低层为第h层，则该层包含1-2h个节点。</p>
+<p>则可以设完全二叉树有 h 层，则其前h-1的节点都是满的，共有节点 2^(h-1) - 1 个节点。而最后一层最少有 1 个节点，最多有 2^(h-1) 个节点。因此 h 层的完全二叉树的节点个数范围为：[2^(h-1) - 1 + 1, 2^(h-1) - 1 + 2^(h-1)] = [2^(h-1), 2^h - 1]【或 [2^(h-1), 2^h) 】</p>
+<p><img src="https://pic.leetcode.cn/1695539453-zFSbFn-image.png"
 	
 	
 	
@@ -346,76 +315,108 @@
 	
 	
 ></p>
-<h5 id="最后一步这一步都是一样的对于这两个不同软件的代理">最后一步(这一步都是一样的(对于这两个不同软件的代理))
-</h5><p>docker命令
-我们在docker的进程服务文件夹配置我们的代理设置，如果没有我们就新建这个文件夹：</p>
-<div class="highlight"><div class="chroma">
+<h3 id="位运算">位运算
+</h3><p>我们把每个节点编号转成二进制，可以发现以下几个规律：</p>
+<ul>
+<li>第 h 层的节点编号的二进制刚好有 h 位；</li>
+<li>定义左子节点为 0， 右子节点为 1 。那么每一个节点编号的二进制从高位到低位刚好表示根节点到这个节点的路径。【根节点为最高位，始终为 1】即节点编号的二进制为节点路径的编码；</li>
+</ul>
+<p><img src="https://pic.leetcode.cn/1695540616-efCzXa-image.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片"
+	
+	
+>
+则可以发现第h层的节点编号一定是有h位。<strong>我们可以根据已知的节点走一遍节点路径，来查找这个节点是否存在。</strong></p>
+<h3 id="代码如下">代码如下
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo mkdir /etc/systemd/system/docker.service.d
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Solution</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">countNodes</span><span class="p">(</span><span class="n">TreeNode</span><span class="w"> </span><span class="n">root</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">root</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="c1">//如果根结点为null，直接返回null</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">TreeNode</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">root</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">leavl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">node</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">){</span><span class="w">    </span><span class="c1">//统计完全二叉树的层数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">leavl</span><span class="o">++</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">leavl</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">1</span><span class="p">);</span><span class="w"> </span><span class="c1">//最小可以有多少</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">leavl</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w"> </span><span class="c1">//最大可以有多少</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="c1">//存储结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">min</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">max</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">((</span><span class="n">max</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">min</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">1</span><span class="p">);</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">middle</span><span class="p">,</span><span class="w"> </span><span class="n">root</span><span class="p">,</span><span class="w"> </span><span class="n">leavl</span><span class="p">)){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">    </span><span class="c1">//利用二分确定结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">else</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ans</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">middle</span><span class="p">,</span><span class="w"> </span><span class="n">TreeNode</span><span class="w"> </span><span class="n">root</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">leavl</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">jk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">leavl</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">2</span><span class="p">);</span><span class="w"> </span><span class="c1">//抛去根节点(因为根节点是1)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">jk</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">0</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="p">((</span><span class="n">jk</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">middle</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">0</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">root</span><span class="p">.</span><span class="na">left</span><span class="p">;</span><span class="w"> </span><span class="c1">//为0说明在左子树上</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">else</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">root</span><span class="p">.</span><span class="na">right</span><span class="p">;</span><span class="w"> </span><span class="c1">//为1说明在右子树上</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">jk</span><span class="w"> </span><span class="o">&gt;&gt;=</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w"> </span><span class="c1">//逐层进行查找</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"> </span><span class="c1">//为空则说明不存在</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>然后在docker.service.d文件夹里新建我们的代理文件proxy.conf</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo vim /etc/systemd/system/docker.service.d/proxy.conf
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>并把文件写如下面这个格式：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[Service] 
-</span></span><span class="line"><span class="cl">Environment=&#34;HTTP_PROXY=代理服务器ip:port&#34; 
-</span></span><span class="line"><span class="cl">Environment=&#34;HTTPS_PROXY=代理服务器ip:port&#34;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>保存并退出proxy.conf文件，和更改镜像源一样，重启docker，并重启daemon进程。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">daemon</span><span class="o">-</span><span class="n">reload</span>		<span class="c1">#重启daemon进程</span>
-</span></span><span class="line"><span class="cl"><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">docker</span>		<span class="c1">#重启docker</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>最后我们仍然是验证一下是否修改成功，运行</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker info
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在长串info信息中如果出现类似下文的内容：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> HTTP Proxy: 代理服务器ip:port
-</span></span><span class="line"><span class="cl"> HTTPS Proxy: 代理服务器ip:port
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>好了，可以拉取镜像了😁</p>
-<p>本文引自<a class="link" href="https://blog.csdn.net/Lichen0196/article/details/137355517"  target="_blank" rel="noopener"
-    >https://blog.csdn.net/Lichen0196/article/details/137355517</a>,<a class="link" href="https://blog.csdn.net/weixin_46264846/article/details/142363390"  target="_blank" rel="noopener"
-    >https://blog.csdn.net/weixin_46264846/article/details/142363390</a>
-,<a class="link" href="https://www.jianshu.com/p/6c7abd4adc9b"  target="_blank" rel="noopener"
-    >https://www.jianshu.com/p/6c7abd4adc9b</a></p>
+</div><p>本文引自于<a class="link" href="https://leetcode.cn/problems/count-complete-tree-nodes/solutions/2456908/javapython3cer-fen-cha-zhao-wei-yun-suan-idof/"  target="_blank" rel="noopener"
+    >https://leetcode.cn/problems/count-complete-tree-nodes/solutions/2456908/javapython3cer-fen-cha-zhao-wei-yun-suan-idof/</a></p>
 
 </section>
 
@@ -424,7 +425,7 @@
     
     <section class="article-tags">
         
-            <a href="/tags/docker/">Docker</a>
+            <a href="/tags/java/">Java</a>
         
     </section>
 
@@ -470,12 +471,12 @@
             
                 
 <article class="">
-    <a href="/p/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0%E5%8A%9B%E6%89%A3/">
+    <a href="/p/javaweb/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">完全二叉树的节点个数(力扣)</h2>
+            <h2 class="article-title">JavaWeb</h2>
         </div>
     </a>
 </article>
@@ -483,12 +484,12 @@
             
                 
 <article class="">
-    <a href="/p/javaweb/">
+    <a href="/p/%E5%9C%A8linux%E4%B8%8A%E9%83%A8%E7%BD%B2docker%E7%9A%84%E4%BB%A3%E7%90%86/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">JavaWeb</h2>
+            <h2 class="article-title">在Linux上部署Docker的代理</h2>
         </div>
     </a>
 </article>
