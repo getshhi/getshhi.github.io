@@ -7,7 +7,58 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>JZH-letere</copyright>
-        <lastBuildDate>Fri, 25 Oct 2024 15:17:45 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 22 Nov 2024 11:05:52 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Java基础(1)</title>
+        <link>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%801/</link>
+        <pubDate>Fri, 22 Nov 2024 11:05:52 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%801/</guid>
+        <description>&lt;h4 id=&#34;java语言有啥特点&#34;&gt;Java语言有啥特点
+&lt;/h4&gt;&lt;p&gt;1.面向对象，java语言是面向对象的(封装，继承，多态)&lt;/p&gt;
+&lt;p&gt;2.具有丰富的生态和类库。&lt;/p&gt;
+&lt;p&gt;3.具有跨平台特点，一次编译，随处运行。&lt;/p&gt;
+&lt;p&gt;4.简单易学。&lt;/p&gt;
+&lt;p&gt;5.支持网络编程。&lt;/p&gt;
+&lt;p&gt;6.本身提供多线程处理的解决办法。&lt;/p&gt;
+&lt;p&gt;7.编译和解释并存。&lt;/p&gt;
+&lt;h4 id=&#34;javase是啥javaee是啥&#34;&gt;JavaSE是啥，JavaEE是啥
+&lt;/h4&gt;&lt;p&gt;JavaSE-Java平台的平台标准版，用于构建桌面应用程序或简单的服务器应用程序。&lt;/p&gt;
+&lt;p&gt;JavaEE-Java平台的企业标准版，用于构建分布式，健壮的服务端Java应用程序。&lt;/p&gt;
+&lt;h4 id=&#34;jvm是啥jdk是啥jre是啥&#34;&gt;JVM是啥，JDK是啥，JRE是啥
+&lt;/h4&gt;&lt;p&gt;JDK = JRE + 开发工具(JDK是Java完整的工具包)&lt;/p&gt;
+&lt;p&gt;JRE = JVM + 核心类库(JRE是可以直接运行.class文件的运行环境，JVM就是虚拟机)&lt;/p&gt;
+&lt;h4 id=&#34;aot有啥优点为啥不全用aot呢&#34;&gt;AOT有啥优点？为啥不全用AOT呢？
+&lt;/h4&gt;&lt;p&gt;AOT模式与JIT模式比较&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://getshhi.github.io/jit-vs-aot.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;jit-vs-aot&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;AOT就是静态编译，优点是启动时间少，内存占用少，打包体积小。&lt;/p&gt;
+&lt;p&gt;JIT是即时编译，优点是有高的处理延迟能力，可以降低请求的最大延迟。&lt;/p&gt;
+&lt;p&gt;AOT不支持Java的反射，动态代理，动态加载，而很多框架都是用这个特性，AOT更适合当下的云原生场景，对微服务架构的支持更友好。&lt;/p&gt;
+&lt;h4 id=&#34;啥是字节码采用字节码的好处是啥&#34;&gt;啥是字节码？采用字节码的好处是啥？
+&lt;/h4&gt;&lt;p&gt;字节码就是JVM可以直接识别的代码(即扩展名为.class文件的文件)，由于可直接在JVM上运行，所以可以无需编译直接在不同平台上运行(即跨平台性)。&lt;/p&gt;
+&lt;h4 id=&#34;为啥说java语言-编译与解释共存&#34;&gt;为啥说Java语言 &amp;ldquo;编译与解释共存&amp;rdquo;?
+&lt;/h4&gt;&lt;p&gt;编译是因为Java先经过编译阶段，即将Java代码编译成.class文件。&lt;/p&gt;
+&lt;p&gt;解释是因为Java运行时是Java解释器一行一行解释并执行代码的。&lt;/p&gt;
+&lt;p&gt;所以编译与解释共存。&lt;/p&gt;
+&lt;h4 id=&#34;oraclejdk-和-openjdk-有啥区别&#34;&gt;OracleJDK 和 OpenJDK 有啥区别
+&lt;/h4&gt;&lt;p&gt;简单来说就是前期这两个没有啥大的区别，后面OracleJDK为了恰钱产生这两个，前者是要付钱的，后者是开源版本。&lt;/p&gt;
+&lt;h4 id=&#34;java与c的区别&#34;&gt;Java与C++的区别
+&lt;/h4&gt;&lt;p&gt;Java内存更安全，Java不支持单指针直接操作内存。&lt;/p&gt;
+&lt;p&gt;Java是编译与解释共存，而C++是编译性语言。&lt;/p&gt;
+&lt;p&gt;Java支持单继承，C++支持多继承。&lt;/p&gt;
+&lt;p&gt;C ++同时支持方法重载和操作符重载，但是 Java 只支持方法重载。&lt;/p&gt;
+&lt;p&gt;Java 有自动内存管理垃圾回收机制(GC)，不需要程序员手动释放无用内存。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>计算机网络思维导图</title>
         <link>https://getshhi.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</link>
         <pubDate>Fri, 25 Oct 2024 15:17:45 +0800</pubDate>
@@ -473,13 +524,13 @@
         <pubDate>Fri, 27 Sep 2024 12:33:05 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/javaweb/</guid>
-        <description>&lt;h3 id=&#34;java的网络编程&#34;&gt;java的网络编程
-&lt;/h3&gt;&lt;h4 id=&#34;1java网络编程的基本概念&#34;&gt;1.java网络编程的基本概念
+        <description>&lt;h3 id=&#34;java的网络编程&#34;&gt;Java的网络编程
+&lt;/h3&gt;&lt;h4 id=&#34;1java网络编程的基本概念&#34;&gt;1.Java网络编程的基本概念
 &lt;/h4&gt;&lt;p&gt;IP 地址：用于标识网络中的计算机。&lt;/p&gt;
 &lt;p&gt;端口号：用于标识计算机上的具体应用程序或进程。&lt;/p&gt;
 &lt;p&gt;Socket（套接字）：网络通信的基本单位，通过 IP 地址和端口号标识。&lt;/p&gt;
 &lt;p&gt;协议：网络通信的规则，如 TCP（传输控制协议）和 UDP（用户数据报协议）。&lt;/p&gt;
-&lt;h3 id=&#34;2java网络编程的核心类&#34;&gt;2.java网络编程的核心类
+&lt;h3 id=&#34;2网络编程的核心类&#34;&gt;2.网络编程的核心类
 &lt;/h3&gt;&lt;p&gt;Socket：用于创建客户端套接字。&lt;/p&gt;
 &lt;p&gt;ServerSocket：用于创建服务器套接字。&lt;/p&gt;
 &lt;p&gt;DatagramSocket：用于创建支持 UDP 协议的套接字。&lt;/p&gt;
