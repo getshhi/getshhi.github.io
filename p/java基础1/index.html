@@ -279,11 +279,11 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 5 分钟
+                    阅读时长: 7 分钟
                 </time>
             </div>
         
-        <span class="post-word-count">2496 words</span>
+        <span class="post-word-count">3221 words</span>
     </footer>
     
     
@@ -508,7 +508,77 @@
 <li>静态变量随着类的加载而创建，所以它可以被类的所有实例共享，所以可以节省内存</li>
 </ul>
 <h4 id="字符型常量和字符串常量的区别">字符型常量和字符串常量的区别
-</h4>
+</h4><p>形式: 字符常量是单引号引起的一个字符，字符串常量是双引号引起的0个或若干个字符
+含义: 字符常量相当于一个整形值(ASCII值),可以参加表达式运算;字符串常量代表一个地址值(该字符串在内存中存放位置)。
+占内存大小： 字符常量只占2个字节;字符串常量占若干个字节。</p>
+<h4 id="啥是方法的返回值方法有哪几种类型">啥是方法的返回值？方法有哪几种类型？
+</h4><ul>
+<li>返回值就是方法体返回的数值。</li>
+<li>方法有4种
+<ul>
+<li>无参数，无返回的</li>
+<li>有参数，无返回的</li>
+<li>无参数，有返回的</li>
+<li>有参数，有返回的</li>
+</ul>
+</li>
+</ul>
+<h4 id="静态方法为啥不能调用非静态方法">静态方法为啥不能调用非静态方法
+</h4><p>静态方法随着类的加载而加载，而非静态方法只有类被实例化时才能加载，所以可以得到静态方法存在时而非静态方法不存在的情况，由此得到静态方法不能调用非静态方法。</p>
+<h4 id="静态方法和实例方法有啥不同">静态方法和实例方法有啥不同
+</h4><ul>
+<li>调用方式不同, 调用静态方法可以无需创建对象，用类名.方法名的方式来调用静态方法。</li>
+<li>访问类成员是否存在限制, 静态方法在访问本类的成员时，仅仅让访问静态成员，而实例方法不存在这个限制。</li>
+</ul>
+<h4 id="重载和重写有啥区别">重载和重写有啥区别
+</h4><p>重载就是在同样的一个方法能够根据输入数据的不同，做出不同的处理。
+重写就是子类继承自父类的相同方法，输入数据一样，但要做出有别于父类的响应，你就要覆盖父类的方法</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">区别点</th>
+          <th style="text-align: left">重载方法</th>
+          <th style="text-align: left">重写方法</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">发生范围</td>
+          <td style="text-align: left">本类中</td>
+          <td style="text-align: left">子类中</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">参数列表</td>
+          <td style="text-align: left">必须修改</td>
+          <td style="text-align: left">不能修改</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">返回类型</td>
+          <td style="text-align: left">可修改</td>
+          <td style="text-align: left">子类的返回类型与父类返回的类型相同或者时父类返回类型的子类</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">异常</td>
+          <td style="text-align: left">可修改</td>
+          <td style="text-align: left">子类方法声明抛出的异常类应比父类方法声明抛出的异常类更小或相等；</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">访问修饰符</td>
+          <td style="text-align: left">可修改</td>
+          <td style="text-align: left">一定不能做更严格的限制（可以降低限制）</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">发生阶段</td>
+          <td style="text-align: left">编译期</td>
+          <td style="text-align: left">运行期</td>
+      </tr>
+  </tbody>
+</table></div>
+<h4 id="啥是可变长参数">啥是可变长参数
+</h4><p>从 Java5 开始，Java 支持定义可变长参数，所谓可变长参数就是允许在调用方法时传入不定长度的参数。就比如下面这个方法就可以接受 0 个或者多个参数。</p>
+<p>本文参考于<a class="link" href="https://javaguide.cn/"  target="_blank" rel="noopener"
+    >https://javaguide.cn/</a></p>
+
 </section>
 
 
