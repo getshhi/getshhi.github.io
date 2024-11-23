@@ -13,7 +13,11 @@
         <pubDate>Sat, 23 Nov 2024 19:48:17 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%802/</guid>
-        <description></description>
+        <description>&lt;h4 id=&#34;面向对象和面向过程的区别&#34;&gt;面向对象和面向过程的区别
+&lt;/h4&gt;&lt;p&gt;面向对象会先抽象出对象，然后用对象执行方法的方式来解决问题
+面向过程会把解决问题的过程拆成一个个方法，通过一个个方法来执行解决问题&lt;/p&gt;
+&lt;p&gt;面向过程具有良好的性能，但扩展性较差，面向对象具有较好的扩展性，但性能较差。&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>Java基础(1)</title>
