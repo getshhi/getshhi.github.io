@@ -283,7 +283,7 @@
                 </time>
             </div>
         
-        <span class="post-word-count">1189 words</span>
+        <span class="post-word-count">1296 words</span>
     </footer>
     
     
@@ -393,7 +393,12 @@
 <li>== 对于基本数据类型就是比较值，而对于引用类型就是比较对象的内存地址</li>
 <li>equals() 不能用于判断基本数据类型的变量，只能用来判断两个对象是否相等。equals()方法存在于Object类中，而Object类是所有类的直接或间接父类，因此所有的类都有equals()方法。</li>
 </ul>
-
+<h4 id="hashcode有啥用">hashCode()有啥用
+</h4><p>hashCode用于返回对象的哈希码，确定该对象在哈希表中的索引位置。</p>
+<h4 id="为啥要有hashcode">为啥要有hashCode
+</h4><p>大大提高索引速度，从而提高执行速度。</p>
+<h4 id="为啥重写equals时必须重写hashcode方法">为啥重写equals()时必须重写hashCode()方法
+</h4>
 </section>
 
 

@@ -112,7 +112,12 @@
 &lt;li&gt;== 对于基本数据类型就是比较值，而对于引用类型就是比较对象的内存地址&lt;/li&gt;
 &lt;li&gt;equals() 不能用于判断基本数据类型的变量，只能用来判断两个对象是否相等。equals()方法存在于Object类中，而Object类是所有类的直接或间接父类，因此所有的类都有equals()方法。&lt;/li&gt;
 &lt;/ul&gt;
-</description>
+&lt;h4 id=&#34;hashcode有啥用&#34;&gt;hashCode()有啥用
+&lt;/h4&gt;&lt;p&gt;hashCode用于返回对象的哈希码，确定该对象在哈希表中的索引位置。&lt;/p&gt;
+&lt;h4 id=&#34;为啥要有hashcode&#34;&gt;为啥要有hashCode
+&lt;/h4&gt;&lt;p&gt;大大提高索引速度，从而提高执行速度。&lt;/p&gt;
+&lt;h4 id=&#34;为啥重写equals时必须重写hashcode方法&#34;&gt;为啥重写equals()时必须重写hashCode()方法
+&lt;/h4&gt;</description>
         </item>
         <item>
         <title>Java基础(1)</title>
