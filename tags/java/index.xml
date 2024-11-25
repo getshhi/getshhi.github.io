@@ -117,7 +117,20 @@
 &lt;h4 id=&#34;为啥要有hashcode&#34;&gt;为啥要有hashCode
 &lt;/h4&gt;&lt;p&gt;大大提高索引速度，从而提高执行速度。&lt;/p&gt;
 &lt;h4 id=&#34;为啥重写equals时必须重写hashcode方法&#34;&gt;为啥重写equals()时必须重写hashCode()方法
-&lt;/h4&gt;</description>
+&lt;/h4&gt;&lt;p&gt;因为根据业务来说我们想的时equals()判断的相等就一定相等,而不重写的hashCode返回的是对象的哈希码，这与我们最初的想法相违背，所以必须重写hashCode()。&lt;/p&gt;
+&lt;h4 id=&#34;string-stringbuffer-stringbuilder的区别&#34;&gt;String, StringBuffer, StringBuilder的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;可变性: String不可变,StringBuilder可变,StringBuffer可变。&lt;/li&gt;
+&lt;li&gt;线程安全性: String中的对象是不可变的，可以理解为常量，线程安全。StringBuffer安全，加了同步锁。StringBuilder并没有对方法进行加同步锁，所以不安全。&lt;/li&gt;
+&lt;li&gt;性能： String性能最低，因为每次改变时生成的是一个新的String对象。StringBuffer,StringBuilder性能较高。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总结:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;操作少量的数据: 适用 String&lt;/li&gt;
+&lt;li&gt;单线程操作字符串缓冲区下操作大量数据: 适用 StringBuilder&lt;/li&gt;
+&lt;li&gt;多线程操作字符串缓冲区下操作大量数据: 适用 StringBuffer&lt;/li&gt;
+&lt;/ul&gt;
+</description>
         </item>
         <item>
         <title>Java基础(1)</title>
