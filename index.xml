@@ -7,13 +7,78 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>JZH-letere</copyright>
-        <lastBuildDate>Mon, 25 Nov 2024 19:25:16 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 26 Nov 2024 23:34:44 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Java7</title>
+        <link>https://getshhi.github.io/p/java7/</link>
+        <pubDate>Tue, 26 Nov 2024 23:34:44 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/java7/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Java基础(3)</title>
         <link>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%803/</link>
         <pubDate>Mon, 25 Nov 2024 19:25:16 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%803/</guid>
-        <description></description>
+        <description>&lt;h4 id=&#34;java异常类层次结构图&#34;&gt;Java异常类层次结构图
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://getshhi.github.io/error.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;exception和error有啥区别&#34;&gt;Exception和Error有啥区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Exception:程序本身可以处理的异常，可以通过catch来进行捕获。&lt;/li&gt;
+&lt;li&gt;Error:Error属于程序无法处理的错误，如果出现异常线程就直接结束。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;checked-exception和unchecked-exception有啥区别&#34;&gt;Checked Exception和Unchecked Exception有啥区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Checked Exception就是编译异常(常见的有SQL异常,超时异常,找不到方法异常)&lt;/li&gt;
+&lt;li&gt;Unchecked Exception就是运行异常(常见的有算术异常,数组下标越界异常,空指针异常)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;throwable类常用方法有哪些&#34;&gt;Throwable类常用方法有哪些
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;String getMessage():返回异常发生时的详细信息。&lt;/li&gt;
+&lt;li&gt;String toString():返回异常发生的简要描述。&lt;/li&gt;
+&lt;li&gt;String getLocalizedMessage():返回异常对象的本地化信息。&lt;/li&gt;
+&lt;li&gt;void printStackTrace():在控制台上打印Trowable对象封装的异常信息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;try-catch-finally如何使用&#34;&gt;try-catch-finally如何使用
+&lt;/h4&gt;&lt;p&gt;将可能出现异常的放在try代码块中,对异常的处理放在
+catch代码块中,finally放最后肯定执行的(除了cpu关闭,所在线程提前死亡或者JVM提前死亡)。&lt;/p&gt;
+&lt;h4 id=&#34;咋用try-with-resources代替try-catch-finally&#34;&gt;咋用try-with-resources代替try-catch-finally
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;适用范围（资源的定义）： 任何实现 java.lang.AutoCloseable或者 java.io.Closeable 的对象&lt;/li&gt;
+&lt;li&gt;关闭资源和 finally 块的执行顺序：在 -try-with-resources 语句中，任何 catch 或 finally 块在声明的资源关闭后运行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;异常使用有哪些需要注意的地方&#34;&gt;异常使用有哪些需要注意的地方
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;1.尽量不要捕获类似Exception这样通用的异常，而应该捕获特定的异常。&lt;/li&gt;
+&lt;li&gt;2.只在需要try-catch的地方try-catch，try-catch的范围能小则小&lt;/li&gt;
+&lt;li&gt;3.不要把异常定义为静态变量，因为这样会导致异常栈信息错乱。&lt;/li&gt;
+&lt;li&gt;4.不要延迟处理异常&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;啥是泛型有啥作用&#34;&gt;啥是泛型？有啥作用
+&lt;/h4&gt;&lt;p&gt;Java泛型是JDK5中引入的一个新特性
+作用很直接，就是能把运行时异常转为编译时异常&lt;/p&gt;
+&lt;h4 id=&#34;泛型的使用方式有哪几种&#34;&gt;泛型的使用方式有哪几种
+&lt;/h4&gt;&lt;p&gt;泛型一般有三种使用方式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;泛型类&lt;/li&gt;
+&lt;li&gt;泛型接口&lt;/li&gt;
+&lt;li&gt;泛型方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;何为反射&#34;&gt;何为反射
+&lt;/h4&gt;&lt;p&gt;Java的反射机制就是指在运行获取类的结构信息(如方法,字段,构造函数)并操作对象的一种机制。&lt;/p&gt;
+&lt;h4 id=&#34;反射的优缺点&#34;&gt;反射的优缺点
+&lt;/h4&gt;&lt;p&gt;反射的反射可以让我们的代码更加灵活、为各种框架提供开箱即用的功能提供了便利。&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>Java基础(2)</title>
@@ -57,13 +122,11 @@
 &lt;/ul&gt;
 &lt;p&gt;继承&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;子类拥有父类的属性和方法(私有方法和私有属性有但不能继承)。提高代码的复用性，程序的可维护性。
-多态&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;一个对象可以有多种状态，即父类引用指向子类的多种实例。&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;子类拥有父类的属性和方法(私有方法和私有属性有但不能继承)。提高代码的复用性，程序的可维护性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;多态&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个对象可以有多种状态，即父类引用指向子类的多种实例。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;接口和抽象类有啥共同点和区别&#34;&gt;接口和抽象类有啥共同点和区别
 &lt;/h4&gt;&lt;p&gt;接口和抽象类的共同点&lt;/p&gt;
@@ -124,7 +187,7 @@
 &lt;/h4&gt;&lt;p&gt;hashCode用于返回对象的哈希码，确定该对象在哈希表中的索引位置。&lt;/p&gt;
 &lt;h4 id=&#34;为啥要有hashcode&#34;&gt;为啥要有hashCode
 &lt;/h4&gt;&lt;p&gt;大大提高索引速度，从而提高执行速度。&lt;/p&gt;
-&lt;h4 id=&#34;为啥重写equals时必须重写hashcode方法&#34;&gt;为啥重写equals()时必须重写hashCode()方法
+&lt;h4 id=&#34;为啥重写equals时必须重写hashcode方法&#34;&gt;为啥重写equals()时必须重写hashCode()方法 
 &lt;/h4&gt;&lt;p&gt;因为根据业务来说我们想的时equals()判断的相等就一定相等,而不重写的hashCode返回的是对象的哈希码，这与我们最初的想法相违背，所以必须重写hashCode()。&lt;/p&gt;
 &lt;h4 id=&#34;string-stringbuffer-stringbuilder的区别&#34;&gt;String, StringBuffer, StringBuilder的区别
 &lt;/h4&gt;&lt;ul&gt;
@@ -138,6 +201,79 @@
 &lt;li&gt;单线程操作字符串缓冲区下操作大量数据: 适用 StringBuilder&lt;/li&gt;
 &lt;li&gt;多线程操作字符串缓冲区下操作大量数据: 适用 StringBuffer&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h4 id=&#34;string为啥是不可变的&#34;&gt;String为啥是不可变的
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1.String的类是用final修饰的，不可以被其他类继承，因此方法不能被重写，里面的数据都不能被改变。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2.String的char数组是私有的而且用final修饰，因此不能改变其字符数组的引用变量，因此改变不了String。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;字符串拼接用--还是stringbuilder&#34;&gt;字符串拼接用 &amp;ldquo;+&amp;rdquo; 还是StringBuilder
+&lt;/h4&gt;&lt;p&gt;字符串拼接用StringBuffer,因为用&amp;quot;+&amp;ldquo;拼接的话底层会创建一个新的StringBuilder对象(对于大多数场景比如说循环)比较耗时间，效率比较低。&lt;/p&gt;
+&lt;h4 id=&#34;stringequals和objectequals有啥区别&#34;&gt;String#equals()和Object#equals()有啥区别
+&lt;/h4&gt;&lt;p&gt;String的equals()会比较字符串是否相等而Object的equals会比较内存的地址是否相等。&lt;/p&gt;
+&lt;h4 id=&#34;字符串的常量池了解过吗&#34;&gt;字符串的常量池了解过吗
+&lt;/h4&gt;&lt;p&gt;字符串的常量池是JVM为了提升性能和减少内存消耗针对字符串(String类)专门开辟的一块区域，主要是为了避免字符串的重复创建。
+&lt;img src=&#34;https://getshhi.github.io/String.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;创建string对象的两种方式以及不同&#34;&gt;创建String对象的两种方式以及不同
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://getshhi.github.io/String1.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://getshhi.github.io/String2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://getshhi.github.io/String3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;string-s1--new-stringabc创建了几个对象&#34;&gt;String s1 = new String(&amp;ldquo;abc&amp;rdquo;)创建了几个对象
+&lt;/h4&gt;&lt;p&gt;这得分情况讨论&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1.如果是常量池中已经存在&amp;quot;abc&amp;quot;则创建一个对象。(即s1直接指向常量池中的&amp;quot;abc&amp;rdquo;)&lt;/li&gt;
+&lt;li&gt;2.如果是常量池中不存在&amp;quot;abc&amp;quot;则创建二个对象。(即首先在常量池中创建&amp;quot;abc&amp;quot;,然后s1指向常量池中的&amp;quot;abc&amp;quot;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;stringintern方法有啥作用&#34;&gt;String#intern方法有啥作用
+&lt;/h4&gt;&lt;p&gt;intern方法是一个本地方法,目的返回字符串在常量池中的引用&lt;/p&gt;
+&lt;h4 id=&#34;string-类型的变量和常量做运算时发生了什么&#34;&gt;String 类型的变量和常量做“+”运算时发生了什么
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;对于编译期可以确定值的字符串，也就是常量字符串 ，
+jvm 会将其存入字符串常量池。并且，字符串常量拼接得到的字符串常量在编译阶段就已经被存放字符串常量池，
+这个得益于编译器的优化。&lt;/li&gt;
+&lt;li&gt;引用的值在程序编译期是无法确定的，编译器无法对其进行优化。(可以加final进行优化)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本文参考于&lt;a class=&#34;link&#34; href=&#34;https://javaguide.cn/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://javaguide.cn/&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="面向对象和面向过程的区别 面向对象会先抽象出对象，然后用对象执行方法的方式来解决问题 面向过程会把解决问题的过程拆成一个个方法，通过一个个方法来执行解决问题\n面向过程具有良好的性能，但扩展性较差，面向对象具有较好的扩展性，但性能较差。\n">
-<title>Java基础(2)</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="">
+<title>Java7</title>
 
-<link rel='canonical' href='https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%802/'>
+<link rel='canonical' href='https://getshhi.github.io/p/java7/'>
 
-<link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="Java基础(2)">
-<meta property='og:description' content="面向对象和面向过程的区别 面向对象会先抽象出对象，然后用对象执行方法的方式来解决问题 面向过程会把解决问题的过程拆成一个个方法，通过一个个方法来执行解决问题\n面向过程具有良好的性能，但扩展性较差，面向对象具有较好的扩展性，但性能较差。\n">
-<meta property='og:url' content='https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%802/'>
+<link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="Java7">
+<meta property='og:description' content="">
+<meta property='og:url' content='https://getshhi.github.io/p/java7/'>
 <meta property='og:site_name' content='JZH-letere'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2024-11-23T19:48:17&#43;08:00'/><meta property='article:modified_time' content='2024-11-23T19:48:17&#43;08:00'/>
-<meta name="twitter:title" content="Java基础(2)">
-<meta name="twitter:description" content="面向对象和面向过程的区别 面向对象会先抽象出对象，然后用对象执行方法的方式来解决问题 面向过程会把解决问题的过程拆成一个个方法，通过一个个方法来执行解决问题\n面向过程具有良好的性能，但扩展性较差，面向对象具有较好的扩展性，但性能较差。\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-11-26T23:34:44&#43;08:00'/><meta property='article:modified_time' content='2024-11-26T23:34:44&#43;08:00'/>
+<meta name="twitter:title" content="Java7">
+<meta name="twitter:description" content="">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -233,18 +233,10 @@
 
     <div class="article-details">
     
-    <header class="article-category">
-        
-            <a href="/categories/%E5%8D%9A%E5%AE%A2/" >
-                博客
-            </a>
-        
-    </header>
-    
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/java%E5%9F%BA%E7%A1%802/">Java基础(2)</a>
+            <a href="/p/java7/">Java7</a>
         </h2>
     
         
@@ -265,7 +257,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2024-11-23</time>
+                <time class="article-time--published">2024-11-26</time>
             </div>
         
         
@@ -279,11 +271,11 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 5 分钟
+                    阅读时长: 0 分钟
                 </time>
             </div>
         
-        <span class="post-word-count">2502 words</span>
+        <span class="post-word-count">0 words</span>
     </footer>
     
     
@@ -294,206 +286,12 @@
     <section class="article-content">
     
     
-    <h4 id="面向对象和面向过程的区别">面向对象和面向过程的区别
-</h4><p>面向对象会先抽象出对象，然后用对象执行方法的方式来解决问题
-面向过程会把解决问题的过程拆成一个个方法，通过一个个方法来执行解决问题</p>
-<p>面向过程具有良好的性能，但扩展性较差，面向对象具有较好的扩展性，但性能较差。</p>
-<h4 id="创建一个对象用啥运算符对象实体与对象引用有何不同">创建一个对象用啥运算符？对象实体与对象引用有何不同
-</h4><p>创建一个对象用new运算符</p>
-<p>对象实体与对象引用的区别</p>
-<ul>
-<li>对象实体存储在堆中。</li>
-<li>对象实体指向对象实体。</li>
-<li>一个对象引用可以指向 0 个或 1 个对象（一根绳子可以不系气球，也可以系一个气球）。</li>
-<li>一个对象可以有 n 个引用指向它（可以用 n 条绳子系住一个气球）。</li>
-</ul>
-<h4 id="对象的相等和引用相等的区别">对象的相等和引用相等的区别
-</h4><p>对象相等是指内存中的内容是否相等</p>
-<p>引用相等时指指针内存地址是否相等</p>
-<h4 id="如果一个类没有声明构造方法该程序能正确执行吗">如果一个类没有声明构造方法,该程序能正确执行吗####
-</h4><p>可以的</p>
-<ul>
-<li>系统会生成一个默认的无参构造器</li>
-</ul>
-<p>当我们如果实现有参构造器,最好手动加一个无参构造器，这个可以帮助我们少踩坑。</p>
-<h4 id="构造方法有啥特点是否可被override">构造方法有啥特点？是否可被override
-</h4><ul>
-<li>名字与类名相同。</li>
-<li>没有返回值。</li>
-<li>自动执行，在生成类的对象时，构造方法会自动执行，无需显式调用。</li>
-<li>构造方法不能被重写，只能被重载。</li>
-</ul>
-<h4 id="面向对象三大特怔">面向对象三大特怔
-</h4><p>封装</p>
-<ul>
-<li>简单来说就是将一个对象的属性封装在一起，对外仅仅暴露方法调用。(比如你用空调遥控器时，空调遥控器内部的细节不知道，但你可以通过它提供的按钮来使用)</li>
-</ul>
-<p>继承</p>
-<ul>
-<li>子类拥有父类的属性和方法(私有方法和私有属性有但不能继承)。提高代码的复用性，程序的可维护性。</li>
-</ul>
-<p>多态</p>
-<ul>
-<li>一个对象可以有多种状态，即父类引用指向子类的多种实例。</li>
-</ul>
-<h4 id="接口和抽象类有啥共同点和区别">接口和抽象类有啥共同点和区别
-</h4><p>接口和抽象类的共同点</p>
-<ul>
-<li>实例化: 接口和抽象类都不能直接实例化，只能被实现(接口)或继承(抽象类)后才能创建具体的对象</li>
-<li>抽象方法: 接口和抽象类都可以包含抽象方法。抽象方法没有方法体，必须在子类或实现类中实现。</li>
-</ul>
-<p>接口和抽象类的区别
-接口和抽象类在设计动机上有所不同。</p>
-<ul>
-<li>
-<p>接口的设计是自上而下的。我们知晓某一行为，于是基于这些行为约束定义了接口，一些类需要有这些行为，因此实现对应的接口。</p>
-</li>
-<li>
-<p>抽象类的设计是自下而上的。我们写了很多类，发现它们之间有共性，有很多代码可以复用，因此将公共逻辑封装成一个抽象类，减少代码冗余。</p>
-</li>
-</ul>
-<p>简单来说就是接口是先规范然后去实现，抽象是先实现然后再抽象出来一个类。</p>
-<h4 id="深度拷贝和浅拷贝了解吗啥是引用拷贝">深度拷贝和浅拷贝了解吗？啥是引用拷贝？
-</h4><ul>
-<li>
-<p>浅拷贝：浅拷贝后的对象和原对象共享引用对象的实例。</p>
-</li>
-<li>
-<p>深拷贝：会重现创建一个实例，使得深拷贝后的对象与原对象完全独立。修改一个对象不会影响另一个对象。</p>
-</li>
-<li>
-<p>引用拷贝就是两个不同的引用指向同一个对象
-<img src="/java.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="三种拷贝"
-	
-	
-></p>
-</li>
-</ul>
-<h4 id="object类的常见方法有哪些">Object类的常见方法有哪些
-</h4><p><img src="/Object.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="Object"
-	
-	
-></p>
-<h4 id="-和-equals的区别">== 和 equals()的区别
-</h4><ul>
-<li>== 对于基本数据类型就是比较值，而对于引用类型就是比较对象的内存地址</li>
-<li>equals() 不能用于判断基本数据类型的变量，只能用来判断两个对象是否相等。equals()方法存在于Object类中，而Object类是所有类的直接或间接父类，因此所有的类都有equals()方法。</li>
-</ul>
-<h4 id="hashcode有啥用">hashCode()有啥用
-</h4><p>hashCode用于返回对象的哈希码，确定该对象在哈希表中的索引位置。</p>
-<h4 id="为啥要有hashcode">为啥要有hashCode
-</h4><p>大大提高索引速度，从而提高执行速度。</p>
-<h4 id="为啥重写equals时必须重写hashcode方法">为啥重写equals()时必须重写hashCode()方法 
-</h4><p>因为根据业务来说我们想的时equals()判断的相等就一定相等,而不重写的hashCode返回的是对象的哈希码，这与我们最初的想法相违背，所以必须重写hashCode()。</p>
-<h4 id="string-stringbuffer-stringbuilder的区别">String, StringBuffer, StringBuilder的区别
-</h4><ul>
-<li>可变性: String不可变,StringBuilder可变,StringBuffer可变。</li>
-<li>线程安全性: String中的对象是不可变的，可以理解为常量，线程安全。StringBuffer安全，加了同步锁。StringBuilder并没有对方法进行加同步锁，所以不安全。</li>
-<li>性能： String性能最低，因为每次改变时生成的是一个新的String对象。StringBuffer,StringBuilder性能较高。</li>
-</ul>
-<p>总结:</p>
-<ul>
-<li>操作少量的数据: 适用 String</li>
-<li>单线程操作字符串缓冲区下操作大量数据: 适用 StringBuilder</li>
-<li>多线程操作字符串缓冲区下操作大量数据: 适用 StringBuffer</li>
-</ul>
-<h4 id="string为啥是不可变的">String为啥是不可变的
-</h4><ul>
-<li>
-<p>1.String的类是用final修饰的，不可以被其他类继承，因此方法不能被重写，里面的数据都不能被改变。</p>
-</li>
-<li>
-<p>2.String的char数组是私有的而且用final修饰，因此不能改变其字符数组的引用变量，因此改变不了String。</p>
-</li>
-</ul>
-<h4 id="字符串拼接用--还是stringbuilder">字符串拼接用 &ldquo;+&rdquo; 还是StringBuilder
-</h4><p>字符串拼接用StringBuffer,因为用&quot;+&ldquo;拼接的话底层会创建一个新的StringBuilder对象(对于大多数场景比如说循环)比较耗时间，效率比较低。</p>
-<h4 id="stringequals和objectequals有啥区别">String#equals()和Object#equals()有啥区别
-</h4><p>String的equals()会比较字符串是否相等而Object的equals会比较内存的地址是否相等。</p>
-<h4 id="字符串的常量池了解过吗">字符串的常量池了解过吗
-</h4><p>字符串的常量池是JVM为了提升性能和减少内存消耗针对字符串(String类)专门开辟的一块区域，主要是为了避免字符串的重复创建。
-<img src="/String.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="图片"
-	
-	
-></p>
-<h4 id="创建string对象的两种方式以及不同">创建String对象的两种方式以及不同
-</h4><p><img src="/String1.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="图片"
-	
-	
->
-<img src="/String2.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="图片"
-	
-	
->
-<img src="/String3.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="图片"
-	
-	
-></p>
-<h4 id="string-s1--new-stringabc创建了几个对象">String s1 = new String(&ldquo;abc&rdquo;)创建了几个对象
-</h4><p>这得分情况讨论</p>
-<ul>
-<li>1.如果是常量池中已经存在&quot;abc&quot;则创建一个对象。(即s1直接指向常量池中的&quot;abc&rdquo;)</li>
-<li>2.如果是常量池中不存在&quot;abc&quot;则创建二个对象。(即首先在常量池中创建&quot;abc&quot;,然后s1指向常量池中的&quot;abc&quot;)</li>
-</ul>
-<h4 id="stringintern方法有啥作用">String#intern方法有啥作用
-</h4><p>intern方法是一个本地方法,目的返回字符串在常量池中的引用</p>
-<h4 id="string-类型的变量和常量做运算时发生了什么">String 类型的变量和常量做“+”运算时发生了什么
-</h4><ul>
-<li>对于编译期可以确定值的字符串，也就是常量字符串 ，
-jvm 会将其存入字符串常量池。并且，字符串常量拼接得到的字符串常量在编译阶段就已经被存放字符串常量池，
-这个得益于编译器的优化。</li>
-<li>引用的值在程序编译期是无法确定的，编译器无法对其进行优化。(可以加final进行优化)</li>
-</ul>
-<p>本文参考于<a class="link" href="https://javaguide.cn/"  target="_blank" rel="noopener"
-    >https://javaguide.cn/</a></p>
-
+    
 </section>
 
 
     <footer class="article-footer">
     
-    <section class="article-tags">
-        
-            <a href="/tags/java/">Java</a>
-        
-    </section>
-
 
     </footer>
 
@@ -528,80 +326,6 @@ jvm 会将其存入字符串常量池。并且，字符串常量拼接得到的�
     
 
     
-
-<aside class="related-content--wrapper">
-    <h2 class="section-title">相关文章</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/p/java%E5%9F%BA%E7%A1%803/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Java基础(3)</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/java%E5%9F%BA%E7%A1%801/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Java基础(1)</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%BB%E7%BB%93/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">HashMap的实现原理与总结</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0%E5%8A%9B%E6%89%A3/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">完全二叉树的节点个数(力扣)</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/javaweb/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">JavaWeb</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
 
      
     
