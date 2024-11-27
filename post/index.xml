@@ -188,8 +188,8 @@ OutputStream/Writer:所有输出流的基类，前者是字节输出流，后者
 &lt;h4 id=&#34;啥是语法糖&#34;&gt;啥是语法糖
 &lt;/h4&gt;&lt;p&gt;编程语言为了方便程序员开发程序而设计的一种特殊语法。&lt;/p&gt;
 &lt;h4 id=&#34;java有哪些常见的语法糖&#34;&gt;Java有哪些常见的语法糖
-&lt;/h4&gt;&lt;p&gt;lambda表达式，泛型，自动拆装箱，内部类，增强for循环等等。
-本文参考于&lt;a class=&#34;link&#34; href=&#34;https://javaguide.cn/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;/h4&gt;&lt;p&gt;lambda表达式，泛型，自动拆装箱，内部类，增强for循环等等。&lt;/p&gt;
+&lt;p&gt;本文参考于&lt;a class=&#34;link&#34; href=&#34;https://javaguide.cn/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://javaguide.cn/&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
