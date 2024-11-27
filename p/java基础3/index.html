@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Java异常类层次结构图 Exception和Error有啥区别 Exception:程序本身可以处理的异常，可以通过catch来进行捕获。 Error:Error属于程序无法处理的错误，如果出现异常线程就直接结束。 Checked Exception和Unchecked Exception有啥区别 Checked Exception就是编译异常(常见的有SQL异常,超时异常,找不到方法异常) Unchecked Exception就是运行异常(常见的有算术异常,数组下标越界异常,空指针异常) Throwable类常用方法有哪些 String getMessage():返回异常发生时的详细信息。 String toString():返回异常发生的简要描述。 String getLocalizedMessage():返回异常对象的本地化信息。 void printStackTrace():在控制台上打印Trowable对象封装的异常信息。 try-catch-finally如何使用 将可能出现异常的放在try代码块中,对异常的处理放在 catch代码块中,finally放最后肯定执行的(除了cpu关闭,所在线程提前死亡或者JVM提前死亡)。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Java异常类层次结构图\nException和Error有啥区别\nChecked Exception和Unchecked Exception有啥区别\n">
 <title>Java基础(3)</title>
 
 <link rel='canonical' href='https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%803/'>
 
 <link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="Java基础(3)">
-<meta property='og:description' content="Java异常类层次结构图 Exception和Error有啥区别 Exception:程序本身可以处理的异常，可以通过catch来进行捕获。 Error:Error属于程序无法处理的错误，如果出现异常线程就直接结束。 Checked Exception和Unchecked Exception有啥区别 Checked Exception就是编译异常(常见的有SQL异常,超时异常,找不到方法异常) Unchecked Exception就是运行异常(常见的有算术异常,数组下标越界异常,空指针异常) Throwable类常用方法有哪些 String getMessage():返回异常发生时的详细信息。 String toString():返回异常发生的简要描述。 String getLocalizedMessage():返回异常对象的本地化信息。 void printStackTrace():在控制台上打印Trowable对象封装的异常信息。 try-catch-finally如何使用 将可能出现异常的放在try代码块中,对异常的处理放在 catch代码块中,finally放最后肯定执行的(除了cpu关闭,所在线程提前死亡或者JVM提前死亡)。\n">
+<meta property='og:description' content="Java异常类层次结构图\nException和Error有啥区别\nChecked Exception和Unchecked Exception有啥区别\n">
 <meta property='og:url' content='https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%803/'>
 <meta property='og:site_name' content='JZH-letere'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2024-11-25T19:25:16&#43;08:00'/><meta property='article:modified_time' content='2024-11-25T19:25:16&#43;08:00'/>
 <meta name="twitter:title" content="Java基础(3)">
-<meta name="twitter:description" content="Java异常类层次结构图 Exception和Error有啥区别 Exception:程序本身可以处理的异常，可以通过catch来进行捕获。 Error:Error属于程序无法处理的错误，如果出现异常线程就直接结束。 Checked Exception和Unchecked Exception有啥区别 Checked Exception就是编译异常(常见的有SQL异常,超时异常,找不到方法异常) Unchecked Exception就是运行异常(常见的有算术异常,数组下标越界异常,空指针异常) Throwable类常用方法有哪些 String getMessage():返回异常发生时的详细信息。 String toString():返回异常发生的简要描述。 String getLocalizedMessage():返回异常对象的本地化信息。 void printStackTrace():在控制台上打印Trowable对象封装的异常信息。 try-catch-finally如何使用 将可能出现异常的放在try代码块中,对异常的处理放在 catch代码块中,finally放最后肯定执行的(除了cpu关闭,所在线程提前死亡或者JVM提前死亡)。\n">
+<meta name="twitter:description" content="Java异常类层次结构图\nException和Error有啥区别\nChecked Exception和Unchecked Exception有啥区别\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -279,11 +279,11 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 5 分钟
                 </time>
             </div>
         
-        <span class="post-word-count">903 words</span>
+        <span class="post-word-count">2430 words</span>
     </footer>
     
     
@@ -294,7 +294,28 @@
     <section class="article-content">
     
     
-    <h4 id="java异常类层次结构图">Java异常类层次结构图
+    <p><a class="link" href="#java%e5%bc%82%e5%b8%b8%e7%b1%bb%e5%b1%82%e6%ac%a1%e7%bb%93%e6%9e%84%e5%9b%be" >Java异常类层次结构图</a></p>
+<p><a class="link" href="#exception%e5%92%8cerror%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab" >Exception和Error有啥区别</a></p>
+<p><a class="link" href="#checked-exception%e5%92%8cunchecked-exception%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab" >Checked Exception和Unchecked Exception有啥区别</a></p>
+<p><a class="link" href="#throwable%e7%b1%bb%e5%b8%b8%e7%94%a8%e6%96%b9%e6%b3%95%e6%9c%89%e5%93%aa%e4%ba%9b" >Throwable类常用方法有哪些</a></p>
+<p><a class="link" href="#try-catch-finally%e5%a6%82%e4%bd%95%e4%bd%bf%e7%94%a8" >try-catch-finally如何使用</a></p>
+<p><a class="link" href="#%e5%92%8b%e7%94%a8try-with-resources%e4%bb%a3%e6%9b%bftry-catch-finally" >咋用try-with-resources代替try-catch-finally</a></p>
+<p><a class="link" href="#%e5%bc%82%e5%b8%b8%e4%bd%bf%e7%94%a8%e6%9c%89%e5%93%aa%e4%ba%9b%e9%9c%80%e8%a6%81%e6%b3%a8%e6%84%8f%e7%9a%84%e5%9c%b0%e6%96%b9" >异常使用有哪些需要注意的地方</a></p>
+<p><a class="link" href="#%e5%95%a5%e6%98%af%e6%b3%9b%e5%9e%8b%e6%9c%89%e5%95%a5%e4%bd%9c%e7%94%a8" >啥是泛型？有啥作用</a></p>
+<p><a class="link" href="#%e6%b3%9b%e5%9e%8b%e7%9a%84%e4%bd%bf%e7%94%a8%e6%96%b9%e5%bc%8f%e6%9c%89%e5%93%aa%e5%87%a0%e7%a7%8d" >泛型的使用方式有哪几种</a></p>
+<p><a class="link" href="#%e4%bd%95%e4%b8%ba%e5%8f%8d%e5%b0%84" >何为反射</a></p>
+<p><a class="link" href="#%e5%8f%8d%e5%b0%84%e7%9a%84%e4%bc%98%e7%bc%ba%e7%82%b9" >反射的优缺点</a></p>
+<p><a class="link" href="#%e5%8f%8d%e5%b0%84%e7%9a%84%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af" >反射的应用场景</a></p>
+<p><a class="link" href="#%e5%95%a5%e6%98%af%e6%b3%a8%e8%a7%a3" >啥是注解</a></p>
+<p><a class="link" href="#%e6%b3%a8%e8%a7%a3%e7%9a%84%e8%a7%a3%e6%9e%90%e6%96%b9%e6%b3%95%e6%9c%89%e5%93%aa%e5%87%a0%e7%a7%8d" >注解的解析方法有哪几种</a></p>
+<p><a class="link" href="#%e5%95%a5%e6%98%afspi" >啥是SPI</a></p>
+<p><a class="link" href="#spi%e5%92%8capi%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab" >SPI和API有啥区别</a></p>
+<p><a class="link" href="#spi%e7%9a%84%e4%bc%98%e7%bc%ba%e7%82%b9" >SPI的优缺点</a></p>
+<p><a class="link" href="#%e5%95%a5%e6%98%af%e5%ba%8f%e5%88%97%e5%8c%96%e5%95%a5%e6%98%af%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96" >啥是序列化？啥是反序列化?</a></p>
+<p><a class="link" href="#%e5%a6%82%e6%9e%9c%e6%9c%89%e4%ba%9b%e5%ad%97%e6%ae%b5%e4%b8%8d%e6%83%b3%e8%bf%9b%e8%a1%8c%e5%ba%8f%e5%88%97%e5%8c%96%e5%92%8b%e5%8a%9e" >如果有些字段不想进行序列化咋办</a></p>
+<p><a class="link" href="#%e5%b8%b8%e8%a7%81%e7%9a%84%e5%ba%8f%e5%88%97%e5%8c%96%e5%8d%8f%e8%ae%ae%e6%9c%89%e5%93%aa%e4%ba%9b" >常见的序列化协议有哪些</a></p>
+<p><a class="link" href="#%e4%b8%ba%e5%95%a5%e4%b8%8d%e6%8e%a8%e8%8d%90%e4%bd%bf%e7%94%a8jdk%e8%87%aa%e5%b8%a6%e7%9a%84%e5%ba%8f%e5%88%97%e5%8c%96" >为啥不推荐使用JDK自带的序列化</a></p>
+<h4 id="java异常类层次结构图">Java异常类层次结构图
 </h4><p><img src="/error.png"
 	
 	
@@ -312,8 +333,8 @@
 </ul>
 <h4 id="checked-exception和unchecked-exception有啥区别">Checked Exception和Unchecked Exception有啥区别
 </h4><ul>
-<li>Checked Exception就是编译异常(常见的有SQL异常,超时异常,找不到方法异常)</li>
-<li>Unchecked Exception就是运行异常(常见的有算术异常,数组下标越界异常,空指针异常)</li>
+<li>Checked Exception就是编译异常(常见的有SQL异常，超时异常，找不到方法异常)</li>
+<li>Unchecked Exception就是运行异常(常见的有算术异常，数组下标越界异常，空指针异常)</li>
 </ul>
 <h4 id="throwable类常用方法有哪些">Throwable类常用方法有哪些
 </h4><ul>
@@ -323,11 +344,11 @@
 <li>void printStackTrace():在控制台上打印Trowable对象封装的异常信息。</li>
 </ul>
 <h4 id="try-catch-finally如何使用">try-catch-finally如何使用
-</h4><p>将可能出现异常的放在try代码块中,对异常的处理放在
-catch代码块中,finally放最后肯定执行的(除了cpu关闭,所在线程提前死亡或者JVM提前死亡)。</p>
+</h4><p>将可能出现异常的放在try代码块中，对异常的处理放在
+catch代码块中，finally放最后肯定执行的(除了cpu关闭，所在线程提前死亡或者JVM提前死亡)。</p>
 <h4 id="咋用try-with-resources代替try-catch-finally">咋用try-with-resources代替try-catch-finally
 </h4><ul>
-<li>适用范围（资源的定义）： 任何实现 java.lang.AutoCloseable或者 java.io.Closeable 的对象</li>
+<li>适用范围（资源的定义）： 任何实现 java.lang.Closeable或者 java.io.Closeable 的对象</li>
 <li>关闭资源和 finally 块的执行顺序：在 -try-with-resources 语句中，任何 catch 或 finally 块在声明的资源关闭后运行。</li>
 </ul>
 <h4 id="异常使用有哪些需要注意的地方">异常使用有哪些需要注意的地方
@@ -348,9 +369,101 @@ catch代码块中,finally放最后肯定执行的(除了cpu关闭,所在线程�
 <li>泛型方法</li>
 </ul>
 <h4 id="何为反射">何为反射
-</h4><p>Java的反射机制就是指在运行获取类的结构信息(如方法,字段,构造函数)并操作对象的一种机制。</p>
+</h4><p>Java的反射机制就是指在运行获取类的结构信息(如方法，字段，构造函数)并操作对象的一种机制。</p>
 <h4 id="反射的优缺点">反射的优缺点
-</h4><p>反射的反射可以让我们的代码更加灵活、为各种框架提供开箱即用的功能提供了便利。</p>
+</h4><p>优点</p>
+<ul>
+<li>反射可以让我们的代码更加灵活、为各种框架提供开箱即用的功能提供了便利。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>不过，反射让我们在运行时有了分析操作类的能力的同时，也增加了安全问题，比如可以无视泛型参数的安全检查（泛型参数的安全检查发生在编译时）。</li>
+<li>另外，反射的性能也要稍差点，不过，对于框架来说实际是影响不大的。</li>
+</ul>
+<p>相关阅读<a class="link" href="https://stackoverflow.com/questions/1392351/java-reflection-why-is-it-so-slow"  target="_blank" rel="noopener"
+    >Java Reflection: Why is it so slow?</a></p>
+<h4 id="反射的应用场景">反射的应用场景
+</h4><p>主要运用在<strong>框架的开发</strong>和<strong>动态代理的实现</strong></p>
+<h4 id="啥是注解">啥是注解
+</h4><ul>
+<li>1.注解其实就是一个标记，可以标记在类上、方法上、属性上等，标记自身也可以设置一些值。</li>
+<li>2.有了标记之后，就可以在解析的时候获取标记，然后做特别处理。</li>
+<li>3.注解的使用可以通过编译时、类加载时或者运行时的反射机制来实现特殊的处理逻辑。</li>
+</ul>
+<h4 id="注解的解析方法有哪几种">注解的解析方法有哪几种
+</h4><ul>
+<li>
+<p>编译期直接扫描: 比如某个方法使用@Override 注解，编译器在编译的时候就会检测当前的方法是否重写了父类对应的方法。</p>
+</li>
+<li>
+<p>运行期通过反射通过反射处理: 像框架中自带的注解(比如 Spring 框架的 @Value、@Component)都是通过反射来进行处理的。</p>
+</li>
+</ul>
+<h4 id="啥是spi">啥是SPI
+</h4><p>SPI就是我调用你实现的接口(其他的不用管)，简单来说就是用就完了。</p>
+<h4 id="spi和api有啥区别">SPI和API有啥区别
+</h4><p><img src="/SPI.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片"
+	
+	
+></p>
+<ul>
+<li>
+<p>调用方直接调用实现方接口实现服务就是API</p>
+</li>
+<li>
+<p>实现方实现实现方提供的接口从而提供服务就是SPI</p>
+</li>
+</ul>
+<h4 id="spi的优缺点">SPI的优缺点
+</h4><ul>
+<li>需要遍历加载所有的实现类，不能做到按需加载，这样效率还是相对较低的。</li>
+<li>当多个 ServiceLoader 同时 load 时，会有并发问题。</li>
+</ul>
+<h4 id="啥是序列化啥是反序列化">啥是序列化？啥是反序列化?
+</h4><ul>
+<li>序列化就是将对象转化为能在网络中传输的，通常是二进制字节流，也可以是JSON，XML等文本格式。</li>
+<li>反序列化就是将在网络中传输的转化为对象的过程。</li>
+</ul>
+<h4 id="如果有些字段不想进行序列化咋办">如果有些字段不想进行序列化咋办
+</h4><p>可以用transient关键字修饰</p>
+<ul>
+<li>transient 关键字的作用是：阻止实例中那些用此关键字修饰的的变量序列化；</li>
+<li>当对象被反序列化时，被 transient 修饰的变量值不会被持久化和恢复。</li>
+</ul>
+<h4 id="常见的序列化协议有哪些">常见的序列化协议有哪些
+</h4><ul>
+<li>JDK 自带的序列化方式一般不会用 ，因为序列化效率低并且存在安全问题。比较常用的序列化协议有 Hessian、Kryo、Protobuf、ProtoStuff，这些都是基于二进制的序列化协议。</li>
+<li>像 JSON 和 XML 这种属于文本类序列化方式。虽然可读性比较好，但是性能较差，一般不会选择。</li>
+</ul>
+<h4 id="为啥不推荐使用jdk自带的序列化">为啥不推荐使用JDK自带的序列化
+</h4><ul>
+<li>不能兼容其他的语言</li>
+<li>性能差</li>
+<li>存在安全问题</li>
+</ul>
+<h4 id="java-io流了解吗">Java IO流了解吗
+</h4><ul>
+<li>Java IO流简单来说就是输入和输出，输入到计算机内存中进行处理，而输出就是输出到外部存储器进行存储(比如磁盘等之类的外部存储器)</li>
+<li>Java IO流主要有四个抽象类，分别是InputStream/Reader:所有的输入流的基类，前者是字节输入流，后者是字符输入流，
+OutputStream/Writer:所有输出流的基类，前者是字节输出流，后者是字符输出流。</li>
+</ul>
+<h4 id="io流为啥要分为字节流和字符流呢">I/O流为啥要分为字节流和字符流呢
+</h4><ul>
+<li>部分场景需要对字符进行操作，用字符流更加高效</li>
+<li>如果我们不知道编码类型的话使用字节流的过程中很容易出现乱码问题。</li>
+</ul>
+<h4 id="啥是语法糖">啥是语法糖
+</h4><p>编程语言为了方便程序员开发程序而设计的一种特殊语法。</p>
+<h4 id="java有哪些常见的语法糖">Java有哪些常见的语法糖
+</h4><p>lambda表达式，泛型，自动拆装箱，内部类，增强for循环等等。
+本文参考于<a class="link" href="https://javaguide.cn/"  target="_blank" rel="noopener"
+    >https://javaguide.cn/</a></p>
 
 </section>
 

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="面向对象和面向过程的区别 面向对象会先抽象出对象，然后用对象执行方法的方式来解决问题 面向过程会把解决问题的过程拆成一个个方法，通过一个个方法来执行解决问题\n面向过程具有良好的性能，但扩展性较差，面向对象具有较好的扩展性，但性能较差。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="面向对象和面向过程的区别\n创建一个对象用啥运算符？对象实体与对象引用有何不同\n对象的相等和引用相等的区别\n如果一个类没有声明构造方法，该程序能正确执行吗\n">
 <title>Java基础(2)</title>
 
 <link rel='canonical' href='https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%802/'>
 
 <link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="Java基础(2)">
-<meta property='og:description' content="面向对象和面向过程的区别 面向对象会先抽象出对象，然后用对象执行方法的方式来解决问题 面向过程会把解决问题的过程拆成一个个方法，通过一个个方法来执行解决问题\n面向过程具有良好的性能，但扩展性较差，面向对象具有较好的扩展性，但性能较差。\n">
+<meta property='og:description' content="面向对象和面向过程的区别\n创建一个对象用啥运算符？对象实体与对象引用有何不同\n对象的相等和引用相等的区别\n如果一个类没有声明构造方法，该程序能正确执行吗\n">
 <meta property='og:url' content='https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%802/'>
 <meta property='og:site_name' content='JZH-letere'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2024-11-23T19:48:17&#43;08:00'/><meta property='article:modified_time' content='2024-11-23T19:48:17&#43;08:00'/>
 <meta name="twitter:title" content="Java基础(2)">
-<meta name="twitter:description" content="面向对象和面向过程的区别 面向对象会先抽象出对象，然后用对象执行方法的方式来解决问题 面向过程会把解决问题的过程拆成一个个方法，通过一个个方法来执行解决问题\n面向过程具有良好的性能，但扩展性较差，面向对象具有较好的扩展性，但性能较差。\n">
+<meta name="twitter:description" content="面向对象和面向过程的区别\n创建一个对象用啥运算符？对象实体与对象引用有何不同\n对象的相等和引用相等的区别\n如果一个类没有声明构造方法，该程序能正确执行吗\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -279,11 +279,11 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 5 分钟
+                    阅读时长: 7 分钟
                 </time>
             </div>
         
-        <span class="post-word-count">2502 words</span>
+        <span class="post-word-count">3075 words</span>
     </footer>
     
     
@@ -294,7 +294,29 @@
     <section class="article-content">
     
     
-    <h4 id="面向对象和面向过程的区别">面向对象和面向过程的区别
+    <p><a class="link" href="#%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e5%92%8c%e9%9d%a2%e5%90%91%e8%bf%87%e7%a8%8b%e7%9a%84%e5%8c%ba%e5%88%ab" >面向对象和面向过程的区别</a></p>
+<p><a class="link" href="#%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aa%e5%af%b9%e8%b1%a1%e7%94%a8%e5%95%a5%e8%bf%90%e7%ae%97%e7%ac%a6%e5%af%b9%e8%b1%a1%e5%ae%9e%e4%bd%93%e4%b8%8e%e5%af%b9%e8%b1%a1%e5%bc%95%e7%94%a8%e6%9c%89%e4%bd%95%e4%b8%8d%e5%90%8c" >创建一个对象用啥运算符？对象实体与对象引用有何不同</a></p>
+<p><a class="link" href="#%e5%af%b9%e8%b1%a1%e7%9a%84%e7%9b%b8%e7%ad%89%e5%92%8c%e5%bc%95%e7%94%a8%e7%9b%b8%e7%ad%89%e7%9a%84%e5%8c%ba%e5%88%ab" >对象的相等和引用相等的区别</a></p>
+<p><a class="link" href="#%e5%a6%82%e6%9e%9c%e4%b8%80%e4%b8%aa%e7%b1%bb%e6%b2%a1%e6%9c%89%e5%a3%b0%e6%98%8e%e6%9e%84%e9%80%a0%e6%96%b9%e6%b3%95%e8%af%a5%e7%a8%8b%e5%ba%8f%e8%83%bd%e6%ad%a3%e7%a1%ae%e6%89%a7%e8%a1%8c%e5%90%97" >如果一个类没有声明构造方法，该程序能正确执行吗</a></p>
+<p><a class="link" href="#%e6%9e%84%e9%80%a0%e6%96%b9%e6%b3%95%e6%9c%89%e5%95%a5%e7%89%b9%e7%82%b9%e6%98%af%e5%90%a6%e5%8f%af%e8%a2%aboverride" >构造方法有啥特点？是否可被override</a></p>
+<p><a class="link" href="#%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b8%89%e5%a4%a7%e7%89%b9%e6%80%94" >面向对象三大特怔</a></p>
+<p><a class="link" href="#%e6%8e%a5%e5%8f%a3%e5%92%8c%e6%8a%bd%e8%b1%a1%e7%b1%bb%e6%9c%89%e5%95%a5%e5%85%b1%e5%90%8c%e7%82%b9%e5%92%8c%e5%8c%ba%e5%88%ab" >接口和抽象类有啥共同点和区别</a></p>
+<p><a class="link" href="#%e6%b7%b1%e5%ba%a6%e6%8b%b7%e8%b4%9d%e5%92%8c%e6%b5%85%e6%8b%b7%e8%b4%9d%e4%ba%86%e8%a7%a3%e5%90%97%e5%95%a5%e6%98%af%e5%bc%95%e7%94%a8%e6%8b%b7%e8%b4%9d" >深度拷贝和浅拷贝了解吗？啥是引用拷贝？</a></p>
+<p><a class="link" href="#object%e7%b1%bb%e7%9a%84%e5%b8%b8%e8%a7%81%e6%96%b9%e6%b3%95%e6%9c%89%e5%93%aa%e4%ba%9b" >Object类的常见方法有哪些</a></p>
+<p><a class="link" href="#-%e5%92%8c-equals%e7%9a%84%e5%8c%ba%e5%88%ab" >== 和 equals()的区别</a></p>
+<p><a class="link" href="#hashcode%e6%9c%89%e5%95%a5%e7%94%a8" >hashCode()有啥用</a></p>
+<p><a class="link" href="#%e4%b8%ba%e5%95%a5%e8%a6%81%e6%9c%89hashcode" >为啥要有hashCode</a></p>
+<p><a class="link" href="#%e4%b8%ba%e5%95%a5%e9%87%8d%e5%86%99equals%e6%97%b6%e5%bf%85%e9%a1%bb%e9%87%8d%e5%86%99hashcode%e6%96%b9%e6%b3%95" >为啥重写equals()时必须重写hashCode()方法</a></p>
+<p><a class="link" href="#string-stringbuffer-stringbuilder%e7%9a%84%e5%8c%ba%e5%88%ab" >String， StringBuffer， StringBuilder的区别</a></p>
+<p><a class="link" href="#string%e4%b8%ba%e5%95%a5%e6%98%af%e4%b8%8d%e5%8f%af%e5%8f%98%e7%9a%84" >String为啥是不可变的</a></p>
+<p><a class="link" href="#%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%8b%bc%e6%8e%a5%e7%94%a8--%e8%bf%98%e6%98%afstringbuilder" >字符串拼接用 &ldquo;+&rdquo; 还是StringBuilder</a></p>
+<p><a class="link" href="#stringequals%e5%92%8cobjectequals%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab" >String#equals()和Object#equals()有啥区别</a></p>
+<p><a class="link" href="#%e5%ad%97%e7%ac%a6%e4%b8%b2%e7%9a%84%e5%b8%b8%e9%87%8f%e6%b1%a0%e4%ba%86%e8%a7%a3%e8%bf%87%e5%90%97" >字符串的常量池了解过吗</a></p>
+<p><a class="link" href="#%e5%88%9b%e5%bb%bastring%e5%af%b9%e8%b1%a1%e7%9a%84%e4%b8%a4%e7%a7%8d%e6%96%b9%e5%bc%8f%e4%bb%a5%e5%8f%8a%e4%b8%8d%e5%90%8c" >创建String对象的两种方式以及不同</a></p>
+<p><a class="link" href="#string-s1--new-stringabc%e5%88%9b%e5%bb%ba%e4%ba%86%e5%87%a0%e4%b8%aa%e5%af%b9%e8%b1%a1" >String s1 = new String(&ldquo;abc&rdquo;)创建了几个对象</a></p>
+<p><a class="link" href="#stringintern%e6%96%b9%e6%b3%95%e6%9c%89%e5%95%a5%e4%bd%9c%e7%94%a8" >String#intern方法有啥作用</a></p>
+<p><a class="link" href="#string-%e7%b1%bb%e5%9e%8b%e7%9a%84%e5%8f%98%e9%87%8f%e5%92%8c%e5%b8%b8%e9%87%8f%e5%81%9a%e8%bf%90%e7%ae%97%e6%97%b6%e5%8f%91%e7%94%9f%e4%ba%86%e4%bb%80%e4%b9%88" >String 类型的变量和常量做“+”运算时发生了什么</a></p>
+<h4 id="面向对象和面向过程的区别">面向对象和面向过程的区别
 </h4><p>面向对象会先抽象出对象，然后用对象执行方法的方式来解决问题
 面向过程会把解决问题的过程拆成一个个方法，通过一个个方法来执行解决问题</p>
 <p>面向过程具有良好的性能，但扩展性较差，面向对象具有较好的扩展性，但性能较差。</p>
@@ -310,12 +332,12 @@
 <h4 id="对象的相等和引用相等的区别">对象的相等和引用相等的区别
 </h4><p>对象相等是指内存中的内容是否相等</p>
 <p>引用相等时指指针内存地址是否相等</p>
-<h4 id="如果一个类没有声明构造方法该程序能正确执行吗">如果一个类没有声明构造方法,该程序能正确执行吗####
+<h4 id="如果一个类没有声明构造方法该程序能正确执行吗">如果一个类没有声明构造方法，该程序能正确执行吗
 </h4><p>可以的</p>
 <ul>
 <li>系统会生成一个默认的无参构造器</li>
 </ul>
-<p>当我们如果实现有参构造器,最好手动加一个无参构造器，这个可以帮助我们少踩坑。</p>
+<p>当我们如果实现有参构造器，最好手动加一个无参构造器，这个可以帮助我们少踩坑。</p>
 <h4 id="构造方法有啥特点是否可被override">构造方法有啥特点？是否可被override
 </h4><ul>
 <li>名字与类名相同。</li>
@@ -395,13 +417,13 @@
 </h4><p>hashCode用于返回对象的哈希码，确定该对象在哈希表中的索引位置。</p>
 <h4 id="为啥要有hashcode">为啥要有hashCode
 </h4><p>大大提高索引速度，从而提高执行速度。</p>
-<h4 id="为啥重写equals时必须重写hashcode方法">为啥重写equals()时必须重写hashCode()方法 
-</h4><p>因为根据业务来说我们想的时equals()判断的相等就一定相等,而不重写的hashCode返回的是对象的哈希码，这与我们最初的想法相违背，所以必须重写hashCode()。</p>
-<h4 id="string-stringbuffer-stringbuilder的区别">String, StringBuffer, StringBuilder的区别
+<h4 id="为啥重写equals时必须重写hashcode方法">为啥重写equals()时必须重写hashCode()方法
+</h4><p>因为根据业务来说我们想的时equals()判断的相等就一定相等，而不重写的hashCode返回的是对象的哈希码，这与我们最初的想法相违背，所以必须重写hashCode()。</p>
+<h4 id="string-stringbuffer-stringbuilder的区别">String， StringBuffer， StringBuilder的区别
 </h4><ul>
-<li>可变性: String不可变,StringBuilder可变,StringBuffer可变。</li>
+<li>可变性: String不可变，StringBuilder可变，StringBuffer可变。</li>
 <li>线程安全性: String中的对象是不可变的，可以理解为常量，线程安全。StringBuffer安全，加了同步锁。StringBuilder并没有对方法进行加同步锁，所以不安全。</li>
-<li>性能： String性能最低，因为每次改变时生成的是一个新的String对象。StringBuffer,StringBuilder性能较高。</li>
+<li>性能： String性能最低，因为每次改变时生成的是一个新的String对象。StringBuffer，StringBuilder性能较高。</li>
 </ul>
 <p>总结:</p>
 <ul>
@@ -419,7 +441,7 @@
 </li>
 </ul>
 <h4 id="字符串拼接用--还是stringbuilder">字符串拼接用 &ldquo;+&rdquo; 还是StringBuilder
-</h4><p>字符串拼接用StringBuffer,因为用&quot;+&ldquo;拼接的话底层会创建一个新的StringBuilder对象(对于大多数场景比如说循环)比较耗时间，效率比较低。</p>
+</h4><p>字符串拼接用StringBuffer，因为用&quot;+&ldquo;拼接的话底层会创建一个新的StringBuilder对象(对于大多数场景比如说循环)比较耗时间，效率比较低。</p>
 <h4 id="stringequals和objectequals有啥区别">String#equals()和Object#equals()有啥区别
 </h4><p>String的equals()会比较字符串是否相等而Object的equals会比较内存的地址是否相等。</p>
 <h4 id="字符串的常量池了解过吗">字符串的常量池了解过吗
@@ -469,10 +491,10 @@
 </h4><p>这得分情况讨论</p>
 <ul>
 <li>1.如果是常量池中已经存在&quot;abc&quot;则创建一个对象。(即s1直接指向常量池中的&quot;abc&rdquo;)</li>
-<li>2.如果是常量池中不存在&quot;abc&quot;则创建二个对象。(即首先在常量池中创建&quot;abc&quot;,然后s1指向常量池中的&quot;abc&quot;)</li>
+<li>2.如果是常量池中不存在&quot;abc&quot;则创建二个对象。(即首先在常量池中创建&quot;abc&quot;，然后s1指向常量池中的&quot;abc&quot;)</li>
 </ul>
 <h4 id="stringintern方法有啥作用">String#intern方法有啥作用
-</h4><p>intern方法是一个本地方法,目的返回字符串在常量池中的引用</p>
+</h4><p>intern方法是一个本地方法，目的返回字符串在常量池中的引用</p>
 <h4 id="string-类型的变量和常量做运算时发生了什么">String 类型的变量和常量做“+”运算时发生了什么
 </h4><ul>
 <li>对于编译期可以确定值的字符串，也就是常量字符串 ，
@@ -481,7 +503,8 @@ jvm 会将其存入字符串常量池。并且，字符串常量拼接得到的�
 <li>引用的值在程序编译期是无法确定的，编译器无法对其进行优化。(可以加final进行优化)</li>
 </ul>
 <p>本文参考于<a class="link" href="https://javaguide.cn/"  target="_blank" rel="noopener"
-    >https://javaguide.cn/</a></p>
+    >https://javaguide.cn/</a>，<a class="link" href="https://www.bilibili.com/video/BV1fh411y7R8/?spm_id_from=333.337.search-card.all.click&amp;vd_source=1f5300bd55992b22421fc11e35bb3359"  target="_blank" rel="noopener"
+    >https://www.bilibili.com/video/BV1fh411y7R8/?spm_id_from=333.337.search-card.all.click&vd_source=1f5300bd55992b22421fc11e35bb3359</a></p>
 
 </section>
 

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Java语言有啥特点 1.面向对象，java语言是面向对象的(封装，继承，多态)\n2.具有丰富的生态和类库。\n3.具有跨平台特点，一次编译，随处运行。\n4.简单易学。\n5.支持网络编程。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Java语言有啥特点\nJavaSE是啥，JavaEE是啥\nJVM是啥，JDK是啥，JRE是啥\nAOT有啥优点？为啥不全用AOT呢？\n">
 <title>Java基础(1)</title>
 
 <link rel='canonical' href='https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%801/'>
 
 <link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="Java基础(1)">
-<meta property='og:description' content="Java语言有啥特点 1.面向对象，java语言是面向对象的(封装，继承，多态)\n2.具有丰富的生态和类库。\n3.具有跨平台特点，一次编译，随处运行。\n4.简单易学。\n5.支持网络编程。\n">
+<meta property='og:description' content="Java语言有啥特点\nJavaSE是啥，JavaEE是啥\nJVM是啥，JDK是啥，JRE是啥\nAOT有啥优点？为啥不全用AOT呢？\n">
 <meta property='og:url' content='https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%801/'>
 <meta property='og:site_name' content='JZH-letere'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2024-11-22T11:05:52&#43;08:00'/><meta property='article:modified_time' content='2024-11-22T11:05:52&#43;08:00'/>
 <meta name="twitter:title" content="Java基础(1)">
-<meta name="twitter:description" content="Java语言有啥特点 1.面向对象，java语言是面向对象的(封装，继承，多态)\n2.具有丰富的生态和类库。\n3.具有跨平台特点，一次编译，随处运行。\n4.简单易学。\n5.支持网络编程。\n">
+<meta name="twitter:description" content="Java语言有啥特点\nJavaSE是啥，JavaEE是啥\nJVM是啥，JDK是啥，JRE是啥\nAOT有啥优点？为啥不全用AOT呢？\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -279,11 +279,11 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 7 分钟
+                    阅读时长: 8 分钟
                 </time>
             </div>
         
-        <span class="post-word-count">3198 words</span>
+        <span class="post-word-count">3585 words</span>
     </footer>
     
     
@@ -294,7 +294,34 @@
     <section class="article-content">
     
     
-    <h4 id="java语言有啥特点">Java语言有啥特点
+    <p><a class="link" href="#java%e8%af%ad%e8%a8%80%e6%9c%89%e5%95%a5%e7%89%b9%e7%82%b9" >Java语言有啥特点</a></p>
+<p><a class="link" href="#javase%e6%98%af%e5%95%a5javaee%e6%98%af%e5%95%a5" >JavaSE是啥，JavaEE是啥</a></p>
+<p><a class="link" href="#jvm%e6%98%af%e5%95%a5jdk%e6%98%af%e5%95%a5jre%e6%98%af%e5%95%a5" >JVM是啥，JDK是啥，JRE是啥</a></p>
+<p><a class="link" href="#aot%e6%9c%89%e5%95%a5%e4%bc%98%e7%82%b9%e4%b8%ba%e5%95%a5%e4%b8%8d%e5%85%a8%e7%94%a8aot%e5%91%a2" >AOT有啥优点？为啥不全用AOT呢？</a></p>
+<p><a class="link" href="#%e5%95%a5%e6%98%af%e5%ad%97%e8%8a%82%e7%a0%81%e9%87%87%e7%94%a8%e5%ad%97%e8%8a%82%e7%a0%81%e7%9a%84%e5%a5%bd%e5%a4%84%e6%98%af%e5%95%a5" >啥是字节码？采用字节码的好处是啥？</a></p>
+<p><a class="link" href="#%e4%b8%ba%e5%95%a5%e8%af%b4java%e8%af%ad%e8%a8%80-%e7%bc%96%e8%af%91%e4%b8%8e%e8%a7%a3%e9%87%8a%e5%85%b1%e5%ad%98" >为啥说Java语言 &ldquo;编译与解释共存&rdquo;?</a></p>
+<p><a class="link" href="#oraclejdk-%e5%92%8c-openjdk-%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab" >OracleJDK 和 OpenJDK 有啥区别</a></p>
+<p><a class="link" href="#java%e4%b8%8ec%e7%9a%84%e5%8c%ba%e5%88%ab" >Java与C++的区别</a></p>
+<p><a class="link" href="#java%e6%b3%a8%e9%87%8a%e6%9c%89%e5%87%a0%e7%a7%8d" >Java注释有几种</a></p>
+<p><a class="link" href="#%e6%a0%87%e8%af%86%e7%ac%a6-%e5%92%8c-%e5%85%b3%e9%94%ae%e5%ad%97-%e7%9a%84%e5%8c%ba%e5%88%ab%e6%98%af%e5%95%a5" >标识符 和 关键字 的区别是啥</a></p>
+<p><a class="link" href="#%e8%87%aa%e5%a2%9e%e8%87%aa%e5%87%8f%e7%ac%a6%e5%8f%b7" >自增，自减符号</a></p>
+<p><a class="link" href="#%e7%a7%bb%e4%bd%8d%e8%bf%90%e7%ae%97%e7%ac%a6" >移位运算符</a></p>
+<p><a class="link" href="#java%e7%9a%84%e5%87%a0%e7%a7%8d%e5%9f%ba%e6%9c%ac%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b" >Java的几种基本数据类型</a></p>
+<p><a class="link" href="#%e5%9f%ba%e6%9c%ac%e7%b1%bb%e5%9e%8b%e5%92%8c%e5%8c%85%e8%a3%85%e7%b1%bb%e5%9e%8b%e7%9a%84%e5%8c%ba%e5%88%ab" >基本类型和包装类型的区别</a></p>
+<p><a class="link" href="#%e5%8c%85%e8%a3%85%e7%b1%bb%e5%9e%8b%e7%9a%84%e7%bc%93%e5%ad%98%e6%9c%ba%e5%88%b6%e4%ba%86%e8%a7%a3%e5%90%97" >包装类型的缓存机制了解吗</a></p>
+<p><a class="link" href="#%e8%87%aa%e5%8a%a8%e8%a3%85%e7%ae%b1%e4%b8%8e%e6%8b%86%e7%ae%b1%e4%ba%86%e8%a7%a3%e5%90%97-%e5%8e%9f%e7%90%86%e6%98%af%e5%95%a5" >自动装箱与拆箱了解吗？ 原理是啥</a></p>
+<p><a class="link" href="#%e4%b8%ba%e5%95%a5%e6%b5%ae%e7%82%b9%e6%95%b0%e8%bf%90%e7%ae%97%e7%9a%84%e6%97%b6%e5%80%99%e4%bc%9a%e6%9c%89%e7%b2%be%e5%ba%a6%e4%b8%a2%e5%a4%b1%e7%9a%84%e9%a3%8e%e9%99%a9" >为啥浮点数运算的时候会有精度丢失的风险</a></p>
+<p><a class="link" href="#%e5%a6%82%e4%bd%95%e8%a7%a3%e5%86%b3%e6%b5%ae%e7%82%b9%e6%95%b0%e8%bf%90%e7%ae%97%e7%9a%84%e7%b2%be%e5%ba%a6%e4%b8%a2%e5%a4%b1%e9%97%ae%e9%a2%98" >如何解决浮点数运算的精度丢失问题</a></p>
+<p><a class="link" href="#%e8%b6%85%e8%bf%87long%e6%95%b4%e5%bd%a2%e7%9a%84%e6%95%b0%e6%8d%ae%e5%ba%94%e8%af%a5%e5%a6%82%e4%bd%95%e8%a1%a8%e7%a4%ba" >超过long整形的数据应该如何表示</a></p>
+<p><a class="link" href="#%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f%e4%b8%8e%e5%b1%80%e9%83%a8%e5%8f%98%e9%87%8f%e7%9a%84%e5%8c%ba%e5%88%ab" >成员变量与局部变量的区别</a></p>
+<p><a class="link" href="#%e9%9d%99%e6%80%81%e5%8f%98%e9%87%8f%e6%9c%89%e5%95%a5%e7%94%a8" >静态变量有啥用</a></p>
+<p><a class="link" href="#%e5%ad%97%e7%ac%a6%e5%9e%8b%e5%b8%b8%e9%87%8f%e5%92%8c%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e9%87%8f%e7%9a%84%e5%8c%ba%e5%88%ab" >字符型常量和字符串常量的区别</a></p>
+<p><a class="link" href="#%e5%95%a5%e6%98%af%e6%96%b9%e6%b3%95%e7%9a%84%e8%bf%94%e5%9b%9e%e5%80%bc%e6%96%b9%e6%b3%95%e6%9c%89%e5%93%aa%e5%87%a0%e7%a7%8d%e7%b1%bb%e5%9e%8b" >啥是方法的返回值？方法有哪几种类型？</a></p>
+<p><a class="link" href="#%e9%9d%99%e6%80%81%e6%96%b9%e6%b3%95%e4%b8%ba%e5%95%a5%e4%b8%8d%e8%83%bd%e8%b0%83%e7%94%a8%e9%9d%9e%e9%9d%99%e6%80%81%e6%96%b9%e6%b3%95" >静态方法为啥不能调用非静态方法</a></p>
+<p><a class="link" href="#%e9%9d%99%e6%80%81%e6%96%b9%e6%b3%95%e5%92%8c%e5%ae%9e%e4%be%8b%e6%96%b9%e6%b3%95%e6%9c%89%e5%95%a5%e4%b8%8d%e5%90%8c" >静态方法和实例方法有啥不同</a></p>
+<p><a class="link" href="#%e9%87%8d%e8%bd%bd%e5%92%8c%e9%87%8d%e5%86%99%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab" >重载和重写有啥区别</a></p>
+<p><a class="link" href="#%e5%95%a5%e6%98%af%e5%8f%af%e5%8f%98%e9%95%bf%e5%8f%82%e6%95%b0" >啥是可变长参数</a></p>
+<h4 id="java语言有啥特点">Java语言有啥特点
 </h4><ul>
 <li>
 <p>1.面向对象，java语言是面向对象的(封装，继承，多态)</p>
@@ -416,17 +443,17 @@
 <h4 id="自增自减符号">自增，自减符号
 </h4><ul>
 <li>
-<p>++a,- -a (前缀形式，计算时先减1或加1，再用a的变量)</p>
+<p>++a，- -a (前缀形式，计算时先减1或加1，再用a的变量)</p>
 </li>
 <li>
-<p>a++, a- - (后缀形式，计算时用a的值，再将a的值减1或加1)</p>
+<p>a++， a- - (后缀形式，计算时用a的值，再将a的值减1或加1)</p>
 </li>
 </ul>
 <h4 id="移位运算符">移位运算符
 </h4><p>三种运算符</p>
 <ul>
-<li><code>&lt;&lt;</code> :左移运算符，向左移若干位，高位丢弃，低位补零。<code>x &lt;&lt; n</code>,相当于 x 乘以 2 的 n 次方(不溢出的情况下)。</li>
-<li><code>&gt;&gt;</code> :带符号右移，向右移若干位，高位补符号位，低位丢弃。正数高位补 0,负数高位补 1。<code>x &gt;&gt; n</code>,相当于 x 除以 2 的 n 次方。</li>
+<li><code>&lt;&lt;</code> :左移运算符，向左移若干位，高位丢弃，低位补零。<code>x &lt;&lt; n</code>，相当于 x 乘以 2 的 n 次方(不溢出的情况下)。</li>
+<li><code>&gt;&gt;</code> :带符号右移，向右移若干位，高位补符号位，低位丢弃。正数高位补 0，负数高位补 1。<code>x &gt;&gt; n</code>，相当于 x 除以 2 的 n 次方。</li>
 <li><code>&gt;&gt;&gt;</code> :无符号右移，忽略符号位，空位都以 0 补齐。</li>
 </ul>
 <h4 id="java的几种基本数据类型">Java的几种基本数据类型
@@ -451,14 +478,14 @@
 包装类型属于对象类型，我们知道几乎所有对象实例都存在于堆中。</li>
 <li>用途  除了定义一些常量和局部变量之外，我们在其他地方比如方法参数、对象属性中很少会使用基本类型来定义变量。并且，包装类型可用于泛型，而基本类型不可以。</li>
 <li>占用空间 相比于包装类型（对象类型）， 基本数据类型占用的空间往往非常小。</li>
-<li>包装类型的默认值为null, 基本类型的默认值不是null</li>
+<li>包装类型的默认值为null， 基本类型的默认值不是null</li>
 <li>== 可以比较基本类型的值，而包装类型的值得用equals比较</li>
 </ul>
 <h4 id="包装类型的缓存机制了解吗">包装类型的缓存机制了解吗
 </h4><p>Java 基本数据类型的包装类型的大部分都用到了缓存机制来提升性能。</p>
 <ul>
-<li>Integer,Byte,Long,Short默认创建了数值[-128, 127]的相应类型的缓存数据</li>
-<li>Character创建了[0,127]范围的缓存数据，</li>
+<li>Integer，Byte，Long，Short默认创建了数值[-128， 127]的相应类型的缓存数据</li>
+<li>Character创建了[0，127]范围的缓存数据，</li>
 <li>Boolean直接返回True or False</li>
 </ul>
 <h4 id="自动装箱与拆箱了解吗-原理是啥">自动装箱与拆箱了解吗？ 原理是啥
@@ -498,7 +525,7 @@
 </ul>
 <h4 id="成员变量与局部变量的区别">成员变量与局部变量的区别
 </h4><ul>
-<li>语法形式：从语法形式上看，成员变量是属于类的，而局部变量是在代码块或方法中定义的变量或是方法的参数；成员变量可以被 public,private,static 等修饰符所修饰，而局部变量不能被访问控制修饰符及 static 所修饰；但是，成员变量和局部变量都能被 final 所修饰。</li>
+<li>语法形式：从语法形式上看，成员变量是属于类的，而局部变量是在代码块或方法中定义的变量或是方法的参数；成员变量可以被 public，private，static 等修饰符所修饰，而局部变量不能被访问控制修饰符及 static 所修饰；但是，成员变量和局部变量都能被 final 所修饰。</li>
 <li>存储方式：从变量在内存中的存储方式来看，如果成员变量是使用 static 修饰的，那么这个成员变量是属于类的，如果没有使用 static 修饰，这个成员变量是属于实例的。而对象存在于堆内存，局部变量则存在于栈内存。</li>
 <li>生存时间：从变量在内存中的生存时间上看，成员变量是对象的一部分，它随着对象的创建而存在，而局部变量随着方法的调用而自动生成，随着方法的调用结束而消亡。</li>
 </ul>
@@ -509,7 +536,7 @@
 </ul>
 <h4 id="字符型常量和字符串常量的区别">字符型常量和字符串常量的区别
 </h4><p>形式: 字符常量是单引号引起的一个字符，字符串常量是双引号引起的0个或若干个字符
-含义: 字符常量相当于一个整形值(ASCII值),可以参加表达式运算;字符串常量代表一个地址值(该字符串在内存中存放位置)。
+含义: 字符常量相当于一个整形值(ASCII值)，可以参加表达式运算;字符串常量代表一个地址值(该字符串在内存中存放位置)。
 占内存大小： 字符常量只占2个字节;字符串常量占若干个字节。</p>
 <h4 id="啥是方法的返回值方法有哪几种类型">啥是方法的返回值？方法有哪几种类型？
 </h4><ul>
@@ -527,8 +554,8 @@
 </h4><p>静态方法随着类的加载而加载，而非静态方法只有类被实例化时才能加载，所以可以得到静态方法存在时而非静态方法不存在的情况，由此得到静态方法不能调用非静态方法。</p>
 <h4 id="静态方法和实例方法有啥不同">静态方法和实例方法有啥不同
 </h4><ul>
-<li>调用方式不同, 调用静态方法可以无需创建对象，用类名.方法名的方式来调用静态方法。</li>
-<li>访问类成员是否存在限制, 静态方法在访问本类的成员时，仅仅让访问静态成员，而实例方法不存在这个限制。</li>
+<li>调用方式不同， 调用静态方法可以无需创建对象，用类名.方法名的方式来调用静态方法。</li>
+<li>访问类成员是否存在限制， 静态方法在访问本类的成员时，仅仅让访问静态成员，而实例方法不存在这个限制。</li>
 </ul>
 <h4 id="重载和重写有啥区别">重载和重写有啥区别
 </h4><p>重载就是在同样的一个方法能够根据输入数据的不同，做出不同的处理。
