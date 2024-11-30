@@ -7,7 +7,24 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>JZH-letere</copyright>
-        <lastBuildDate>Mon, 25 Nov 2024 19:25:16 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 30 Nov 2024 16:37:58 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>MySql的基本用法</title>
+        <link>https://getshhi.github.io/p/mysql%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</link>
+        <pubDate>Sat, 30 Nov 2024 16:37:58 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/mysql%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</guid>
+        <description>&lt;h3 id=&#34;1ddl语句&#34;&gt;1.DDL语句
+&lt;/h3&gt;</description>
+        </item>
+        <item>
+        <title>Java集合(1)</title>
+        <link>https://getshhi.github.io/p/java%E9%9B%86%E5%90%881/</link>
+        <pubDate>Tue, 26 Nov 2024 23:34:44 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/java%E9%9B%86%E5%90%881/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Java基础(3)</title>
         <link>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%803/</link>
         <pubDate>Mon, 25 Nov 2024 19:25:16 +0800</pubDate>
