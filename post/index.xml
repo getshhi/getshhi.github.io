@@ -13,8 +13,9 @@
         <pubDate>Sat, 30 Nov 2024 16:37:58 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/mysql%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</guid>
-        <description>&lt;h3 id=&#34;1ddl语句&#34;&gt;1.DDL语句
-&lt;/h3&gt;</description>
+        <description>&lt;img src="https://getshhi.github.io/jk1.png" alt="Featured image of post MySql的基本用法" /&gt;&lt;h3 id=&#34;1ddl语句&#34;&gt;1.DDL语句
+&lt;/h3&gt;&lt;p&gt;DDL用于定义和修改数据库结构，包括创建、修改和删除表、索引等。&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>Java集合(1)</title>
@@ -22,7 +23,7 @@
         <pubDate>Tue, 26 Nov 2024 23:34:44 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/java%E9%9B%86%E5%90%881/</guid>
-        <description></description>
+        <description>&lt;img src="https://getshhi.github.io/jk2.png" alt="Featured image of post Java集合(1)" /&gt;</description>
         </item>
         <item>
         <title>Java基础(3)</title>
@@ -30,7 +31,7 @@
         <pubDate>Mon, 25 Nov 2024 19:25:16 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%803/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#java%e5%bc%82%e5%b8%b8%e7%b1%bb%e5%b1%82%e6%ac%a1%e7%bb%93%e6%9e%84%e5%9b%be&#34; &gt;Java异常类层次结构图&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;img src="https://getshhi.github.io/jk3.png" alt="Featured image of post Java基础(3)" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#java%e5%bc%82%e5%b8%b8%e7%b1%bb%e5%b1%82%e6%ac%a1%e7%bb%93%e6%9e%84%e5%9b%be&#34; &gt;Java异常类层次结构图&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#exception%e5%92%8cerror%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab&#34; &gt;Exception和Error有啥区别&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#checked-exception%e5%92%8cunchecked-exception%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab&#34; &gt;Checked Exception和Unchecked Exception有啥区别&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#throwable%e7%b1%bb%e5%b8%b8%e7%94%a8%e6%96%b9%e6%b3%95%e6%9c%89%e5%93%aa%e4%ba%9b&#34; &gt;Throwable类常用方法有哪些&lt;/a&gt;&lt;/p&gt;
@@ -208,7 +209,7 @@ OutputStream/Writer:所有输出流的基类，前者是字节输出流，后者
         <pubDate>Sat, 23 Nov 2024 19:48:17 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%802/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e5%92%8c%e9%9d%a2%e5%90%91%e8%bf%87%e7%a8%8b%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;面向对象和面向过程的区别&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;img src="https://getshhi.github.io/jk4.png" alt="Featured image of post Java基础(2)" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e5%92%8c%e9%9d%a2%e5%90%91%e8%bf%87%e7%a8%8b%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;面向对象和面向过程的区别&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aa%e5%af%b9%e8%b1%a1%e7%94%a8%e5%95%a5%e8%bf%90%e7%ae%97%e7%ac%a6%e5%af%b9%e8%b1%a1%e5%ae%9e%e4%bd%93%e4%b8%8e%e5%af%b9%e8%b1%a1%e5%bc%95%e7%94%a8%e6%9c%89%e4%bd%95%e4%b8%8d%e5%90%8c&#34; &gt;创建一个对象用啥运算符？对象实体与对象引用有何不同&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%af%b9%e8%b1%a1%e7%9a%84%e7%9b%b8%e7%ad%89%e5%92%8c%e5%bc%95%e7%94%a8%e7%9b%b8%e7%ad%89%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;对象的相等和引用相等的区别&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%a6%82%e6%9e%9c%e4%b8%80%e4%b8%aa%e7%b1%bb%e6%b2%a1%e6%9c%89%e5%a3%b0%e6%98%8e%e6%9e%84%e9%80%a0%e6%96%b9%e6%b3%95%e8%af%a5%e7%a8%8b%e5%ba%8f%e8%83%bd%e6%ad%a3%e7%a1%ae%e6%89%a7%e8%a1%8c%e5%90%97&#34; &gt;如果一个类没有声明构造方法，该程序能正确执行吗&lt;/a&gt;&lt;/p&gt;
@@ -427,7 +428,7 @@ jvm 会将其存入字符串常量池。并且，字符串常量拼接得到的�
         <pubDate>Fri, 22 Nov 2024 11:05:52 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%801/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#java%e8%af%ad%e8%a8%80%e6%9c%89%e5%95%a5%e7%89%b9%e7%82%b9&#34; &gt;Java语言有啥特点&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;img src="https://getshhi.github.io/jk5.png" alt="Featured image of post Java基础(1)" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#java%e8%af%ad%e8%a8%80%e6%9c%89%e5%95%a5%e7%89%b9%e7%82%b9&#34; &gt;Java语言有啥特点&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#javase%e6%98%af%e5%95%a5javaee%e6%98%af%e5%95%a5&#34; &gt;JavaSE是啥，JavaEE是啥&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#jvm%e6%98%af%e5%95%a5jdk%e6%98%af%e5%95%a5jre%e6%98%af%e5%95%a5&#34; &gt;JVM是啥，JDK是啥，JRE是啥&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#aot%e6%9c%89%e5%95%a5%e4%bc%98%e7%82%b9%e4%b8%ba%e5%95%a5%e4%b8%8d%e5%85%a8%e7%94%a8aot%e5%91%a2&#34; &gt;AOT有啥优点？为啥不全用AOT呢？&lt;/a&gt;&lt;/p&gt;
@@ -808,7 +809,7 @@ jvm 会将其存入字符串常量池。并且，字符串常量拼接得到的�
         <pubDate>Thu, 03 Oct 2024 16:55:42 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%BB%E7%BB%93/</guid>
-        <description>&lt;h3 id=&#34;实现原理分析&#34;&gt;实现原理分析
+        <description>&lt;img src="https://getshhi.github.io/jk6.png" alt="Featured image of post HashMap的实现原理与总结" /&gt;&lt;h3 id=&#34;实现原理分析&#34;&gt;实现原理分析
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;HashMap&lt;/strong&gt;的底层是&lt;strong&gt;红黑树&lt;/strong&gt;,&lt;strong&gt;数组&lt;/strong&gt;,&lt;strong&gt;链表&lt;/strong&gt;;默认其初始容量为16;当put时首先就会进入到putVal这个函数,到这个函数中首先先判断底层的table是否为空或者长度为0,若是则会扩容到16,然后根据key值计算出table值,若table值为空,则直接加入到这个table位置上;若不是则会判断加入的key和旧的key是否是同一对象或者euqals相同,若是,则不用加了;若不是，先判断是否是为红黑树,如果是,则按照红黑树的逻辑加,若不是则会进入死循环,死循环中如果有key相同就只是替换value,如果不是则&lt;strong&gt;尾插&lt;/strong&gt;到链表末尾,若单个链表超过8个,则会进行树化,在树化这个函数中先判断容量是否超过64,如果是则树化否则扩容。最后判断是否需要扩容。&lt;/p&gt;
 &lt;h3 id=&#34;源码分析&#34;&gt;源码分析
 &lt;/h3&gt;&lt;h4 id=&#34;首先会进入put函数&#34;&gt;首先会进入put函数

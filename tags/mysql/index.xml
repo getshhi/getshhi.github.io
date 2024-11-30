@@ -13,8 +13,9 @@
         <pubDate>Sat, 30 Nov 2024 16:37:58 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/mysql%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</guid>
-        <description>&lt;h3 id=&#34;1ddl语句&#34;&gt;1.DDL语句
-&lt;/h3&gt;</description>
+        <description>&lt;img src="https://getshhi.github.io/jk1.png" alt="Featured image of post MySql的基本用法" /&gt;&lt;h3 id=&#34;1ddl语句&#34;&gt;1.DDL语句
+&lt;/h3&gt;&lt;p&gt;DDL用于定义和修改数据库结构，包括创建、修改和删除表、索引等。&lt;/p&gt;
+</description>
         </item>
         
     </channel>
