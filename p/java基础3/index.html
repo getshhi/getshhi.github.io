@@ -645,33 +645,32 @@ OutputStream/Writer:所有输出流的基类，前者是字节输出流，后者
 </style>
 
 <script>
-    let utterancesLoaded = false;
-
-    function setUtterancesTheme(theme) {
-        let utterances = document.querySelector('.utterances iframe');
-        if (utterances) {
-            utterances.contentWindow.postMessage(
-                {
-                    type: 'set-theme',
-                    theme: `github-${theme}`
-                },
-                'https://utteranc.es'
-            );
-        }
+let utterancesLoaded = false;
+function setUtterancesTheme(theme) {
+    let utterances = document.querySelector('.utterances iframe');
+    if (utterances) {
+        utterances.contentWindow.postMessage(
+            {
+                type: 'set-theme',
+                theme: `github-${theme}`
+            },
+            'https://utteranc.es'
+        );
     }
+}
 
-    addEventListener('message', event => {
-        if (event.origin !== 'https://utteranc.es') return;
+addEventListener('message', event => {
+    if (event.origin !== 'https://utteranc.es') return;
 
-        
-        utterancesLoaded = true;
-        setUtterancesTheme(document.documentElement.dataset.scheme)
-    });
+    
+    utterancesLoaded = true;
+    setUtterancesTheme(document.documentElement.dataset.scheme); 
+});
 
-    window.addEventListener('onColorSchemeChange', (e) => {
-        if (!utterancesLoaded) return;
-        setUtterancesTheme(e.detail)
-    })
+window.addEventListener('onColorSchemeChange', (e) => {
+    if (!utterancesLoaded) return;
+    setUtterancesTheme(e.detail); 
+});
 </script>
 
 
