@@ -310,7 +310,17 @@ DQL用于查询数据库中的数据。&lt;/li&gt;
         <pubDate>Tue, 26 Nov 2024 23:34:44 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/java%E9%9B%86%E5%90%881/</guid>
-        <description>&lt;img src="https://getshhi.github.io/jk2.png" alt="Featured image of post Java集合(1)" /&gt;</description>
+        <description>&lt;img src="https://getshhi.github.io/jk2.png" alt="Featured image of post Java集合(1)" /&gt;&lt;h3 id=&#34;java集合概览&#34;&gt;Java集合概览
+&lt;/h3&gt;&lt;p&gt;Java集合分为Collection和Map，其中Collection接口分为Set，List，Queue，用来存储单一元素，而Map接口用来存储键值对。
+&lt;img src=&#34;https://getshhi.github.io/JavaContainer.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>Java基础(3)</title>
