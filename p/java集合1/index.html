@@ -288,11 +288,11 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 7 分钟
                 </time>
             </div>
         
-        <span class="post-word-count">85 words</span>
+        <span class="post-word-count">3030 words</span>
     </footer>
     
     
@@ -303,8 +303,8 @@
     <section class="article-content">
     
     
-    <h3 id="java集合概览">Java集合概览
-</h3><p>Java集合分为Collection和Map，其中Collection接口分为Set，List，Queue，用来存储单一元素，而Map接口用来存储键值对。
+    <h4 id="java集合概览">Java集合概览
+</h4><p>Java集合分为Collection和Map，其中Collection接口分为Set，List，Queue，用来存储单一元素，而Map接口用来存储键值对。
 <img src="/JavaContainer.png"
 	
 	
@@ -313,6 +313,120 @@
 	
 	
 ></p>
+<h4 id="说说listmapsetqueue的区别">说说List，Map，Set，Queue的区别
+</h4><p>List(对付顺序的好帮手):存储有序的，可重复的元素。</p>
+<p>Map存储键值对，通常用这个查询键值对组合。value是无序的，可重复的，Key是无序的，不可重复的。</p>
+<p>Set(注重独一无二的性质):存储不重复的元素。</p>
+<p>Queue(实现排队功能的叫号机):按特定的排队规则来确定先后顺序，存储的元素是有序的，可重复的。</p>
+<h4 id="集合框架底层数据结构总结">集合框架底层数据结构总结
+</h4><p>List</p>
+<ul>
+<li>ArrayList: Object[]数组。</li>
+<li>Vector: Object[]数组。</li>
+<li>LinkedList: 双向链表(JDK1.6之前为循环链表，JDK1.7取消了循环)</li>
+</ul>
+<p>Set</p>
+<ul>
+<li>HashSet(无序，唯一):基于HashMap实现的，底层采用HashMap来保存元素。</li>
+<li>LinkedHashSet:LinkedHashSet是HashSet的子类，并且内部是通过LinkedHashMap来实现的。</li>
+<li>TreeSet(有序，唯一):红黑树(自平衡的排序二叉树)。</li>
+</ul>
+<p>Queue</p>
+<ul>
+<li>PriorityQueue:Object[]数组来实现小顶堆。</li>
+<li>DelayQueue:PriorQueue。</li>
+<li>ArrayDeque:可扩容动态双向数组</li>
+</ul>
+<p>Map</p>
+<ul>
+<li>HashMap:JDK1.8以前HashMap是由数组+链表组成的，数组是HashMap的主体，链表是为了解决哈希冲突而存在的。JDK1.8以后数组+链表+红黑树。</li>
+<li>LinkedHashMap:LinkedHashMap继承自HashMap，所以它的底层是数组+链表+红黑树，并且加了一条双向链表。</li>
+<li>Hashtable:数组+链表组成的，数组是Hashtable的主体，链表则主要是为了解决哈希冲突而存在的。</li>
+<li>TreeMap:红黑树(自平衡的排序二叉树)。</li>
+</ul>
+<h4 id="如何选用集合">如何选用集合？
+</h4><ul>
+<li>根据键值获取元素值时就选用Map接口下的集合，需要排序时选择TreeMap，不需要排序时就选择HashMap，需要保证线程安全就选用ConcurrentHashMap。</li>
+<li>我们只需要存放元素值时，就选择实现Collection接口的集合，需要保证元素唯一时选择实现Set接口的集合比如TreeSet或HashSet，不需要就选择实现List接口的比如ArrayList或LinkedList，然后根据实现这些接口的集合的特点来选用。</li>
+</ul>
+<h4 id="为啥要使用集合">为啥要使用集合？
+</h4><p>根据我们开发时存储的形式是各种各样的，传统的数组已经不能满足这个需求，我们需要一个容器能过够存储各种各样的，这就是集合。</p>
+<h4 id="arraylist和array数组的区别">ArrayList和Array(数组)的区别
+</h4><ul>
+<li>ArrayList会根据实际存储元素动态地扩容或者缩容，而Array被创建之后就不能改变它的长度。</li>
+<li>ArrayList让你使用泛型来确保类型安全，Array则不可以。</li>
+<li>ArrayList提供了丰富的API操作方法，比如add()，remove()等。Array只是一个固定长度的数组，只能按照下标访问其中的元素或者增强循环访问其中的元素，不具有动态添加，删除元素的能力</li>
+<li>ArrayList创建时不需要指定大小，而Array创建时必须指定大小。</li>
+<li>ArrayList只能存储对象，而Array都可以存(基本数据类型和对象)</li>
+</ul>
+<h4 id="arraylist和vector的区别">ArrayList和Vector的区别
+</h4><ul>
+<li>ArrayList是List接口的主要实现类，线程不安全，用于单线程且查询频繁的场景(线程不安全)。</li>
+<li>Vector用于多线程，它是线程安全的。</li>
+</ul>
+<h4 id="vector和stack的区别">Vector和Stack的区别
+</h4><ul>
+<li>Vector和Stack两者都是线程安全的，都是使用synchronized关键字进行同步处理。</li>
+<li>Stack继承自Vector，是一个后进后出的栈，而Vector是一个列表。</li>
+</ul>
+<p>随着 Java 并发编程的发展，Vector 和 Stack 已经被淘汰，推荐使用并发集合类（例如 ConcurrentHashMap、CopyOnWriteArrayList 等）或者手动实现线程安全的方法来提供安全的多线程操作支持。</p>
+<h4 id="arraylist可以添加null值吗">ArrayList可以添加null值吗
+</h4><p>ArrayList可以存储任何类型的对象，包括null值。不过，不建议向ArrayList中添加null值，null值毫无意义，会让代码难以维护比如忘记做判空处理就会导致空指针异常。</p>
+<h4 id="arraylist插入和删除元素的时间复杂度">ArrayList插入和删除元素的时间复杂度
+</h4><p>对于插入</p>
+<ul>
+<li>头部插入:对于在头部插入的，要往后移动n个元素，所以时间复杂度为O(n)</li>
+<li>尾部插入: 对于在尾部插入的，如果不扩容的话，时间复杂度位O(1)，如果扩容的话，时间复杂度为O(n)</li>
+<li>指定位置插入:需要将目标位置之后的所有元素都往后移动一个位置，然后再把新元素放入指定位置，这个元素需要移动平均n/2个元素，因此时间复杂度为O(n)</li>
+</ul>
+<p>对于删除:</p>
+<ul>
+<li>头部删除:O(n)</li>
+<li>尾部删除:O(1)</li>
+<li>指定位置删除:O(n)</li>
+</ul>
+<p>总结:这种的话可以直接从数组的角度来分析时间复杂度</p>
+<h4 id="linkedlist插入和删除元素的时间复杂度是多少">LinkedList插入和删除元素的时间复杂度是多少
+</h4><ul>
+<li>头部插入/删除:O(1)</li>
+<li>尾部插入/删除:O(1)</li>
+<li>指定位置插入/删除:O(n)</li>
+</ul>
+<p>总结:这种的话可以根据双向链表来分析时间复杂度。</p>
+<h4 id="linkedlist为啥不能实现randomaccess接口">LinkedList为啥不能实现RandomAccess接口
+</h4><p>RandomAccess(是一个标记接口)就是用来表明实现该接口的类支持随机访问(即索引访问)，而LinkedList底层是链表，内存不一定连续，是不支持随机访问(即索引访问)的，所以不能实现RandomAccess这个接口。</p>
+<h4 id="arraylist与linkedlist区别">ArrayList与LinkedList区别
+</h4><ul>
+<li>是否线程安全，两者都是不安全的，在多线程的情况下都不是安全的。</li>
+<li>时间复杂度: ArrayList的底层是动态数组，LinkedList的底层是链表，可以从这个底层来进行分析。</li>
+<li>内存占用:有于LinkedList得存下一个节点的地址，所以LinkedList所占的内存偏大。</li>
+<li>是否支持随机访问，ArrayList支持随机访问，LinkedList不支持随机访问。</li>
+<li>使用场景，ArrayList用于大多数场景。因此建议能用ArrayList就用ArrayList。</li>
+</ul>
+<h4 id="arraylist的扩容机制">ArrayList的扩容机制
+</h4><ul>
+<li>
+<p>当 ArrayList 中的元素数量超过其当前容量时，会触发扩容机制。默认情况下，ArrayList 的初始容量为 10。</p>
+</li>
+<li>
+<p>当发生扩容时，ArrayList 会创建一个新的数组，其容量为原数组的 1.5 倍（即 oldCapacity + (oldCapacity &raquo; 1)），然后将原数组中的元素复制到新数组中。</p>
+</li>
+<li>
+<p>复制过程是通过 Arrays.copyOf() 方法实现的。</p>
+</li>
+</ul>
+<p>源码分析(add方法):</p>
+<ul>
+<li>1.首先会进入add方法，在add方法中首先判断(size + 1)是否需要扩容，如果需要则扩容，然后赋值。</li>
+<li>2.判断扩容在ensureCapacityInternal这个函数，这个函数内部会调用ensureExplicitCapacity，如果(minCapacity - elementData.length &gt; 0)即容量不够了，则会调用grow方法。</li>
+<li>3.grow即是核心方法，grow方法中首先将旧的容量扩容成1.5倍，与minCapacity进行比较，如果小于，则新的容量为minCapacity,然后进行(newCapacity - MAX_ARRAY_SIZE &gt; 0)，然后进行 <strong>return (minCapacity &gt; MAX_ARRAY_SIZE) ? Integer.MAX_VALUE :MAX_ARRAY_SIZE;</strong></li>
+<li>4.最终通过 Arrays.copyOf(elementData, newCapacity); 复制老数组的数据到新数组，完成扩容。</li>
+</ul>
+<h4 id="comparable和comparator的区别">Comparable和Comparator的区别
+</h4><ul>
+<li>Comparable接口出自java.lang包，它有一个compareTo(Object obj)方法用来排序。</li>
+<li>Comparator接口出自java.util包，它有一个compare(Object obj1, Object obj2)</li>
+</ul>
 
 </section>
 
