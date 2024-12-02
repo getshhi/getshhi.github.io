@@ -44,7 +44,7 @@
         <pubDate>Wed, 09 Oct 2024 12:20:39 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</guid>
-        <description>&lt;h3 id=&#34;下面是我弄的思维导图&#34;&gt;下面是我弄的思维导图
+        <description>&lt;img src="https://getshhi.github.io/jk7.png" alt="Featured image of post 计算机操作系统思维导图" /&gt;&lt;h3 id=&#34;下面是我弄的思维导图&#34;&gt;下面是我弄的思维导图
 &lt;/h3&gt;&lt;h4 id=&#34;大致图片&#34;&gt;大致图片
 &lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://getshhi.github.io/os.png&#34;
 	
@@ -75,7 +75,7 @@
         <pubDate>Thu, 03 Oct 2024 11:25:04 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0%E5%8A%9B%E6%89%A3/</guid>
-        <description>&lt;h3 id=&#34;题目分析&#34;&gt;题目分析
+        <description>&lt;img src="https://getshhi.github.io/jk8.png" alt="Featured image of post 完全二叉树的节点个数(力扣)" /&gt;&lt;h3 id=&#34;题目分析&#34;&gt;题目分析
 &lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/count-complete-tree-nodes/description/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;力扣题目链接&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;要统计二叉树的节点个数，一般是编历一遍二叉树直接统计(可以用后序遍历或者层序遍历，这里就不说了)。&lt;/p&gt;
