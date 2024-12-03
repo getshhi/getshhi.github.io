@@ -7,7 +7,38 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>JZH-letere</copyright>
-        <lastBuildDate>Sat, 30 Nov 2024 16:37:58 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 03 Dec 2024 17:32:54 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Java集合(2)</title>
+        <link>https://getshhi.github.io/p/java%E9%9B%86%E5%90%882/</link>
+        <pubDate>Tue, 03 Dec 2024 17:32:54 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/java%E9%9B%86%E5%90%882/</guid>
+        <description>&lt;img src="https://getshhi.github.io/kj2.png" alt="Featured image of post Java集合(2)" /&gt;&lt;h4 id=&#34;hashmap和hashtable的区别&#34;&gt;HashMap和Hashtable的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;线程是否安全，HashMap的线程是不安全的，Hashtable的线程是安全的。&lt;/li&gt;
+&lt;li&gt;效率:因为线程安全的问题，HashMap要比Hashtable的效率高一点。另外，Hashtable被淘汰了。&lt;/li&gt;
+&lt;li&gt;HashMap可以有一个null键和多个null值，但HashTable不允许有null键和null值。&lt;/li&gt;
+&lt;li&gt;哈希函数的实现: HashMap对哈希值进行了高位和低位的混合扰动处理以减少冲突，而Hashtable直接使用键的hashCode()值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;hashmap和hashset的区别&#34;&gt;HashMap和HashSet的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;HashMap存储键值对，HashSet仅仅存储对象。&lt;/li&gt;
+&lt;li&gt;HashMap实现Map接口，HashSet实现了Set接口。&lt;/li&gt;
+&lt;li&gt;HashMap调用put()向map添加元素，HashSet调用add()方法向Set中添加元素。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;hashmap和treemap的区别&#34;&gt;HashMap和TreeMap的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;相对于HashMap实现了AbstractMap，TreeMap还实现了NaivgableMap接口和SortedMap接口。&lt;/li&gt;
+&lt;li&gt;实现的Naivgable让TreeMap有了对集合内元素的搜索的能力&lt;/li&gt;
+&lt;li&gt;实现SortedMap接口让TreeMap有了对集合中的元素根据键排序的能力&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;hashset如何检查重复&#34;&gt;HashSet如何检查重复
+&lt;/h4&gt;&lt;p&gt;当你把对象加入HashSet时，HashSet 会先计算对象的hashcode值来判断对象加入的位置，同时也会与其他加入的对象的 hashcode 值作比较，如果没有相符的 hashcode，HashSet 会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用equals()方法来检查 hashcode 相等的对象是否真的相同。如果两者相同，HashSet 就不会让加入操作成功。&lt;/p&gt;
+&lt;h4 id=&#34;hashmap的底层实现&#34;&gt;HashMap的底层实现
+&lt;/h4&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;&#34; &gt;HashMap的底层代码分析与实现&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>MySql的基本用法</title>
         <link>https://getshhi.github.io/p/mysql%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</link>
         <pubDate>Sat, 30 Nov 2024 16:37:58 +0800</pubDate>

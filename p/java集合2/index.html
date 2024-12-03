@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Docker出现的问题解决">
-<title>在Linux上部署Docker的代理</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="HashMap和Hashtable的区别 线程是否安全，HashMap的线程是不安全的，Hashtable的线程是安全的。 效率:因为线程安全的问题，HashMap要比Hashtable的效率高一点。另外，Hashtable被淘汰了。 HashMap可以有一个null键和多个null值，但HashTable不允许有null键和null值。 哈希函数的实现: HashMap对哈希值进行了高位和低位的混合扰动处理以减少冲突，而Hashtable直接使用键的hashCode()值。 HashMap和HashSet的区别 HashMap存储键值对，HashSet仅仅存储对象。 HashMap实现Map接口，HashSet实现了Set接口。 HashMap调用put()向map添加元素，HashSet调用add()方法向Set中添加元素。 HashMap和TreeMap的区别 相对于HashMap实现了AbstractMap，TreeMap还实现了NaivgableMap接口和SortedMap接口。 实现的Naivgable让TreeMap有了对集合内元素的搜索的能力 实现SortedMap接口让TreeMap有了对集合中的元素根据键排序的能力 HashSet如何检查重复 当你把对象加入HashSet时，HashSet 会先计算对象的hashcode值来判断对象加入的位置，同时也会与其他加入的对象的 hashcode 值作比较，如果没有相符的 hashcode，HashSet 会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用equals()方法来检查 hashcode 相等的对象是否真的相同。如果两者相同，HashSet 就不会让加入操作成功。\n">
+<title>Java集合(2)</title>
 
-<link rel='canonical' href='https://getshhi.github.io/p/%E5%9C%A8linux%E4%B8%8A%E9%83%A8%E7%BD%B2docker%E7%9A%84%E4%BB%A3%E7%90%86/'>
+<link rel='canonical' href='https://getshhi.github.io/p/java%E9%9B%86%E5%90%882/'>
 
-<link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="在Linux上部署Docker的代理">
-<meta property='og:description' content="Docker出现的问题解决">
-<meta property='og:url' content='https://getshhi.github.io/p/%E5%9C%A8linux%E4%B8%8A%E9%83%A8%E7%BD%B2docker%E7%9A%84%E4%BB%A3%E7%90%86/'>
+<link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="Java集合(2)">
+<meta property='og:description' content="HashMap和Hashtable的区别 线程是否安全，HashMap的线程是不安全的，Hashtable的线程是安全的。 效率:因为线程安全的问题，HashMap要比Hashtable的效率高一点。另外，Hashtable被淘汰了。 HashMap可以有一个null键和多个null值，但HashTable不允许有null键和null值。 哈希函数的实现: HashMap对哈希值进行了高位和低位的混合扰动处理以减少冲突，而Hashtable直接使用键的hashCode()值。 HashMap和HashSet的区别 HashMap存储键值对，HashSet仅仅存储对象。 HashMap实现Map接口，HashSet实现了Set接口。 HashMap调用put()向map添加元素，HashSet调用add()方法向Set中添加元素。 HashMap和TreeMap的区别 相对于HashMap实现了AbstractMap，TreeMap还实现了NaivgableMap接口和SortedMap接口。 实现的Naivgable让TreeMap有了对集合内元素的搜索的能力 实现SortedMap接口让TreeMap有了对集合中的元素根据键排序的能力 HashSet如何检查重复 当你把对象加入HashSet时，HashSet 会先计算对象的hashcode值来判断对象加入的位置，同时也会与其他加入的对象的 hashcode 值作比较，如果没有相符的 hashcode，HashSet 会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用equals()方法来检查 hashcode 相等的对象是否真的相同。如果两者相同，HashSet 就不会让加入操作成功。\n">
+<meta property='og:url' content='https://getshhi.github.io/p/java%E9%9B%86%E5%90%882/'>
 <meta property='og:site_name' content='JZH-letere'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='docker' /><meta property='article:published_time' content='2024-10-02T11:46:05&#43;08:00'/><meta property='article:modified_time' content='2024-10-02T11:46:05&#43;08:00'/><meta property='og:image' content='https://getshhi.github.io/jk9.png' />
-<meta name="twitter:title" content="在Linux上部署Docker的代理">
-<meta name="twitter:description" content="Docker出现的问题解决"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://getshhi.github.io/jk9.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2024-12-03T17:32:54&#43;08:00'/><meta property='article:modified_time' content='2024-12-03T17:32:54&#43;08:00'/><meta property='og:image' content='https://getshhi.github.io/kj2.png' />
+<meta name="twitter:title" content="Java集合(2)">
+<meta name="twitter:description" content="HashMap和Hashtable的区别 线程是否安全，HashMap的线程是不安全的，Hashtable的线程是安全的。 效率:因为线程安全的问题，HashMap要比Hashtable的效率高一点。另外，Hashtable被淘汰了。 HashMap可以有一个null键和多个null值，但HashTable不允许有null键和null值。 哈希函数的实现: HashMap对哈希值进行了高位和低位的混合扰动处理以减少冲突，而Hashtable直接使用键的hashCode()值。 HashMap和HashSet的区别 HashMap存储键值对，HashSet仅仅存储对象。 HashMap实现Map接口，HashSet实现了Set接口。 HashMap调用put()向map添加元素，HashSet调用add()方法向Set中添加元素。 HashMap和TreeMap的区别 相对于HashMap实现了AbstractMap，TreeMap还实现了NaivgableMap接口和SortedMap接口。 实现的Naivgable让TreeMap有了对集合内元素的搜索的能力 实现SortedMap接口让TreeMap有了对集合中的元素根据键排序的能力 HashSet如何检查重复 当你把对象加入HashSet时，HashSet 会先计算对象的hashcode值来判断对象加入的位置，同时也会与其他加入的对象的 hashcode 值作比较，如果没有相符的 hashcode，HashSet 会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用equals()方法来检查 hashcode 相等的对象是否真的相同。如果两者相同，HashSet 就不会让加入操作成功。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://getshhi.github.io/kj2.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -232,9 +232,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/%E5%9C%A8linux%E4%B8%8A%E9%83%A8%E7%BD%B2docker%E7%9A%84%E4%BB%A3%E7%90%86/">
+            <a href="/p/java%E9%9B%86%E5%90%882/">
                 
-                    <img src="/jk9.png" loading="lazy" alt="Featured image of post 在Linux上部署Docker的代理" />
+                    <img src="/kj2.png" loading="lazy" alt="Featured image of post Java集合(2)" />
                 
             </a>
         </div>
@@ -253,13 +253,9 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/%E5%9C%A8linux%E4%B8%8A%E9%83%A8%E7%BD%B2docker%E7%9A%84%E4%BB%A3%E7%90%86/">在Linux上部署Docker的代理</a>
+            <a href="/p/java%E9%9B%86%E5%90%882/">Java集合(2)</a>
         </h2>
     
-        
-        <h3 class="article-subtitle">
-            Docker出现的问题解决
-        </h3>
         
     </div>
     
@@ -278,7 +274,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2024-10-02</time>
+                <time class="article-time--published">2024-12-03</time>
             </div>
         
         
@@ -296,7 +292,7 @@
                 </time>
             </div>
         
-        <span class="post-word-count">793 words</span>
+        <span class="post-word-count">730 words</span>
     </footer>
     
     
@@ -307,124 +303,29 @@
     <section class="article-content">
     
     
-    <h4 id="docker的代理解决">docker的代理解决
-</h4><p>这几天在docker的代理上搞了好几天，我看网上弄的教程不是太全，因此搞了好了几天才成功，特意写这个给那些有着相同的问题提供解决方案和总结自己犯过的错误。</p>
-<h5 id="clash教程">clash教程
-</h5><p>首先打开clash,进入常规,然后打开局域网连接,我的端口为7890。
-<img src="/clash.jpg"
-	
-	
-	
-	loading="lazy"
-	
-		alt="图片"
-	
-	
->
-然后window键加r打开控制台输入ipconfig获取虚拟机的ip地址
-<img src="/vm.jpg"
-	
-	
-	
-	loading="lazy"
-	
-		alt="图片"
-	
-	
-></p>
-<h5 id="v2rayn教程">v2rayN教程
-</h5><p>首先打开v2rayN,进入设置，点参数设置，然后允许局域网连接(这个是在系统代理的前提上弄的)一般端口为10811
-<img src="/v2ray.jpg"
-	
-	
-	
-	loading="lazy"
-	
-		alt="图片"
-	
-	
->
-然后window键加r打开控制台输入ipconfig获取虚拟机的ip地址
-<img src="/vm.jpg"
-	
-	
-	
-	loading="lazy"
-	
-		alt="图片"
-	
-	
-></p>
-<h5 id="最后一步这一步都是一样的对于这两个不同软件的代理">最后一步(这一步都是一样的(对于这两个不同软件的代理))
-</h5><p>docker命令
-我们在docker的进程服务文件夹配置我们的代理设置，如果没有我们就新建这个文件夹：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo mkdir /etc/systemd/system/docker.service.d
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>然后在docker.service.d文件夹里新建我们的代理文件proxy.conf</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo vim /etc/systemd/system/docker.service.d/proxy.conf
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>并把文件写如下面这个格式：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[Service] 
-</span></span><span class="line"><span class="cl">Environment=&#34;HTTP_PROXY=代理服务器ip:port&#34; 
-</span></span><span class="line"><span class="cl">Environment=&#34;HTTPS_PROXY=代理服务器ip:port&#34;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>保存并退出proxy.conf文件，和更改镜像源一样，重启docker，并重启daemon进程。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">daemon</span><span class="o">-</span><span class="n">reload</span>		<span class="c1">#重启daemon进程</span>
-</span></span><span class="line"><span class="cl"><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">docker</span>		<span class="c1">#重启docker</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>最后我们仍然是验证一下是否修改成功，运行</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker info
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在长串info信息中如果出现类似下文的内容：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> HTTP Proxy: 代理服务器ip:port
-</span></span><span class="line"><span class="cl"> HTTPS Proxy: 代理服务器ip:port
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>好了，可以拉取镜像了😁</p>
-<p>本文引自<a class="link" href="https://blog.csdn.net/Lichen0196/article/details/137355517"  target="_blank" rel="noopener"
-    >https://blog.csdn.net/Lichen0196/article/details/137355517</a>,<a class="link" href="https://blog.csdn.net/weixin_46264846/article/details/142363390"  target="_blank" rel="noopener"
-    >https://blog.csdn.net/weixin_46264846/article/details/142363390</a>
-,<a class="link" href="https://www.jianshu.com/p/6c7abd4adc9b"  target="_blank" rel="noopener"
-    >https://www.jianshu.com/p/6c7abd4adc9b</a></p>
+    <h4 id="hashmap和hashtable的区别">HashMap和Hashtable的区别
+</h4><ul>
+<li>线程是否安全，HashMap的线程是不安全的，Hashtable的线程是安全的。</li>
+<li>效率:因为线程安全的问题，HashMap要比Hashtable的效率高一点。另外，Hashtable被淘汰了。</li>
+<li>HashMap可以有一个null键和多个null值，但HashTable不允许有null键和null值。</li>
+<li>哈希函数的实现: HashMap对哈希值进行了高位和低位的混合扰动处理以减少冲突，而Hashtable直接使用键的hashCode()值。</li>
+</ul>
+<h4 id="hashmap和hashset的区别">HashMap和HashSet的区别
+</h4><ul>
+<li>HashMap存储键值对，HashSet仅仅存储对象。</li>
+<li>HashMap实现Map接口，HashSet实现了Set接口。</li>
+<li>HashMap调用put()向map添加元素，HashSet调用add()方法向Set中添加元素。</li>
+</ul>
+<h4 id="hashmap和treemap的区别">HashMap和TreeMap的区别
+</h4><ul>
+<li>相对于HashMap实现了AbstractMap，TreeMap还实现了NaivgableMap接口和SortedMap接口。</li>
+<li>实现的Naivgable让TreeMap有了对集合内元素的搜索的能力</li>
+<li>实现SortedMap接口让TreeMap有了对集合中的元素根据键排序的能力</li>
+</ul>
+<h4 id="hashset如何检查重复">HashSet如何检查重复
+</h4><p>当你把对象加入HashSet时，HashSet 会先计算对象的hashcode值来判断对象加入的位置，同时也会与其他加入的对象的 hashcode 值作比较，如果没有相符的 hashcode，HashSet 会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用equals()方法来检查 hashcode 相等的对象是否真的相同。如果两者相同，HashSet 就不会让加入操作成功。</p>
+<h4 id="hashmap的底层实现">HashMap的底层实现
+</h4><p><a class="link" href="" >HashMap的底层代码分析与实现</a></p>
 
 </section>
 
@@ -433,7 +334,7 @@
     
     <section class="article-tags">
         
-            <a href="/tags/docker/">Docker</a>
+            <a href="/tags/java/">Java</a>
         
     </section>
 
@@ -476,25 +377,6 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
-            
-                
-<article class="has-image">
-    <a href="/p/java%E9%9B%86%E5%90%882/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/kj2.png" loading="lazy" data-key="" data-hash="/kj2.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Java集合(2)</h2>
-        </div>
-    </a>
-</article>
-
             
                 
 <article class="has-image">
@@ -567,6 +449,25 @@
 
         <div class="article-details">
             <h2 class="article-title">Java基础(2)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/java%E5%9F%BA%E7%A1%801/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/jk5.png" loading="lazy" data-key="" data-hash="/jk5.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java基础(1)</h2>
         </div>
     </a>
 </article>
