@@ -35,7 +35,8 @@
 &lt;h4 id=&#34;hashset如何检查重复&#34;&gt;HashSet如何检查重复
 &lt;/h4&gt;&lt;p&gt;当你把对象加入HashSet时，HashSet 会先计算对象的hashcode值来判断对象加入的位置，同时也会与其他加入的对象的 hashcode 值作比较，如果没有相符的 hashcode，HashSet 会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用equals()方法来检查 hashcode 相等的对象是否真的相同。如果两者相同，HashSet 就不会让加入操作成功。&lt;/p&gt;
 &lt;h4 id=&#34;hashmap的底层实现&#34;&gt;HashMap的底层实现
-&lt;/h4&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;&#34; &gt;HashMap的底层代码分析与实现&lt;/a&gt;&lt;/p&gt;
+&lt;/h4&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://getshhi.github.io/p/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%BB%E7%BB%93&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;HashMap的底层代码分析与实现&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
