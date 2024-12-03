@@ -13,7 +13,7 @@
         <pubDate>Wed, 02 Oct 2024 11:46:05 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/%E5%9C%A8linux%E4%B8%8A%E9%83%A8%E7%BD%B2docker%E7%9A%84%E4%BB%A3%E7%90%86/</guid>
-        <description>&lt;h4 id=&#34;docker的代理解决&#34;&gt;docker的代理解决
+        <description>&lt;img src="https://getshhi.github.io/jk9.png" alt="Featured image of post 在Linux上部署Docker的代理" /&gt;&lt;h4 id=&#34;docker的代理解决&#34;&gt;docker的代理解决
 &lt;/h4&gt;&lt;p&gt;这几天在docker的代理上搞了好几天，我看网上弄的教程不是太全，因此搞了好了几天才成功，特意写这个给那些有着相同的问题提供解决方案和总结自己犯过的错误。&lt;/p&gt;
 &lt;h5 id=&#34;clash教程&#34;&gt;clash教程
 &lt;/h5&gt;&lt;p&gt;首先打开clash,进入常规,然后打开局域网连接,我的端口为7890。
