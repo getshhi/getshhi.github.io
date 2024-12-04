@@ -288,11 +288,11 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
-        <span class="post-word-count">730 words</span>
+        <span class="post-word-count">1231 words</span>
     </footer>
     
     
@@ -327,6 +327,22 @@
 <h4 id="hashmap的底层实现">HashMap的底层实现
 </h4><p><a class="link" href="https://getshhi.github.io/p/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%BB%E7%BB%93"  target="_blank" rel="noopener"
     >HashMap的底层代码分析与实现</a></p>
+<h4 id="hashmap的长度为啥是2的幂次方">HashMap的长度为啥是2的幂次方
+</h4><ul>
+<li>位运算效率更高: 位运算(&amp;)比取余运算(%)更高效。当长度为2的幂次方相较于%length，&amp;(length - 1)等价。</li>
+<li>可以更好地保证哈希值的均匀分布:扩容之后，在旧数组元素hash值比较均匀的情况下，新数组元素也会被分配的比较均匀。</li>
+<li>对于每次的扩容，不需要其他的操作，仅仅需要根据高危的变化进行重新分配(如果高位是1，则原位置 + 扩容的容量，高位是0，则位置不变)。</li>
+</ul>
+<h4 id="hashmap多线程操作导致死循环问题">HashMap多线程操作导致死循环问题
+</h4><ul>
+<li>JDK1.7及之前的版本导致的死循环问题的原因是当一个桶位中有多个元素需要进行扩容时，多个线程同时对链表进行操作，头插法可能会导致链表中的节点指向错误的位置，从而形成一个环形链表，进而使得查询元素的操作陷入死循环无法结束。</li>
+<li>而对于HashMap会出现数据覆盖的结果，所以在多线程也不推荐HashMap。</li>
+</ul>
+<h4 id="hashmap为啥线程不安全">HashMap为啥线程不安全
+</h4><ul>
+<li>两个线程同时put操作导致size的值不正确，进而导致数据覆盖的问题</li>
+<li>在 HashMap 中，多个键值对可能会被分配到同一个桶（bucket），并以链表或红黑树的形式存储。多个线程对 HashMap 的 put 操作会导致线程不安全，具体来说会有数据覆盖的风险。</li>
+</ul>
 
 </section>
 
