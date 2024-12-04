@@ -1718,7 +1718,7 @@ jvm 会将其存入字符串常量池。并且，字符串常量拼接得到的�
         <pubDate>Fri, 27 Sep 2024 12:33:05 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/javaweb/</guid>
-        <description>&lt;h3 id=&#34;java的网络编程&#34;&gt;Java的网络编程
+        <description>&lt;img src="https://getshhi.github.io/kj3.png" alt="Featured image of post JavaWeb" /&gt;&lt;h3 id=&#34;java的网络编程&#34;&gt;Java的网络编程
 &lt;/h3&gt;&lt;h4 id=&#34;1java网络编程的基本概念&#34;&gt;1.Java网络编程的基本概念
 &lt;/h4&gt;&lt;p&gt;IP 地址：用于标识网络中的计算机。&lt;/p&gt;
 &lt;p&gt;端口号：用于标识计算机上的具体应用程序或进程。&lt;/p&gt;
