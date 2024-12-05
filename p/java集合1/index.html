@@ -292,7 +292,7 @@
                 </time>
             </div>
         
-        <span class="post-word-count">4585 words</span>
+        <span class="post-word-count">4605 words</span>
     </footer>
     
     
@@ -442,7 +442,7 @@
 <ul>
 <li>1.首先会进入add方法，在add方法中首先判断(size + 1)是否需要扩容，如果需要则扩容，然后赋值。</li>
 <li>2.判断扩容在ensureCapacityInternal这个函数，这个函数内部会调用ensureExplicitCapacity，如果(minCapacity - elementData.length &gt; 0)即容量不够了，则会调用grow方法。</li>
-<li>3.grow即是核心方法，grow方法中首先将旧的容量扩容成1.5倍，与minCapacity进行比较，如果小于，则新的容量为minCapacity,然后进行(newCapacity - MAX_ARRAY_SIZE &gt; 0)，然后进行 <strong>return (minCapacity &gt; MAX_ARRAY_SIZE) ? Integer.MAX_VALUE :MAX_ARRAY_SIZE;</strong></li>
+<li>3.grow即是核心方法，grow方法中首先将旧的容量扩容成1.5倍，与minCapacity进行比较，如果小于，则新的容量为minCapacity,然后进行(newCapacity - MAX_ARRAY_SIZE &gt; 0)，然后进行 <strong>return (minCapacity &gt; MAX_ARRAY_SIZE) ? Integer.MAX_VALUE :MAX_ARRAY_SIZE;</strong>。</li>
 <li>4.最终通过 Arrays.copyOf(elementData, newCapacity); 复制老数组的数据到新数组，完成扩容。</li>
 </ul>
 <h4 id="comparable和comparator的区别">Comparable和Comparator的区别
@@ -452,13 +452,13 @@
 </ul>
 <h4 id="无序性和不可重复性的含义是啥">无序性和不可重复性的含义是啥
 </h4><ul>
-<li>无序性指的数组的元素的添加不是按照数组索引的顺序来进行添加的，而是按照根据数值的哈希值来进行加的</li>
+<li>无序性指的数组的元素的添加不是按照数组索引的顺序来进行添加的，而是按照根据数值的哈希值来进行加的。</li>
 <li>不可重复性指的是equals()判断时，返回false，必须重写equals()和hashcode()方法。</li>
 </ul>
 <h4 id="比较hashsetlikedhashset和treeset三者的异同">比较HashSet，LikedHashSet和TreeSet三者的异同
 </h4><ul>
-<li>相同点:这三者都只能存储不重复的元素，这三者都是线程不安全的</li>
-<li>不同点:内部数据结构不同，HashSet的底层是基于HashMap实现的，底层的数据结构跟HashMap的一样，数组+链表+红黑树，而LinkedHashSet的底层是LinkedHashMap，底层是数组+链表(双向链表)+红黑树，TreeSet的底层是TreeMap的，底层的数据结构为红黑树(一种自平衡的树)</li>
+<li>相同点:这三者都只能存储不重复的元素，这三者都是线程不安全的。</li>
+<li>不同点:内部数据结构不同，HashSet的底层是基于HashMap实现的，底层的数据结构跟HashMap的一样，数组+链表+红黑树，而LinkedHashSet的底层是LinkedHashMap，底层是数组+链表(双向链表)+红黑树，TreeSet的底层是TreeMap的，底层的数据结构为红黑树(一种自平衡的树)。</li>
 <li>应用场景不同，HashSet常常用于不需要保证元素插入和取出顺序的场景，LinkedHashSet用于保证元素的插入和取出顺序满足FIFO的场景，TreeSet用于支持对元素自定义排序规则的场景。</li>
 </ul>
 <h4 id="queue与deque的区别">Queue与Deque的区别
@@ -483,7 +483,7 @@
 </ul>
 <h4 id="blockingqueue的实现类有哪些">BlockingQueue的实现类有哪些
 </h4><ul>
-<li>ArrayBlockingQueue和LinkedBlockingQueue</li>
+<li>ArrayBlockingQueue和LinkedBlockingQueue。</li>
 </ul>
 <h4 id="arrayblockingqueue和linkedblockingqueue有啥区别">ArrayBlockingQueue和LinkedBlockingQueue有啥区别？
 </h4><ul>
@@ -563,25 +563,6 @@
             
                 
 <article class="has-image">
-    <a href="/p/mysql%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/jk1.png" loading="lazy" data-key="" data-hash="/jk1.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">MySql的基本用法</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
     <a href="/p/java%E5%9F%BA%E7%A1%803/">
         
         
@@ -632,6 +613,25 @@
 
         <div class="article-details">
             <h2 class="article-title">Java基础(1)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%BB%E7%BB%93/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/jk6.png" loading="lazy" data-key="" data-hash="/jk6.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">HashMap的实现原理与总结</h2>
         </div>
     </a>
 </article>

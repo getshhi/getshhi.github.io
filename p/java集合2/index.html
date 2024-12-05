@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="HashMap和Hashtable的区别 线程是否安全，HashMap的线程是不安全的，Hashtable的线程是安全的。 效率:因为线程安全的问题，HashMap要比Hashtable的效率高一点。另外，Hashtable被淘汰了。 HashMap可以有一个null键和多个null值，但HashTable不允许有null键和null值。 哈希函数的实现: HashMap对哈希值进行了高位和低位的混合扰动处理以减少冲突，而Hashtable直接使用键的hashCode()值。 HashMap和HashSet的区别 HashMap存储键值对，HashSet仅仅存储对象。 HashMap实现Map接口，HashSet实现了Set接口。 HashMap调用put()向map添加元素，HashSet调用add()方法向Set中添加元素。 HashMap和TreeMap的区别 相对于HashMap实现了AbstractMap，TreeMap还实现了NaivgableMap接口和SortedMap接口。 实现的Naivgable让TreeMap有了对集合内元素的搜索的能力 实现SortedMap接口让TreeMap有了对集合中的元素根据键排序的能力 HashSet如何检查重复 当你把对象加入HashSet时，HashSet 会先计算对象的hashcode值来判断对象加入的位置，同时也会与其他加入的对象的 hashcode 值作比较，如果没有相符的 hashcode，HashSet 会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用equals()方法来检查 hashcode 相等的对象是否真的相同。如果两者相同，HashSet 就不会让加入操作成功。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="HashMap和Hashtable的区别\nHashMap和HashSet的区别\nHashMap和TreeMap的区别\n">
 <title>Java集合(2)</title>
 
 <link rel='canonical' href='https://getshhi.github.io/p/java%E9%9B%86%E5%90%882/'>
 
 <link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="Java集合(2)">
-<meta property='og:description' content="HashMap和Hashtable的区别 线程是否安全，HashMap的线程是不安全的，Hashtable的线程是安全的。 效率:因为线程安全的问题，HashMap要比Hashtable的效率高一点。另外，Hashtable被淘汰了。 HashMap可以有一个null键和多个null值，但HashTable不允许有null键和null值。 哈希函数的实现: HashMap对哈希值进行了高位和低位的混合扰动处理以减少冲突，而Hashtable直接使用键的hashCode()值。 HashMap和HashSet的区别 HashMap存储键值对，HashSet仅仅存储对象。 HashMap实现Map接口，HashSet实现了Set接口。 HashMap调用put()向map添加元素，HashSet调用add()方法向Set中添加元素。 HashMap和TreeMap的区别 相对于HashMap实现了AbstractMap，TreeMap还实现了NaivgableMap接口和SortedMap接口。 实现的Naivgable让TreeMap有了对集合内元素的搜索的能力 实现SortedMap接口让TreeMap有了对集合中的元素根据键排序的能力 HashSet如何检查重复 当你把对象加入HashSet时，HashSet 会先计算对象的hashcode值来判断对象加入的位置，同时也会与其他加入的对象的 hashcode 值作比较，如果没有相符的 hashcode，HashSet 会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用equals()方法来检查 hashcode 相等的对象是否真的相同。如果两者相同，HashSet 就不会让加入操作成功。\n">
+<meta property='og:description' content="HashMap和Hashtable的区别\nHashMap和HashSet的区别\nHashMap和TreeMap的区别\n">
 <meta property='og:url' content='https://getshhi.github.io/p/java%E9%9B%86%E5%90%882/'>
 <meta property='og:site_name' content='JZH-letere'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2024-12-03T17:32:54&#43;08:00'/><meta property='article:modified_time' content='2024-12-03T17:32:54&#43;08:00'/><meta property='og:image' content='https://getshhi.github.io/kj2.png' />
 <meta name="twitter:title" content="Java集合(2)">
-<meta name="twitter:description" content="HashMap和Hashtable的区别 线程是否安全，HashMap的线程是不安全的，Hashtable的线程是安全的。 效率:因为线程安全的问题，HashMap要比Hashtable的效率高一点。另外，Hashtable被淘汰了。 HashMap可以有一个null键和多个null值，但HashTable不允许有null键和null值。 哈希函数的实现: HashMap对哈希值进行了高位和低位的混合扰动处理以减少冲突，而Hashtable直接使用键的hashCode()值。 HashMap和HashSet的区别 HashMap存储键值对，HashSet仅仅存储对象。 HashMap实现Map接口，HashSet实现了Set接口。 HashMap调用put()向map添加元素，HashSet调用add()方法向Set中添加元素。 HashMap和TreeMap的区别 相对于HashMap实现了AbstractMap，TreeMap还实现了NaivgableMap接口和SortedMap接口。 实现的Naivgable让TreeMap有了对集合内元素的搜索的能力 实现SortedMap接口让TreeMap有了对集合中的元素根据键排序的能力 HashSet如何检查重复 当你把对象加入HashSet时，HashSet 会先计算对象的hashcode值来判断对象加入的位置，同时也会与其他加入的对象的 hashcode 值作比较，如果没有相符的 hashcode，HashSet 会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用equals()方法来检查 hashcode 相等的对象是否真的相同。如果两者相同，HashSet 就不会让加入操作成功。\n"><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="HashMap和Hashtable的区别\nHashMap和HashSet的区别\nHashMap和TreeMap的区别\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://getshhi.github.io/kj2.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
@@ -288,11 +288,11 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 3 分钟
+                    阅读时长: 4 分钟
                 </time>
             </div>
         
-        <span class="post-word-count">1231 words</span>
+        <span class="post-word-count">1885 words</span>
     </footer>
     
     
@@ -303,7 +303,16 @@
     <section class="article-content">
     
     
-    <h4 id="hashmap和hashtable的区别">HashMap和Hashtable的区别
+    <p><a class="link" href="#hashmap%e5%92%8chashtable%e7%9a%84%e5%8c%ba%e5%88%ab" >HashMap和Hashtable的区别</a></p>
+<p><a class="link" href="#hashmap%e5%92%8chashset%e7%9a%84%e5%8c%ba%e5%88%ab" >HashMap和HashSet的区别</a></p>
+<p><a class="link" href="#hashmap%e5%92%8ctreemap%e7%9a%84%e5%8c%ba%e5%88%ab" >HashMap和TreeMap的区别</a></p>
+<p><a class="link" href="#hashset%e5%a6%82%e4%bd%95%e6%a3%80%e6%9f%a5%e9%87%8d%e5%a4%8d" >HashSet如何检查重复</a></p>
+<p><a class="link" href="#hashmap%e7%9a%84%e5%ba%95%e5%b1%82%e5%ae%9e%e7%8e%b0" >HashMap的底层实现</a></p>
+<p><a class="link" href="#hashmap%e7%9a%84%e9%95%bf%e5%ba%a6%e4%b8%ba%e5%95%a5%e6%98%af2%e7%9a%84%e5%b9%82%e6%ac%a1%e6%96%b9" >HashMap的长度为啥是2的幂次方</a></p>
+<p><a class="link" href="#hashmap%e5%a4%9a%e7%ba%bf%e7%a8%8b%e6%93%8d%e4%bd%9c%e5%af%bc%e8%87%b4%e6%ad%bb%e5%be%aa%e7%8e%af%e9%97%ae%e9%a2%98" >HashMap多线程操作导致死循环问题</a></p>
+<p><a class="link" href="#hashmap%e4%b8%ba%e5%95%a5%e7%ba%bf%e7%a8%8b%e4%b8%8d%e5%ae%89%e5%85%a8" >HashMap为啥线程不安全</a></p>
+<p><a class="link" href="#hashmap%e7%9a%84%e9%81%8d%e5%8e%86%e6%96%b9%e5%bc%8f%e6%9c%89%e5%93%aa%e4%ba%9b" >HashMap的遍历方式有哪些？</a></p>
+<h4 id="hashmap和hashtable的区别">HashMap和Hashtable的区别
 </h4><ul>
 <li>线程是否安全，HashMap的线程是不安全的，Hashtable的线程是安全的。</li>
 <li>效率:因为线程安全的问题，HashMap要比Hashtable的效率高一点。另外，Hashtable被淘汰了。</li>
@@ -319,8 +328,8 @@
 <h4 id="hashmap和treemap的区别">HashMap和TreeMap的区别
 </h4><ul>
 <li>相对于HashMap实现了AbstractMap，TreeMap还实现了NaivgableMap接口和SortedMap接口。</li>
-<li>实现的Naivgable让TreeMap有了对集合内元素的搜索的能力</li>
-<li>实现SortedMap接口让TreeMap有了对集合中的元素根据键排序的能力</li>
+<li>实现的Naivgable让TreeMap有了对集合内元素的搜索的能力。</li>
+<li>实现SortedMap接口让TreeMap有了对集合中的元素根据键排序的能力。</li>
 </ul>
 <h4 id="hashset如何检查重复">HashSet如何检查重复
 </h4><p>当你把对象加入HashSet时，HashSet 会先计算对象的hashcode值来判断对象加入的位置，同时也会与其他加入的对象的 hashcode 值作比较，如果没有相符的 hashcode，HashSet 会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用equals()方法来检查 hashcode 相等的对象是否真的相同。如果两者相同，HashSet 就不会让加入操作成功。</p>
@@ -340,8 +349,32 @@
 </ul>
 <h4 id="hashmap为啥线程不安全">HashMap为啥线程不安全
 </h4><ul>
-<li>两个线程同时put操作导致size的值不正确，进而导致数据覆盖的问题</li>
+<li>两个线程同时put操作导致size的值不正确，进而导致数据覆盖的问题。</li>
 <li>在 HashMap 中，多个键值对可能会被分配到同一个桶（bucket），并以链表或红黑树的形式存储。多个线程对 HashMap 的 put 操作会导致线程不安全，具体来说会有数据覆盖的风险。</li>
+</ul>
+<h4 id="hashmap的遍历方式有哪些">HashMap的遍历方式有哪些？
+</h4><ul>
+<li>
+<p>迭代器EntrySet方式：通过获取HashMap的entrySet集合，然后使用迭代器进行遍历。这种方式可以同时访问键和值。</p>
+</li>
+<li>
+<p>迭代器KeySet方式：通过获取HashMap的keySet集合，然后使用迭代器进行遍历。这种方式只能访问键，需要通过键来获取对应的值。</p>
+</li>
+<li>
+<p>ForEach EntrySet方式：使用增强型for循环直接遍历HashMap的entrySet集合。这种方式同样可以同时访问键和值。</p>
+</li>
+<li>
+<p>ForEach KeySet方式：使用增强型for循环直接遍历HashMap的keySet集合。这种方式只能访问键，需要通过键来获取对应的值。</p>
+</li>
+<li>
+<p>Lambda表达式方式：通过使用Lambda表达式对HashMap中的每个元素进行处理。这种方式代码简洁，易于理解。</p>
+</li>
+<li>
+<p>Streams API单线程方式：使用Streams API的stream()方法将HashMap转换为流，然后使用forEach方法进行遍历。这种方式适用于单线程环境。</p>
+</li>
+<li>
+<p>Streams API多线程方式：使用Streams API的parallelStream()方法将HashMap转换为并行流，然后使用forEach方法进行遍历。这种方式适用于多线程环境，可以提高遍历效率。</p>
+</li>
 </ul>
 
 </section>
@@ -394,25 +427,6 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
-            
-                
-<article class="has-image">
-    <a href="/p/mysql%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/jk1.png" loading="lazy" data-key="" data-hash="/jk1.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">MySql的基本用法</h2>
-        </div>
-    </a>
-</article>
-
             
                 
 <article class="has-image">
@@ -485,6 +499,25 @@
 
         <div class="article-details">
             <h2 class="article-title">Java基础(1)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%BB%E7%BB%93/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/jk6.png" loading="lazy" data-key="" data-hash="/jk6.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">HashMap的实现原理与总结</h2>
         </div>
     </a>
 </article>
