@@ -7,7 +7,15 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>JZH-letere</copyright>
-        <lastBuildDate>Wed, 04 Dec 2024 18:42:40 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 05 Dec 2024 13:11:20 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>MySql索引</title>
+        <link>https://getshhi.github.io/p/mysql%E7%B4%A2%E5%BC%95/</link>
+        <pubDate>Thu, 05 Dec 2024 13:11:20 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/mysql%E7%B4%A2%E5%BC%95/</guid>
+        <description>&lt;img src="https://getshhi.github.io/bk.png" alt="Featured image of post MySql索引" /&gt;</description>
+        </item>
+        <item>
         <title>MySql基础</title>
         <link>https://getshhi.github.io/p/mysql%E5%9F%BA%E7%A1%80/</link>
         <pubDate>Wed, 04 Dec 2024 18:42:40 +0800</pubDate>
