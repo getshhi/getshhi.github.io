@@ -7,7 +7,648 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>JZH-letere</copyright>
-        <lastBuildDate>Thu, 05 Dec 2024 13:11:20 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 07 Dec 2024 11:48:04 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Git5</title>
+        <link>https://getshhi.github.io/p/git5/</link>
+        <pubDate>Sat, 07 Dec 2024 11:48:04 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/git5/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Git4</title>
+        <link>https://getshhi.github.io/p/git4/</link>
+        <pubDate>Sat, 07 Dec 2024 11:48:00 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/git4/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Git3</title>
+        <link>https://getshhi.github.io/p/git3/</link>
+        <pubDate>Sat, 07 Dec 2024 11:47:55 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/git3/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Git入门之分支管理</title>
+        <link>https://getshhi.github.io/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/</link>
+        <pubDate>Sat, 07 Dec 2024 11:47:50 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nn1.png" alt="Featured image of post Git入门之分支管理" /&gt;&lt;h2 id=&#34;入门之分支管理&#34;&gt;入门之分支管理
+&lt;/h2&gt;&lt;h3 id=&#34;创建本地分支&#34;&gt;创建本地分支
+&lt;/h3&gt;&lt;p&gt;当初始化一个版本库并进行第一次提交的时候，如果没有创建指定分支，并切换到该分支，commit操作默认会在本地创建master分支，并将内容提交到master分支。一般我们会在版本库中维护一个master分支，如下图所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/Y2xjUUJHbG1aQkxpRHI1Ty9oR2tLUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;我们在master分支上，进行了C1、C2、C3三次提交，且当前指针指向C3提交。一般情况下，我们只会将已经成熟的代码存放到master分支，而将正在开发的代码或者测试版的代码放到其他分支。这时，我们就需要新建分支，以在该分支进行开发。如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/NnNVaFFZTHdhWENocUI2cTVpQ1ZqZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;当我们在主分支进行了C2提交后，新建了develop分支，并在其上进行了两次提交。此时，工作区指针HEAD指向develop分支。
+创建本地分支用到的命令是git branch，而分支切换用到的命令是git checkout。git checkout是有很多用途的命令，在这里我们只讲它在分支操作中的使用。下面我们详细介绍这两个命令的使用。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;分支切换 可以使用git checkout 命令切换到其他分支。如你本地有master分支和develop分支，目前你正处于develop分支进行开发，现在你想切换到master去，则可以执行操作：
+  git checkout master&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这样就能切换到master分支继续进行开发。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建新的分支 当你需要创建一个新的分支的时候，可以使用git branch命令，其具体使用格式为：
+  git branch 新的分支名字&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;使用示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#创建名为new_branch的新分支
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git branch new_branch
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;创建新分支的同时切换 切换到一个新的分支，有一个更为简洁的命令：git checkout -b，它的使用格式为：  git checkout -b 新的分支 名字&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其具体使用方法如下：&lt;/p&gt;
+&lt;p&gt;git checkout -b new_branch&lt;/p&gt;
+&lt;p&gt;这样就可以创建，并切换到了new_branch分支。&lt;/p&gt;
+&lt;h3 id=&#34;删除本地分支&#34;&gt;删除本地分支
+&lt;/h3&gt;&lt;p&gt;现在我们来看一个实际的例子。请看下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/b3VtS1hza3NiN1FmZktFKy9vM09rQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;首先，我们在master工作到 C1，然后开始一个新分支develop分支，做为测试版的代码分支。提交到C5的时候，又需要临时解决一个问题，于是从C5的地方又分出一个分支issue。提交到C7的时候，该issue被解决。issue分支已经失去其意义，则需要将其删除，以保持本地版本库分支树的干净。我们将issue分支上的代码，合并到develop上之后，就可将issue分支删除。删除issue分支后的分支树如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/dDA1WXBsbXBiQmhaTnZjNVc1dkNIZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;其中，C8为合并issue分支所进行的提交。&lt;/p&gt;
+&lt;p&gt;删除本地分支，需要用到git branch命令，且需要-D参数，具体命令格式为：
+  git branch -D 需要删除的分支的名字&lt;/p&gt;
+&lt;p&gt;具体使用示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#删除develop分支
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git branch -D develop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;示例中的命令，能够将本地分支develop删除。&lt;/p&gt;
+&lt;h3 id=&#34;删除远程分支&#34;&gt;删除远程分支
+&lt;/h3&gt;&lt;p&gt;删除分支用到的git命令是git push，在具体的使用过程中有不同的用法。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过推送空分支到远程分支，实现删除。 一个删除远程分支的方法是，推送一个空分支到远程指定分支，以实现删除。推送本地分支到远程分支的方法是： git push 远程主机名 本地分支:远程分支
+与之类似，推送空分支实现删除的方法是：
+  git push 远程主机名 :远程分支&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;即：前没有指定本地分支名。具体的使用示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#删除远程develop分支，其中origin为远程仓库名
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin :develop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;通过delete参数删除远程分支： 除了推送空分支到远程分支外，也可以通过delete参数实现删除。具体的命令格式为： 　　git push 远程主机名 &amp;ndash;delete 远程分支名 具体使用示例如下：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#删除远程develop分支,其中origin为远程主机名
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin --delete develop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;本地分支合并&#34;&gt;本地分支合并
+&lt;/h3&gt;&lt;p&gt;分支合并需要用到git merge命令，具体的命令格式为：&lt;/p&gt;
+&lt;p&gt;　　git merge 需要合并的分支&lt;/p&gt;
+&lt;p&gt;在具体使用中，如当前处于master分支，需要将develop分支合并到master分支，则具体的使用方式如下：&lt;/p&gt;
+&lt;p&gt;　　git merge develop&lt;/p&gt;
+&lt;p&gt;同时，分支合并也分为正常合并和快进式合并，通过为git merge添加参数，即可实现不同操作。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;快进式合并 默认情况下，Git执行&amp;quot;快进式合并&amp;quot;，即fast-farward merge，会直接将被合并的分支指向需要合并的分支。如下图：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/OS9NNTQvQklBcDRLU2tQcWhESHhpdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;当需要将右侧分支（develop）合并到左侧分支（master）时，master分支会生成一个指针，直接指向develop。快进式合并为默认合并方式，不需要添加任何其他参数，使用git merge 需要合并的分支即可完成。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;正常合并 正常合并的方式如下图：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/NTJvenJ1aDVzLzdDc0puVTE0VTJxQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;如图所示，Master分支上产生了一次新的提交，也就是说生成一个新节点完成了合并，这样的话，版本演进更清晰。&lt;/p&gt;
+&lt;p&gt;下面我们以一个具体的例子，来演示一下这两种合并方式的区别：&lt;/p&gt;
+&lt;p&gt;1.创建master分支，并在其上提交hello文件；&lt;/p&gt;
+&lt;p&gt;2.从master分支切换到新分支develop，并进行两次提交，分别将hello1、hello2两个文件提交到develop分支；&lt;/p&gt;
+&lt;p&gt;3.切换回master分支，执行git merge develop进行快进式合并，然后查看master分支的日志，得到如下提示信息：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/T1FCRllHOG1HeWl4R0hLRmwxVjhadz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;如上图可知，master分支多了develop分支上的两次提交信息。&lt;/p&gt;
+&lt;p&gt;4.将master分支回退到合并前状态，再次执行git merge &amp;ndash;no-ff develop，进行非快进式合并，然后再次查看日志：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/SzdnVXRYYkUzTjd0STlhZHZxTFRNdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可见，master分支发生了分叉，且master多了一次提交。&lt;/p&gt;
+&lt;p&gt;通过以上分析，两种合并方式的区别就很明显了。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Git入门版本库和入门远程版本库</title>
+        <link>https://getshhi.github.io/p/git%E5%85%A5%E9%97%A8%E7%89%88%E6%9C%AC%E5%BA%93%E5%92%8C%E5%85%A5%E9%97%A8%E8%BF%9C%E7%A8%8B%E7%89%88%E6%9C%AC%E5%BA%93/</link>
+        <pubDate>Sat, 07 Dec 2024 11:47:39 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/git%E5%85%A5%E9%97%A8%E7%89%88%E6%9C%AC%E5%BA%93%E5%92%8C%E5%85%A5%E9%97%A8%E8%BF%9C%E7%A8%8B%E7%89%88%E6%9C%AC%E5%BA%93/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nn.png" alt="Featured image of post Git入门版本库和入门远程版本库" /&gt;&lt;h2 id=&#34;入门版本库&#34;&gt;入门版本库
+&lt;/h2&gt;&lt;h3 id=&#34;本地版本库创建&#34;&gt;本地版本库创建
+&lt;/h3&gt;&lt;h4 id=&#34;linux基础操作&#34;&gt;Linux基础操作
+&lt;/h4&gt;&lt;p&gt;在现今的软件开发中，Linux系统及其命令行的使用，已经是一项必不可少的技能。虽然有其他基于Git的图形化软件，但是Git只能通过命令行进行操作。因此，掌握一些基础的Linux操作命令很有必要。&lt;/p&gt;
+&lt;h5 id=&#34;创建某个目录&#34;&gt;创建某个目录
+&lt;/h5&gt;&lt;p&gt;有时我们需要创建目录，这时就需要使用命令mkdir。通过mkdir，可以在指定的目录下创建文件夹，其用法如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;在当前目录下，创建目录helloGit: mkdir helloGit&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在/home目录下，创建目录helloGit：mkdir home/helloGit&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;mkdir的其他高级用法请参考其他Linux资料。&lt;/p&gt;
+&lt;h5 id=&#34;创建文件&#34;&gt;创建文件
+&lt;/h5&gt;&lt;p&gt;创建文件可以使用命令touch，其用法如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在当前目录下，创建文件helloGit.txt：touch helloGit.txt&lt;/li&gt;
+&lt;li&gt;在/home目录下，创建文件helloGit.txt：touch /home/helloGit.txt&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;进入目录&#34;&gt;进入目录
+&lt;/h5&gt;&lt;p&gt;进入某个目录，需要用到命令cd，其用法如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;进入helloGit目录：cd helloGit&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这样的用法默认了helloGit目录，存在于当前目录下。也可以在cd命令中，直接指定进入当前目录：cd ./helloGit&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;进入/home/helloGit目录：cd /home/helloGit&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;返回到上一级目录：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在Linux系统下，上一级目录可以用‘..’代替，如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#进入上一级目录
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cd ..
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#进入上一级目录的再上一级目录
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cd ../../
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#进入上一级目录下的helloGit
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cd ../helloGit
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;使用git前的准备&#34;&gt;使用Git前的准备
+&lt;/h4&gt;&lt;h5 id=&#34;安装&#34;&gt;安装
+&lt;/h5&gt;&lt;p&gt;Git可以使用源码安装，具体的安装过程请参考Git官网教程或者Github上Git仓库的用户指南。&lt;/p&gt;
+&lt;p&gt;但对于初学用户，还是建议大家直接安装。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Linux下安装：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#Fedora下安装
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;yum install git-core
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#Ubuntu等Debian类体系结构系统下
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apt-get install git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Mac上安装：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  在 Mac 上安装 Git 有两种方式。可以使用图形化的 Git 安装工具，网址为图形化Git工具安装地址；另一种是通过MacPorts 安装。如果已经装好了 MacPorts，请用下面的命令安装 Git：&lt;/p&gt;
+&lt;p&gt;sudo port install git-core +svn +doc +bash_completion +gitweb&lt;/p&gt;
+&lt;p&gt;Windows下安装：&lt;/p&gt;
+&lt;p&gt;  在 Windows 上安装 Git，可以到 Git官网 的页面上，下载 exe 安装文件并运行：&lt;/p&gt;
+&lt;p&gt;  &lt;a class=&#34;link&#34; href=&#34;https://git.js.cn/downloads&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Git官网下载&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;  完成安装之后，就可以使用命令行的 git 工具了。建议大家最好使用Unix风格的shell来运行Git。另外，Linux也有其他图形化的Git工具，如Tortoisegit。不过，还是建议大家直接使用shell来运行Git。&lt;/p&gt;
+&lt;h5 id=&#34;git配置&#34;&gt;Git配置
+&lt;/h5&gt;&lt;p&gt;由于Git是一个分布式的版本控制系统，所以当利用它进行分工协作时，必须区分不同的机器。这一点可以通过配置机器的名字和邮箱完成。Git初始使用时，也会提示进行配置。配置命令如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git config --global user.name &amp;#34;Your Name&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git config --global user.email &amp;#34;email@example.com&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;在实际的使用过程中，可以将“Your Name”、“email@example”替换为自己实际的名字和邮箱。&lt;/p&gt;
+&lt;h5 id=&#34;如何创建一个本地版本库&#34;&gt;如何创建一个本地版本库
+&lt;/h5&gt;&lt;p&gt;首先，我们需要创建一个目录，做为我们的本地版本库，然后使用git init命令，将其初始化为一个本地版本库，如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#在/home目录下，创建repo目录
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir /home/repo
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#进入repo目录
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cd /home/repo
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#将repo初始化为一个本地版本库
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git init
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;通过上述命令，即可在/home目录下，创建repo目录，并将其初始化为一个版本库。&lt;/p&gt;
+&lt;h3 id=&#34;添加修改到暂存区域&#34;&gt;添加修改到暂存区域
+&lt;/h3&gt;&lt;h4 id=&#34;如何将修改保存到暂存区&#34;&gt;如何将修改保存到暂存区
+&lt;/h4&gt;&lt;p&gt;本地版本库就相当于一个存放在本地的仓库，里面记录了我们本地文件的各种版本及不同版本之间的差异。当我们添加、删除或者修改了文件之后，我们必须将修改添加至工作区以暂时保存（Git的工作原理请认真阅读背景知识部分）。&lt;/p&gt;
+&lt;p&gt;添加修改，并保存至工作区，需要用到git add命令，git add命令的使用方式如下所示：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#添加所有修改
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git add .
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#添加hello.txt文件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git add hello.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如上所示，当需要添加所有文件至工作区时，使用git add .，如果想添加指定文件，只需要像示例中添加hello.txt一样，将文件名做为参数名，传给git add即可。&lt;/p&gt;
+&lt;h4 id=&#34;查看工作区状态&#34;&gt;查看工作区状态
+&lt;/h4&gt;&lt;p&gt;当你创建完helloGit.txt，而且没有将其添加到暂存区域时，如果使用git status命令，你会得到类似于下面的输出（中文）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 位于分支 master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 初始提交
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 未跟踪的文件:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#   （使用 &amp;#34;git add &amp;lt;file&amp;gt;...&amp;#34; 以包含要提交的内容）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#    helloGit.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;提交为空，但是存在尚未跟踪的文件（使用 &amp;#34;git add&amp;#34; 建立跟踪）
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;或者这种（英文）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;On branch master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Your branch is up-to-date with &amp;#39;origin/master&amp;#39;.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Changes not staged for commit:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  (use &amp;#34;git add &amp;lt;file&amp;gt;...&amp;#34; to update what will be committed)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  (use &amp;#34;git checkout -- &amp;lt;file&amp;gt;...&amp;#34; to discard changes in working directory)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        modified:   src/gitTraining
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;no changes added to commit (use &amp;#34;git add&amp;#34; and/or &amp;#34;git commit -a&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这是什么？这是提示你工作区有被修改的文件，未提交至暂存区。
+当你执行完git add之后，会得到类似于下面的输出：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 位于分支 master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 初始提交
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 要提交的变更：
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#   （使用 &amp;#34;git rm --cached &amp;lt;file&amp;gt;...&amp;#34; 撤出暂存区）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#    新文件：    helloGit.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;或者这种：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;On branch master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Your branch is up-to-date with &amp;#39;origin/master&amp;#39;.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Changes to be committed:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  (use &amp;#34;git reset HEAD &amp;lt;file&amp;gt;...&amp;#34; to unstage)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        modified:   src/gitTraining.java
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这是在提醒你，暂存区有哪些内容需要提交到本地仓库。&lt;/p&gt;
+&lt;p&gt;其实git status命令用来查看当前工作区的状态，即有哪些已经修改，还尚未提交到暂存区的文件。在实际的开发过程中，面对复杂的程序文件，你经常需要查看一下，自己对哪些文件做了修改，此时git status命令就很有用了。&lt;/p&gt;
+&lt;h4 id=&#34;撤销修改&#34;&gt;撤销修改
+&lt;/h4&gt;&lt;p&gt;checkout命令用法如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git checkout helloGit.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这样就能把已经添加到本地的helloGit.txt从暂存区中移除。&lt;/p&gt;
+&lt;h3 id=&#34;提交修改到本地仓库&#34;&gt;提交修改到本地仓库
+&lt;/h3&gt;&lt;h4 id=&#34;如何将修改提交到本地仓库&#34;&gt;如何将修改提交到本地仓库
+&lt;/h4&gt;&lt;p&gt;将修改添加到暂存区，只是将你的工作暂时保存，并没有添加到本地的仓库中。这个过程可以类比写文件，将修改添加至暂存区，就相当于把内容先放入缓存区。因此，我们必须将工作区的内容提交到本地版本库去，才算是真正地保存了修改。&lt;/p&gt;
+&lt;p&gt;提交修改到本地仓库，使用命令git commit，其使用方式如下所示：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git commit -m &amp;#34;示例提交&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;-m参数后面跟的是本次提交的具体内容，用来说明你这次的提交，主要是做了哪些修改，这个说明内容是必须的。&lt;/p&gt;
+&lt;h4 id=&#34;解析commit的输出结果&#34;&gt;解析commit的输出结果
+&lt;/h4&gt;&lt;p&gt;在执行完git commit命令之后，会得到类似于下面的返回结果：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[master（根提交） 37302ce] 添加helloGit.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; 1 file changed, 0 insertions(+), 0 deletions(-)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; create mode 100644 helloGit.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;其中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;“添加helloGit.txt”为“-m”的参数，即执行的命令为git commit -m &amp;ldquo;添加helloGit.txt&amp;rdquo;；&lt;/li&gt;
+&lt;li&gt;“1 file changed, 0 insertions(+), 0 deletions(-)” 提示改动信息；&lt;/li&gt;
+&lt;li&gt;“37302ce”这个字符串则是本次提交的Id，commit Id唯一对应一次提交。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;令人惊喜的git-log和git-status&#34;&gt;令人惊喜的git log和git status
+&lt;/h4&gt;&lt;p&gt;当执行完git commit后，如果你试着执行以下git log你可能会得到如下的输出：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;commit 37302ce99137cf30fabc14784d23ea63cadb928b
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Author: hdu &amp;lt;hdu@163.com&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Date:   Sun Dec 24 23:35:48 2017 +0800
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    添加helloGit.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;其中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;“commit 37302ce99137cf30fabc14784d23ea63cadb928b”中的后面这一串字符就是完整的commit id；&lt;/li&gt;
+&lt;li&gt;“Author”就是这次提交的作者，它就是我们在git config中配置的user.name；&lt;/li&gt;
+&lt;li&gt;最后输出的“添加helloGit.txt”，是我们在提交时添加的信息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果有多次提交即commit，在执行git log时，会输出每一次的提交的具体信息。这样的话，什么时候（Date）由什么人（Author）提交了什么内容（“添加helloGit.txt”）就一目了然了。&lt;/p&gt;
+&lt;h2 id=&#34;入门远程版本库&#34;&gt;入门远程版本库
+&lt;/h2&gt;&lt;h3 id=&#34;克隆操作&#34;&gt;克隆操作
+&lt;/h3&gt;&lt;p&gt;克隆，顾名思义，就是要获取远程版本库的完整拷贝。通过克隆操作，你可以将整个远程版本库的各种细节复制到本地，并且会建立起本地版本库和远程版本库的对应关系。&lt;/p&gt;
+&lt;p&gt;克隆操作需要用到的命令是git clone，它的具体用法如下所示：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://sample.git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;通过这样的操作，就能将远程版本库复制到本地了，而且会默认克隆到sample文件夹下（对应于远程版本库地址中指定的sample）。同时，你也可以根据需要，指定克隆到其他目录下，其命令格式为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone xxx.git &amp;#34;指定目录&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这样就能将代码都复制到指定目录下。&lt;/p&gt;
+&lt;h3 id=&#34;git服务器&#34;&gt;Git服务器
+&lt;/h3&gt;&lt;p&gt;在团队开发中，我们必须选用一台主机做为Git服务器来存放远程版本库。这样团队中的每个开发者，就可以基于一个共同的远程版本库进行开发。目前提供代码托管（即可以将远程版本库存放于其上的）的平台有Github、码云等，同时我们也可以搭建一台私有的运行Git的服务器，来做为远程Git服务器。Github等平台的使用，及本地Git服务器的搭建，会在后续的实训中具体介绍。本地Git服务器，可以配置不同的连接方式，如shell、git或bash。为了给挑战者提供一个便利的实训环境，我们为每个人配置了一台本地Git服务器，并允许以bash方式进行操作，即可以通过类似于/home/sample.git这种形式的地址，做为远程仓库地址进行操作，而不是像https://sample.git这种形式。&lt;/p&gt;
+&lt;h3 id=&#34;添加远程版本库&#34;&gt;添加远程版本库
+&lt;/h3&gt;&lt;p&gt;添加远程版本库需要用到的命令是git remote add，其命令格式为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git remote add “远程仓库名” “远程仓库地址”
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;使用示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git remote add origin https://sample.git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这样就将https://sample.git添加为远程仓库，并将其命名为origin。&lt;/p&gt;
+&lt;h3 id=&#34;推送本地内容到远程仓库&#34;&gt;推送本地内容到远程仓库
+&lt;/h3&gt;&lt;p&gt;推送本地内容时，会将所有未推送至远程仓库的内容，都提到远程仓库。它用到的命令是git push，使用方法如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push 远程仓库名 本地分支名 远程分支名
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;具体的使用方法如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin master master
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这样就将本地分支的内容，推送到远程仓库origin的master分支了。
+git push的另外一种用法如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push -u 远程仓库名 本地分支名 远程分支名
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;-u参数的作用是，建立起本地master分支和远程master分支之间的对应关系，下一次如果再推送master分支，就可以忽略远程分支名了，如下所示：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#初次推送
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push -u origin master master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#再次推送
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin master
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;拉取远程分支到本地&#34;&gt;拉取远程分支到本地
+&lt;/h3&gt;&lt;p&gt;拉取远程仓库的内容到本地，需要使用git pull命令，其命令格式为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git pull 远程主机名 远程分支名 本地分支名
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;其使用示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#将远程仓库origin的master分支的内容拉取到本地master分支
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git pull origin master:master
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;但是，在使用过程中，也可能会出现一种情况：远程分支和本地分支对同一内容做了修改，这就会导致将远程分支的修改，合并到本地分支的时候发生冲突。这个时候，可以选择解决冲突，然后合并（解决冲突会在后续的实训中介绍）。也可以选择直接强制拉取，使用远程分支的修改，覆盖本地分支的修改。强制拉取需要用到-f参数，语法格式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git pull 远程主机名 远程分支名 本地分支名 -f
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;具体的使用示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#将远程仓库origin的master分支的内容拉取到本地master分支
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git pull origin master:master -f
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        <item>
         <title>MySql索引</title>
         <link>https://getshhi.github.io/p/mysql%E7%B4%A2%E5%BC%95/</link>
         <pubDate>Thu, 05 Dec 2024 13:11:20 +0800</pubDate>

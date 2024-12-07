@@ -1,0 +1,1406 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>开发语言 on JZH-letere</title>
+        <link>https://getshhi.github.io/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/</link>
+        <description>Recent content in 开发语言 on JZH-letere</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>JZH-letere</copyright>
+        <lastBuildDate>Tue, 03 Dec 2024 17:32:54 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Java集合(2)</title>
+        <link>https://getshhi.github.io/p/java%E9%9B%86%E5%90%882/</link>
+        <pubDate>Tue, 03 Dec 2024 17:32:54 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/java%E9%9B%86%E5%90%882/</guid>
+        <description>&lt;img src="https://getshhi.github.io/kj2.png" alt="Featured image of post Java集合(2)" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#hashmap%e5%92%8chashtable%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;HashMap和Hashtable的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#hashmap%e5%92%8chashset%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;HashMap和HashSet的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#hashmap%e5%92%8ctreemap%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;HashMap和TreeMap的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#hashset%e5%a6%82%e4%bd%95%e6%a3%80%e6%9f%a5%e9%87%8d%e5%a4%8d&#34; &gt;HashSet如何检查重复&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#hashmap%e7%9a%84%e5%ba%95%e5%b1%82%e5%ae%9e%e7%8e%b0&#34; &gt;HashMap的底层实现&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#hashmap%e7%9a%84%e9%95%bf%e5%ba%a6%e4%b8%ba%e5%95%a5%e6%98%af2%e7%9a%84%e5%b9%82%e6%ac%a1%e6%96%b9&#34; &gt;HashMap的长度为啥是2的幂次方&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#hashmap%e5%a4%9a%e7%ba%bf%e7%a8%8b%e6%93%8d%e4%bd%9c%e5%af%bc%e8%87%b4%e6%ad%bb%e5%be%aa%e7%8e%af%e9%97%ae%e9%a2%98&#34; &gt;HashMap多线程操作导致死循环问题&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#hashmap%e4%b8%ba%e5%95%a5%e7%ba%bf%e7%a8%8b%e4%b8%8d%e5%ae%89%e5%85%a8&#34; &gt;HashMap为啥线程不安全&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#hashmap%e7%9a%84%e9%81%8d%e5%8e%86%e6%96%b9%e5%bc%8f%e6%9c%89%e5%93%aa%e4%ba%9b&#34; &gt;HashMap的遍历方式有哪些？&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;hashmap和hashtable的区别&#34;&gt;HashMap和Hashtable的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;线程是否安全，HashMap的线程是不安全的，Hashtable的线程是安全的。&lt;/li&gt;
+&lt;li&gt;效率:因为线程安全的问题，HashMap要比Hashtable的效率高一点。另外，Hashtable被淘汰了。&lt;/li&gt;
+&lt;li&gt;HashMap可以有一个null键和多个null值，但HashTable不允许有null键和null值。&lt;/li&gt;
+&lt;li&gt;哈希函数的实现: HashMap对哈希值进行了高位和低位的混合扰动处理以减少冲突，而Hashtable直接使用键的hashCode()值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;hashmap和hashset的区别&#34;&gt;HashMap和HashSet的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;HashMap存储键值对，HashSet仅仅存储对象。&lt;/li&gt;
+&lt;li&gt;HashMap实现Map接口，HashSet实现了Set接口。&lt;/li&gt;
+&lt;li&gt;HashMap调用put()向map添加元素，HashSet调用add()方法向Set中添加元素。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;hashmap和treemap的区别&#34;&gt;HashMap和TreeMap的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;相对于HashMap实现了AbstractMap，TreeMap还实现了NaivgableMap接口和SortedMap接口。&lt;/li&gt;
+&lt;li&gt;实现的Naivgable让TreeMap有了对集合内元素的搜索的能力。&lt;/li&gt;
+&lt;li&gt;实现SortedMap接口让TreeMap有了对集合中的元素根据键排序的能力。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;hashset如何检查重复&#34;&gt;HashSet如何检查重复
+&lt;/h4&gt;&lt;p&gt;当你把对象加入HashSet时，HashSet 会先计算对象的hashcode值来判断对象加入的位置，同时也会与其他加入的对象的 hashcode 值作比较，如果没有相符的 hashcode，HashSet 会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用equals()方法来检查 hashcode 相等的对象是否真的相同。如果两者相同，HashSet 就不会让加入操作成功。&lt;/p&gt;
+&lt;h4 id=&#34;hashmap的底层实现&#34;&gt;HashMap的底层实现
+&lt;/h4&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://getshhi.github.io/p/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%BB%E7%BB%93&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;HashMap的底层代码分析与实现&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;hashmap的长度为啥是2的幂次方&#34;&gt;HashMap的长度为啥是2的幂次方
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;位运算效率更高: 位运算(&amp;amp;)比取余运算(%)更高效。当长度为2的幂次方相较于%length，&amp;amp;(length - 1)等价。&lt;/li&gt;
+&lt;li&gt;可以更好地保证哈希值的均匀分布:扩容之后，在旧数组元素hash值比较均匀的情况下，新数组元素也会被分配的比较均匀。&lt;/li&gt;
+&lt;li&gt;对于每次的扩容，不需要其他的操作，仅仅需要根据高危的变化进行重新分配(如果高位是1，则原位置 + 扩容的容量，高位是0，则位置不变)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;hashmap多线程操作导致死循环问题&#34;&gt;HashMap多线程操作导致死循环问题
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;JDK1.7及之前的版本导致的死循环问题的原因是当一个桶位中有多个元素需要进行扩容时，多个线程同时对链表进行操作，头插法可能会导致链表中的节点指向错误的位置，从而形成一个环形链表，进而使得查询元素的操作陷入死循环无法结束。&lt;/li&gt;
+&lt;li&gt;而对于HashMap会出现数据覆盖的结果，所以在多线程也不推荐HashMap。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;hashmap为啥线程不安全&#34;&gt;HashMap为啥线程不安全
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;两个线程同时put操作导致size的值不正确，进而导致数据覆盖的问题。&lt;/li&gt;
+&lt;li&gt;在 HashMap 中，多个键值对可能会被分配到同一个桶（bucket），并以链表或红黑树的形式存储。多个线程对 HashMap 的 put 操作会导致线程不安全，具体来说会有数据覆盖的风险。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;hashmap的遍历方式有哪些&#34;&gt;HashMap的遍历方式有哪些？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;迭代器EntrySet方式：通过获取HashMap的entrySet集合，然后使用迭代器进行遍历。这种方式可以同时访问键和值。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;迭代器KeySet方式：通过获取HashMap的keySet集合，然后使用迭代器进行遍历。这种方式只能访问键，需要通过键来获取对应的值。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ForEach EntrySet方式：使用增强型for循环直接遍历HashMap的entrySet集合。这种方式同样可以同时访问键和值。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ForEach KeySet方式：使用增强型for循环直接遍历HashMap的keySet集合。这种方式只能访问键，需要通过键来获取对应的值。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Lambda表达式方式：通过使用Lambda表达式对HashMap中的每个元素进行处理。这种方式代码简洁，易于理解。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Streams API单线程方式：使用Streams API的stream()方法将HashMap转换为流，然后使用forEach方法进行遍历。这种方式适用于单线程环境。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Streams API多线程方式：使用Streams API的parallelStream()方法将HashMap转换为并行流，然后使用forEach方法进行遍历。这种方式适用于多线程环境，可以提高遍历效率。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Java集合(1)</title>
+        <link>https://getshhi.github.io/p/java%E9%9B%86%E5%90%881/</link>
+        <pubDate>Tue, 26 Nov 2024 23:34:44 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/java%E9%9B%86%E5%90%881/</guid>
+        <description>&lt;img src="https://getshhi.github.io/jk2.png" alt="Featured image of post Java集合(1)" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#java%e9%9b%86%e5%90%88%e6%a6%82%e8%a7%88&#34; &gt;Java集合概览&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e8%af%b4%e8%af%b4listmapsetqueue%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;说说List，Map，Set，Queue的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e9%9b%86%e5%90%88%e6%a1%86%e6%9e%b6%e5%ba%95%e5%b1%82%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e6%80%bb%e7%bb%93&#34; &gt;集合框架底层数据结构总结&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%a6%82%e4%bd%95%e9%80%89%e7%94%a8%e9%9b%86%e5%90%88&#34; &gt;如何选用集合？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e4%b8%ba%e5%95%a5%e8%a6%81%e4%bd%bf%e7%94%a8%e9%9b%86%e5%90%88&#34; &gt;为啥要使用集合？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#arraylist%e5%92%8carray%e6%95%b0%e7%bb%84%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;ArrayList和Array(数组)的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#arraylist%e5%92%8cvector%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;ArrayList和Vector的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#vector%e5%92%8cstack%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;Vector和Stack的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#arraylist%e5%8f%af%e4%bb%a5%e6%b7%bb%e5%8a%a0null%e5%80%bc%e5%90%97&#34; &gt;ArrayList可以添加null值吗&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#arraylist%e6%8f%92%e5%85%a5%e5%92%8c%e5%88%a0%e9%99%a4%e5%85%83%e7%b4%a0%e7%9a%84%e6%97%b6%e9%97%b4%e5%a4%8d%e6%9d%82%e5%ba%a6&#34; &gt;ArrayList插入和删除元素的时间复杂度&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#linkedlist%e6%8f%92%e5%85%a5%e5%92%8c%e5%88%a0%e9%99%a4%e5%85%83%e7%b4%a0%e7%9a%84%e6%97%b6%e9%97%b4%e5%a4%8d%e6%9d%82%e5%ba%a6%e6%98%af%e5%a4%9a%e5%b0%91&#34; &gt;LinkedList插入和删除元素的时间复杂度是多少&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#linkedlist%e4%b8%ba%e5%95%a5%e4%b8%8d%e8%83%bd%e5%ae%9e%e7%8e%b0randomaccess%e6%8e%a5%e5%8f%a3&#34; &gt;LinkedList为啥不能实现RandomAccess接口&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#arraylist%e4%b8%8elinkedlist%e5%8c%ba%e5%88%ab&#34; &gt;ArrayList与LinkedList区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#arraylist%e7%9a%84%e6%89%a9%e5%ae%b9%e6%9c%ba%e5%88%b6&#34; &gt;ArrayList的扩容机制&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#comparable%e5%92%8ccomparator%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;Comparable和Comparator的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e6%97%a0%e5%ba%8f%e6%80%a7%e5%92%8c%e4%b8%8d%e5%8f%af%e9%87%8d%e5%a4%8d%e6%80%a7%e7%9a%84%e5%90%ab%e4%b9%89%e6%98%af%e5%95%a5&#34; &gt;无序性和不可重复性的含义是啥&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e6%af%94%e8%be%83hashsetlikedhashset%e5%92%8ctreeset%e4%b8%89%e8%80%85%e7%9a%84%e5%bc%82%e5%90%8c&#34; &gt;比较HashSet，LikedHashSet和TreeSet三者的异同&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#queue%e4%b8%8edeque%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;Queue与Deque的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#arraydeque%e4%b8%8elikedlist%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;ArrayDeque与LikedList的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e8%af%b4%e4%b8%80%e8%af%b4priorityqueue&#34; &gt;说一说PriorityQueue&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%95%a5%e6%98%afblockingqueue&#34; &gt;啥是BlockingQueue&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#blockingqueue%e7%9a%84%e5%ae%9e%e7%8e%b0%e7%b1%bb%e6%9c%89%e5%93%aa%e4%ba%9b&#34; &gt;BlockingQueue的实现类有哪些&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#arrayblockingqueue%e5%92%8clinkedblockingqueue%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab&#34; &gt;ArrayBlockingQueue和LinkedBlockingQueue有啥区别？&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;java集合概览&#34;&gt;Java集合概览
+&lt;/h4&gt;&lt;p&gt;Java集合分为Collection和Map，其中Collection接口分为Set，List，Queue，用来存储单一元素，而Map接口用来存储键值对。
+&lt;img src=&#34;https://getshhi.github.io/JavaContainer.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;说说listmapsetqueue的区别&#34;&gt;说说List，Map，Set，Queue的区别
+&lt;/h4&gt;&lt;p&gt;List(对付顺序的好帮手):存储有序的，可重复的元素。&lt;/p&gt;
+&lt;p&gt;Map存储键值对，通常用这个查询键值对组合。value是无序的，可重复的，Key是无序的，不可重复的。&lt;/p&gt;
+&lt;p&gt;Set(注重独一无二的性质):存储不重复的元素。&lt;/p&gt;
+&lt;p&gt;Queue(实现排队功能的叫号机):按特定的排队规则来确定先后顺序，存储的元素是有序的，可重复的。&lt;/p&gt;
+&lt;h4 id=&#34;集合框架底层数据结构总结&#34;&gt;集合框架底层数据结构总结
+&lt;/h4&gt;&lt;p&gt;List&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ArrayList: Object[]数组。&lt;/li&gt;
+&lt;li&gt;Vector: Object[]数组。&lt;/li&gt;
+&lt;li&gt;LinkedList: 双向链表(JDK1.6之前为循环链表，JDK1.7取消了循环)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Set&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HashSet(无序，唯一):基于HashMap实现的，底层采用HashMap来保存元素。&lt;/li&gt;
+&lt;li&gt;LinkedHashSet:LinkedHashSet是HashSet的子类，并且内部是通过LinkedHashMap来实现的。&lt;/li&gt;
+&lt;li&gt;TreeSet(有序，唯一):红黑树(自平衡的排序二叉树)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Queue&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PriorityQueue:Object[]数组来实现小顶堆。&lt;/li&gt;
+&lt;li&gt;DelayQueue:PriorQueue。&lt;/li&gt;
+&lt;li&gt;ArrayDeque:可扩容动态双向数组&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Map&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HashMap:JDK1.8以前HashMap是由数组+链表组成的，数组是HashMap的主体，链表是为了解决哈希冲突而存在的。JDK1.8以后数组+链表+红黑树。&lt;/li&gt;
+&lt;li&gt;LinkedHashMap:LinkedHashMap继承自HashMap，所以它的底层是数组+链表+红黑树，并且加了一条双向链表。&lt;/li&gt;
+&lt;li&gt;Hashtable:数组+链表组成的，数组是Hashtable的主体，链表则主要是为了解决哈希冲突而存在的。&lt;/li&gt;
+&lt;li&gt;TreeMap:红黑树(自平衡的排序二叉树)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;如何选用集合&#34;&gt;如何选用集合？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;根据键值获取元素值时就选用Map接口下的集合，需要排序时选择TreeMap，不需要排序时就选择HashMap，需要保证线程安全就选用ConcurrentHashMap。&lt;/li&gt;
+&lt;li&gt;我们只需要存放元素值时，就选择实现Collection接口的集合，需要保证元素唯一时选择实现Set接口的集合比如TreeSet或HashSet，不需要就选择实现List接口的比如ArrayList或LinkedList，然后根据实现这些接口的集合的特点来选用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;为啥要使用集合&#34;&gt;为啥要使用集合？
+&lt;/h4&gt;&lt;p&gt;根据我们开发时存储的形式是各种各样的，传统的数组已经不能满足这个需求，我们需要一个容器能过够存储各种各样的，这就是集合。&lt;/p&gt;
+&lt;h4 id=&#34;arraylist和array数组的区别&#34;&gt;ArrayList和Array(数组)的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;ArrayList会根据实际存储元素动态地扩容或者缩容，而Array被创建之后就不能改变它的长度。&lt;/li&gt;
+&lt;li&gt;ArrayList让你使用泛型来确保类型安全，Array则不可以。&lt;/li&gt;
+&lt;li&gt;ArrayList提供了丰富的API操作方法，比如add()，remove()等。Array只是一个固定长度的数组，只能按照下标访问其中的元素或者增强循环访问其中的元素，不具有动态添加，删除元素的能力&lt;/li&gt;
+&lt;li&gt;ArrayList创建时不需要指定大小，而Array创建时必须指定大小。&lt;/li&gt;
+&lt;li&gt;ArrayList只能存储对象，而Array都可以存(基本数据类型和对象)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;arraylist和vector的区别&#34;&gt;ArrayList和Vector的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;ArrayList是List接口的主要实现类，线程不安全，用于单线程且查询频繁的场景(线程不安全)。&lt;/li&gt;
+&lt;li&gt;Vector用于多线程，它是线程安全的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;vector和stack的区别&#34;&gt;Vector和Stack的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Vector和Stack两者都是线程安全的，都是使用synchronized关键字进行同步处理。&lt;/li&gt;
+&lt;li&gt;Stack继承自Vector，是一个后进后出的栈，而Vector是一个列表。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;随着 Java 并发编程的发展，Vector 和 Stack 已经被淘汰，推荐使用并发集合类（例如 ConcurrentHashMap、CopyOnWriteArrayList 等）或者手动实现线程安全的方法来提供安全的多线程操作支持。&lt;/p&gt;
+&lt;h4 id=&#34;arraylist可以添加null值吗&#34;&gt;ArrayList可以添加null值吗
+&lt;/h4&gt;&lt;p&gt;ArrayList可以存储任何类型的对象，包括null值。不过，不建议向ArrayList中添加null值，null值毫无意义，会让代码难以维护比如忘记做判空处理就会导致空指针异常。&lt;/p&gt;
+&lt;h4 id=&#34;arraylist插入和删除元素的时间复杂度&#34;&gt;ArrayList插入和删除元素的时间复杂度
+&lt;/h4&gt;&lt;p&gt;对于插入&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;头部插入:对于在头部插入的，要往后移动n个元素，所以时间复杂度为O(n)&lt;/li&gt;
+&lt;li&gt;尾部插入: 对于在尾部插入的，如果不扩容的话，时间复杂度位O(1)，如果扩容的话，时间复杂度为O(n)&lt;/li&gt;
+&lt;li&gt;指定位置插入:需要将目标位置之后的所有元素都往后移动一个位置，然后再把新元素放入指定位置，这个元素需要移动平均n/2个元素，因此时间复杂度为O(n)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对于删除:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;头部删除:O(n)&lt;/li&gt;
+&lt;li&gt;尾部删除:O(1)&lt;/li&gt;
+&lt;li&gt;指定位置删除:O(n)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总结:这种的话可以直接从数组的角度来分析时间复杂度&lt;/p&gt;
+&lt;h4 id=&#34;linkedlist插入和删除元素的时间复杂度是多少&#34;&gt;LinkedList插入和删除元素的时间复杂度是多少
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;头部插入/删除:O(1)&lt;/li&gt;
+&lt;li&gt;尾部插入/删除:O(1)&lt;/li&gt;
+&lt;li&gt;指定位置插入/删除:O(n)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总结:这种的话可以根据双向链表来分析时间复杂度。&lt;/p&gt;
+&lt;h4 id=&#34;linkedlist为啥不能实现randomaccess接口&#34;&gt;LinkedList为啥不能实现RandomAccess接口
+&lt;/h4&gt;&lt;p&gt;RandomAccess(是一个标记接口)就是用来表明实现该接口的类支持随机访问(即索引访问)，而LinkedList底层是链表，内存不一定连续，是不支持随机访问(即索引访问)的，所以不能实现RandomAccess这个接口。&lt;/p&gt;
+&lt;h4 id=&#34;arraylist与linkedlist区别&#34;&gt;ArrayList与LinkedList区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;是否线程安全，两者都是不安全的，在多线程的情况下都不是安全的。&lt;/li&gt;
+&lt;li&gt;时间复杂度: ArrayList的底层是动态数组，LinkedList的底层是链表，可以从这个底层来进行分析。&lt;/li&gt;
+&lt;li&gt;内存占用:有于LinkedList得存下一个节点的地址，所以LinkedList所占的内存偏大。&lt;/li&gt;
+&lt;li&gt;是否支持随机访问，ArrayList支持随机访问，LinkedList不支持随机访问。&lt;/li&gt;
+&lt;li&gt;使用场景，ArrayList用于大多数场景。因此建议能用ArrayList就用ArrayList。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;arraylist的扩容机制&#34;&gt;ArrayList的扩容机制
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;当 ArrayList 中的元素数量超过其当前容量时，会触发扩容机制。默认情况下，ArrayList 的初始容量为 10。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;当发生扩容时，ArrayList 会创建一个新的数组，其容量为原数组的 1.5 倍（即 oldCapacity + (oldCapacity &amp;raquo; 1)），然后将原数组中的元素复制到新数组中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;复制过程是通过 Arrays.copyOf() 方法实现的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;源码分析(add方法):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1.首先会进入add方法，在add方法中首先判断(size + 1)是否需要扩容，如果需要则扩容，然后赋值。&lt;/li&gt;
+&lt;li&gt;2.判断扩容在ensureCapacityInternal这个函数，这个函数内部会调用ensureExplicitCapacity，如果(minCapacity - elementData.length &amp;gt; 0)即容量不够了，则会调用grow方法。&lt;/li&gt;
+&lt;li&gt;3.grow即是核心方法，grow方法中首先将旧的容量扩容成1.5倍，与minCapacity进行比较，如果小于，则新的容量为minCapacity,然后进行(newCapacity - MAX_ARRAY_SIZE &amp;gt; 0)，然后进行 &lt;strong&gt;return (minCapacity &amp;gt; MAX_ARRAY_SIZE) ? Integer.MAX_VALUE :MAX_ARRAY_SIZE;&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;4.最终通过 Arrays.copyOf(elementData, newCapacity); 复制老数组的数据到新数组，完成扩容。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;comparable和comparator的区别&#34;&gt;Comparable和Comparator的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Comparable接口出自java.lang包，它有一个compareTo(Object obj)方法用来排序。&lt;/li&gt;
+&lt;li&gt;Comparator接口出自java.util包，它有一个compare(Object obj1, Object obj2)方法用来排序。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;无序性和不可重复性的含义是啥&#34;&gt;无序性和不可重复性的含义是啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;无序性指的数组的元素的添加不是按照数组索引的顺序来进行添加的，而是按照根据数值的哈希值来进行加的。&lt;/li&gt;
+&lt;li&gt;不可重复性指的是equals()判断时，返回false，必须重写equals()和hashcode()方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;比较hashsetlikedhashset和treeset三者的异同&#34;&gt;比较HashSet，LikedHashSet和TreeSet三者的异同
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;相同点:这三者都只能存储不重复的元素，这三者都是线程不安全的。&lt;/li&gt;
+&lt;li&gt;不同点:内部数据结构不同，HashSet的底层是基于HashMap实现的，底层的数据结构跟HashMap的一样，数组+链表+红黑树，而LinkedHashSet的底层是LinkedHashMap，底层是数组+链表(双向链表)+红黑树，TreeSet的底层是TreeMap的，底层的数据结构为红黑树(一种自平衡的树)。&lt;/li&gt;
+&lt;li&gt;应用场景不同，HashSet常常用于不需要保证元素插入和取出顺序的场景，LinkedHashSet用于保证元素的插入和取出顺序满足FIFO的场景，TreeSet用于支持对元素自定义排序规则的场景。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;queue与deque的区别&#34;&gt;Queue与Deque的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Queue的底层是单向队列，支持FIFO，从一端进从一端出。&lt;/li&gt;
+&lt;li&gt;Deque的底层是双向队列，支持两端添加和删除，这个可以模拟栈。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;arraydeque与likedlist的区别&#34;&gt;ArrayDeque与LikedList的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;ArrayDeque的底层是变长的数组加双指针，LinkedListd的底层是双链表。&lt;/li&gt;
+&lt;li&gt;ArrayDeque不支持存储NULL数据，但LinkedList支持。&lt;/li&gt;
+&lt;li&gt;ArrayDeque 插入时可能存在扩容过程, 不过均摊后的插入操作依然为 O(1)。虽然 LinkedList 不需要扩容，但是每次插入数据时均需要申请新的堆空间，均摊性能相比更慢。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;说一说priorityqueue&#34;&gt;说一说PriorityQueue
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;PriorityQueue按照某种优先级进行取出和插入。&lt;/li&gt;
+&lt;li&gt;PriorityQueue 利用了二叉堆的数据结构来实现的，底层使用可变长的数组来存储数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;啥是blockingqueue&#34;&gt;啥是BlockingQueue
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;就是阻塞队列，符合生产者-消费者模式，当队列没有时进入阻塞状态，当队列已经满时，一直等到队列可以放入新元素时再放入&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;blockingqueue的实现类有哪些&#34;&gt;BlockingQueue的实现类有哪些
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;ArrayBlockingQueue和LinkedBlockingQueue。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;arrayblockingqueue和linkedblockingqueue有啥区别&#34;&gt;ArrayBlockingQueue和LinkedBlockingQueue有啥区别？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;底层实现：ArrayBlockingQueue 基于数组实现，而 LinkedBlockingQueue 基于链表实现。&lt;/li&gt;
+&lt;li&gt;是否有界：ArrayBlockingQueue 是有界队列，必须在创建时指定容量大小。LinkedBlockingQueue 创建时可以不指定容量大小，默认是Integer.MAX_VALUE，也就是无界的。但也可以指定队列大小，从而成为有界的。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Java基础(3)</title>
+        <link>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%803/</link>
+        <pubDate>Mon, 25 Nov 2024 19:25:16 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%803/</guid>
+        <description>&lt;img src="https://getshhi.github.io/jk3.png" alt="Featured image of post Java基础(3)" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#java%e5%bc%82%e5%b8%b8%e7%b1%bb%e5%b1%82%e6%ac%a1%e7%bb%93%e6%9e%84%e5%9b%be&#34; &gt;Java异常类层次结构图&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#exception%e5%92%8cerror%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab&#34; &gt;Exception和Error有啥区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#checked-exception%e5%92%8cunchecked-exception%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab&#34; &gt;Checked Exception和Unchecked Exception有啥区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#throwable%e7%b1%bb%e5%b8%b8%e7%94%a8%e6%96%b9%e6%b3%95%e6%9c%89%e5%93%aa%e4%ba%9b&#34; &gt;Throwable类常用方法有哪些&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#try-catch-finally%e5%a6%82%e4%bd%95%e4%bd%bf%e7%94%a8&#34; &gt;try-catch-finally如何使用&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%92%8b%e7%94%a8try-with-resources%e4%bb%a3%e6%9b%bftry-catch-finally&#34; &gt;咋用try-with-resources代替try-catch-finally&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%bc%82%e5%b8%b8%e4%bd%bf%e7%94%a8%e6%9c%89%e5%93%aa%e4%ba%9b%e9%9c%80%e8%a6%81%e6%b3%a8%e6%84%8f%e7%9a%84%e5%9c%b0%e6%96%b9&#34; &gt;异常使用有哪些需要注意的地方&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%95%a5%e6%98%af%e6%b3%9b%e5%9e%8b%e6%9c%89%e5%95%a5%e4%bd%9c%e7%94%a8&#34; &gt;啥是泛型？有啥作用&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e6%b3%9b%e5%9e%8b%e7%9a%84%e4%bd%bf%e7%94%a8%e6%96%b9%e5%bc%8f%e6%9c%89%e5%93%aa%e5%87%a0%e7%a7%8d&#34; &gt;泛型的使用方式有哪几种&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e4%bd%95%e4%b8%ba%e5%8f%8d%e5%b0%84&#34; &gt;何为反射&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%8f%8d%e5%b0%84%e7%9a%84%e4%bc%98%e7%bc%ba%e7%82%b9&#34; &gt;反射的优缺点&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%8f%8d%e5%b0%84%e7%9a%84%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af&#34; &gt;反射的应用场景&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%95%a5%e6%98%af%e6%b3%a8%e8%a7%a3&#34; &gt;啥是注解&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e6%b3%a8%e8%a7%a3%e7%9a%84%e8%a7%a3%e6%9e%90%e6%96%b9%e6%b3%95%e6%9c%89%e5%93%aa%e5%87%a0%e7%a7%8d&#34; &gt;注解的解析方法有哪几种&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%95%a5%e6%98%afspi&#34; &gt;啥是SPI&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#spi%e5%92%8capi%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab&#34; &gt;SPI和API有啥区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#spi%e7%9a%84%e4%bc%98%e7%bc%ba%e7%82%b9&#34; &gt;SPI的优缺点&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%95%a5%e6%98%af%e5%ba%8f%e5%88%97%e5%8c%96%e5%95%a5%e6%98%af%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96&#34; &gt;啥是序列化？啥是反序列化?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%a6%82%e6%9e%9c%e6%9c%89%e4%ba%9b%e5%ad%97%e6%ae%b5%e4%b8%8d%e6%83%b3%e8%bf%9b%e8%a1%8c%e5%ba%8f%e5%88%97%e5%8c%96%e5%92%8b%e5%8a%9e&#34; &gt;如果有些字段不想进行序列化咋办&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%b8%b8%e8%a7%81%e7%9a%84%e5%ba%8f%e5%88%97%e5%8c%96%e5%8d%8f%e8%ae%ae%e6%9c%89%e5%93%aa%e4%ba%9b&#34; &gt;常见的序列化协议有哪些&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e4%b8%ba%e5%95%a5%e4%b8%8d%e6%8e%a8%e8%8d%90%e4%bd%bf%e7%94%a8jdk%e8%87%aa%e5%b8%a6%e7%9a%84%e5%ba%8f%e5%88%97%e5%8c%96&#34; &gt;为啥不推荐使用JDK自带的序列化&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;java异常类层次结构图&#34;&gt;Java异常类层次结构图
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://getshhi.github.io/error.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;exception和error有啥区别&#34;&gt;Exception和Error有啥区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Exception:程序本身可以处理的异常，可以通过catch来进行捕获。&lt;/li&gt;
+&lt;li&gt;Error:Error属于程序无法处理的错误，如果出现异常线程就直接结束。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;checked-exception和unchecked-exception有啥区别&#34;&gt;Checked Exception和Unchecked Exception有啥区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Checked Exception就是编译异常(常见的有SQL异常，超时异常，找不到方法异常)&lt;/li&gt;
+&lt;li&gt;Unchecked Exception就是运行异常(常见的有算术异常，数组下标越界异常，空指针异常)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;throwable类常用方法有哪些&#34;&gt;Throwable类常用方法有哪些
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;String getMessage():返回异常发生时的详细信息。&lt;/li&gt;
+&lt;li&gt;String toString():返回异常发生的简要描述。&lt;/li&gt;
+&lt;li&gt;String getLocalizedMessage():返回异常对象的本地化信息。&lt;/li&gt;
+&lt;li&gt;void printStackTrace():在控制台上打印Trowable对象封装的异常信息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;try-catch-finally如何使用&#34;&gt;try-catch-finally如何使用
+&lt;/h4&gt;&lt;p&gt;将可能出现异常的放在try代码块中，对异常的处理放在
+catch代码块中，finally放最后肯定执行的(除了cpu关闭，所在线程提前死亡或者JVM提前死亡)。&lt;/p&gt;
+&lt;h4 id=&#34;咋用try-with-resources代替try-catch-finally&#34;&gt;咋用try-with-resources代替try-catch-finally
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;适用范围（资源的定义）： 任何实现 java.lang.Closeable或者 java.io.Closeable 的对象&lt;/li&gt;
+&lt;li&gt;关闭资源和 finally 块的执行顺序：在 -try-with-resources 语句中，任何 catch 或 finally 块在声明的资源关闭后运行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;异常使用有哪些需要注意的地方&#34;&gt;异常使用有哪些需要注意的地方
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;1.尽量不要捕获类似Exception这样通用的异常，而应该捕获特定的异常。&lt;/li&gt;
+&lt;li&gt;2.只在需要try-catch的地方try-catch，try-catch的范围能小则小&lt;/li&gt;
+&lt;li&gt;3.不要把异常定义为静态变量，因为这样会导致异常栈信息错乱。&lt;/li&gt;
+&lt;li&gt;4.不要延迟处理异常&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;啥是泛型有啥作用&#34;&gt;啥是泛型？有啥作用
+&lt;/h4&gt;&lt;p&gt;Java泛型是JDK5中引入的一个新特性
+作用很直接，就是能把运行时异常转为编译时异常&lt;/p&gt;
+&lt;h4 id=&#34;泛型的使用方式有哪几种&#34;&gt;泛型的使用方式有哪几种
+&lt;/h4&gt;&lt;p&gt;泛型一般有三种使用方式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;泛型类&lt;/li&gt;
+&lt;li&gt;泛型接口&lt;/li&gt;
+&lt;li&gt;泛型方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;何为反射&#34;&gt;何为反射
+&lt;/h4&gt;&lt;p&gt;Java的反射机制就是指在运行获取类的结构信息(如方法，字段，构造函数)并操作对象的一种机制。&lt;/p&gt;
+&lt;h4 id=&#34;反射的优缺点&#34;&gt;反射的优缺点
+&lt;/h4&gt;&lt;p&gt;优点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;反射可以让我们的代码更加灵活、为各种框架提供开箱即用的功能提供了便利。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;缺点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不过，反射让我们在运行时有了分析操作类的能力的同时，也增加了安全问题，比如可以无视泛型参数的安全检查（泛型参数的安全检查发生在编译时）。&lt;/li&gt;
+&lt;li&gt;另外，反射的性能也要稍差点，不过，对于框架来说实际是影响不大的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;相关阅读&lt;a class=&#34;link&#34; href=&#34;https://stackoverflow.com/questions/1392351/java-reflection-why-is-it-so-slow&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Java Reflection: Why is it so slow?&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;反射的应用场景&#34;&gt;反射的应用场景
+&lt;/h4&gt;&lt;p&gt;主要运用在&lt;strong&gt;框架的开发&lt;/strong&gt;和&lt;strong&gt;动态代理的实现&lt;/strong&gt;&lt;/p&gt;
+&lt;h4 id=&#34;啥是注解&#34;&gt;啥是注解
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;1.注解其实就是一个标记，可以标记在类上、方法上、属性上等，标记自身也可以设置一些值。&lt;/li&gt;
+&lt;li&gt;2.有了标记之后，就可以在解析的时候获取标记，然后做特别处理。&lt;/li&gt;
+&lt;li&gt;3.注解的使用可以通过编译时、类加载时或者运行时的反射机制来实现特殊的处理逻辑。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;注解的解析方法有哪几种&#34;&gt;注解的解析方法有哪几种
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;编译期直接扫描: 比如某个方法使用@Override 注解，编译器在编译的时候就会检测当前的方法是否重写了父类对应的方法。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;运行期通过反射通过反射处理: 像框架中自带的注解(比如 Spring 框架的 @Value、@Component)都是通过反射来进行处理的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;啥是spi&#34;&gt;啥是SPI
+&lt;/h4&gt;&lt;p&gt;SPI就是我调用你实现的接口(其他的不用管)，简单来说就是用就完了。&lt;/p&gt;
+&lt;h4 id=&#34;spi和api有啥区别&#34;&gt;SPI和API有啥区别
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://getshhi.github.io/SPI.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;调用方直接调用实现方接口实现服务就是API&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;实现方实现实现方提供的接口从而提供服务就是SPI&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;spi的优缺点&#34;&gt;SPI的优缺点
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;需要遍历加载所有的实现类，不能做到按需加载，这样效率还是相对较低的。&lt;/li&gt;
+&lt;li&gt;当多个 ServiceLoader 同时 load 时，会有并发问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;啥是序列化啥是反序列化&#34;&gt;啥是序列化？啥是反序列化?
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;序列化就是将对象转化为能在网络中传输的，通常是二进制字节流，也可以是JSON，XML等文本格式。&lt;/li&gt;
+&lt;li&gt;反序列化就是将在网络中传输的转化为对象的过程。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;如果有些字段不想进行序列化咋办&#34;&gt;如果有些字段不想进行序列化咋办
+&lt;/h4&gt;&lt;p&gt;可以用transient关键字修饰&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;transient 关键字的作用是：阻止实例中那些用此关键字修饰的的变量序列化；&lt;/li&gt;
+&lt;li&gt;当对象被反序列化时，被 transient 修饰的变量值不会被持久化和恢复。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;常见的序列化协议有哪些&#34;&gt;常见的序列化协议有哪些
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;JDK 自带的序列化方式一般不会用 ，因为序列化效率低并且存在安全问题。比较常用的序列化协议有 Hessian、Kryo、Protobuf、ProtoStuff，这些都是基于二进制的序列化协议。&lt;/li&gt;
+&lt;li&gt;像 JSON 和 XML 这种属于文本类序列化方式。虽然可读性比较好，但是性能较差，一般不会选择。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;为啥不推荐使用jdk自带的序列化&#34;&gt;为啥不推荐使用JDK自带的序列化
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;不能兼容其他的语言&lt;/li&gt;
+&lt;li&gt;性能差&lt;/li&gt;
+&lt;li&gt;存在安全问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;java-io流了解吗&#34;&gt;Java IO流了解吗
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Java IO流简单来说就是输入和输出，输入到计算机内存中进行处理，而输出就是输出到外部存储器进行存储(比如磁盘等之类的外部存储器)&lt;/li&gt;
+&lt;li&gt;Java IO流主要有四个抽象类，分别是InputStream/Reader:所有的输入流的基类，前者是字节输入流，后者是字符输入流，
+OutputStream/Writer:所有输出流的基类，前者是字节输出流，后者是字符输出流。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;io流为啥要分为字节流和字符流呢&#34;&gt;I/O流为啥要分为字节流和字符流呢
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;部分场景需要对字符进行操作，用字符流更加高效&lt;/li&gt;
+&lt;li&gt;如果我们不知道编码类型的话使用字节流的过程中很容易出现乱码问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;啥是语法糖&#34;&gt;啥是语法糖
+&lt;/h4&gt;&lt;p&gt;编程语言为了方便程序员开发程序而设计的一种特殊语法。&lt;/p&gt;
+&lt;h4 id=&#34;java有哪些常见的语法糖&#34;&gt;Java有哪些常见的语法糖
+&lt;/h4&gt;&lt;p&gt;lambda表达式，泛型，自动拆装箱，内部类，增强for循环等等。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Java基础(2)</title>
+        <link>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%802/</link>
+        <pubDate>Sat, 23 Nov 2024 19:48:17 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%802/</guid>
+        <description>&lt;img src="https://getshhi.github.io/jk4.png" alt="Featured image of post Java基础(2)" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e5%92%8c%e9%9d%a2%e5%90%91%e8%bf%87%e7%a8%8b%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;面向对象和面向过程的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aa%e5%af%b9%e8%b1%a1%e7%94%a8%e5%95%a5%e8%bf%90%e7%ae%97%e7%ac%a6%e5%af%b9%e8%b1%a1%e5%ae%9e%e4%bd%93%e4%b8%8e%e5%af%b9%e8%b1%a1%e5%bc%95%e7%94%a8%e6%9c%89%e4%bd%95%e4%b8%8d%e5%90%8c&#34; &gt;创建一个对象用啥运算符？对象实体与对象引用有何不同&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%af%b9%e8%b1%a1%e7%9a%84%e7%9b%b8%e7%ad%89%e5%92%8c%e5%bc%95%e7%94%a8%e7%9b%b8%e7%ad%89%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;对象的相等和引用相等的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%a6%82%e6%9e%9c%e4%b8%80%e4%b8%aa%e7%b1%bb%e6%b2%a1%e6%9c%89%e5%a3%b0%e6%98%8e%e6%9e%84%e9%80%a0%e6%96%b9%e6%b3%95%e8%af%a5%e7%a8%8b%e5%ba%8f%e8%83%bd%e6%ad%a3%e7%a1%ae%e6%89%a7%e8%a1%8c%e5%90%97&#34; &gt;如果一个类没有声明构造方法，该程序能正确执行吗&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e6%9e%84%e9%80%a0%e6%96%b9%e6%b3%95%e6%9c%89%e5%95%a5%e7%89%b9%e7%82%b9%e6%98%af%e5%90%a6%e5%8f%af%e8%a2%aboverride&#34; &gt;构造方法有啥特点？是否可被override&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b8%89%e5%a4%a7%e7%89%b9%e6%80%94&#34; &gt;面向对象三大特怔&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e6%8e%a5%e5%8f%a3%e5%92%8c%e6%8a%bd%e8%b1%a1%e7%b1%bb%e6%9c%89%e5%95%a5%e5%85%b1%e5%90%8c%e7%82%b9%e5%92%8c%e5%8c%ba%e5%88%ab&#34; &gt;接口和抽象类有啥共同点和区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e6%b7%b1%e5%ba%a6%e6%8b%b7%e8%b4%9d%e5%92%8c%e6%b5%85%e6%8b%b7%e8%b4%9d%e4%ba%86%e8%a7%a3%e5%90%97%e5%95%a5%e6%98%af%e5%bc%95%e7%94%a8%e6%8b%b7%e8%b4%9d&#34; &gt;深度拷贝和浅拷贝了解吗？啥是引用拷贝？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#object%e7%b1%bb%e7%9a%84%e5%b8%b8%e8%a7%81%e6%96%b9%e6%b3%95%e6%9c%89%e5%93%aa%e4%ba%9b&#34; &gt;Object类的常见方法有哪些&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#-%e5%92%8c-equals%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;== 和 equals()的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#hashcode%e6%9c%89%e5%95%a5%e7%94%a8&#34; &gt;hashCode()有啥用&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e4%b8%ba%e5%95%a5%e8%a6%81%e6%9c%89hashcode&#34; &gt;为啥要有hashCode&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e4%b8%ba%e5%95%a5%e9%87%8d%e5%86%99equals%e6%97%b6%e5%bf%85%e9%a1%bb%e9%87%8d%e5%86%99hashcode%e6%96%b9%e6%b3%95&#34; &gt;为啥重写equals()时必须重写hashCode()方法&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#string-stringbuffer-stringbuilder%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;String， StringBuffer， StringBuilder的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#string%e4%b8%ba%e5%95%a5%e6%98%af%e4%b8%8d%e5%8f%af%e5%8f%98%e7%9a%84&#34; &gt;String为啥是不可变的&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%8b%bc%e6%8e%a5%e7%94%a8--%e8%bf%98%e6%98%afstringbuilder&#34; &gt;字符串拼接用 &amp;ldquo;+&amp;rdquo; 还是StringBuilder&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#stringequals%e5%92%8cobjectequals%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab&#34; &gt;String#equals()和Object#equals()有啥区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%ad%97%e7%ac%a6%e4%b8%b2%e7%9a%84%e5%b8%b8%e9%87%8f%e6%b1%a0%e4%ba%86%e8%a7%a3%e8%bf%87%e5%90%97&#34; &gt;字符串的常量池了解过吗&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%88%9b%e5%bb%bastring%e5%af%b9%e8%b1%a1%e7%9a%84%e4%b8%a4%e7%a7%8d%e6%96%b9%e5%bc%8f%e4%bb%a5%e5%8f%8a%e4%b8%8d%e5%90%8c&#34; &gt;创建String对象的两种方式以及不同&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#string-s1--new-stringabc%e5%88%9b%e5%bb%ba%e4%ba%86%e5%87%a0%e4%b8%aa%e5%af%b9%e8%b1%a1&#34; &gt;String s1 = new String(&amp;ldquo;abc&amp;rdquo;)创建了几个对象&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#stringintern%e6%96%b9%e6%b3%95%e6%9c%89%e5%95%a5%e4%bd%9c%e7%94%a8&#34; &gt;String#intern方法有啥作用&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#string-%e7%b1%bb%e5%9e%8b%e7%9a%84%e5%8f%98%e9%87%8f%e5%92%8c%e5%b8%b8%e9%87%8f%e5%81%9a%e8%bf%90%e7%ae%97%e6%97%b6%e5%8f%91%e7%94%9f%e4%ba%86%e4%bb%80%e4%b9%88&#34; &gt;String 类型的变量和常量做“+”运算时发生了什么&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;面向对象和面向过程的区别&#34;&gt;面向对象和面向过程的区别
+&lt;/h4&gt;&lt;p&gt;面向对象会先抽象出对象，然后用对象执行方法的方式来解决问题
+面向过程会把解决问题的过程拆成一个个方法，通过一个个方法来执行解决问题&lt;/p&gt;
+&lt;p&gt;面向过程具有良好的性能，但扩展性较差，面向对象具有较好的扩展性，但性能较差。&lt;/p&gt;
+&lt;h4 id=&#34;创建一个对象用啥运算符对象实体与对象引用有何不同&#34;&gt;创建一个对象用啥运算符？对象实体与对象引用有何不同
+&lt;/h4&gt;&lt;p&gt;创建一个对象用new运算符&lt;/p&gt;
+&lt;p&gt;对象实体与对象引用的区别&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对象实体存储在堆中。&lt;/li&gt;
+&lt;li&gt;对象实体指向对象实体。&lt;/li&gt;
+&lt;li&gt;一个对象引用可以指向 0 个或 1 个对象（一根绳子可以不系气球，也可以系一个气球）。&lt;/li&gt;
+&lt;li&gt;一个对象可以有 n 个引用指向它（可以用 n 条绳子系住一个气球）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;对象的相等和引用相等的区别&#34;&gt;对象的相等和引用相等的区别
+&lt;/h4&gt;&lt;p&gt;对象相等是指内存中的内容是否相等&lt;/p&gt;
+&lt;p&gt;引用相等时指指针内存地址是否相等&lt;/p&gt;
+&lt;h4 id=&#34;如果一个类没有声明构造方法该程序能正确执行吗&#34;&gt;如果一个类没有声明构造方法，该程序能正确执行吗
+&lt;/h4&gt;&lt;p&gt;可以的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;系统会生成一个默认的无参构造器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当我们如果实现有参构造器，最好手动加一个无参构造器，这个可以帮助我们少踩坑。&lt;/p&gt;
+&lt;h4 id=&#34;构造方法有啥特点是否可被override&#34;&gt;构造方法有啥特点？是否可被override
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;名字与类名相同。&lt;/li&gt;
+&lt;li&gt;没有返回值。&lt;/li&gt;
+&lt;li&gt;自动执行，在生成类的对象时，构造方法会自动执行，无需显式调用。&lt;/li&gt;
+&lt;li&gt;构造方法不能被重写，只能被重载。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;面向对象三大特怔&#34;&gt;面向对象三大特怔
+&lt;/h4&gt;&lt;p&gt;封装&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;简单来说就是将一个对象的属性封装在一起，对外仅仅暴露方法调用。(比如你用空调遥控器时，空调遥控器内部的细节不知道，但你可以通过它提供的按钮来使用)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;继承&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;子类拥有父类的属性和方法(私有方法和私有属性有但不能继承)。提高代码的复用性，程序的可维护性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;多态&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个对象可以有多种状态，即父类引用指向子类的多种实例。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;接口和抽象类有啥共同点和区别&#34;&gt;接口和抽象类有啥共同点和区别
+&lt;/h4&gt;&lt;p&gt;接口和抽象类的共同点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;实例化: 接口和抽象类都不能直接实例化，只能被实现(接口)或继承(抽象类)后才能创建具体的对象&lt;/li&gt;
+&lt;li&gt;抽象方法: 接口和抽象类都可以包含抽象方法。抽象方法没有方法体，必须在子类或实现类中实现。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接口和抽象类的区别
+接口和抽象类在设计动机上有所不同。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;接口的设计是自上而下的。我们知晓某一行为，于是基于这些行为约束定义了接口，一些类需要有这些行为，因此实现对应的接口。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;抽象类的设计是自下而上的。我们写了很多类，发现它们之间有共性，有很多代码可以复用，因此将公共逻辑封装成一个抽象类，减少代码冗余。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;简单来说就是接口是先规范然后去实现，抽象是先实现然后再抽象出来一个类。&lt;/p&gt;
+&lt;h4 id=&#34;深度拷贝和浅拷贝了解吗啥是引用拷贝&#34;&gt;深度拷贝和浅拷贝了解吗？啥是引用拷贝？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;浅拷贝：浅拷贝后的对象和原对象共享引用对象的实例。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;深拷贝：会重现创建一个实例，使得深拷贝后的对象与原对象完全独立。修改一个对象不会影响另一个对象。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;引用拷贝就是两个不同的引用指向同一个对象
+&lt;img src=&#34;https://getshhi.github.io/java.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;三种拷贝&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;object类的常见方法有哪些&#34;&gt;Object类的常见方法有哪些
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://getshhi.github.io/Object.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Object&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;-和-equals的区别&#34;&gt;== 和 equals()的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;== 对于基本数据类型就是比较值，而对于引用类型就是比较对象的内存地址&lt;/li&gt;
+&lt;li&gt;equals() 不能用于判断基本数据类型的变量，只能用来判断两个对象是否相等。equals()方法存在于Object类中，而Object类是所有类的直接或间接父类，因此所有的类都有equals()方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;hashcode有啥用&#34;&gt;hashCode()有啥用
+&lt;/h4&gt;&lt;p&gt;hashCode用于返回对象的哈希码，确定该对象在哈希表中的索引位置。&lt;/p&gt;
+&lt;h4 id=&#34;为啥要有hashcode&#34;&gt;为啥要有hashCode
+&lt;/h4&gt;&lt;p&gt;大大提高索引速度，从而提高执行速度。&lt;/p&gt;
+&lt;h4 id=&#34;为啥重写equals时必须重写hashcode方法&#34;&gt;为啥重写equals()时必须重写hashCode()方法
+&lt;/h4&gt;&lt;p&gt;因为根据业务来说我们想的时equals()判断的相等就一定相等，而不重写的hashCode返回的是对象的哈希码，这与我们最初的想法相违背，所以必须重写hashCode()。&lt;/p&gt;
+&lt;h4 id=&#34;string-stringbuffer-stringbuilder的区别&#34;&gt;String， StringBuffer， StringBuilder的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;可变性: String不可变，StringBuilder可变，StringBuffer可变。&lt;/li&gt;
+&lt;li&gt;线程安全性: String中的对象是不可变的，可以理解为常量，线程安全。StringBuffer安全，加了同步锁。StringBuilder并没有对方法进行加同步锁，所以不安全。&lt;/li&gt;
+&lt;li&gt;性能： String性能最低，因为每次改变时生成的是一个新的String对象。StringBuffer，StringBuilder性能较高。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总结:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;操作少量的数据: 适用 String&lt;/li&gt;
+&lt;li&gt;单线程操作字符串缓冲区下操作大量数据: 适用 StringBuilder&lt;/li&gt;
+&lt;li&gt;多线程操作字符串缓冲区下操作大量数据: 适用 StringBuffer&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;string为啥是不可变的&#34;&gt;String为啥是不可变的
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1.String的类是用final修饰的，不可以被其他类继承，因此方法不能被重写，里面的数据都不能被改变。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2.String的char数组是私有的而且用final修饰，因此不能改变其字符数组的引用变量，因此改变不了String。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;字符串拼接用--还是stringbuilder&#34;&gt;字符串拼接用 &amp;ldquo;+&amp;rdquo; 还是StringBuilder
+&lt;/h4&gt;&lt;p&gt;字符串拼接用StringBuffer，因为用&amp;quot;+&amp;ldquo;拼接的话底层会创建一个新的StringBuilder对象(对于大多数场景比如说循环)比较耗时间，效率比较低。&lt;/p&gt;
+&lt;h4 id=&#34;stringequals和objectequals有啥区别&#34;&gt;String#equals()和Object#equals()有啥区别
+&lt;/h4&gt;&lt;p&gt;String的equals()会比较字符串是否相等而Object的equals会比较内存的地址是否相等。&lt;/p&gt;
+&lt;h4 id=&#34;字符串的常量池了解过吗&#34;&gt;字符串的常量池了解过吗
+&lt;/h4&gt;&lt;p&gt;字符串的常量池是JVM为了提升性能和减少内存消耗针对字符串(String类)专门开辟的一块区域，主要是为了避免字符串的重复创建。
+&lt;img src=&#34;https://getshhi.github.io/String.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;创建string对象的两种方式以及不同&#34;&gt;创建String对象的两种方式以及不同
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://getshhi.github.io/String1.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://getshhi.github.io/String2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://getshhi.github.io/String3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;string-s1--new-stringabc创建了几个对象&#34;&gt;String s1 = new String(&amp;ldquo;abc&amp;rdquo;)创建了几个对象
+&lt;/h4&gt;&lt;p&gt;这得分情况讨论&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1.如果是常量池中已经存在&amp;quot;abc&amp;quot;则创建一个对象。(即s1直接指向常量池中的&amp;quot;abc&amp;rdquo;)&lt;/li&gt;
+&lt;li&gt;2.如果是常量池中不存在&amp;quot;abc&amp;quot;则创建二个对象。(即首先在常量池中创建&amp;quot;abc&amp;quot;，然后s1指向常量池中的&amp;quot;abc&amp;quot;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;stringintern方法有啥作用&#34;&gt;String#intern方法有啥作用
+&lt;/h4&gt;&lt;p&gt;intern方法是一个本地方法，目的返回字符串在常量池中的引用&lt;/p&gt;
+&lt;h4 id=&#34;string-类型的变量和常量做运算时发生了什么&#34;&gt;String 类型的变量和常量做“+”运算时发生了什么
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;对于编译期可以确定值的字符串，也就是常量字符串 ，
+jvm 会将其存入字符串常量池。并且，字符串常量拼接得到的字符串常量在编译阶段就已经被存放字符串常量池，
+这个得益于编译器的优化。&lt;/li&gt;
+&lt;li&gt;引用的值在程序编译期是无法确定的，编译器无法对其进行优化。(可以加final进行优化)&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Java基础(1)</title>
+        <link>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%801/</link>
+        <pubDate>Fri, 22 Nov 2024 11:05:52 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/java%E5%9F%BA%E7%A1%801/</guid>
+        <description>&lt;img src="https://getshhi.github.io/jk5.png" alt="Featured image of post Java基础(1)" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#java%e8%af%ad%e8%a8%80%e6%9c%89%e5%95%a5%e7%89%b9%e7%82%b9&#34; &gt;java语言有啥特点？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#javase%e6%98%af%e5%95%a5javaee%e6%98%af%e5%95%a5&#34; &gt;JavaSE是啥？JavaEE是啥？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#jvm%e6%98%af%e5%95%a5jdk%e6%98%af%e5%95%a5jre%e6%98%af%e5%95%a5&#34; &gt;JVM是啥？JDK是啥？JRE是啥？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#aot%e6%9c%89%e5%95%a5%e4%bc%98%e7%82%b9%e4%b8%ba%e5%95%a5%e4%b8%8d%e5%85%a8%e7%94%a8aot%e5%91%a2&#34; &gt;AOT有啥优点？为啥不全用AOT呢？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%95%a5%e6%98%af%e5%ad%97%e8%8a%82%e7%a0%81%e9%87%87%e7%94%a8%e5%ad%97%e8%8a%82%e7%a0%81%e7%9a%84%e5%a5%bd%e5%a4%84%e6%98%af%e5%95%a5&#34; &gt;啥是字节码？采用字节码的好处是啥？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e4%b8%ba%e5%95%a5%e8%af%b4java%e8%af%ad%e8%a8%80-%e7%bc%96%e8%af%91%e4%b8%8e%e8%a7%a3%e9%87%8a%e5%85%b1%e5%ad%98&#34; &gt;为啥说Java语言 &amp;ldquo;编译与解释共存&amp;rdquo;?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#oraclejdk-%e5%92%8c-openjdk-%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab&#34; &gt;OracleJDK 和 OpenJDK 有啥区别？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#java%e4%b8%8ec%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;Java与C++的区别？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#java%e6%b3%a8%e9%87%8a%e6%9c%89%e5%87%a0%e7%a7%8d&#34; &gt;Java注释有几种？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e6%a0%87%e8%af%86%e7%ac%a6-%e5%92%8c-%e5%85%b3%e9%94%ae%e5%ad%97-%e7%9a%84%e5%8c%ba%e5%88%ab%e6%98%af%e5%95%a5&#34; &gt;标识符 和 关键字 的区别是啥？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e8%87%aa%e5%a2%9e%e8%87%aa%e5%87%8f%e7%ac%a6%e5%8f%b7&#34; &gt;自增，自减符号&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e7%a7%bb%e4%bd%8d%e8%bf%90%e7%ae%97%e7%ac%a6&#34; &gt;移位运算符&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#java%e7%9a%84%e5%87%a0%e7%a7%8d%e5%9f%ba%e6%9c%ac%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b&#34; &gt;Java的几种基本数据类型&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%9f%ba%e6%9c%ac%e7%b1%bb%e5%9e%8b%e5%92%8c%e5%8c%85%e8%a3%85%e7%b1%bb%e5%9e%8b%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;基本类型和包装类型的区别？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%8c%85%e8%a3%85%e7%b1%bb%e5%9e%8b%e7%9a%84%e7%bc%93%e5%ad%98%e6%9c%ba%e5%88%b6%e4%ba%86%e8%a7%a3%e5%90%97&#34; &gt;包装类型的缓存机制了解吗？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e8%87%aa%e5%8a%a8%e8%a3%85%e7%ae%b1%e4%b8%8e%e6%8b%86%e7%ae%b1%e4%ba%86%e8%a7%a3%e5%90%97-%e5%8e%9f%e7%90%86%e6%98%af%e5%95%a5&#34; &gt;自动装箱与拆箱了解吗？ 原理是啥？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e4%b8%ba%e5%95%a5%e6%b5%ae%e7%82%b9%e6%95%b0%e8%bf%90%e7%ae%97%e7%9a%84%e6%97%b6%e5%80%99%e4%bc%9a%e6%9c%89%e7%b2%be%e5%ba%a6%e4%b8%a2%e5%a4%b1%e7%9a%84%e9%a3%8e%e9%99%a9&#34; &gt;为啥浮点数运算的时候会有精度丢失的风险？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%a6%82%e4%bd%95%e8%a7%a3%e5%86%b3%e6%b5%ae%e7%82%b9%e6%95%b0%e8%bf%90%e7%ae%97%e7%9a%84%e7%b2%be%e5%ba%a6%e4%b8%a2%e5%a4%b1%e9%97%ae%e9%a2%98&#34; &gt;如何解决浮点数运算的精度丢失问题&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e8%b6%85%e8%bf%87long%e6%95%b4%e5%bd%a2%e7%9a%84%e6%95%b0%e6%8d%ae%e5%ba%94%e8%af%a5%e5%a6%82%e4%bd%95%e8%a1%a8%e7%a4%ba&#34; &gt;超过long整形的数据应该如何表示&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f%e4%b8%8e%e5%b1%80%e9%83%a8%e5%8f%98%e9%87%8f%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;成员变量与局部变量的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e9%9d%99%e6%80%81%e5%8f%98%e9%87%8f%e6%9c%89%e5%95%a5%e7%94%a8&#34; &gt;静态变量有啥用？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%ad%97%e7%ac%a6%e5%9e%8b%e5%b8%b8%e9%87%8f%e5%92%8c%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e9%87%8f%e7%9a%84%e5%8c%ba%e5%88%ab&#34; &gt;字符型常量和字符串常量的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%95%a5%e6%98%af%e6%96%b9%e6%b3%95%e7%9a%84%e8%bf%94%e5%9b%9e%e5%80%bc%e6%96%b9%e6%b3%95%e6%9c%89%e5%93%aa%e5%87%a0%e7%a7%8d%e7%b1%bb%e5%9e%8b&#34; &gt;啥是方法的返回值？方法有哪几种类型？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e9%9d%99%e6%80%81%e6%96%b9%e6%b3%95%e4%b8%ba%e5%95%a5%e4%b8%8d%e8%83%bd%e8%b0%83%e7%94%a8%e9%9d%9e%e9%9d%99%e6%80%81%e6%96%b9%e6%b3%95&#34; &gt;静态方法为啥不能调用非静态方法&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e9%9d%99%e6%80%81%e6%96%b9%e6%b3%95%e5%92%8c%e5%ae%9e%e4%be%8b%e6%96%b9%e6%b3%95%e6%9c%89%e5%95%a5%e4%b8%8d%e5%90%8c&#34; &gt;静态方法和实例方法有啥不同？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e9%87%8d%e8%bd%bd%e5%92%8c%e9%87%8d%e5%86%99%e6%9c%89%e5%95%a5%e5%8c%ba%e5%88%ab&#34; &gt;重载和重写有啥区别？&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e5%95%a5%e6%98%af%e5%8f%af%e5%8f%98%e9%95%bf%e5%8f%82%e6%95%b0&#34; &gt;啥是可变长参数？&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;java语言有啥特点&#34;&gt;java语言有啥特点？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1.面向对象，java语言是面向对象的(封装，继承，多态)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2.具有丰富的生态和类库。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;3.具有跨平台特点，一次编译，随处运行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;4.简单易学。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;5.支持网络编程。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;6.本身提供多线程处理的解决办法。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;7.编译和解释并存。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;javase是啥javaee是啥&#34;&gt;JavaSE是啥？JavaEE是啥？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;JavaSE-Java平台的平台标准版，用于构建桌面应用程序或简单的服务器应用程序。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;JavaEE-Java平台的企业标准版，用于构建分布式，健壮的服务端Java应用程序。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;jvm是啥jdk是啥jre是啥&#34;&gt;JVM是啥？JDK是啥？JRE是啥？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;JDK = JRE + 开发工具(JDK是Java完整的工具包)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;JRE = JVM + 核心类库(JRE是可以直接运行.class文件的运行环境，JVM就是虚拟机)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;aot有啥优点为啥不全用aot呢&#34;&gt;AOT有啥优点？为啥不全用AOT呢？
+&lt;/h4&gt;&lt;p&gt;AOT模式与JIT模式比较&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://getshhi.github.io/jit-vs-aot.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;jit-vs-aot&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;AOT就是静态编译，优点是启动时间少，内存占用少，打包体积小。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;JIT是即时编译，优点是有高的处理延迟能力，可以降低请求的最大延迟。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;AOT不支持Java的反射，动态代理，动态加载，而很多框架都是用这个特性，AOT更适合当下的云原生场景，对微服务架构的支持更友好。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;啥是字节码采用字节码的好处是啥&#34;&gt;啥是字节码？采用字节码的好处是啥？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;字节码就是JVM可以直接识别的代码(即扩展名为.class文件的文件)，由于可直接在JVM上运行，所以可以无需编译直接在不同平台上运行(即跨平台性)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;为啥说java语言-编译与解释共存&#34;&gt;为啥说Java语言 &amp;ldquo;编译与解释共存&amp;rdquo;?
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;编译是因为Java先经过编译阶段，即将Java代码编译成.class文件。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;解释是因为Java运行时是Java解释器一行一行解释并执行代码的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;所以编译与解释共存。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;oraclejdk-和-openjdk-有啥区别&#34;&gt;OracleJDK 和 OpenJDK 有啥区别？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;简单来说就是前期这两个没有啥大的区别，后面OracleJDK为了恰钱产生这两个，前者是要付钱的，后者是开源版本。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;java与c的区别&#34;&gt;Java与C++的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Java内存更安全，Java不支持单指针直接操作内存。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Java是编译与解释共存，而C++是编译性语言。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Java支持单继承，C++支持多继承。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;C ++同时支持方法重载和操作符重载，但是 Java 只支持方法重载。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Java 有自动内存管理垃圾回收机制(GC)，不需要程序员手动释放无用内存。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;java注释有几种&#34;&gt;Java注释有几种
+&lt;/h4&gt;&lt;p&gt;三种&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;单行注释 -用于注释单行代码的作用&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;多行注释 -用于注释多行代码的作用&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;文档注释 -用于生成 Java 开发文档&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;标识符-和-关键字-的区别是啥&#34;&gt;标识符 和 关键字 的区别是啥？
+&lt;/h4&gt;&lt;p&gt;标识符就是一个名字&lt;/p&gt;
+&lt;p&gt;关键字是被赋予特殊含义的标识符&lt;/p&gt;
+&lt;h4 id=&#34;自增自减符号&#34;&gt;自增，自减符号
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;++a，- -a (前缀形式，计算时先减1或加1，再用a的变量)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;a++， a- - (后缀形式，计算时用a的值，再将a的值减1或加1)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;移位运算符&#34;&gt;移位运算符
+&lt;/h4&gt;&lt;p&gt;三种运算符&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt; :左移运算符，向左移若干位，高位丢弃，低位补零。&lt;code&gt;x &amp;lt;&amp;lt; n&lt;/code&gt;，相当于 x 乘以 2 的 n 次方(不溢出的情况下)。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;gt;&amp;gt;&lt;/code&gt; :带符号右移，向右移若干位，高位补符号位，低位丢弃。正数高位补 0，负数高位补 1。&lt;code&gt;x &amp;gt;&amp;gt; n&lt;/code&gt;，相当于 x 除以 2 的 n 次方。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; :无符号右移，忽略符号位，空位都以 0 补齐。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;java的几种基本数据类型&#34;&gt;Java的几种基本数据类型
+&lt;/h4&gt;&lt;p&gt;四种八类&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;布尔型 boolean占一个字节 false或者true&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;字符型 char占两个字节&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数值型 byte占一个字节 short占两个字节 int 占4个字节 long(后面加L)占8个字节&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;浮点型 float(后面加f或者F)占4个字节 double占8个字节&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;基本类型和包装类型的区别&#34;&gt;基本类型和包装类型的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;存储方式  基本数据类型的局部变量存放在 Java 虚拟机栈中的局部变量表中，基本数据类型的成员变量（未被 static 修饰 ）存放在 Java 虚拟机的堆中。
+包装类型属于对象类型，我们知道几乎所有对象实例都存在于堆中。&lt;/li&gt;
+&lt;li&gt;用途  除了定义一些常量和局部变量之外，我们在其他地方比如方法参数、对象属性中很少会使用基本类型来定义变量。并且，包装类型可用于泛型，而基本类型不可以。&lt;/li&gt;
+&lt;li&gt;占用空间 相比于包装类型（对象类型）， 基本数据类型占用的空间往往非常小。&lt;/li&gt;
+&lt;li&gt;包装类型的默认值为null， 基本类型的默认值不是null&lt;/li&gt;
+&lt;li&gt;== 可以比较基本类型的值，而包装类型的值得用equals比较&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;包装类型的缓存机制了解吗&#34;&gt;包装类型的缓存机制了解吗？
+&lt;/h4&gt;&lt;p&gt;Java 基本数据类型的包装类型的大部分都用到了缓存机制来提升性能。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Integer，Byte，Long，Short默认创建了数值[-128， 127]的相应类型的缓存数据&lt;/li&gt;
+&lt;li&gt;Character创建了[0，127]范围的缓存数据，&lt;/li&gt;
+&lt;li&gt;Boolean直接返回True or False&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;自动装箱与拆箱了解吗-原理是啥&#34;&gt;自动装箱与拆箱了解吗？ 原理是啥？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;装箱就是将基本数据类型转变为包装类型&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;拆箱就是将包装类型转变为基本数据类型&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://getshhi.github.io/Integer.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Integer&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;如果频繁拆装箱的话，也会严重影响系统的性能。我们应该尽量避免不必要的拆装箱操作&lt;/strong&gt;&lt;/p&gt;
+&lt;h4 id=&#34;为啥浮点数运算的时候会有精度丢失的风险&#34;&gt;为啥浮点数运算的时候会有精度丢失的风险？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;二进制表示的限制：十进制系统中的某些小数（如0.1、0.2等）在二进制系统中只能通过无限循环小数来近似表示。&lt;/li&gt;
+&lt;li&gt;舍入误差：由于计算机只能存储有限的位数，因此在进行浮点数运算时，不可避免地会产生舍入误差。&lt;/li&gt;
+&lt;li&gt;浮点数存储结构：浮点数在计算机中的存储遵循IEEE 754标准，该标准将浮点数拆分为符号位、指数位和尾数位&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;如何解决浮点数运算的精度丢失问题&#34;&gt;如何解决浮点数运算的精度丢失问题
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;BigDecimal 可以实现对浮点数的运算，不会造成精度丢失。通常情况下，大部分需要浮点数精确运算结果的业务场景（比如涉及到钱的场景）都是通过 BigDecimal 来做的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;超过long整形的数据应该如何表示&#34;&gt;超过long整形的数据应该如何表示？
+&lt;/h4&gt;&lt;p&gt;可以用BigInteger处理&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;BigInteger内部用int[]数组来存储任意大小的整形数据 相对于常规整数类型的运算来说，BigInteger运算的效率会相对较低&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;成员变量与局部变量的区别&#34;&gt;成员变量与局部变量的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;语法形式：从语法形式上看，成员变量是属于类的，而局部变量是在代码块或方法中定义的变量或是方法的参数；成员变量可以被 public，private，static 等修饰符所修饰，而局部变量不能被访问控制修饰符及 static 所修饰；但是，成员变量和局部变量都能被 final 所修饰。&lt;/li&gt;
+&lt;li&gt;存储方式：从变量在内存中的存储方式来看，如果成员变量是使用 static 修饰的，那么这个成员变量是属于类的，如果没有使用 static 修饰，这个成员变量是属于实例的。而对象存在于堆内存，局部变量则存在于栈内存。&lt;/li&gt;
+&lt;li&gt;生存时间：从变量在内存中的生存时间上看，成员变量是对象的一部分，它随着对象的创建而存在，而局部变量随着方法的调用而自动生成，随着方法的调用结束而消亡。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;静态变量有啥用&#34;&gt;静态变量有啥用？
+&lt;/h4&gt;&lt;p&gt;静态变量可以节省内存&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;静态变量随着类的加载而创建，所以它可以被类的所有实例共享，所以可以节省内存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;字符型常量和字符串常量的区别&#34;&gt;字符型常量和字符串常量的区别
+&lt;/h4&gt;&lt;p&gt;形式: 字符常量是单引号引起的一个字符，字符串常量是双引号引起的0个或若干个字符
+含义: 字符常量相当于一个整形值(ASCII值)，可以参加表达式运算;字符串常量代表一个地址值(该字符串在内存中存放位置)。
+占内存大小： 字符常量只占2个字节;字符串常量占若干个字节。&lt;/p&gt;
+&lt;h4 id=&#34;啥是方法的返回值方法有哪几种类型&#34;&gt;啥是方法的返回值？方法有哪几种类型？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;返回值就是方法体返回的数值。&lt;/li&gt;
+&lt;li&gt;方法有4种
+&lt;ul&gt;
+&lt;li&gt;无参数，无返回的&lt;/li&gt;
+&lt;li&gt;有参数，无返回的&lt;/li&gt;
+&lt;li&gt;无参数，有返回的&lt;/li&gt;
+&lt;li&gt;有参数，有返回的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;静态方法为啥不能调用非静态方法&#34;&gt;静态方法为啥不能调用非静态方法？
+&lt;/h4&gt;&lt;p&gt;静态方法随着类的加载而加载，而非静态方法只有类被实例化时才能加载，所以可以得到静态方法存在时而非静态方法不存在的情况，由此得到静态方法不能调用非静态方法。&lt;/p&gt;
+&lt;h4 id=&#34;静态方法和实例方法有啥不同&#34;&gt;静态方法和实例方法有啥不同？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;调用方式不同， 调用静态方法可以无需创建对象，用类名.方法名的方式来调用静态方法。&lt;/li&gt;
+&lt;li&gt;访问类成员是否存在限制， 静态方法在访问本类的成员时，仅仅让访问静态成员，而实例方法不存在这个限制。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;重载和重写有啥区别&#34;&gt;重载和重写有啥区别？
+&lt;/h4&gt;&lt;p&gt;重载就是在同样的一个方法能够根据输入数据的不同，做出不同的处理。
+重写就是子类继承自父类的相同方法，输入数据一样，但要做出有别于父类的响应，你就要覆盖父类的方法&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;区别点&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;重载方法&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;重写方法&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;发生范围&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;本类中&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;子类中&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;参数列表&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;必须修改&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;不能修改&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;返回类型&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;可修改&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;子类的返回类型与父类返回的类型相同或者时父类返回类型的子类&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;异常&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;可修改&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;子类方法声明抛出的异常类应比父类方法声明抛出的异常类更小或相等；&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;访问修饰符&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;可修改&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;一定不能做更严格的限制（可以降低限制）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;发生阶段&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;编译期&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;运行期&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;啥是可变长参数&#34;&gt;啥是可变长参数？
+&lt;/h4&gt;&lt;p&gt;从 Java5 开始，Java 支持定义可变长参数，所谓可变长参数就是允许在调用方法时传入不定长度的参数。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>HashMap的实现原理与总结</title>
+        <link>https://getshhi.github.io/p/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%BB%E7%BB%93/</link>
+        <pubDate>Thu, 03 Oct 2024 16:55:42 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%BB%E7%BB%93/</guid>
+        <description>&lt;img src="https://getshhi.github.io/jk6.png" alt="Featured image of post HashMap的实现原理与总结" /&gt;&lt;h3 id=&#34;实现原理分析&#34;&gt;实现原理分析
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;HashMap&lt;/strong&gt;的底层是&lt;strong&gt;红黑树&lt;/strong&gt;,&lt;strong&gt;数组&lt;/strong&gt;,&lt;strong&gt;链表&lt;/strong&gt;;默认其初始容量为16;当put时首先就会进入到putVal这个函数,到这个函数中首先先判断底层的table是否为空或者长度为0,若是则会扩容到16,然后根据key值计算出table值,若table值为空,则直接加入到这个table位置上;若不是则会判断加入的key和旧的key是否是同一对象或者euqals相同,若是,则不用加了;若不是，先判断是否是为红黑树,如果是,则按照红黑树的逻辑加,若不是则会进入死循环,死循环中如果有key相同就只是替换value,如果不是则&lt;strong&gt;尾插&lt;/strong&gt;到链表末尾,若单个链表超过8个,则会进行树化,在树化这个函数中先判断容量是否超过64,如果是则树化否则扩容。最后判断是否需要扩容。&lt;/p&gt;
+&lt;h3 id=&#34;源码分析&#34;&gt;源码分析
+&lt;/h3&gt;&lt;h4 id=&#34;首先会进入put函数&#34;&gt;首先会进入put函数
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//传入其哈希值和key和value&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//(h = key.hashCode()) ^ (h &amp;gt;&amp;gt;&amp;gt; 16) 计算key的hash值,让高位和低位进行异或&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;putVal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;然后执行putval方法&#34;&gt;然后执行putval方法
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;51
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;52
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;53
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;putVal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;onlyIfAbsent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                   &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;evict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;[]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tab&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//辅助变量&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//如果底层的table数组为null,或者length = 0,就扩容到16&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tab&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;||&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tab&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tab&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;resize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//取出hash值对应的table的索引位置的Node,如果为空,则直接创建一个新的节点,填入key和value,加入该位置&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;newNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 辅助变量&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//如果table的索引位置的key的hash相同和新的key的hash值相同&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//并满足(table现有的结点的key和添加的key是同一对象 || equals返回真,就认为不能加这个k-v)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;||&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;equals&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))))&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;instanceof&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TreeNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//如果当前的table的已有的Node是红黑树,就按照红黑树的方式处理&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TreeNode&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;putTreeVal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tab&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//如果找到的结点，后面是链表，就循环比较&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;binCount&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;binCount&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//死循环&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;newNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                        &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//加入后，判断当前链表的个数，是否已经到达八个，到八个，后面就调用treeifyBin方法进行红黑树的转化,不进行树化&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                        &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//其中树化里面会判断是否超过64,没有就扩容&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                        &lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/* if (tab == null || (n = tab.length) &amp;lt; MIN_TREEIFY_CAPACITY)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;                            resize();
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;                        */&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;binCount&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TREEIFY_THRESHOLD&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// -1 for 1st&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;treeifyBin&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tab&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;break&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//如果在循环中相同就只是替换value&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;||&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;equals&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))))&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;break&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// existing mapping for key&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;oldValue&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;onlyIfAbsent&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;||&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;oldValue&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//替换value&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;afterNodeAccess&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;oldValue&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;modCount&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//每次加入一个都加一&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;threshold&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//判断是否需要扩容&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;resize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;afterNodeInsertion&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;evict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;结论总结&#34;&gt;结论总结
+&lt;/h3&gt;&lt;p&gt;HashMap底层维护了Node类型的数组table,默认为null。&lt;/p&gt;
+&lt;p&gt;当创建对象时,将加载因子初始化为0.75。&lt;/p&gt;
+&lt;p&gt;当添加key-val时,通过key的哈希值得到在table的索引,然后判断索引是否有元素,如果没有元素直接加入。如果索引处有元素,则判断key值是否相同,若相同,则直接替换value;如果不相同,则会判断是树结构还是链表结构,分别进行相应的处理。如果添加时发现容量不够,则会进行扩容。&lt;/p&gt;
+&lt;p&gt;第一次添加，则需要扩容table容量为16，临界值为12(16 * 0.75)&lt;/p&gt;
+&lt;p&gt;以后再扩容，则需要扩容table容量为原来的2倍，临界值为原来的2倍，即24，依次类推。&lt;/p&gt;
+&lt;p&gt;在Java8中，如果一条链表的元素个数超过TREEIFY_THRESHOLD(默认是8)，并且table的大小 &amp;gt;= MIN_TREEIFY_CAPACITY(默认64)，就会进行树化&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>完全二叉树的节点个数(力扣)</title>
+        <link>https://getshhi.github.io/p/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0%E5%8A%9B%E6%89%A3/</link>
+        <pubDate>Thu, 03 Oct 2024 11:25:04 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0%E5%8A%9B%E6%89%A3/</guid>
+        <description>&lt;img src="https://getshhi.github.io/jk8.png" alt="Featured image of post 完全二叉树的节点个数(力扣)" /&gt;&lt;h3 id=&#34;题目分析&#34;&gt;题目分析
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/count-complete-tree-nodes/description/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;力扣题目链接&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;要统计二叉树的节点个数，一般是编历一遍二叉树直接统计(可以用后序遍历或者层序遍历，这里就不说了)。&lt;/p&gt;
+&lt;p&gt;而这个是&lt;strong&gt;完全二叉树&lt;/strong&gt;,我们可以根据&lt;strong&gt;完全二叉树&lt;/strong&gt;的特点进行求解。&lt;/p&gt;
+&lt;p&gt;完全二叉树的定义如下:在完全二叉树中，除了最底层节点可能没填满外，其余每层节点数都达到最大值，并且最下面的节点都集中在该层最左边的若干位置。若最低层为第h层，则该层包含1-2h个节点。&lt;/p&gt;
+&lt;p&gt;则可以设完全二叉树有 h 层，则其前h-1的节点都是满的，共有节点 2^(h-1) - 1 个节点。而最后一层最少有 1 个节点，最多有 2^(h-1) 个节点。因此 h 层的完全二叉树的节点个数范围为：[2^(h-1) - 1 + 1, 2^(h-1) - 1 + 2^(h-1)] = [2^(h-1), 2^h - 1]【或 [2^(h-1), 2^h) 】&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://pic.leetcode.cn/1695539453-zFSbFn-image.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;位运算&#34;&gt;位运算
+&lt;/h3&gt;&lt;p&gt;我们把每个节点编号转成二进制，可以发现以下几个规律：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第 h 层的节点编号的二进制刚好有 h 位；&lt;/li&gt;
+&lt;li&gt;定义左子节点为 0， 右子节点为 1 。那么每一个节点编号的二进制从高位到低位刚好表示根节点到这个节点的路径。【根节点为最高位，始终为 1】即节点编号的二进制为节点路径的编码；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://pic.leetcode.cn/1695540616-efCzXa-image.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;
+则可以发现第h层的节点编号一定是有h位。&lt;strong&gt;我们可以根据已知的节点走一遍节点路径，来查找这个节点是否存在。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;代码如下&#34;&gt;代码如下
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Solution&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;countNodes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TreeNode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//如果根结点为null，直接返回0&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TreeNode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leavl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//统计完全二叉树的层数&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leavl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leavl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//最小可以有多少&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leavl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//最大可以有多少&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ans&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//存储结果&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;middle&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;check&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;middle&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leavl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)){&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ans&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;middle&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;middle&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//利用二分确定结果&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;middle&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ans&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;check&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;middle&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TreeNode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leavl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;jk&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leavl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//抛去根节点(因为根节点是1)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;jk&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;jk&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;middle&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//为0说明在左子树上&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//为1说明在右子树上&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;jk&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//逐层进行查找&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//为空则说明不存在&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;本文引自于&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/count-complete-tree-nodes/solutions/2456908/javapython3cer-fen-cha-zhao-wei-yun-suan-idof/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://leetcode.cn/problems/count-complete-tree-nodes/solutions/2456908/javapython3cer-fen-cha-zhao-wei-yun-suan-idof/&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>JavaWeb</title>
+        <link>https://getshhi.github.io/p/javaweb/</link>
+        <pubDate>Fri, 27 Sep 2024 12:33:05 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/javaweb/</guid>
+        <description>&lt;img src="https://getshhi.github.io/kj3.png" alt="Featured image of post JavaWeb" /&gt;&lt;h3 id=&#34;java的网络编程&#34;&gt;Java的网络编程
+&lt;/h3&gt;&lt;h4 id=&#34;1java网络编程的基本概念&#34;&gt;1.Java网络编程的基本概念
+&lt;/h4&gt;&lt;p&gt;IP 地址：用于标识网络中的计算机。&lt;/p&gt;
+&lt;p&gt;端口号：用于标识计算机上的具体应用程序或进程。&lt;/p&gt;
+&lt;p&gt;Socket（套接字）：网络通信的基本单位，通过 IP 地址和端口号标识。&lt;/p&gt;
+&lt;p&gt;协议：网络通信的规则，如 TCP（传输控制协议）和 UDP（用户数据报协议）。&lt;/p&gt;
+&lt;h3 id=&#34;2网络编程的核心类&#34;&gt;2.网络编程的核心类
+&lt;/h3&gt;&lt;p&gt;Socket：用于创建客户端套接字。&lt;/p&gt;
+&lt;p&gt;ServerSocket：用于创建服务器套接字。&lt;/p&gt;
+&lt;p&gt;DatagramSocket：用于创建支持 UDP 协议的套接字。&lt;/p&gt;
+&lt;p&gt;URL：用于处理统一资源定位符。&lt;/p&gt;
+&lt;p&gt;URLConnection：用于读取和写入 URL 引用的资源。&lt;/p&gt;
+&lt;h3 id=&#34;3代码实现&#34;&gt;3.代码实现
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;51
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;java.io.*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;java.net.ServerSocket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;java.net.Socket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//服务端&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;TCPServer&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;serverSocket&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;8080&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Socket&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;serverSocket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;accept&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerThread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//synchronized&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IOException&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printStackTrace&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;ServerThread&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;extends&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Thread&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Socket&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ServerThread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Socket&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(){&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PrintWriter&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PrintWriter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getOutputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BufferedReader&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;in&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BufferedReader&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;InputStreamReader&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getInputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()))){&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;in&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;readLine&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//接受消息&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Hello Server~&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;message = &amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IOException&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printStackTrace&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;java.io.*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;java.net.Socket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;java.net.UnknownHostException&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//客户端&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;TCPClient&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Socket&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Socket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;localhost&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;8080&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PrintWriter&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PrintWriter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getOutputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BufferedReader&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;in&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BufferedReader&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;InputStreamReader&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getInputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())))&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Hello Server~&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;in&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;readLine&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;message = &amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printStackTrace&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;4总结&#34;&gt;4.总结
+&lt;/h3&gt;&lt;p&gt;IP地址：外卖员要送餐到的大楼（例如：腾讯大楼）。&lt;/p&gt;
+&lt;p&gt;端口号：外卖员要到大楼里的具体房间（例如：1001）。&lt;/p&gt;
+&lt;p&gt;Socket：外卖员通过手机（Socket）与我们通信，告知外卖已到。&lt;/p&gt;
+&lt;p&gt;协议：我们默认使用中文对话。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
