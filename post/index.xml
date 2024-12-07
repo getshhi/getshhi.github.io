@@ -775,8 +775,23 @@ git push的另外一种用法如下：&lt;/p&gt;
 &lt;li&gt;行 : InnoDB 存储引擎是面向行的，也就是说数据是按行进行存放的。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;innodb-行格式有哪些&#34;&gt;InnoDB 行格式有哪些？
-&lt;/h4&gt;&lt;h2 id=&#34;innodb-提供了-4-种行格式分别是-redundantcompactdynamic和-compressed-行格式&#34;&gt;InnoDB 提供了 4 种行格式，分别是 Redundant、Compact、Dynamic和 Compressed 行格式。
-&lt;/h2&gt;</description>
+&lt;/h4&gt;&lt;p&gt;InnoDB 提供了 4 种行格式，分别是 Redundant、Compact、Dynamic和 Compressed 行格式。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Redundant 是很古老的行格式了， MySQL 5.0 版本之前用的行格式，现在基本没人用了。&lt;/li&gt;
+&lt;li&gt;由于 Redundant 不是一种紧凑的行格式，所以 MySQL 5.0 之后引入了 Compact 行记录存储方式，Compact 是一种紧凑的行格式，设计的初衷就是为了让一个数据页中可以存放更多的行记录，从 MySQL 5.1 版本之后，行格式默认设置成 Compact。&lt;/li&gt;
+&lt;li&gt;Dynamic 和 Compressed 两个都是紧凑的行格式，它们的行格式都和 Compact 差不多，因为都是基于 Compact 改进一点东西。从 MySQL5.7 版本之后，默认使用 Dynamic 行格式。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;compact-行格式长什么样&#34;&gt;COMPACT 行格式长什么样？
+&lt;/h4&gt;&lt;p&gt;主要分为真实数据和额外的信息，图如下&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://getshhi.github.io/MySql6.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>Java集合(2)</title>
@@ -2395,132 +2410,6 @@ jvm 会将其存入字符串常量池。并且，字符串常量拼接得到的�
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;本文引自于&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/count-complete-tree-nodes/solutions/2456908/javapython3cer-fen-cha-zhao-wei-yun-suan-idof/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://leetcode.cn/problems/count-complete-tree-nodes/solutions/2456908/javapython3cer-fen-cha-zhao-wei-yun-suan-idof/&lt;/a&gt;&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>在Linux上部署Docker的代理</title>
-        <link>https://getshhi.github.io/p/%E5%9C%A8linux%E4%B8%8A%E9%83%A8%E7%BD%B2docker%E7%9A%84%E4%BB%A3%E7%90%86/</link>
-        <pubDate>Wed, 02 Oct 2024 11:46:05 +0800</pubDate>
-        
-        <guid>https://getshhi.github.io/p/%E5%9C%A8linux%E4%B8%8A%E9%83%A8%E7%BD%B2docker%E7%9A%84%E4%BB%A3%E7%90%86/</guid>
-        <description>&lt;img src="https://getshhi.github.io/jk9.png" alt="Featured image of post 在Linux上部署Docker的代理" /&gt;&lt;h4 id=&#34;docker的代理解决&#34;&gt;docker的代理解决
-&lt;/h4&gt;&lt;p&gt;这几天在docker的代理上搞了好几天，我看网上弄的教程不是太全，因此搞了好了几天才成功，特意写这个给那些有着相同的问题提供解决方案和总结自己犯过的错误。&lt;/p&gt;
-&lt;h5 id=&#34;clash教程&#34;&gt;clash教程
-&lt;/h5&gt;&lt;p&gt;首先打开clash,进入常规,然后打开局域网连接,我的端口为7890。
-&lt;img src=&#34;https://getshhi.github.io/clash.jpg&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片&#34;
-	
-	
-&gt;
-然后window键加r打开控制台输入ipconfig获取虚拟机的ip地址
-&lt;img src=&#34;https://getshhi.github.io/vm.jpg&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h5 id=&#34;v2rayn教程&#34;&gt;v2rayN教程
-&lt;/h5&gt;&lt;p&gt;首先打开v2rayN,进入设置，点参数设置，然后允许局域网连接(这个是在系统代理的前提上弄的)一般端口为10811
-&lt;img src=&#34;https://getshhi.github.io/v2ray.jpg&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片&#34;
-	
-	
-&gt;
-然后window键加r打开控制台输入ipconfig获取虚拟机的ip地址
-&lt;img src=&#34;https://getshhi.github.io/vm.jpg&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h5 id=&#34;最后一步这一步都是一样的对于这两个不同软件的代理&#34;&gt;最后一步(这一步都是一样的(对于这两个不同软件的代理))
-&lt;/h5&gt;&lt;p&gt;docker命令
-我们在docker的进程服务文件夹配置我们的代理设置，如果没有我们就新建这个文件夹：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mkdir /etc/systemd/system/docker.service.d
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;然后在docker.service.d文件夹里新建我们的代理文件proxy.conf&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo vim /etc/systemd/system/docker.service.d/proxy.conf
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;并把文件写如下面这个格式：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[Service] 
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Environment=&amp;#34;HTTP_PROXY=代理服务器ip:port&amp;#34; 
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Environment=&amp;#34;HTTPS_PROXY=代理服务器ip:port&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;保存并退出proxy.conf文件，和更改镜像源一样，重启docker，并重启daemon进程。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;systemctl&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;daemon&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;reload&lt;/span&gt;		&lt;span class=&#34;c1&#34;&gt;#重启daemon进程&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;systemctl&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;restart&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;docker&lt;/span&gt;		&lt;span class=&#34;c1&#34;&gt;#重启docker&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;最后我们仍然是验证一下是否修改成功，运行&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker info
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;在长串info信息中如果出现类似下文的内容：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; HTTP Proxy: 代理服务器ip:port
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; HTTPS Proxy: 代理服务器ip:port
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;好了，可以拉取镜像了😁&lt;/p&gt;
-&lt;p&gt;本文引自&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/Lichen0196/article/details/137355517&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://blog.csdn.net/Lichen0196/article/details/137355517&lt;/a&gt;,&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/weixin_46264846/article/details/142363390&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://blog.csdn.net/weixin_46264846/article/details/142363390&lt;/a&gt;
-,&lt;a class=&#34;link&#34; href=&#34;https://www.jianshu.com/p/6c7abd4adc9b&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://www.jianshu.com/p/6c7abd4adc9b&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>

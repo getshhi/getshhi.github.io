@@ -296,7 +296,7 @@
                 </time>
             </div>
         
-        <span class="post-word-count">1645 words</span>
+        <span class="post-word-count">1861 words</span>
     </footer>
     
     
@@ -420,8 +420,23 @@
 <li>行 : InnoDB 存储引擎是面向行的，也就是说数据是按行进行存放的。</li>
 </ul>
 <h4 id="innodb-行格式有哪些">InnoDB 行格式有哪些？
-</h4><h2 id="innodb-提供了-4-种行格式分别是-redundantcompactdynamic和-compressed-行格式">InnoDB 提供了 4 种行格式，分别是 Redundant、Compact、Dynamic和 Compressed 行格式。
-</h2>
+</h4><p>InnoDB 提供了 4 种行格式，分别是 Redundant、Compact、Dynamic和 Compressed 行格式。</p>
+<ul>
+<li>Redundant 是很古老的行格式了， MySQL 5.0 版本之前用的行格式，现在基本没人用了。</li>
+<li>由于 Redundant 不是一种紧凑的行格式，所以 MySQL 5.0 之后引入了 Compact 行记录存储方式，Compact 是一种紧凑的行格式，设计的初衷就是为了让一个数据页中可以存放更多的行记录，从 MySQL 5.1 版本之后，行格式默认设置成 Compact。</li>
+<li>Dynamic 和 Compressed 两个都是紧凑的行格式，它们的行格式都和 Compact 差不多，因为都是基于 Compact 改进一点东西。从 MySQL5.7 版本之后，默认使用 Dynamic 行格式。</li>
+</ul>
+<h4 id="compact-行格式长什么样">COMPACT 行格式长什么样？
+</h4><p>主要分为真实数据和额外的信息，图如下</p>
+<p><img src="/MySql6.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+
 </section>
 
 
