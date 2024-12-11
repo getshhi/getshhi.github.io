@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="合并远程分支 合并远程分支的一般步骤是：\n1.第一步，分别获取远程分支内容到本地； 2.第二步，在本地将两个分支合并； 3.第三步，将合并后的本地分支推送到远程分支，完成合并。\n">
+<title>Git进阶之合并远程分支、rebase、储藏</title>
+
+<link rel='canonical' href='https://getshhi.github.io/p/git%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%90%88%E5%B9%B6%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AFrebase%E5%82%A8%E8%97%8F/'>
+
+<link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="Git进阶之合并远程分支、rebase、储藏">
+<meta property='og:description' content="合并远程分支 合并远程分支的一般步骤是：\n1.第一步，分别获取远程分支内容到本地； 2.第二步，在本地将两个分支合并； 3.第三步，将合并后的本地分支推送到远程分支，完成合并。\n">
+<meta property='og:url' content='https://getshhi.github.io/p/git%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%90%88%E5%B9%B6%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AFrebase%E5%82%A8%E8%97%8F/'>
+<meta property='og:site_name' content='JZH-letere'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Git' /><meta property='article:tag' content='开发工具' /><meta property='article:published_time' content='2024-12-11T17:13:24&#43;08:00'/><meta property='article:modified_time' content='2024-12-11T17:13:24&#43;08:00'/><meta property='og:image' content='https://getshhi.github.io/hg4.png' />
+<meta name="twitter:title" content="Git进阶之合并远程分支、rebase、储藏">
+<meta name="twitter:description" content="合并远程分支 合并远程分支的一般步骤是：\n1.第一步，分别获取远程分支内容到本地； 2.第二步，在本地将两个分支合并； 3.第三步，将合并后的本地分支推送到远程分支，完成合并。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://getshhi.github.io/hg4.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu5331494558346596945.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">😀</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">JZH-letere</a></h1>
+            <h2 class="site-description">欢迎来到我的小家</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/getshhi'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%AD%A6%E4%B9%A0%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>学习链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/git%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%90%88%E5%B9%B6%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AFrebase%E5%82%A8%E8%97%8F/">
+                
+                    <img src="/hg4.png" loading="lazy" alt="Featured image of post Git进阶之合并远程分支、rebase、储藏" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E5%8D%9A%E5%AE%A2/" >
+                博客
+            </a>
+        
+            <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" >
+                开发工具
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/git%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%90%88%E5%B9%B6%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AFrebase%E5%82%A8%E8%97%8F/">Git进阶之合并远程分支、rebase、储藏</a>
+        </h2>
+    
+        
+    </div>
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2024-12-11</time>
+            </div>
+        
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 6 分钟
+                </time>
+            </div>
+        
+        <span class="post-word-count">2871 words</span>
+    </footer>
+    
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="合并远程分支">合并远程分支
+</h2><p>合并远程分支的一般步骤是：</p>
+<p>1.第一步，分别获取远程分支内容到本地；
+2.第二步，在本地将两个分支合并；
+3.第三步，将合并后的本地分支推送到远程分支，完成合并。</p>
+<p>具体的，以将远程develop分支合并到远程master分支为例，操作过程如下：
+1.获取远程develop分支到本地分支（如develop分支）。如果本地已经有分支对应远程develop分支，则可以直接在该分支上执行pull操作或者fetch/merge操作，以获取远程最新内容。否则，可以新建分支跟踪远程develop分支，并获取最新内容到本地；</p>
+<p>2.切换到master分支，并获取远程master分支的最新内容到本地；</p>
+<p>3.将本地develop分支合并到本地master分支；</p>
+<p>4.将本地master分支推送到远程master分支。</p>
+<p>以合并远程develop分支到远程master分支为例，其具体操作步骤如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#切换到develop分支
+</span></span><span class="line"><span class="cl">git checkout develop
+</span></span><span class="line"><span class="cl">#获取远程develop分支的内容到本地
+</span></span><span class="line"><span class="cl">git pull origin develop:develop
+</span></span><span class="line"><span class="cl">#切换到master分支
+</span></span><span class="line"><span class="cl">git checkout master
+</span></span><span class="line"><span class="cl">#拉取远程master分支内容到本地
+</span></span><span class="line"><span class="cl">git pull origin master
+</span></span><span class="line"><span class="cl">#合并本地develop分支到master分支
+</span></span><span class="line"><span class="cl">git merge develop
+</span></span><span class="line"><span class="cl">#将合并后的分支推送到远程master分支
+</span></span><span class="line"><span class="cl">git push origin master:master
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="rebase操作">rebase操作
+</h2><h4 id="merge和rebase的不同">merge和rebase的不同
+</h4><p>merge的工作流程如下图：</p>
+<p><img src="https://data.educoder.net/api/attachments/ZkxLQWhwb0k3YUFhbjY2UmI0RHM0QT09"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>如上图所示，我们从远程仓库origin的C2版本，创建一个新的分支develop进行开发，并进行了C5、C6两次提交。之后团队中其他成员又向origin推送了两次提交C3、C4。为了合并远程分支上的新内容到本地，我们进行merge操作，将内容合并到develop之后，生成了一次新的提交C7。此时，develop分支还是一个独立的分支。</p>
+<p>而rebase的工作流程如下图：</p>
+<p><img src="https://data.educoder.net/api/attachments/NElpYWlMS0JKTERiMFJZSEJoVXJEZz09"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>rebase又可称为‘变基’，结合上图的话，这个词就很容易理解了。即：</p>
+<p>1.C5、C6本来是在C2这次提交的基础上进行修改的；</p>
+<p>2.现在我们将这个‘基础’改为C4，即将C5、C6的提交作用到C4上去；</p>
+<p>3.在这个过程中，可能会有冲突产生，解决冲突之后就完成了rebase。</p>
+<p>由图可以看到，rebase完成后，源分支上的提交都不见了。</p>
+<h3 id="rebase基础操作">rebase基础操作
+</h3><p>rebase的基本操作是将某个分支的修改到指定分支，其命令格式为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1.git rebase 基分支 源分支
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中‘基分支’是我们的新的‘基’，而‘源分支’就是需要进行变基操作的分支。这样就能实现将源分支变基到基分支。具体使用示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1.git rebase master develop
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以上语句就能实现将develop变基到master分支。
+如果是将当前分支变基到指定分支，则可以直接使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git rebase 基分支
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这一命令默认将当前分支变基到‘基分支’。如果当前处于develop分支，则其使用示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git rebase master
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样也能实现将当前的develop分支rebase到master分支。</p>
+<p>由于变基是将修改作用到一个不同的版本上，因此很可能在rebase的过程中出现冲突。和merge一次性合并所有冲突不同的是，rebase的冲突是一个一个解决的。以上图中的rebase操作为例，需要分别解决和C3、C4的冲突。在解决rebase冲突的过程中，当解决完一个冲突的时候，使用如下命令后，才会出现下一个冲突：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1.git add -u 
+</span></span><span class="line"><span class="cl">2.git rebase --continue 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>冲突全部解决完后，rebase操作就完成了。
+如果在解决冲突的过程中，想放弃rebase操作，则可以使用如下命令撤销rebase操作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git rebase --abort
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样就能退出rebase，并回退到rebase前的状态。</p>
+<h2 id="储藏之保存">储藏之保存
+</h2><h3 id="储藏的概念">储藏的概念
+</h3><p>“储藏”可以获取你工作目录的中间状态（包括修改过的被追踪的文件和已经暂存的变更），并将其保存到一个未完结变更的堆栈中，而且随时可以重新应用。当你不想提交，也不想丢弃当前工作区中的内容，而想切换到其他分支的时候，可以使用储藏命令先暂存工作区中的内容。然后，再回到当前分支的时候，将储藏起来的内容，恢复到工作区之后，即可恢复之前的工作。</p>
+<h3 id="储藏的基本操作">储藏的基本操作
+</h3><p>储藏分为保存和应用两个部分。保存就是将当前工作区的内容保存到一个栈中，而应用就是重新应用被保存的工作。</p>
+<h4 id="保存">保存
+</h4><p>保存用到的命令是git stash，只需在当前分支执行此命令，即可将当前工作区的内容保存起来。如你在本地版本库创建了helloGit文件，此时查看工作区状态可以得到如下所示提示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">On branch master
+</span></span><span class="line"><span class="cl">Unt\fracked files:
+</span></span><span class="line"><span class="cl">  (use &#34;git add &lt;file&gt;...&#34; to include in what will be committed)
+</span></span><span class="line"><span class="cl">        helloGit
+</span></span><span class="line"><span class="cl">nothing added to commit but unt\fracked files present (use &#34;git add&#34; to t\frack)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当你执行git stash命令，将工作区保存起来之后，再次查看可以得到如下提示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">On branch master
+</span></span><span class="line"><span class="cl">nothing to commit, working tree clean
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时已经将工作区内容保存了起来，所以才会提示工作区是干净（clean）的。</p>
+<h4 id="重新应用">重新应用
+</h4><p>当你需要再次应用被保存的内容的时候，只需执行git stash apply即可。
+因为可能执行了多次保存，所以你需要查看已经保存起来的内容有哪些。查看已经保存的工作的命令如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ git stash list
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>会得到类似于如下输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">stash@{0}: WIP on master: bguebge add helloGit1
+</span></span><span class="line"><span class="cl">stash@{1}: WIP on master: 7gder34 add helloGit2
+</span></span><span class="line"><span class="cl">stash@{2}: WIP on master: 3frfg4g add helloGit3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如上所示，可以得知一共有三个保存。</p>
+<p>如果要应用指定的储藏，则可以使用命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git stash apply 储藏标识
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里的储藏标识就是git stash list中显示的类似于stash@{0}的字符串。如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git stash apply stash@{2}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样就重新应用了第二次储藏。如果不加储藏标识，就默认应用最近的储藏：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git stash apply
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上述命令就重新应用了最近的一次储藏。</p>
+<h3 id="储藏之恢复">储藏之恢复
+</h3><h4 id="储藏的概念-1">储藏的概念
+</h4><p>“储藏”可以获取你工作目录的中间状态（包括修改过的被追踪的文件和已经暂存的变更），并将其保存到一个未完结变更的堆栈中，而且随时可以重新应用。当你不想提交，也不想丢弃当前工作区中的内容，而想切换到其他分支的时候，可以使用储藏命令，先暂存工作区中的内容。然后，再回到当前分支的时候，将储藏起来的内容，恢复到工作区之后，即可恢复之前的工作。</p>
+<h5 id="储藏的基本操作-1">储藏的基本操作
+</h5><p>储藏分为保存和应用两个部分。保存就是将当前工作区的内容保存到一个栈中，而应用就是重新应用被保存的工作。</p>
+<p>保存
+保存用到的命令是git stash，只需在当前分支执行此命令，即可将当前工作区的内容保存起来。如你在本地版本库创建了helloGit文件，此时查看工作区状态，可以得到如下所示提示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">On branch master
+</span></span><span class="line"><span class="cl">Unt\fracked files:
+</span></span><span class="line"><span class="cl">  (use &#34;git add &lt;file&gt;...&#34; to include in what will be committed)
+</span></span><span class="line"><span class="cl">        helloGit
+</span></span><span class="line"><span class="cl">nothing added to commit but unt\fracked files present (use &#34;git add&#34; to t\frack)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当你执行git stash命令，将工作区保存起来之后，再次查看可以得到如下提示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">On branch master
+</span></span><span class="line"><span class="cl">nothing to commit, working tree clean
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时已经将工作区内容保存了起来，所以才会提示工作区是干净（clean）的。</p>
+<h4 id="重新应用-1">重新应用
+</h4><p>当你需要再次应用被保存的内容的时候，只需执行git stash apply即可。
+因为可能执行了多次保存，因此你需要查看已经保存起来的内容有哪些，查看已经保存的工作的命令如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ git stash list
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>会到的类似于如下的输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">stash@{0}: WIP on master: bguebge add helloGit1
+</span></span><span class="line"><span class="cl">stash@{1}: WIP on master: 7gder34 add helloGit2
+</span></span><span class="line"><span class="cl">stash@{2}: WIP on master: 3frfg4g add helloGit3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如上所示，可以得知一共有三个保存。</p>
+<p>如果要应用指定的储藏吗，则可以使用命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git stash apply 储藏标识
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里的储藏标识就是git stash list中显示的类似于stash@{0}的字符串。如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git stash apply stash@{2}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样就重新应用了第二次储藏。如果不加储藏标识，就默认应用最近的储藏：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git stash apply
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上述命令就重新应用了最近的一次储藏。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/git/">Git</a>
+        
+            <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/git%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%86%B2%E7%AA%81%E5%A4%84%E7%90%86%E5%BF%BD%E7%95%A5%E6%96%87%E4%BB%B6/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/hu1.png" loading="lazy" data-key="" data-hash="/hu1.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Git进阶之冲突处理、忽略文件</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E6%A0%87%E7%AD%BE/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/fg2.png" loading="lazy" data-key="" data-hash="/fg2.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Git入门之标签</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%A5%E5%BF%97%E5%92%8C%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/fg1.png" loading="lazy" data-key="" data-hash="/fg1.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Git入门之日志和版本回退</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/nn1.png" loading="lazy" data-key="" data-hash="/nn1.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Git入门之分支管理</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/git%E5%85%A5%E9%97%A8%E7%89%88%E6%9C%AC%E5%BA%93%E5%92%8C%E5%85%A5%E9%97%A8%E8%BF%9C%E7%A8%8B%E7%89%88%E6%9C%AC%E5%BA%93/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/nn.png" loading="lazy" data-key="" data-hash="/nn.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Git入门版本库和入门远程版本库</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="getshhi/hugoblogcomments"
+        issue-term="title"
+        
+        label="留下你的足迹吧😁"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+let utterancesLoaded = false;
+function setUtterancesTheme(theme) {
+    let utterances = document.querySelector('.utterances iframe');
+    if (utterances) {
+        utterances.contentWindow.postMessage(
+            {
+                type: 'set-theme',
+                theme: `github-${theme}`
+            },
+            'https://utteranc.es'
+        );
+    }
+}
+
+addEventListener('message', event => {
+    if (event.origin !== 'https://utteranc.es') return;
+
+    
+    utterancesLoaded = true;
+    setUtterancesTheme(document.documentElement.dataset.scheme); 
+});
+
+window.addEventListener('onColorSchemeChange', (e) => {
+    if (!utterancesLoaded) return;
+    setUtterancesTheme(e.detail); 
+});
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 JZH-letere
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.27.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<div id="aplayer"></div>
+
+<script>
+	const home = "https://getshhi.github.io/" + 'music/';
+	console.log(home);
+	const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: [{
+        name: '光るなら',
+        artist: 'Goose House',
+        url: home + '光るなら-Goose House/song.mp3',
+        cover: home + '光るなら-Goose House/cover.jpg',
+        lrc: home + '光るなら-Goose House/lyric.lrc'
+    },{
+        name: '反方向的钟',
+        artist: '周杰伦',
+        url: home + '反方向的钟-周杰伦/song.mp3',
+        cover: home + '反方向的钟-周杰伦/cover.jpg',
+        lrc: home + '反方向的钟-周杰伦/lyric.lrc'
+    },{
+        name: '告白气球',
+        artist: '周杰伦',
+        url: home + '告白气球-周杰伦/song.mp3',
+        cover: home + '告白气球-周杰伦/cover.jpg',
+        lrc: home + '告白气球-周杰伦/lyric.lrc'
+    },{
+        name: '红尘客栈',
+        artist: '周杰伦',
+        url: home + '红尘客栈-周杰伦/song.mp3',
+        cover: home + '红尘客栈-周杰伦/cover.jpg',
+        lrc: home + '红尘客栈-周杰伦/lyric.lrc'
+    },{
+        name: '七里香',
+        artist: '周杰伦',
+        url: home + '七里香-周杰伦/song.mp3',
+        cover: home + '七里香-周杰伦/cover.jpg',
+        lrc: home + '七里香-周杰伦/lyric.lrc'
+    },{
+        name: '青花瓷',
+        artist: '周杰伦',
+        url: home + '青花瓷-周杰伦/song.mp3',
+        cover: home + '青花瓷-周杰伦/cover.jpg',
+        lrc: home + '青花瓷-周杰伦/lyric.lrc'
+    },{
+        name: '晴天',
+        artist: '周杰伦',
+        url: home + '晴天-周杰伦/song.mp3',
+        cover: home + '晴天-周杰伦/cover.jpg',
+        lrc: home + '晴天-周杰伦/lyric.lrc'
+    }]
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/pjax/pjax.js"></script>
+
+    
+    <script src=https://getshhi.github.io/js/topbar.min.js></script>
+
+<script>
+    var pjax = new Pjax({
+  selectors: [".main-container"]
+})
+pjax._handleResponse = pjax.handleResponse;
+
+pjax.handleResponse = function(responseText, request, href, options) {
+  if (request.responseText.match("<html")) {
+    
+    let newDom = new DOMParser().parseFromString(responseText, 'text/html');
+            
+            let bodyClass = newDom.body.className;
+            document.body.setAttribute("class", bodyClass)
+            
+            setTimeout(() => {pjax._handleResponse(responseText, request, href, options);},1000)
+  } else {
+    
+  }
+}
+document.addEventListener('pjax:send', () => {
+  topbar.show();
+})
+document.addEventListener('pjax:complete', () => {
+    window.Stack.init();
+    topbar.hide();
+})
+</script>
+    </body>
+</html>

@@ -7,218 +7,534 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>JZH-letere</copyright>
-        <lastBuildDate>Tue, 10 Dec 2024 11:48:04 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Git5</title>
-        <link>https://getshhi.github.io/p/git5/</link>
-        <pubDate>Tue, 10 Dec 2024 11:48:04 +0800</pubDate>
+        <lastBuildDate>Wed, 11 Dec 2024 17:13:24 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Git进阶之合并远程分支、rebase、储藏</title>
+        <link>https://getshhi.github.io/p/git%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%90%88%E5%B9%B6%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AFrebase%E5%82%A8%E8%97%8F/</link>
+        <pubDate>Wed, 11 Dec 2024 17:13:24 +0800</pubDate>
         
-        <guid>https://getshhi.github.io/p/git5/</guid>
-        <description>&lt;img src="https://getshhi.github.io/fg3.png" alt="Featured image of post Git5" /&gt;&lt;p&gt;冲突的产生
-内容冲突
-Git内容冲突产生的原因是，针对版本库中某个文件的某项内容，不同的操作对其做了不同的修改，以致于在合并不同的操作时发生矛盾。比如下面的例子：&lt;/p&gt;
-&lt;p&gt;我们在本地master分支，添加了文件hello，其内容如下：
-Learning English is easy and simple
-然后，我们由master分支切换到一个新的分支develop，并修改hello文件内容如下：
-Learning English is easy &amp;amp; simple
-随后将其提交到了本地develop分支。
-我们又切换回master分支，并再次对hello内容进行了修改：
-Learning English is easy or simple
-这样，当我们将develop分支合并到master分支的时候，就会出现冲突提示如下：
-Auto-merging hello
-CONFLICT (content): Merge conflict in hello
-Automatic merge failed; fix conflicts and then commit the result.
-冲突出现的原因是，我们在develop分支和master分支上，都对hello文件的内容做了修改，这样当将develop合并到master时，Git就不确定究竟应该采用哪个修改。
-树冲突
-方法文件名修改造成的冲突，称为树冲突。比如，A用户把文件C改名为A，B用户把文件C改名为B，那么B合并这两个提交时，就会出现冲突：&lt;/p&gt;
-&lt;p&gt;CONFLICT (rename/rename): Rename &amp;ldquo;C&amp;rdquo;-&amp;gt;&amp;ldquo;B&amp;rdquo; in branch &amp;ldquo;HEAD&amp;rdquo; rename
-Automatic merge failed; fix conflicts and then commit the result.
-此时如果使用git status查看版本库的状态，会得到如下提示信息：&lt;/p&gt;
-&lt;p&gt;You have unmerged paths.
-(fix conflicts and run &amp;ldquo;git commit&amp;rdquo;)
-(use &amp;ldquo;git merge &amp;ndash;abort&amp;rdquo; to abort the merge)
-Unmerged paths:
-(use &amp;ldquo;git add/rm &lt;file&gt;&amp;hellip;&amp;rdquo; as appropriate to mark resolution)
-added by them:   A
-added by us:     B
-both deleted:    C
-no changes added to commit (use &amp;ldquo;git add&amp;rdquo; and/or &amp;ldquo;git commit -a&amp;rdquo;)
-树冲突产生的原因是，我们将同一文件名，在不同操作中，修改为不同的名字。&lt;/p&gt;
-&lt;p&gt;解决冲突
-内容冲突
-当产生内容冲突时，如果你打开冲突发生的文件，你会在冲突区域发现类似于下面的内容：&lt;/p&gt;
-&lt;h1 id=&#34;learning-english-is-easy-or-simple&#34;&gt;&amp;laquo;&amp;laquo;&amp;laquo;&amp;lt; HEAD
-Learning English is easy or simple
-&lt;/h1&gt;&lt;p&gt;Learning English is easy &amp;amp; simple&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;develop
-这个就是我们上面所举的内容冲突的例子，冲突文件的内容。从中可以看到&amp;laquo;&amp;laquo;&amp;laquo;&amp;lt; HEAD与=======包括的是我们当前分支的内容，而=======和&amp;raquo;&amp;raquo;&amp;raquo;&amp;gt; develop之间的则是需要合并过来的内容，为了解决冲突我们可以手动解决这些冲突，也可以使用图形化工具帮助解决。如果以手动方式解决，我们可以编辑冲突区域内容为我们想要的内容，比如将其修改成如下内容：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Learning English is easy and simple
-然后再执行git add和git commit操作提交，这样就能将冲突解决了。
-即解决冲突的一般过程为：&lt;/p&gt;
-&lt;p&gt;手动编辑冲突区域；
-执行git add，将编辑提交到暂存区；
-执行git commit，将编辑提交到本地仓库以解决冲突。
-树冲突
-解决树冲突时，对于上面示例中的树冲突，如果最终决定采用文件B，我们可以采用如下方式解决：&lt;/p&gt;
-&lt;p&gt;git rm A
-git rm C
-git add B
-git commit
-即从本地仓库中删除A和C文件，然后再添加B文件并最终提交。&lt;/p&gt;
-&lt;p&gt;强制操作的分类
-使用最频繁的强制操作，主要在以下几个方面：&lt;/p&gt;
-&lt;p&gt;强制推送 如果远程的某个分支的内容需要被覆盖，这个时候就需要你进行强制推送，使用本地内容去覆盖该分支。
-强制合并 如果本地分支的内容需要被远程内容覆盖，这个时候就需要强制合并远程分支内容到本地。
-强制删除 如果你需要强制删除版本库、暂存区或者工作区的内容时，就需要强制删除。比如我们之前介绍的checkout，就可以使用-f参数，强制丢弃本地修改。
-强制操作方法
-强制推送 强制推送和普通推送的区别，就在于在末尾加上了-f参数，即：
-git push 远程主机名 本地分支名：远程分支名 -f
-具体使用方法如下：
-#将本地分支强制推送到远程主机origin的master分支
-git push origin master:master -f
-强制合并 强制合并和普通合并的区别，也是其在末尾加上了-f参数，即： git pull 远程主机名 远程分支名：本地分支名 -f 具体使用方法示例如下：
-#将远程master分支强制合并到本地master分支
-git pull origin master:master -f&lt;/p&gt;
-&lt;p&gt;如何忽略文件
-在Git工作区的根目录下，创建一个特殊的.gitignore文件，把要忽略的文件名或者文件名的通配符填进去，然后将.gitignore提交到本地仓库，这样Git就会在你添加或者提交时，自动忽略这些文件。&lt;/p&gt;
-&lt;p&gt;自定义忽略文件
-如果我们需要自己定义忽略哪些文件，就需要将其添加到.gitignore文件中去。你可以使用文件的全称，或者使用正则匹配的通配符。如下所示：&lt;/p&gt;
-&lt;h1 id=&#34;忽略指定文件&#34;&gt;忽略指定文件
-&lt;/h1&gt;&lt;p&gt;HelloWrold.class&lt;/p&gt;
-&lt;h1 id=&#34;忽略指定文件夹&#34;&gt;忽略指定文件夹
-&lt;/h1&gt;&lt;p&gt;bin/
-bin/gen/&lt;/p&gt;
-&lt;h1 id=&#34;忽略class的所有文件&#34;&gt;忽略.class的所有文件
-&lt;/h1&gt;&lt;p&gt;*.class&lt;/p&gt;
-&lt;h1 id=&#34;忽略名称中末尾为ignore的文件夹&#34;&gt;忽略名称中末尾为ignore的文件夹
-&lt;/h1&gt;&lt;p&gt;*ignore/&lt;/p&gt;
-&lt;h1 id=&#34;忽略名称中间包含ignore的文件夹&#34;&gt;忽略名称中间包含ignore的文件夹
-&lt;/h1&gt;&lt;p&gt;&lt;em&gt;ignore&lt;/em&gt;/&lt;/p&gt;
-&lt;p&gt;合并远程分支的一般步骤是：&lt;/p&gt;
-&lt;p&gt;第一步，分别获取远程分支内容到本地；
-第二步，在本地将两个分支合并；
-第三步，将合并后的本地分支推送到远程分支，完成合并。
-具体的，以将远程develop分支合并到远程master分支为例，操作过程如下：&lt;/p&gt;
-&lt;p&gt;获取远程develop分支到本地分支（如develop分支）。如果本地已经有分支对应远程develop分支，则可以直接在该分支上执行pull操作或者fetch/merge操作，以获取远程最新内容。否则，可以新建分支跟踪远程develop分支，并获取最新内容到本地；&lt;/p&gt;
-&lt;p&gt;切换到master分支，并获取远程master分支的最新内容到本地；&lt;/p&gt;
-&lt;p&gt;将本地develop分支合并到本地master分支；&lt;/p&gt;
-&lt;p&gt;将本地master分支推送到远程master分支。&lt;/p&gt;
+        <guid>https://getshhi.github.io/p/git%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%90%88%E5%B9%B6%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AFrebase%E5%82%A8%E8%97%8F/</guid>
+        <description>&lt;img src="https://getshhi.github.io/hg4.png" alt="Featured image of post Git进阶之合并远程分支、rebase、储藏" /&gt;&lt;h2 id=&#34;合并远程分支&#34;&gt;合并远程分支
+&lt;/h2&gt;&lt;p&gt;合并远程分支的一般步骤是：&lt;/p&gt;
+&lt;p&gt;1.第一步，分别获取远程分支内容到本地；
+2.第二步，在本地将两个分支合并；
+3.第三步，将合并后的本地分支推送到远程分支，完成合并。&lt;/p&gt;
+&lt;p&gt;具体的，以将远程develop分支合并到远程master分支为例，操作过程如下：
+1.获取远程develop分支到本地分支（如develop分支）。如果本地已经有分支对应远程develop分支，则可以直接在该分支上执行pull操作或者fetch/merge操作，以获取远程最新内容。否则，可以新建分支跟踪远程develop分支，并获取最新内容到本地；&lt;/p&gt;
+&lt;p&gt;2.切换到master分支，并获取远程master分支的最新内容到本地；&lt;/p&gt;
+&lt;p&gt;3.将本地develop分支合并到本地master分支；&lt;/p&gt;
+&lt;p&gt;4.将本地master分支推送到远程master分支。&lt;/p&gt;
 &lt;p&gt;以合并远程develop分支到远程master分支为例，其具体操作步骤如下：&lt;/p&gt;
-&lt;p&gt;#切换到develop分支
-git checkout develop
-#获取远程develop分支的内容到本地
-git pull origin develop:develop
-#切换到master分支
-git checkout master
-#拉取远程master分支内容到本地
-git pull origin master
-#合并本地develop分支到master分支
-git merge develop
-#将合并后的分支推送到远程master分支
-git push origin master:master&lt;/p&gt;
-&lt;p&gt;merge和rebase的不同
-merge的工作流程如下图：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#切换到develop分支
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git checkout develop
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#获取远程develop分支的内容到本地
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git pull origin develop:develop
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#切换到master分支
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git checkout master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#拉取远程master分支内容到本地
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git pull origin master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#合并本地develop分支到master分支
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git merge develop
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#将合并后的分支推送到远程master分支
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin master:master
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;rebase操作&#34;&gt;rebase操作
+&lt;/h2&gt;&lt;h4 id=&#34;merge和rebase的不同&#34;&gt;merge和rebase的不同
+&lt;/h4&gt;&lt;p&gt;merge的工作流程如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/ZkxLQWhwb0k3YUFhbjY2UmI0RHM0QT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
 &lt;p&gt;如上图所示，我们从远程仓库origin的C2版本，创建一个新的分支develop进行开发，并进行了C5、C6两次提交。之后团队中其他成员又向origin推送了两次提交C3、C4。为了合并远程分支上的新内容到本地，我们进行merge操作，将内容合并到develop之后，生成了一次新的提交C7。此时，develop分支还是一个独立的分支。&lt;/p&gt;
 &lt;p&gt;而rebase的工作流程如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/NElpYWlMS0JKTERiMFJZSEJoVXJEZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
 &lt;p&gt;rebase又可称为‘变基’，结合上图的话，这个词就很容易理解了。即：&lt;/p&gt;
-&lt;p&gt;C5、C6本来是在C2这次提交的基础上进行修改的；&lt;/p&gt;
-&lt;p&gt;现在我们将这个‘基础’改为C4，即将C5、C6的提交作用到C4上去；&lt;/p&gt;
-&lt;p&gt;在这个过程中，可能会有冲突产生，解决冲突之后就完成了rebase。&lt;/p&gt;
+&lt;p&gt;1.C5、C6本来是在C2这次提交的基础上进行修改的；&lt;/p&gt;
+&lt;p&gt;2.现在我们将这个‘基础’改为C4，即将C5、C6的提交作用到C4上去；&lt;/p&gt;
+&lt;p&gt;3.在这个过程中，可能会有冲突产生，解决冲突之后就完成了rebase。&lt;/p&gt;
 &lt;p&gt;由图可以看到，rebase完成后，源分支上的提交都不见了。&lt;/p&gt;
-&lt;p&gt;rebase基础操作
-rebase的基本操作是将某个分支的修改到指定分支，其命令格式为：&lt;/p&gt;
-&lt;p&gt;git rebase 基分支 源分支
-其中‘基分支’是我们的新的‘基’，而‘源分支’就是需要进行变基操作的分支。这样就能实现将源分支变基到基分支。具体使用示例如下：&lt;/p&gt;
-&lt;p&gt;git rebase master develop
-以上语句就能实现将develop变基到master分支。
+&lt;h3 id=&#34;rebase基础操作&#34;&gt;rebase基础操作
+&lt;/h3&gt;&lt;p&gt;rebase的基本操作是将某个分支的修改到指定分支，其命令格式为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1.git rebase 基分支 源分支
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;其中‘基分支’是我们的新的‘基’，而‘源分支’就是需要进行变基操作的分支。这样就能实现将源分支变基到基分支。具体使用示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1.git rebase master develop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;以上语句就能实现将develop变基到master分支。
 如果是将当前分支变基到指定分支，则可以直接使用：&lt;/p&gt;
-&lt;p&gt;git rebase 基分支
-这一命令默认将当前分支变基到‘基分支’。如果当前处于develop分支，则其使用示例如下：&lt;/p&gt;
-&lt;p&gt;git rebase master
-这样也能实现将当前的develop分支rebase到master分支。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git rebase 基分支
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这一命令默认将当前分支变基到‘基分支’。如果当前处于develop分支，则其使用示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git rebase master
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这样也能实现将当前的develop分支rebase到master分支。&lt;/p&gt;
 &lt;p&gt;由于变基是将修改作用到一个不同的版本上，因此很可能在rebase的过程中出现冲突。和merge一次性合并所有冲突不同的是，rebase的冲突是一个一个解决的。以上图中的rebase操作为例，需要分别解决和C3、C4的冲突。在解决rebase冲突的过程中，当解决完一个冲突的时候，使用如下命令后，才会出现下一个冲突：&lt;/p&gt;
-&lt;p&gt;git add -u
-git rebase &amp;ndash;continue
-冲突全部解决完后，rebase操作就完成了。
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1.git add -u 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2.git rebase --continue 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;冲突全部解决完后，rebase操作就完成了。
 如果在解决冲突的过程中，想放弃rebase操作，则可以使用如下命令撤销rebase操作：&lt;/p&gt;
-&lt;p&gt;git rebase &amp;ndash;abort
-这样就能退出rebase，并回退到rebase前的状态。&lt;/p&gt;
-&lt;p&gt;储藏的概念
-“储藏”可以获取你工作目录的中间状态（包括修改过的被追踪的文件和已经暂存的变更），并将其保存到一个未完结变更的堆栈中，而且随时可以重新应用。当你不想提交，也不想丢弃当前工作区中的内容，而想切换到其他分支的时候，可以使用储藏命令先暂存工作区中的内容。然后，再回到当前分支的时候，将储藏起来的内容，恢复到工作区之后，即可恢复之前的工作。&lt;/p&gt;
-&lt;p&gt;储藏的基本操作
-储藏分为保存和应用两个部分。保存就是将当前工作区的内容保存到一个栈中，而应用就是重新应用被保存的工作。&lt;/p&gt;
-&lt;p&gt;保存
-保存用到的命令是git stash，只需在当前分支执行此命令，即可将当前工作区的内容保存起来。如你在本地版本库创建了helloGit文件，此时查看工作区状态可以得到如下所示提示：&lt;/p&gt;
-&lt;p&gt;On branch master
-Unt\fracked files:
-(use &amp;ldquo;git add &lt;file&gt;&amp;hellip;&amp;rdquo; to include in what will be committed)
-helloGit
-nothing added to commit but unt\fracked files present (use &amp;ldquo;git add&amp;rdquo; to t\frack)
-当你执行git stash命令，将工作区保存起来之后，再次查看可以得到如下提示：&lt;/p&gt;
-&lt;p&gt;On branch master
-nothing to commit, working tree clean
-此时已经将工作区内容保存了起来，所以才会提示工作区是干净（clean）的。&lt;/p&gt;
-&lt;p&gt;重新应用
-当你需要再次应用被保存的内容的时候，只需执行git stash apply即可。
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git rebase --abort
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这样就能退出rebase，并回退到rebase前的状态。&lt;/p&gt;
+&lt;h2 id=&#34;储藏之保存&#34;&gt;储藏之保存
+&lt;/h2&gt;&lt;h3 id=&#34;储藏的概念&#34;&gt;储藏的概念
+&lt;/h3&gt;&lt;p&gt;“储藏”可以获取你工作目录的中间状态（包括修改过的被追踪的文件和已经暂存的变更），并将其保存到一个未完结变更的堆栈中，而且随时可以重新应用。当你不想提交，也不想丢弃当前工作区中的内容，而想切换到其他分支的时候，可以使用储藏命令先暂存工作区中的内容。然后，再回到当前分支的时候，将储藏起来的内容，恢复到工作区之后，即可恢复之前的工作。&lt;/p&gt;
+&lt;h3 id=&#34;储藏的基本操作&#34;&gt;储藏的基本操作
+&lt;/h3&gt;&lt;p&gt;储藏分为保存和应用两个部分。保存就是将当前工作区的内容保存到一个栈中，而应用就是重新应用被保存的工作。&lt;/p&gt;
+&lt;h4 id=&#34;保存&#34;&gt;保存
+&lt;/h4&gt;&lt;p&gt;保存用到的命令是git stash，只需在当前分支执行此命令，即可将当前工作区的内容保存起来。如你在本地版本库创建了helloGit文件，此时查看工作区状态可以得到如下所示提示：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;On branch master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Unt\fracked files:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  (use &amp;#34;git add &amp;lt;file&amp;gt;...&amp;#34; to include in what will be committed)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        helloGit
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nothing added to commit but unt\fracked files present (use &amp;#34;git add&amp;#34; to t\frack)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;当你执行git stash命令，将工作区保存起来之后，再次查看可以得到如下提示：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;On branch master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nothing to commit, working tree clean
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;此时已经将工作区内容保存了起来，所以才会提示工作区是干净（clean）的。&lt;/p&gt;
+&lt;h4 id=&#34;重新应用&#34;&gt;重新应用
+&lt;/h4&gt;&lt;p&gt;当你需要再次应用被保存的内容的时候，只需执行git stash apply即可。
 因为可能执行了多次保存，所以你需要查看已经保存起来的内容有哪些。查看已经保存的工作的命令如下：&lt;/p&gt;
-&lt;p&gt;$ git stash list
-会得到类似于如下输出：&lt;/p&gt;
-&lt;p&gt;stash@{0}: WIP on master: bguebge add helloGit1
-stash@{1}: WIP on master: 7gder34 add helloGit2
-stash@{2}: WIP on master: 3frfg4g add helloGit3
-如上所示，可以得知一共有三个保存。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git stash list
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;会得到类似于如下输出：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;stash@{0}: WIP on master: bguebge add helloGit1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;stash@{1}: WIP on master: 7gder34 add helloGit2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;stash@{2}: WIP on master: 3frfg4g add helloGit3
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如上所示，可以得知一共有三个保存。&lt;/p&gt;
 &lt;p&gt;如果要应用指定的储藏，则可以使用命令：&lt;/p&gt;
-&lt;p&gt;git stash apply 储藏标识
-这里的储藏标识就是git stash list中显示的类似于stash@{0}的字符串。如：&lt;/p&gt;
-&lt;p&gt;git stash apply stash@{2}
-这样就重新应用了第二次储藏。如果不加储藏标识，就默认应用最近的储藏：&lt;/p&gt;
-&lt;p&gt;git stash apply
-上述命令就重新应用了最近的一次储藏。&lt;/p&gt;
-&lt;p&gt;储藏的概念
-“储藏”可以获取你工作目录的中间状态（包括修改过的被追踪的文件和已经暂存的变更），并将其保存到一个未完结变更的堆栈中，而且随时可以重新应用。当你不想提交，也不想丢弃当前工作区中的内容，而想切换到其他分支的时候，可以使用储藏命令，先暂存工作区中的内容。然后，再回到当前分支的时候，将储藏起来的内容，恢复到工作区之后，即可恢复之前的工作。
-#####储藏的基本操作&lt;/p&gt;
-&lt;p&gt;储藏分为保存和应用两个部分。保存就是将当前工作区的内容保存到一个栈中，而应用就是重新应用被保存的工作。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git stash apply 储藏标识
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这里的储藏标识就是git stash list中显示的类似于stash@{0}的字符串。如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git stash apply stash@{2}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这样就重新应用了第二次储藏。如果不加储藏标识，就默认应用最近的储藏：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git stash apply
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上述命令就重新应用了最近的一次储藏。&lt;/p&gt;
+&lt;h3 id=&#34;储藏之恢复&#34;&gt;储藏之恢复
+&lt;/h3&gt;&lt;h4 id=&#34;储藏的概念-1&#34;&gt;储藏的概念
+&lt;/h4&gt;&lt;p&gt;“储藏”可以获取你工作目录的中间状态（包括修改过的被追踪的文件和已经暂存的变更），并将其保存到一个未完结变更的堆栈中，而且随时可以重新应用。当你不想提交，也不想丢弃当前工作区中的内容，而想切换到其他分支的时候，可以使用储藏命令，先暂存工作区中的内容。然后，再回到当前分支的时候，将储藏起来的内容，恢复到工作区之后，即可恢复之前的工作。&lt;/p&gt;
+&lt;h5 id=&#34;储藏的基本操作-1&#34;&gt;储藏的基本操作
+&lt;/h5&gt;&lt;p&gt;储藏分为保存和应用两个部分。保存就是将当前工作区的内容保存到一个栈中，而应用就是重新应用被保存的工作。&lt;/p&gt;
 &lt;p&gt;保存
 保存用到的命令是git stash，只需在当前分支执行此命令，即可将当前工作区的内容保存起来。如你在本地版本库创建了helloGit文件，此时查看工作区状态，可以得到如下所示提示：&lt;/p&gt;
-&lt;p&gt;On branch master
-Unt\fracked files:
-(use &amp;ldquo;git add &lt;file&gt;&amp;hellip;&amp;rdquo; to include in what will be committed)
-helloGit
-nothing added to commit but unt\fracked files present (use &amp;ldquo;git add&amp;rdquo; to t\frack)
-当你执行git stash命令，将工作区保存起来之后，再次查看可以得到如下提示：&lt;/p&gt;
-&lt;p&gt;On branch master
-nothing to commit, working tree clean
-此时已经将工作区内容保存了起来，所以才会提示工作区是干净（clean）的。&lt;/p&gt;
-&lt;p&gt;重新应用
-当你需要再次应用被保存的内容的时候，只需执行git stash apply即可。
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;On branch master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Unt\fracked files:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  (use &amp;#34;git add &amp;lt;file&amp;gt;...&amp;#34; to include in what will be committed)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        helloGit
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nothing added to commit but unt\fracked files present (use &amp;#34;git add&amp;#34; to t\frack)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;当你执行git stash命令，将工作区保存起来之后，再次查看可以得到如下提示：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;On branch master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nothing to commit, working tree clean
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;此时已经将工作区内容保存了起来，所以才会提示工作区是干净（clean）的。&lt;/p&gt;
+&lt;h4 id=&#34;重新应用-1&#34;&gt;重新应用
+&lt;/h4&gt;&lt;p&gt;当你需要再次应用被保存的内容的时候，只需执行git stash apply即可。
 因为可能执行了多次保存，因此你需要查看已经保存起来的内容有哪些，查看已经保存的工作的命令如下：&lt;/p&gt;
-&lt;p&gt;$ git stash list
-会到的类似于如下的输出：&lt;/p&gt;
-&lt;p&gt;stash@{0}: WIP on master: bguebge add helloGit1
-stash@{1}: WIP on master: 7gder34 add helloGit2
-stash@{2}: WIP on master: 3frfg4g add helloGit3
-如上所示，可以得知一共有三个保存。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git stash list
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;会到的类似于如下的输出：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;stash@{0}: WIP on master: bguebge add helloGit1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;stash@{1}: WIP on master: 7gder34 add helloGit2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;stash@{2}: WIP on master: 3frfg4g add helloGit3
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如上所示，可以得知一共有三个保存。&lt;/p&gt;
 &lt;p&gt;如果要应用指定的储藏吗，则可以使用命令：&lt;/p&gt;
-&lt;p&gt;git stash apply 储藏标识
-这里的储藏标识就是git stash list中显示的类似于stash@{0}的字符串。如：&lt;/p&gt;
-&lt;p&gt;git stash apply stash@{2}
-这样就重新应用了第二次储藏。如果不加储藏标识，就默认应用最近的储藏：&lt;/p&gt;
-&lt;p&gt;git stash apply
-上述命令就重新应用了最近的一次储藏。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git stash apply 储藏标识
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这里的储藏标识就是git stash list中显示的类似于stash@{0}的字符串。如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git stash apply stash@{2}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这样就重新应用了第二次储藏。如果不加储藏标识，就默认应用最近的储藏：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git stash apply
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上述命令就重新应用了最近的一次储藏。&lt;/p&gt;
 </description>
+        </item>
+        <item>
+        <title>Git进阶之冲突处理、忽略文件</title>
+        <link>https://getshhi.github.io/p/git%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%86%B2%E7%AA%81%E5%A4%84%E7%90%86%E5%BF%BD%E7%95%A5%E6%96%87%E4%BB%B6/</link>
+        <pubDate>Tue, 10 Dec 2024 11:48:04 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/git%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%86%B2%E7%AA%81%E5%A4%84%E7%90%86%E5%BF%BD%E7%95%A5%E6%96%87%E4%BB%B6/</guid>
+        <description>&lt;img src="https://getshhi.github.io/hu1.png" alt="Featured image of post Git进阶之冲突处理、忽略文件" /&gt;&lt;h2 id=&#34;解决冲突&#34;&gt;解决冲突
+&lt;/h2&gt;&lt;h3 id=&#34;冲突的产生&#34;&gt;冲突的产生
+&lt;/h3&gt;&lt;h4 id=&#34;内容冲突&#34;&gt;内容冲突
+&lt;/h4&gt;&lt;p&gt;Git内容冲突产生的原因是，针对版本库中某个文件的某项内容，不同的操作对其做了不同的修改，以致于在合并不同的操作时发生矛盾。比如下面的例子：&lt;/p&gt;
+&lt;p&gt;1.我们在本地master分支，添加了文件hello，其内容如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Learning English is easy and simple
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;2.然后，我们由master分支切换到一个新的分支develop，并修改hello文件内容如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Learning English is easy &amp;amp; simple
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;3.随后将其提交到了本地develop分支。
+我们又切换回master分支，并再次对hello内容进行了修改：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Learning English is easy or simple
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这样，当我们将develop分支合并到master分支的时候，就会出现冲突提示如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Auto-merging hello
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;CONFLICT (content): Merge conflict in hello
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Automatic merge failed; fix conflicts and then commit the result.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;冲突出现的原因是，我们在develop分支和master分支上，都对hello文件的内容做了修改，这样当将develop合并到master时，Git就不确定究竟应该采用哪个修改。&lt;/p&gt;
+&lt;h4 id=&#34;树冲突&#34;&gt;树冲突
+&lt;/h4&gt;&lt;p&gt;方法文件名修改造成的冲突，称为树冲突。比如，A用户把文件C改名为A，B用户把文件C改名为B，那么B合并这两个提交时，就会出现冲突：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;CONFLICT (rename/rename): Rename &amp;#34;C&amp;#34;-&amp;gt;&amp;#34;B&amp;#34; in branch &amp;#34;HEAD&amp;#34; rename
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Automatic merge failed; fix conflicts and then commit the result.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;此时如果使用git status查看版本库的状态，会得到如下提示信息：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;You have unmerged paths.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  (fix conflicts and run &amp;#34;git commit&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  (use &amp;#34;git merge --abort&amp;#34; to abort the merge)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Unmerged paths:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  (use &amp;#34;git add/rm &amp;lt;file&amp;gt;...&amp;#34; as appropriate to mark resolution)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        added by them:   A
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        added by us:     B
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        both deleted:    C
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;no changes added to commit (use &amp;#34;git add&amp;#34; and/or &amp;#34;git commit -a&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;树冲突产生的原因是，我们将同一文件名，在不同操作中，修改为不同的名字。&lt;/p&gt;
+&lt;h3 id=&#34;解决冲突-1&#34;&gt;解决冲突
+&lt;/h3&gt;&lt;h4 id=&#34;内容冲突-1&#34;&gt;内容冲突
+&lt;/h4&gt;&lt;p&gt;当产生内容冲突时，如果你打开冲突发生的文件，你会在冲突区域发现类似于下面的内容：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;HEAD
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Learning English is easy or simple
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;=======
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Learning English is easy &amp;amp; simple
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; develop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这个就是我们上面所举的内容冲突的例子，冲突文件的内容。从中可以看到&amp;laquo;&amp;laquo;&amp;laquo;&amp;lt; HEAD与=======包括的是我们当前分支的内容，而=======和&amp;raquo;&amp;raquo;&amp;raquo;&amp;gt; develop之间的则是需要合并过来的内容，为了解决冲突我们可以手动解决这些冲突，也可以使用图形化工具帮助解决。如果以手动方式解决，我们可以编辑冲突区域内容为我们想要的内容，比如将其修改成如下内容：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Learning English is easy and simple
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后再执行git add和git commit操作提交，这样就能将冲突解决了。
+即解决冲突的一般过程为：&lt;/p&gt;
+&lt;p&gt;1.手动编辑冲突区域；&lt;/p&gt;
+&lt;p&gt;2.执行git add，将编辑提交到暂存区；&lt;/p&gt;
+&lt;p&gt;3.执行git commit，将编辑提交到本地仓库以解决冲突。&lt;/p&gt;
+&lt;h4 id=&#34;树冲突-1&#34;&gt;树冲突
+&lt;/h4&gt;&lt;p&gt;解决树冲突时，对于上面示例中的树冲突，如果最终决定采用文件B，我们可以采用如下方式解决：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git rm A
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git rm C
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git add B
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git commit
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;即从本地仓库中删除A和C文件，然后再添加B文件并最终提交。&lt;/p&gt;
+&lt;h2 id=&#34;强制操作&#34;&gt;强制操作
+&lt;/h2&gt;&lt;h3 id=&#34;强制操作的分类&#34;&gt;强制操作的分类
+&lt;/h3&gt;&lt;p&gt;使用最频繁的强制操作，主要在以下几个方面：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;强制推送 如果远程的某个分支的内容需要被覆盖，这个时候就需要你进行强制推送，使用本地内容去覆盖该分支。&lt;/li&gt;
+&lt;li&gt;强制合并 如果本地分支的内容需要被远程内容覆盖，这个时候就需要强制合并远程分支内容到本地。&lt;/li&gt;
+&lt;li&gt;强制删除 如果你需要强制删除版本库、暂存区或者工作区的内容时，就需要强制删除。比如我们之前介绍的checkout，就可以使用-f参数，强制丢弃本地修改。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;强制操作方法&#34;&gt;强制操作方法
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;强制推送 强制推送和普通推送的区别，就在于在末尾加上了-f参数，即：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push 远程主机名 本地分支名：远程分支名 -f
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;具体使用方法如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#将本地分支强制推送到远程主机origin的master分支
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin master:master -f
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;强制合并 强制合并和普通合并的区别，也是其在末尾加上了-f参数，即： git pull 远程主机名 远程分支名：本地分支名 -f 具体使用方法示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#将远程master分支强制合并到本地master分支
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git pull origin master:master -f
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;忽略文件&#34;&gt;忽略文件
+&lt;/h2&gt;&lt;h3 id=&#34;如何忽略文件&#34;&gt;如何忽略文件
+&lt;/h3&gt;&lt;p&gt;在Git工作区的根目录下，创建一个特殊的.gitignore文件，把要忽略的文件名或者文件名的通配符填进去，然后将.gitignore提交到本地仓库，这样Git就会在你添加或者提交时，自动忽略这些文件。&lt;/p&gt;
+&lt;h3 id=&#34;自定义忽略文件&#34;&gt;自定义忽略文件
+&lt;/h3&gt;&lt;p&gt;如果我们需要自己定义忽略哪些文件，就需要将其添加到.gitignore文件中去。你可以使用文件的全称，或者使用正则匹配的通配符。如下所示：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 忽略指定文件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;HelloWrold.class
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 忽略指定文件夹
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bin/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bin/gen/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 忽略.class的所有文件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;*.class
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 忽略名称中末尾为ignore的文件夹
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;*ignore/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 忽略名称中间包含ignore的文件夹
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;*ignore*/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
         </item>
         <item>
         <title>Git入门之标签</title>
