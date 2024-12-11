@@ -7,29 +7,679 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>JZH-letere</copyright>
-        <lastBuildDate>Sat, 07 Dec 2024 11:48:04 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 10 Dec 2024 11:48:04 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Git5</title>
         <link>https://getshhi.github.io/p/git5/</link>
-        <pubDate>Sat, 07 Dec 2024 11:48:04 +0800</pubDate>
+        <pubDate>Tue, 10 Dec 2024 11:48:04 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/git5/</guid>
-        <description></description>
+        <description>&lt;img src="https://getshhi.github.io/fg3.png" alt="Featured image of post Git5" /&gt;&lt;p&gt;冲突的产生
+内容冲突
+Git内容冲突产生的原因是，针对版本库中某个文件的某项内容，不同的操作对其做了不同的修改，以致于在合并不同的操作时发生矛盾。比如下面的例子：&lt;/p&gt;
+&lt;p&gt;我们在本地master分支，添加了文件hello，其内容如下：
+Learning English is easy and simple
+然后，我们由master分支切换到一个新的分支develop，并修改hello文件内容如下：
+Learning English is easy &amp;amp; simple
+随后将其提交到了本地develop分支。
+我们又切换回master分支，并再次对hello内容进行了修改：
+Learning English is easy or simple
+这样，当我们将develop分支合并到master分支的时候，就会出现冲突提示如下：
+Auto-merging hello
+CONFLICT (content): Merge conflict in hello
+Automatic merge failed; fix conflicts and then commit the result.
+冲突出现的原因是，我们在develop分支和master分支上，都对hello文件的内容做了修改，这样当将develop合并到master时，Git就不确定究竟应该采用哪个修改。
+树冲突
+方法文件名修改造成的冲突，称为树冲突。比如，A用户把文件C改名为A，B用户把文件C改名为B，那么B合并这两个提交时，就会出现冲突：&lt;/p&gt;
+&lt;p&gt;CONFLICT (rename/rename): Rename &amp;ldquo;C&amp;rdquo;-&amp;gt;&amp;ldquo;B&amp;rdquo; in branch &amp;ldquo;HEAD&amp;rdquo; rename
+Automatic merge failed; fix conflicts and then commit the result.
+此时如果使用git status查看版本库的状态，会得到如下提示信息：&lt;/p&gt;
+&lt;p&gt;You have unmerged paths.
+(fix conflicts and run &amp;ldquo;git commit&amp;rdquo;)
+(use &amp;ldquo;git merge &amp;ndash;abort&amp;rdquo; to abort the merge)
+Unmerged paths:
+(use &amp;ldquo;git add/rm &lt;file&gt;&amp;hellip;&amp;rdquo; as appropriate to mark resolution)
+added by them:   A
+added by us:     B
+both deleted:    C
+no changes added to commit (use &amp;ldquo;git add&amp;rdquo; and/or &amp;ldquo;git commit -a&amp;rdquo;)
+树冲突产生的原因是，我们将同一文件名，在不同操作中，修改为不同的名字。&lt;/p&gt;
+&lt;p&gt;解决冲突
+内容冲突
+当产生内容冲突时，如果你打开冲突发生的文件，你会在冲突区域发现类似于下面的内容：&lt;/p&gt;
+&lt;h1 id=&#34;learning-english-is-easy-or-simple&#34;&gt;&amp;laquo;&amp;laquo;&amp;laquo;&amp;lt; HEAD
+Learning English is easy or simple
+&lt;/h1&gt;&lt;p&gt;Learning English is easy &amp;amp; simple&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;develop
+这个就是我们上面所举的内容冲突的例子，冲突文件的内容。从中可以看到&amp;laquo;&amp;laquo;&amp;laquo;&amp;lt; HEAD与=======包括的是我们当前分支的内容，而=======和&amp;raquo;&amp;raquo;&amp;raquo;&amp;gt; develop之间的则是需要合并过来的内容，为了解决冲突我们可以手动解决这些冲突，也可以使用图形化工具帮助解决。如果以手动方式解决，我们可以编辑冲突区域内容为我们想要的内容，比如将其修改成如下内容：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Learning English is easy and simple
+然后再执行git add和git commit操作提交，这样就能将冲突解决了。
+即解决冲突的一般过程为：&lt;/p&gt;
+&lt;p&gt;手动编辑冲突区域；
+执行git add，将编辑提交到暂存区；
+执行git commit，将编辑提交到本地仓库以解决冲突。
+树冲突
+解决树冲突时，对于上面示例中的树冲突，如果最终决定采用文件B，我们可以采用如下方式解决：&lt;/p&gt;
+&lt;p&gt;git rm A
+git rm C
+git add B
+git commit
+即从本地仓库中删除A和C文件，然后再添加B文件并最终提交。&lt;/p&gt;
+&lt;p&gt;强制操作的分类
+使用最频繁的强制操作，主要在以下几个方面：&lt;/p&gt;
+&lt;p&gt;强制推送 如果远程的某个分支的内容需要被覆盖，这个时候就需要你进行强制推送，使用本地内容去覆盖该分支。
+强制合并 如果本地分支的内容需要被远程内容覆盖，这个时候就需要强制合并远程分支内容到本地。
+强制删除 如果你需要强制删除版本库、暂存区或者工作区的内容时，就需要强制删除。比如我们之前介绍的checkout，就可以使用-f参数，强制丢弃本地修改。
+强制操作方法
+强制推送 强制推送和普通推送的区别，就在于在末尾加上了-f参数，即：
+git push 远程主机名 本地分支名：远程分支名 -f
+具体使用方法如下：
+#将本地分支强制推送到远程主机origin的master分支
+git push origin master:master -f
+强制合并 强制合并和普通合并的区别，也是其在末尾加上了-f参数，即： git pull 远程主机名 远程分支名：本地分支名 -f 具体使用方法示例如下：
+#将远程master分支强制合并到本地master分支
+git pull origin master:master -f&lt;/p&gt;
+&lt;p&gt;如何忽略文件
+在Git工作区的根目录下，创建一个特殊的.gitignore文件，把要忽略的文件名或者文件名的通配符填进去，然后将.gitignore提交到本地仓库，这样Git就会在你添加或者提交时，自动忽略这些文件。&lt;/p&gt;
+&lt;p&gt;自定义忽略文件
+如果我们需要自己定义忽略哪些文件，就需要将其添加到.gitignore文件中去。你可以使用文件的全称，或者使用正则匹配的通配符。如下所示：&lt;/p&gt;
+&lt;h1 id=&#34;忽略指定文件&#34;&gt;忽略指定文件
+&lt;/h1&gt;&lt;p&gt;HelloWrold.class&lt;/p&gt;
+&lt;h1 id=&#34;忽略指定文件夹&#34;&gt;忽略指定文件夹
+&lt;/h1&gt;&lt;p&gt;bin/
+bin/gen/&lt;/p&gt;
+&lt;h1 id=&#34;忽略class的所有文件&#34;&gt;忽略.class的所有文件
+&lt;/h1&gt;&lt;p&gt;*.class&lt;/p&gt;
+&lt;h1 id=&#34;忽略名称中末尾为ignore的文件夹&#34;&gt;忽略名称中末尾为ignore的文件夹
+&lt;/h1&gt;&lt;p&gt;*ignore/&lt;/p&gt;
+&lt;h1 id=&#34;忽略名称中间包含ignore的文件夹&#34;&gt;忽略名称中间包含ignore的文件夹
+&lt;/h1&gt;&lt;p&gt;&lt;em&gt;ignore&lt;/em&gt;/&lt;/p&gt;
+&lt;p&gt;合并远程分支的一般步骤是：&lt;/p&gt;
+&lt;p&gt;第一步，分别获取远程分支内容到本地；
+第二步，在本地将两个分支合并；
+第三步，将合并后的本地分支推送到远程分支，完成合并。
+具体的，以将远程develop分支合并到远程master分支为例，操作过程如下：&lt;/p&gt;
+&lt;p&gt;获取远程develop分支到本地分支（如develop分支）。如果本地已经有分支对应远程develop分支，则可以直接在该分支上执行pull操作或者fetch/merge操作，以获取远程最新内容。否则，可以新建分支跟踪远程develop分支，并获取最新内容到本地；&lt;/p&gt;
+&lt;p&gt;切换到master分支，并获取远程master分支的最新内容到本地；&lt;/p&gt;
+&lt;p&gt;将本地develop分支合并到本地master分支；&lt;/p&gt;
+&lt;p&gt;将本地master分支推送到远程master分支。&lt;/p&gt;
+&lt;p&gt;以合并远程develop分支到远程master分支为例，其具体操作步骤如下：&lt;/p&gt;
+&lt;p&gt;#切换到develop分支
+git checkout develop
+#获取远程develop分支的内容到本地
+git pull origin develop:develop
+#切换到master分支
+git checkout master
+#拉取远程master分支内容到本地
+git pull origin master
+#合并本地develop分支到master分支
+git merge develop
+#将合并后的分支推送到远程master分支
+git push origin master:master&lt;/p&gt;
+&lt;p&gt;merge和rebase的不同
+merge的工作流程如下图：&lt;/p&gt;
+&lt;p&gt;如上图所示，我们从远程仓库origin的C2版本，创建一个新的分支develop进行开发，并进行了C5、C6两次提交。之后团队中其他成员又向origin推送了两次提交C3、C4。为了合并远程分支上的新内容到本地，我们进行merge操作，将内容合并到develop之后，生成了一次新的提交C7。此时，develop分支还是一个独立的分支。&lt;/p&gt;
+&lt;p&gt;而rebase的工作流程如下图：&lt;/p&gt;
+&lt;p&gt;rebase又可称为‘变基’，结合上图的话，这个词就很容易理解了。即：&lt;/p&gt;
+&lt;p&gt;C5、C6本来是在C2这次提交的基础上进行修改的；&lt;/p&gt;
+&lt;p&gt;现在我们将这个‘基础’改为C4，即将C5、C6的提交作用到C4上去；&lt;/p&gt;
+&lt;p&gt;在这个过程中，可能会有冲突产生，解决冲突之后就完成了rebase。&lt;/p&gt;
+&lt;p&gt;由图可以看到，rebase完成后，源分支上的提交都不见了。&lt;/p&gt;
+&lt;p&gt;rebase基础操作
+rebase的基本操作是将某个分支的修改到指定分支，其命令格式为：&lt;/p&gt;
+&lt;p&gt;git rebase 基分支 源分支
+其中‘基分支’是我们的新的‘基’，而‘源分支’就是需要进行变基操作的分支。这样就能实现将源分支变基到基分支。具体使用示例如下：&lt;/p&gt;
+&lt;p&gt;git rebase master develop
+以上语句就能实现将develop变基到master分支。
+如果是将当前分支变基到指定分支，则可以直接使用：&lt;/p&gt;
+&lt;p&gt;git rebase 基分支
+这一命令默认将当前分支变基到‘基分支’。如果当前处于develop分支，则其使用示例如下：&lt;/p&gt;
+&lt;p&gt;git rebase master
+这样也能实现将当前的develop分支rebase到master分支。&lt;/p&gt;
+&lt;p&gt;由于变基是将修改作用到一个不同的版本上，因此很可能在rebase的过程中出现冲突。和merge一次性合并所有冲突不同的是，rebase的冲突是一个一个解决的。以上图中的rebase操作为例，需要分别解决和C3、C4的冲突。在解决rebase冲突的过程中，当解决完一个冲突的时候，使用如下命令后，才会出现下一个冲突：&lt;/p&gt;
+&lt;p&gt;git add -u
+git rebase &amp;ndash;continue
+冲突全部解决完后，rebase操作就完成了。
+如果在解决冲突的过程中，想放弃rebase操作，则可以使用如下命令撤销rebase操作：&lt;/p&gt;
+&lt;p&gt;git rebase &amp;ndash;abort
+这样就能退出rebase，并回退到rebase前的状态。&lt;/p&gt;
+&lt;p&gt;储藏的概念
+“储藏”可以获取你工作目录的中间状态（包括修改过的被追踪的文件和已经暂存的变更），并将其保存到一个未完结变更的堆栈中，而且随时可以重新应用。当你不想提交，也不想丢弃当前工作区中的内容，而想切换到其他分支的时候，可以使用储藏命令先暂存工作区中的内容。然后，再回到当前分支的时候，将储藏起来的内容，恢复到工作区之后，即可恢复之前的工作。&lt;/p&gt;
+&lt;p&gt;储藏的基本操作
+储藏分为保存和应用两个部分。保存就是将当前工作区的内容保存到一个栈中，而应用就是重新应用被保存的工作。&lt;/p&gt;
+&lt;p&gt;保存
+保存用到的命令是git stash，只需在当前分支执行此命令，即可将当前工作区的内容保存起来。如你在本地版本库创建了helloGit文件，此时查看工作区状态可以得到如下所示提示：&lt;/p&gt;
+&lt;p&gt;On branch master
+Unt\fracked files:
+(use &amp;ldquo;git add &lt;file&gt;&amp;hellip;&amp;rdquo; to include in what will be committed)
+helloGit
+nothing added to commit but unt\fracked files present (use &amp;ldquo;git add&amp;rdquo; to t\frack)
+当你执行git stash命令，将工作区保存起来之后，再次查看可以得到如下提示：&lt;/p&gt;
+&lt;p&gt;On branch master
+nothing to commit, working tree clean
+此时已经将工作区内容保存了起来，所以才会提示工作区是干净（clean）的。&lt;/p&gt;
+&lt;p&gt;重新应用
+当你需要再次应用被保存的内容的时候，只需执行git stash apply即可。
+因为可能执行了多次保存，所以你需要查看已经保存起来的内容有哪些。查看已经保存的工作的命令如下：&lt;/p&gt;
+&lt;p&gt;$ git stash list
+会得到类似于如下输出：&lt;/p&gt;
+&lt;p&gt;stash@{0}: WIP on master: bguebge add helloGit1
+stash@{1}: WIP on master: 7gder34 add helloGit2
+stash@{2}: WIP on master: 3frfg4g add helloGit3
+如上所示，可以得知一共有三个保存。&lt;/p&gt;
+&lt;p&gt;如果要应用指定的储藏，则可以使用命令：&lt;/p&gt;
+&lt;p&gt;git stash apply 储藏标识
+这里的储藏标识就是git stash list中显示的类似于stash@{0}的字符串。如：&lt;/p&gt;
+&lt;p&gt;git stash apply stash@{2}
+这样就重新应用了第二次储藏。如果不加储藏标识，就默认应用最近的储藏：&lt;/p&gt;
+&lt;p&gt;git stash apply
+上述命令就重新应用了最近的一次储藏。&lt;/p&gt;
+&lt;p&gt;储藏的概念
+“储藏”可以获取你工作目录的中间状态（包括修改过的被追踪的文件和已经暂存的变更），并将其保存到一个未完结变更的堆栈中，而且随时可以重新应用。当你不想提交，也不想丢弃当前工作区中的内容，而想切换到其他分支的时候，可以使用储藏命令，先暂存工作区中的内容。然后，再回到当前分支的时候，将储藏起来的内容，恢复到工作区之后，即可恢复之前的工作。
+#####储藏的基本操作&lt;/p&gt;
+&lt;p&gt;储藏分为保存和应用两个部分。保存就是将当前工作区的内容保存到一个栈中，而应用就是重新应用被保存的工作。&lt;/p&gt;
+&lt;p&gt;保存
+保存用到的命令是git stash，只需在当前分支执行此命令，即可将当前工作区的内容保存起来。如你在本地版本库创建了helloGit文件，此时查看工作区状态，可以得到如下所示提示：&lt;/p&gt;
+&lt;p&gt;On branch master
+Unt\fracked files:
+(use &amp;ldquo;git add &lt;file&gt;&amp;hellip;&amp;rdquo; to include in what will be committed)
+helloGit
+nothing added to commit but unt\fracked files present (use &amp;ldquo;git add&amp;rdquo; to t\frack)
+当你执行git stash命令，将工作区保存起来之后，再次查看可以得到如下提示：&lt;/p&gt;
+&lt;p&gt;On branch master
+nothing to commit, working tree clean
+此时已经将工作区内容保存了起来，所以才会提示工作区是干净（clean）的。&lt;/p&gt;
+&lt;p&gt;重新应用
+当你需要再次应用被保存的内容的时候，只需执行git stash apply即可。
+因为可能执行了多次保存，因此你需要查看已经保存起来的内容有哪些，查看已经保存的工作的命令如下：&lt;/p&gt;
+&lt;p&gt;$ git stash list
+会到的类似于如下的输出：&lt;/p&gt;
+&lt;p&gt;stash@{0}: WIP on master: bguebge add helloGit1
+stash@{1}: WIP on master: 7gder34 add helloGit2
+stash@{2}: WIP on master: 3frfg4g add helloGit3
+如上所示，可以得知一共有三个保存。&lt;/p&gt;
+&lt;p&gt;如果要应用指定的储藏吗，则可以使用命令：&lt;/p&gt;
+&lt;p&gt;git stash apply 储藏标识
+这里的储藏标识就是git stash list中显示的类似于stash@{0}的字符串。如：&lt;/p&gt;
+&lt;p&gt;git stash apply stash@{2}
+这样就重新应用了第二次储藏。如果不加储藏标识，就默认应用最近的储藏：&lt;/p&gt;
+&lt;p&gt;git stash apply
+上述命令就重新应用了最近的一次储藏。&lt;/p&gt;
+</description>
         </item>
         <item>
-        <title>Git4</title>
-        <link>https://getshhi.github.io/p/git4/</link>
-        <pubDate>Sat, 07 Dec 2024 11:48:00 +0800</pubDate>
+        <title>Git入门之标签</title>
+        <link>https://getshhi.github.io/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E6%A0%87%E7%AD%BE/</link>
+        <pubDate>Mon, 09 Dec 2024 11:48:00 +0800</pubDate>
         
-        <guid>https://getshhi.github.io/p/git4/</guid>
-        <description></description>
+        <guid>https://getshhi.github.io/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E6%A0%87%E7%AD%BE/</guid>
+        <description>&lt;img src="https://getshhi.github.io/fg2.png" alt="Featured image of post Git入门之标签" /&gt;&lt;h3 id=&#34;创建标签&#34;&gt;创建标签
+&lt;/h3&gt;&lt;p&gt;在开发过程中，commit ID是一串无序的字符，它虽然能唯一标记一次代码提交，即一个版本。但是，它很难记忆和辨识。所以，为了给不同的版本起一个容易辨识的名字，我们可以给这次提交打上一个标签，用不同的标签来对应不同的版本。这样，就相当于给这次提交生成了一个快照。实际上，在为某次提交创建标签的时候，Git会为标签生成一个指针，以指向其对应的提交。然后，我们就可以通过标签找到对应的提交，这样对我们版本发布和代码审查都很有帮助。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/bnJMTWllRUxZcENzNFlWbGgwV040UT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;如上图所示，我们为master分支上的三次提交，分别打上0.1、0.2、0.3三个标签。这样，当我们说0.1版本的时候，就对应了第一次提交的代码。这种方式大大降低了代码审查、团队交流及版本发布的复杂性。&lt;/p&gt;
+&lt;h4 id=&#34;查看标签&#34;&gt;查看标签
+&lt;/h4&gt;&lt;p&gt;查看标签需要用到git tag命令，其具体使用示例如下:&lt;/p&gt;
+&lt;p&gt;git tag&lt;/p&gt;
+&lt;p&gt;这样就能列出所有的标签，显示的标签按字母顺序排列，所以标签的先后并不表示重要程度的轻重。&lt;/p&gt;
+&lt;p&gt;如果标签过多，而你指向显示指定的某些标签，则可以使用正则表达式：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git tag -l &amp;#39;v5.1.2.*&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如上，使用-l参数，并使用v5.1.2.*这一正则表达式，就过滤除了符合要求的标签，其中v5.1.2.*为正则表达式，它能够匹配所有前缀为v5.1.2的标签。实际执行过程中会得到类似于下方的输出：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;v5.1.2.1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;v5.1.2.2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;v5.1.2.3
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;v5.1.2.4
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上方输出信息，为我们列出了目前版本库中已有的四个标签。&lt;/p&gt;
+&lt;h4 id=&#34;创建标签-1&#34;&gt;创建标签
+&lt;/h4&gt;&lt;h5 id=&#34;不含附注的标签&#34;&gt;不含附注的标签
+&lt;/h5&gt;&lt;p&gt;创建标签的命令格式为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git tag 标签名 commitID
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;参数commitID标识了该标签对应的代码版本，如果不提供commitID，就默认为最近一次提交后的代码打标签。例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git tag v1.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git tag v1.0 7f8buir2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;语句1表示，为最新一次提交后的代码打上v1.0的标签；语句2则表示，为指定的版本7f8buir2打上标签v1.0。&lt;/p&gt;
+&lt;h5 id=&#34;包含附注的标签&#34;&gt;包含附注的标签
+&lt;/h5&gt;&lt;p&gt;如果需要像提交代码时增加提交日志那样，为每个标签添加说明信息，则需要使用：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git tag -a 标签名 -m &amp;#34;说明信息&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git tag -a v1.0 -m &amp;#39;version 1.0&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;表示为此次打的标签，增加一个version 1.0的说明信息。&lt;/p&gt;
+&lt;p&gt;在查看标签时，可以使用git show命令，查看某个标签的附注信息。例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git show v1.0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;表示要查看标签v1.0对应的附注信息。&lt;/p&gt;
+&lt;h3 id=&#34;推送指定标签&#34;&gt;推送指定标签
+&lt;/h3&gt;&lt;p&gt;推送指定标签到远程仓库的Git命令如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push 远程主机名 tag名
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;其中，远程主机名为远程Git版本库对应的主机名，tag名为准备推送的标签名。&lt;/p&gt;
+&lt;p&gt;该命令使用示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin v1.0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;该语句表示将v1.0标签，推送到主机名为origin对应的远程仓库。&lt;/p&gt;
+&lt;h4 id=&#34;推送全部标签&#34;&gt;推送全部标签
+&lt;/h4&gt;&lt;p&gt;推送指定标签需要用到：&lt;/p&gt;
+&lt;p&gt;git push 远程主机名 &amp;ndash;tags&lt;/p&gt;
+&lt;p&gt;其使用方法如下：&lt;/p&gt;
+&lt;p&gt;git push origin &amp;ndash;tags&lt;/p&gt;
+&lt;p&gt;其中origin为远程主机名，这样就能将全部标签推送至远程仓库。&lt;/p&gt;
+&lt;h3 id=&#34;推送全部标签-1&#34;&gt;推送全部标签
+&lt;/h3&gt;&lt;h4 id=&#34;推送指定标签-1&#34;&gt;推送指定标签
+&lt;/h4&gt;&lt;p&gt;推送指定标签，需要用到的命令格式为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push 远程主机名 tag名
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;其使用方法示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin v1.0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;其中origin为远程主机名，这样就能将v1.0推送至远程仓库。&lt;/p&gt;
+&lt;h3 id=&#34;推送全部标签-2&#34;&gt;推送全部标签
+&lt;/h3&gt;&lt;p&gt;推送全部标签需要用到：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push 远程主机名 --tags
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;其使用方法示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin --tags
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;其中origin为远程主机名，这样就能将全部标签推送至远程仓库。&lt;/p&gt;
+&lt;h3 id=&#34;删除标签&#34;&gt;删除标签
+&lt;/h3&gt;&lt;h4 id=&#34;删除本地标签&#34;&gt;删除本地标签
+&lt;/h4&gt;&lt;p&gt;删除本地标签，需要用到的命令格式为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;　　git tag -d 标签名
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;具体使用方法示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;　　git tag -d v1.0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这样就能实现删除v1.0标签。&lt;/p&gt;
+&lt;h4 id=&#34;删除远程标签&#34;&gt;删除远程标签
+&lt;/h4&gt;&lt;p&gt;删除远程tag，可以使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin --delete tag 标签名
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;或者如下所示的命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin :refs/tags/&amp;lt;tagname&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;即推送一个空的tag名到远程仓库，其中&lt;tagname&gt;指某个标签的名字。&lt;/p&gt;
+&lt;p&gt;这两种方式都能实现删除远程的指定标签。&lt;/p&gt;
+</description>
         </item>
         <item>
-        <title>Git3</title>
-        <link>https://getshhi.github.io/p/git3/</link>
-        <pubDate>Sat, 07 Dec 2024 11:47:55 +0800</pubDate>
+        <title>Git入门之日志和版本回退</title>
+        <link>https://getshhi.github.io/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%A5%E5%BF%97%E5%92%8C%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80/</link>
+        <pubDate>Sun, 08 Dec 2024 11:47:55 +0800</pubDate>
         
-        <guid>https://getshhi.github.io/p/git3/</guid>
-        <description></description>
+        <guid>https://getshhi.github.io/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%A5%E5%BF%97%E5%92%8C%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80/</guid>
+        <description>&lt;img src="https://getshhi.github.io/fg1.png" alt="Featured image of post Git入门之日志和版本回退" /&gt;&lt;h3 id=&#34;回到前一次提交&#34;&gt;回到前一次提交
+&lt;/h3&gt;&lt;h4 id=&#34;强大的git-log&#34;&gt;强大的git log
+&lt;/h4&gt;&lt;p&gt;在之前，我们已经介绍了git log的基本使用方法，这里我们要进一步介绍git log的使用。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;查看提交的内容差异 git log提供了-p参数，用于查看每次提交之间的内容差异，如下： 　　&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  git log -p 即可显示每次提交之间的变化：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;commit 92f972422350ef603beb2740a78f57d0f98c1738 (HEAD -&amp;gt; master, origin/mast
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Author: educoder &amp;lt;user@sample.com&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Date:   Sat Jan 6 15:57:52 2018 +0800
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    第一次提交
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;diff --git a/7-1.sh b/7-1.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;new file mode 100644
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;index 0000000..fa7cc9c
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;--- /dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+++ b/7-1.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;@@ -0,0 +1 @@
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+###
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;\ No newline at end of file
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;diff --git a/7-2.sh b/7-2.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;new file mode 100644
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;index 0000000..fa7cc9c
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;--- /dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+++ b/7-2.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;@@ -0,0 +1 @@
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+###
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;\ No newline at end of file
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;diff --git a/7-3.sh b/7-3.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;new file mode 100644
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;index 0000000..fa7cc9c
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;--- /dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+++ b/7-3.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;@@ -0,0 +1 @@
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+###
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;\ No newline at end of file
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;diff --git a/7-4.sh b/7-4.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;new file mode 100644
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;index 0000000..fa7cc9c
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;--- /dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+++ b/7-4.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;而如果想限制显示的范围，则可以再添加参数用于限定：&lt;/p&gt;
+&lt;p&gt;  git log -p -2&lt;/p&gt;
+&lt;p&gt;如上，则仅显示最近的两次更新。&lt;/p&gt;
+&lt;p&gt;如上所示，这一选项附带了每次commit的内容变化，这就为代码审查或者浏览某个搭档的修改内容，提供了很好的参考。&lt;/p&gt;
+&lt;p&gt;其他git log选项：&lt;/p&gt;
+&lt;p&gt;1.单词层面对比&lt;/p&gt;
+&lt;p&gt;Git提供了&amp;ndash;word-diff选项，可以显示单词层面的差异。当需要在书籍、论文这种很大的文本文件上，进行对比的时候，这个功能就非常有用。&lt;/p&gt;
+&lt;p&gt;2.显示简要的增改行数&lt;/p&gt;
+&lt;p&gt;Git提供了&amp;ndash;stat选项，则可以仅显示增加或者减少了多少行。&lt;/p&gt;
+&lt;p&gt;3.pretty选项&lt;/p&gt;
+&lt;p&gt;使用&amp;ndash;pretty 选项选项，可以指定不同的显示属性，如oneline 将每个提交放在一行显示。 short，full 和 fuller 可以指定展示的信息的多少。&lt;/p&gt;
+&lt;h4 id=&#34;git-revert实现版本回退&#34;&gt;git revert实现版本回退
+&lt;/h4&gt;&lt;p&gt;版本回退可以用git revert命令。git revert撤销提交时，会保留所撤销的提交的记录和历史，并将撤销操作做为一次新的提交。即提交一个新的版本，将需要revert的版本的内容再反向修改回去，版本会递增，不影响之前提交的内容。其具体的使用方法如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;git revert HEAD          撤销前一次 commit&lt;/li&gt;
+&lt;li&gt;git revert HEAD^         撤销前前一次 commit&lt;/li&gt;
+&lt;li&gt;git revert commit （比如：fa042ce57ebbe5b）撤销指定的版本，撤销也会作为一次提交进行保存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;git-reset实现版本回退&#34;&gt;git reset实现版本回退
+&lt;/h4&gt;&lt;p&gt;git reset也能实现版本回退，但是git revert 和 git reset也存在一定的区别 ：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;git revert是用一次新的commit来回滚之前的commit，git reset是直接删除指定的commit；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在回滚这一操作上看，效果差不多。但是，在日后继续merge以前的老版本时有区别。因为git revert是用一次逆向的commit，“中和”之前的提交，因此日后合并老的branch时，导致这部分改变不会再次出现。但是git reset是把某些commit在某个branch上删除，因而和老的branch再次merge时，这些被回滚的commit应该还会被引入；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;git reset 是把HEAD向后移动了一下，而git revert是HEAD继续前进，只是新的commit的内容和要revert的内容正好相反，能够抵消要被revert的内容。
+git reset用法如下：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;git reset HEAD 回到前一次 commit。也可以用于将错误的文件添加进暂存区后，想回退取消，如： 　　git reset HEAD 文件名&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;git reset HEAD^ 回到前前一次 commit。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;git reset commit 比如：commit = fa042ce57ebbe5b，回到指定的版本，撤销也会作为一次提交进行保存。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;另外git reset也可以指定reset的模式：hard、soft、mixed、merged、keep。
+这几种模式的差别如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;ndash;soft 缓存区和工作目录都不会被改变；&lt;/li&gt;
+&lt;li&gt;&amp;ndash;mixed – 默认选项。缓存区和你指定的提交同步，但工作目录不受影响；&lt;/li&gt;
+&lt;li&gt;&amp;ndash;hard – 缓存区和工作目录，都同步到你指定的提交。
+几种模式的具体使用方法如下：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#直接丢弃工作区和暂存区的修改
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git reset --hard HEAD
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#暂存区内容保留，工作区修改丢弃
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git reset --mixed HEAD
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#暂存区和工作区内容都保留
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git reset --soft HEAD
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;回到指定提交&#34;&gt;回到指定提交
+&lt;/h3&gt;&lt;h4 id=&#34;git-revert实现版本回退-1&#34;&gt;git revert实现版本回退
+&lt;/h4&gt;&lt;p&gt;版本回退可以用git revert命令。使用git revert撤销提交时，会保留所撤销的提交的记录和历史，并将撤销操作做为一次新的提交。即提交一个新的版本，将需要revert的版本的内容再反向修改回去，版本会递增，不影响之前提交的内容。其具体的使用方法如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;git revert HEAD          撤销前一次 commit&lt;/li&gt;
+&lt;li&gt;git revert HEAD^         撤销前前一次 commit&lt;/li&gt;
+&lt;li&gt;git revert commit （比如：fa042ce57ebbe5b）撤销指定的版本，撤销也会作为一次提交进行保存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;git-reset实现版本回退-1&#34;&gt;git reset实现版本回退
+&lt;/h4&gt;&lt;p&gt;git reset也能实现版本回退，但是git revert 和 git reset有一定的区别 ：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;git revert是用一次新的commit来回滚之前的commit，git reset是直接删除指定的commit；&lt;/li&gt;
+&lt;li&gt;在回滚这一操作上看，效果差不多。但是，在日后继续merge以前的老版本时有区别。因为git revert是用一次逆向的commit，“中和”之前的提交，因此日后合并老的branch时，导致这部分改变不会再次出现。但是git reset是把某些commit在某个branch上删除，因而和老的branch再次merge时，这些被回滚的commit应该还会被引入；&lt;/li&gt;
+&lt;li&gt;git reset 是把HEAD向后移动了一下，而git revert是HEAD继续前进，只是新的commit的内容和要revert的内容正好相反，能够抵消要被revert的内容。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;git reset用法如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;git reset HEAD
+回到前一次 commit。也可以用于将错误的文件添加进暂存区后，想回退取消，如：
+　　git reset HEAD 文件名&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;git reset HEAD^
+回到前前一次 commit。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;git reset commit
+比如：commit = fa042ce57ebbe5b，回到指定的版本，撤销也会作为一次提交进行保存。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;另外git reset也可以指定reset的模式：hard、soft、mixed、merged、keep。
+这几种模式的差别如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;ndash;soft 缓存区和工作目录都不会被改变；&lt;/li&gt;
+&lt;li&gt;&amp;ndash;mixed 默认选项。缓存区和你指定的提交同步，但工作目录不受影响；&lt;/li&gt;
+&lt;li&gt;&amp;ndash;hard 缓存区和工作目录都同步到你指定的提交。
+几种模式的具体使用方法如下：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#直接丢弃工作区和暂存区的修改
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git reset --hard HEAD
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#暂存区内容保留，工作区修改丢弃
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git reset --mixed HEAD
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#暂存区和工作区内容都保留
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git reset --soft HEAD
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;撤销修改&#34;&gt;撤销修改
+&lt;/h3&gt;&lt;h4 id=&#34;git-reset实现版本回退-2&#34;&gt;git reset实现版本回退
+&lt;/h4&gt;&lt;p&gt;当将有错误的文件add进暂存区后，可以使用git reset丢弃修改。即：
+　　git reset HEAD 文件名
+但此时修改仍旧保留在工作区。&lt;/p&gt;
+&lt;p&gt;如果尚未add进暂存区，则可以使用：&lt;/p&gt;
+&lt;p&gt;  git reset &amp;ndash;hard HEAD&lt;/p&gt;
+&lt;p&gt;这样就能彻底丢弃修改，即将修改从暂存区及工作区彻底删除。&lt;/p&gt;
+&lt;h4 id=&#34;git-checkout丢弃修改&#34;&gt;git checkout丢弃修改
+&lt;/h4&gt;&lt;p&gt;当将错误的文件add进暂存区后，使用git checkout无法将修改从暂存区中撤销，必须要先使用git reset将修改从暂存区中撤销。&lt;/p&gt;
+&lt;p&gt;如果只是工作区有了修改，则可以直接使用git checkout进行撤销，具体操作如下：&lt;/p&gt;
+&lt;p&gt;  git chekcout &amp;ndash; hello&lt;/p&gt;
+&lt;p&gt;通过这种方式，就可将hello文件自上个commit之后，尚未add进暂存区的修改丢弃。&lt;/p&gt;
+&lt;h3 id=&#34;删除文件&#34;&gt;删除文件
+&lt;/h3&gt;&lt;p&gt;删除文件需要用到的命令是git rm，且git rm有参数&amp;ndash;cached。
+当我们需要删除暂存区或分支上的文件，同时工作区也不再需要这个文件了，可以使用：&lt;/p&gt;
+&lt;p&gt;  git rm 文件路径&lt;/p&gt;
+&lt;p&gt;当我们需要删除暂存区或分支上的文件，但本地又需要使用， 只是不希望这个文件被提交到版本库，可以使用：&lt;/p&gt;
+&lt;p&gt;  git rm &amp;ndash;cached 文件路径&lt;/p&gt;
+&lt;h4 id=&#34;文件已添加至暂存区&#34;&gt;文件已添加至暂存区
+&lt;/h4&gt;&lt;p&gt;如果文件被添加到了暂存区，这种情况下直接使用git rm file_path会报错：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git rm hello.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;error: the following file has changes staged in the index:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    hello.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;(use --cached to keep the file, or -f to force removal)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;根据提示我们可以得知，这个时候，如果不想保留hello.txt，则可以使用：&lt;/p&gt;
+&lt;p&gt;  git rm hello.txt -f&lt;/p&gt;
+&lt;p&gt;如果想保留hello.txt到工作区则可以使用：&lt;/p&gt;
+&lt;p&gt;  git rm &amp;ndash;cached hello.txt&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>Git入门之分支管理</title>
@@ -209,7 +859,7 @@
         <item>
         <title>Git入门版本库和入门远程版本库</title>
         <link>https://getshhi.github.io/p/git%E5%85%A5%E9%97%A8%E7%89%88%E6%9C%AC%E5%BA%93%E5%92%8C%E5%85%A5%E9%97%A8%E8%BF%9C%E7%A8%8B%E7%89%88%E6%9C%AC%E5%BA%93/</link>
-        <pubDate>Sat, 07 Dec 2024 11:47:39 +0800</pubDate>
+        <pubDate>Fri, 06 Dec 2024 11:47:39 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/git%E5%85%A5%E9%97%A8%E7%89%88%E6%9C%AC%E5%BA%93%E5%92%8C%E5%85%A5%E9%97%A8%E8%BF%9C%E7%A8%8B%E7%89%88%E6%9C%AC%E5%BA%93/</guid>
         <description>&lt;img src="https://getshhi.github.io/nn.png" alt="Featured image of post Git入门版本库和入门远程版本库" /&gt;&lt;h2 id=&#34;入门版本库&#34;&gt;入门版本库
@@ -791,6 +1441,20 @@ git push的另外一种用法如下：&lt;/p&gt;
 	
 	
 &gt;&lt;/p&gt;
+&lt;h4 id=&#34;为什么变长字段长度列表的信息要按照逆序存放&#34;&gt;为什么「变长字段长度列表」的信息要按照逆序存放？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;逆序存放变长字段长度列表可以使得位置靠前的记录的&lt;strong&gt;真实数据和数据对应的字段长度信息&lt;/strong&gt;同时在&lt;strong&gt;一个CPU Cache Line&lt;/strong&gt;中。这有助于&lt;strong&gt;提高CPU缓存的命中率&lt;/strong&gt;，从而加快数据访问速度。&lt;/li&gt;
+&lt;li&gt;当读取记录时，首先读取的是&lt;strong&gt;记录头信息&lt;/strong&gt;，然后根据变长字段长度列表中的信息，从后往前读取各个字段的长度，进而确定每个字段的&lt;strong&gt;起始位置和长度&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;这种设计还有助于减少磁盘I/O操作，因为相关的长度信息和数据可以一起被加载到内存中，减少了额外的读取次数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;varcharn最大取值为多少&#34;&gt;varchar(n)最大取值为多少？
+&lt;/h4&gt;&lt;p&gt;不管是单字段还是多字段，算 varchar(n) 中 n 最大值时，都需要减去 「变长字段长度列表」和 「NULL 值列表」所占用的字节数的。&lt;/p&gt;
+&lt;h4 id=&#34;行溢出后mysql是咋处理的&#34;&gt;行溢出后，MySQL是咋处理的?
+&lt;/h4&gt;&lt;p&gt;InnoDB存储引擎会自动将溢出的数据存放到[溢出页]中。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Compact行溢出时，会保存该列的一部分数据，而把剩余的数据放在[溢出页]中，然后真实数据处用20字节存储指向溢出页的地址，从而可以找到剩余数据的页。&lt;/li&gt;
+&lt;li&gt;Compressed和Dynamic这两种格式采用完全的行溢出方式，记录的真实数据处不会存储该列的一部分数据，只存储20个字节的指针来指向溢出页。而实际的数据都存储在溢出页中。&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>

@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="创建标签 在开发过程中，commit ID是一串无序的字符，它虽然能唯一标记一次代码提交，即一个版本。但是，它很难记忆和辨识。所以，为了给不同的版本起一个容易辨识的名字，我们可以给这次提交打上一个标签，用不同的标签来对应不同的版本。这样，就相当于给这次提交生成了一个快照。实际上，在为某次提交创建标签的时候，Git会为标签生成一个指针，以指向其对应的提交。然后，我们就可以通过标签找到对应的提交，这样对我们版本发布和代码审查都很有帮助。\n">
+<title>Git入门之标签</title>
+
+<link rel='canonical' href='https://getshhi.github.io/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E6%A0%87%E7%AD%BE/'>
+
+<link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="Git入门之标签">
+<meta property='og:description' content="创建标签 在开发过程中，commit ID是一串无序的字符，它虽然能唯一标记一次代码提交，即一个版本。但是，它很难记忆和辨识。所以，为了给不同的版本起一个容易辨识的名字，我们可以给这次提交打上一个标签，用不同的标签来对应不同的版本。这样，就相当于给这次提交生成了一个快照。实际上，在为某次提交创建标签的时候，Git会为标签生成一个指针，以指向其对应的提交。然后，我们就可以通过标签找到对应的提交，这样对我们版本发布和代码审查都很有帮助。\n">
+<meta property='og:url' content='https://getshhi.github.io/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E6%A0%87%E7%AD%BE/'>
+<meta property='og:site_name' content='JZH-letere'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Git' /><meta property='article:published_time' content='2024-12-09T11:48:00&#43;08:00'/><meta property='article:modified_time' content='2024-12-09T11:48:00&#43;08:00'/><meta property='og:image' content='https://getshhi.github.io/fg2.png' />
+<meta name="twitter:title" content="Git入门之标签">
+<meta name="twitter:description" content="创建标签 在开发过程中，commit ID是一串无序的字符，它虽然能唯一标记一次代码提交，即一个版本。但是，它很难记忆和辨识。所以，为了给不同的版本起一个容易辨识的名字，我们可以给这次提交打上一个标签，用不同的标签来对应不同的版本。这样，就相当于给这次提交生成了一个快照。实际上，在为某次提交创建标签的时候，Git会为标签生成一个指针，以指向其对应的提交。然后，我们就可以通过标签找到对应的提交，这样对我们版本发布和代码审查都很有帮助。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://getshhi.github.io/fg2.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu5331494558346596945.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">😀</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">JZH-letere</a></h1>
+            <h2 class="site-description">欢迎来到我的小家</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/getshhi'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%AD%A6%E4%B9%A0%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>学习链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E6%A0%87%E7%AD%BE/">
+                
+                    <img src="/fg2.png" loading="lazy" alt="Featured image of post Git入门之标签" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E5%8D%9A%E5%AE%A2/" >
+                博客
+            </a>
+        
+            <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" >
+                开发工具
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E6%A0%87%E7%AD%BE/">Git入门之标签</a>
+        </h2>
+    
+        
+    </div>
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2024-12-09</time>
+            </div>
+        
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+        <span class="post-word-count">1399 words</span>
+    </footer>
+    
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h3 id="创建标签">创建标签
+</h3><p>在开发过程中，commit ID是一串无序的字符，它虽然能唯一标记一次代码提交，即一个版本。但是，它很难记忆和辨识。所以，为了给不同的版本起一个容易辨识的名字，我们可以给这次提交打上一个标签，用不同的标签来对应不同的版本。这样，就相当于给这次提交生成了一个快照。实际上，在为某次提交创建标签的时候，Git会为标签生成一个指针，以指向其对应的提交。然后，我们就可以通过标签找到对应的提交，这样对我们版本发布和代码审查都很有帮助。</p>
+<p><img src="https://data.educoder.net/api/attachments/bnJMTWllRUxZcENzNFlWbGgwV040UT09"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>如上图所示，我们为master分支上的三次提交，分别打上0.1、0.2、0.3三个标签。这样，当我们说0.1版本的时候，就对应了第一次提交的代码。这种方式大大降低了代码审查、团队交流及版本发布的复杂性。</p>
+<h4 id="查看标签">查看标签
+</h4><p>查看标签需要用到git tag命令，其具体使用示例如下:</p>
+<p>git tag</p>
+<p>这样就能列出所有的标签，显示的标签按字母顺序排列，所以标签的先后并不表示重要程度的轻重。</p>
+<p>如果标签过多，而你指向显示指定的某些标签，则可以使用正则表达式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git tag -l &#39;v5.1.2.*&#39;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如上，使用-l参数，并使用v5.1.2.*这一正则表达式，就过滤除了符合要求的标签，其中v5.1.2.*为正则表达式，它能够匹配所有前缀为v5.1.2的标签。实际执行过程中会得到类似于下方的输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">v5.1.2.1
+</span></span><span class="line"><span class="cl">v5.1.2.2
+</span></span><span class="line"><span class="cl">v5.1.2.3
+</span></span><span class="line"><span class="cl">v5.1.2.4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上方输出信息，为我们列出了目前版本库中已有的四个标签。</p>
+<h4 id="创建标签-1">创建标签
+</h4><h5 id="不含附注的标签">不含附注的标签
+</h5><p>创建标签的命令格式为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git tag 标签名 commitID
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>参数commitID标识了该标签对应的代码版本，如果不提供commitID，就默认为最近一次提交后的代码打标签。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git tag v1.0
+</span></span><span class="line"><span class="cl">git tag v1.0 7f8buir2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>语句1表示，为最新一次提交后的代码打上v1.0的标签；语句2则表示，为指定的版本7f8buir2打上标签v1.0。</p>
+<h5 id="包含附注的标签">包含附注的标签
+</h5><p>如果需要像提交代码时增加提交日志那样，为每个标签添加说明信息，则需要使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git tag -a 标签名 -m &#34;说明信息&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git tag -a v1.0 -m &#39;version 1.0&#39;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>表示为此次打的标签，增加一个version 1.0的说明信息。</p>
+<p>在查看标签时，可以使用git show命令，查看某个标签的附注信息。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git show v1.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>表示要查看标签v1.0对应的附注信息。</p>
+<h3 id="推送指定标签">推送指定标签
+</h3><p>推送指定标签到远程仓库的Git命令如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git push 远程主机名 tag名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中，远程主机名为远程Git版本库对应的主机名，tag名为准备推送的标签名。</p>
+<p>该命令使用示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git push origin v1.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>该语句表示将v1.0标签，推送到主机名为origin对应的远程仓库。</p>
+<h4 id="推送全部标签">推送全部标签
+</h4><p>推送指定标签需要用到：</p>
+<p>git push 远程主机名 &ndash;tags</p>
+<p>其使用方法如下：</p>
+<p>git push origin &ndash;tags</p>
+<p>其中origin为远程主机名，这样就能将全部标签推送至远程仓库。</p>
+<h3 id="推送全部标签-1">推送全部标签
+</h3><h4 id="推送指定标签-1">推送指定标签
+</h4><p>推送指定标签，需要用到的命令格式为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git push 远程主机名 tag名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其使用方法示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git push origin v1.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中origin为远程主机名，这样就能将v1.0推送至远程仓库。</p>
+<h3 id="推送全部标签-2">推送全部标签
+</h3><p>推送全部标签需要用到：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git push 远程主机名 --tags
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其使用方法示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git push origin --tags
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中origin为远程主机名，这样就能将全部标签推送至远程仓库。</p>
+<h3 id="删除标签">删除标签
+</h3><h4 id="删除本地标签">删除本地标签
+</h4><p>删除本地标签，需要用到的命令格式为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">　　git tag -d 标签名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>具体使用方法示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">　　git tag -d v1.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样就能实现删除v1.0标签。</p>
+<h4 id="删除远程标签">删除远程标签
+</h4><p>删除远程tag，可以使用如下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git push origin --delete tag 标签名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>或者如下所示的命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git push origin :refs/tags/&lt;tagname&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>即推送一个空的tag名到远程仓库，其中<tagname>指某个标签的名字。</p>
+<p>这两种方式都能实现删除远程的指定标签。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/git/">Git</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/git5/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/fg3.png" loading="lazy" data-key="" data-hash="/fg3.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Git5</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%A5%E5%BF%97%E5%92%8C%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/fg1.png" loading="lazy" data-key="" data-hash="/fg1.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Git入门之日志和版本回退</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/git%E5%85%A5%E9%97%A8%E4%B9%8B%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/nn1.png" loading="lazy" data-key="" data-hash="/nn1.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Git入门之分支管理</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/git%E5%85%A5%E9%97%A8%E7%89%88%E6%9C%AC%E5%BA%93%E5%92%8C%E5%85%A5%E9%97%A8%E8%BF%9C%E7%A8%8B%E7%89%88%E6%9C%AC%E5%BA%93/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/nn.png" loading="lazy" data-key="" data-hash="/nn.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Git入门版本库和入门远程版本库</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/mysql%E7%B4%A2%E5%BC%95/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/bk.png" loading="lazy" data-key="" data-hash="/bk.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MySql索引</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="getshhi/hugoblogcomments"
+        issue-term="title"
+        
+        label="留下你的足迹吧😁"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+let utterancesLoaded = false;
+function setUtterancesTheme(theme) {
+    let utterances = document.querySelector('.utterances iframe');
+    if (utterances) {
+        utterances.contentWindow.postMessage(
+            {
+                type: 'set-theme',
+                theme: `github-${theme}`
+            },
+            'https://utteranc.es'
+        );
+    }
+}
+
+addEventListener('message', event => {
+    if (event.origin !== 'https://utteranc.es') return;
+
+    
+    utterancesLoaded = true;
+    setUtterancesTheme(document.documentElement.dataset.scheme); 
+});
+
+window.addEventListener('onColorSchemeChange', (e) => {
+    if (!utterancesLoaded) return;
+    setUtterancesTheme(e.detail); 
+});
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 JZH-letere
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.27.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<div id="aplayer"></div>
+
+<script>
+	const home = "https://getshhi.github.io/" + 'music/';
+	console.log(home);
+	const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: [{
+        name: '光るなら',
+        artist: 'Goose House',
+        url: home + '光るなら-Goose House/song.mp3',
+        cover: home + '光るなら-Goose House/cover.jpg',
+        lrc: home + '光るなら-Goose House/lyric.lrc'
+    },{
+        name: '反方向的钟',
+        artist: '周杰伦',
+        url: home + '反方向的钟-周杰伦/song.mp3',
+        cover: home + '反方向的钟-周杰伦/cover.jpg',
+        lrc: home + '反方向的钟-周杰伦/lyric.lrc'
+    },{
+        name: '告白气球',
+        artist: '周杰伦',
+        url: home + '告白气球-周杰伦/song.mp3',
+        cover: home + '告白气球-周杰伦/cover.jpg',
+        lrc: home + '告白气球-周杰伦/lyric.lrc'
+    },{
+        name: '红尘客栈',
+        artist: '周杰伦',
+        url: home + '红尘客栈-周杰伦/song.mp3',
+        cover: home + '红尘客栈-周杰伦/cover.jpg',
+        lrc: home + '红尘客栈-周杰伦/lyric.lrc'
+    },{
+        name: '七里香',
+        artist: '周杰伦',
+        url: home + '七里香-周杰伦/song.mp3',
+        cover: home + '七里香-周杰伦/cover.jpg',
+        lrc: home + '七里香-周杰伦/lyric.lrc'
+    },{
+        name: '青花瓷',
+        artist: '周杰伦',
+        url: home + '青花瓷-周杰伦/song.mp3',
+        cover: home + '青花瓷-周杰伦/cover.jpg',
+        lrc: home + '青花瓷-周杰伦/lyric.lrc'
+    },{
+        name: '晴天',
+        artist: '周杰伦',
+        url: home + '晴天-周杰伦/song.mp3',
+        cover: home + '晴天-周杰伦/cover.jpg',
+        lrc: home + '晴天-周杰伦/lyric.lrc'
+    }]
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/pjax/pjax.js"></script>
+
+    
+    <script src=https://getshhi.github.io/js/topbar.min.js></script>
+
+<script>
+    var pjax = new Pjax({
+  selectors: [".main-container"]
+})
+pjax._handleResponse = pjax.handleResponse;
+
+pjax.handleResponse = function(responseText, request, href, options) {
+  if (request.responseText.match("<html")) {
+    
+    let newDom = new DOMParser().parseFromString(responseText, 'text/html');
+            
+            let bodyClass = newDom.body.className;
+            document.body.setAttribute("class", bodyClass)
+            
+            setTimeout(() => {pjax._handleResponse(responseText, request, href, options);},1000)
+  } else {
+    
+  }
+}
+document.addEventListener('pjax:send', () => {
+  topbar.show();
+})
+document.addEventListener('pjax:complete', () => {
+    window.Stack.init();
+    topbar.hide();
+})
+</script>
+    </body>
+</html>

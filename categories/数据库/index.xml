@@ -150,6 +150,20 @@
 	
 	
 &gt;&lt;/p&gt;
+&lt;h4 id=&#34;为什么变长字段长度列表的信息要按照逆序存放&#34;&gt;为什么「变长字段长度列表」的信息要按照逆序存放？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;逆序存放变长字段长度列表可以使得位置靠前的记录的&lt;strong&gt;真实数据和数据对应的字段长度信息&lt;/strong&gt;同时在&lt;strong&gt;一个CPU Cache Line&lt;/strong&gt;中。这有助于&lt;strong&gt;提高CPU缓存的命中率&lt;/strong&gt;，从而加快数据访问速度。&lt;/li&gt;
+&lt;li&gt;当读取记录时，首先读取的是&lt;strong&gt;记录头信息&lt;/strong&gt;，然后根据变长字段长度列表中的信息，从后往前读取各个字段的长度，进而确定每个字段的&lt;strong&gt;起始位置和长度&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;这种设计还有助于减少磁盘I/O操作，因为相关的长度信息和数据可以一起被加载到内存中，减少了额外的读取次数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;varcharn最大取值为多少&#34;&gt;varchar(n)最大取值为多少？
+&lt;/h4&gt;&lt;p&gt;不管是单字段还是多字段，算 varchar(n) 中 n 最大值时，都需要减去 「变长字段长度列表」和 「NULL 值列表」所占用的字节数的。&lt;/p&gt;
+&lt;h4 id=&#34;行溢出后mysql是咋处理的&#34;&gt;行溢出后，MySQL是咋处理的?
+&lt;/h4&gt;&lt;p&gt;InnoDB存储引擎会自动将溢出的数据存放到[溢出页]中。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Compact行溢出时，会保存该列的一部分数据，而把剩余的数据放在[溢出页]中，然后真实数据处用20字节存储指向溢出页的地址，从而可以找到剩余数据的页。&lt;/li&gt;
+&lt;li&gt;Compressed和Dynamic这两种格式采用完全的行溢出方式，记录的真实数据处不会存储该列的一部分数据，只存储20个字节的指针来指向溢出页。而实际的数据都存储在溢出页中。&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>
