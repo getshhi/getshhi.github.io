@@ -13,7 +13,249 @@
         <pubDate>Thu, 05 Dec 2024 13:11:20 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/mysql%E7%B4%A2%E5%BC%95/</guid>
-        <description>&lt;img src="https://getshhi.github.io/bk.png" alt="Featured image of post MySql索引" /&gt;</description>
+        <description>&lt;img src="https://getshhi.github.io/bk.png" alt="Featured image of post MySql索引" /&gt;&lt;h4 id=&#34;为啥mysql-innodb-选择btree作为索引的数据结构&#34;&gt;为啥MySQL InnoDB 选择B+tree作为索引的数据结构？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;B+Tree vs B Tree:
+&lt;ul&gt;
+&lt;li&gt;B+Tree只有叶子节点存储数据，而B Tree索引和数据都存，这样会导致在相同的条件下，B Tree的一个数据节点能够存储的索引减少，导致B Tree的深度会较长，从而造成IO时间较长，性能较差。&lt;/li&gt;
+&lt;li&gt;B+Tree 的叶子节点是用双链表进行连接的，进行范围查询较为方便。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;B+Tree vs 二叉树
+&lt;ul&gt;
+&lt;li&gt;对于二叉树来说，有可能会退化成时间复杂度为O(n)的(对于插入操作一直插入大的或一直小的)。&lt;/li&gt;
+&lt;li&gt;对于二叉树来说，仅仅能存储一个索引，会导致层数增加，从而导致IO时间较长。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;B+Tree vs Hash
+&lt;ul&gt;
+&lt;li&gt;对于Hash来说，Hash不能进行范围查询&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;啥时候使用索引&#34;&gt;啥时候使用索引？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;字段有限制的，适合当索引。&lt;/li&gt;
+&lt;li&gt;经常用于WHERE查询条件的字段。&lt;/li&gt;
+&lt;li&gt;经常用ORDER BY 和GROUP BY的字段。&lt;/li&gt;
+&lt;li&gt;尽量使用联合索引，减少单列索引，查询时，联合索引很多时候可以覆盖索引，节省存储空间，
+避免回表，提高查询效率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;啥时候不使用索引&#34;&gt;啥时候不使用索引？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;字段中存在大量重复数据，不需要创建索引。&lt;/li&gt;
+&lt;li&gt;WHERE条件，GROUP BY，ORDER BY 里用不到的字段。&lt;/li&gt;
+&lt;li&gt;经常需要更新的表，查询频率较小的表。&lt;/li&gt;
+&lt;li&gt;字段中存在大量重复数据，不需要创建索引。&lt;/li&gt;
+&lt;li&gt;表数据较少的不用创建索引，数据较少时全表查询效率已经很高了，如果加入索引会增加存储压力。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;啥时候索引会失效&#34;&gt;啥时候索引会失效？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;不符合最左匹配原则的。&lt;/li&gt;
+&lt;li&gt;模糊查询用%x和%x%的。&lt;/li&gt;
+&lt;li&gt;将索引加入计算的表达式中。&lt;/li&gt;
+&lt;li&gt;将索引加入函数中。&lt;/li&gt;
+&lt;li&gt;在WHERE从句中的输入为字符串，但是字段的属性为INT类型。&lt;/li&gt;
+&lt;li&gt;WHERE 子句中的 OR&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在 WHERE 子句中，如果在 OR 前的条件列是索引列，而在 OR 后的条件列不是索引列，那么索引会失效。(解决方案:可以采让全部都是)&lt;/p&gt;
+&lt;h4 id=&#34;有啥优化索引的方法&#34;&gt;有啥优化索引的方法？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;前缀索引优化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;使用前缀索引是为了减小索引字段大小，可以增加一个索引页中存储的索引值，有效提高索引的查询速度。在一些大字符串的字段作为索引时，使用前缀索引可以帮助我们减小索引项的大小。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;覆盖索引优化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们可以建立一个联合索引，即「分组ID、名称、价格」作为一个联合索引。如果索引中存在这些数据，查询将不会再次检索主键索引，从而避免回表。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主键索引最好是自增的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果我们使用自增主键，那么每次插入的新数据就会按顺序添加到当前索引节点的位置，不需要移动已有的数据，当页面写满，就会自动开辟一个新页面。因为每次插入一条新记录，都是追加操作，不需要重新移动数据，因此这种插入数据的方法效率非常高。&lt;/p&gt;
+&lt;p&gt;如果我们使用非自增主键，由于每次插入主键的索引值都是随机的，因此每次插入新的数据时，就可能会插入到现有数据页中间的某个位置，这将不得不移动其它数据来满足新数据的插入，甚至需要从一个页面复制数据到另外一个页面，我们通常将这种情况称为页分裂。页分裂还有可能会造成大量的内存碎片，导致索引结构不紧凑，从而影响查询效率。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;防止索引失效&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果索引失效的话，那么这个索引将会失效，这个索引将会不起作用。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;索引最好设置为NOT NULL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;第一原因：索引列存在 NULL 就会导致优化器在做索引选择的时候更加复杂，更加难以优化，因为可为 NULL 的列会使索引、索引统计和值比较都更复杂，比如进行索引统计时，count 会省略值为NULL 的行。&lt;/p&gt;
+&lt;p&gt;第二个原因：NULL 值是一个没意义的值，但是它会占用物理空间，所以会带来的存储空间的问题，因为 InnoDB 存储记录的时候，如果表中存在允许为 NULL 的字段，那么行格式 (opens new window)中至少会用 1 字节空间存储 NULL 值列表。&lt;/p&gt;
+&lt;h4 id=&#34;啥是索引&#34;&gt;啥是索引？
+&lt;/h4&gt;&lt;p&gt;索引（index）是帮助MySQL高效获取数据的数据结构(有序)。在数据之外，数据库系统还维护着满足
+特定查找算法的数据结构，这些数据结构以某种方式引用（指向）数据， 这样就可以在这些数据结构
+上实现高级查找算法，这种数据结构就是索引。(可以类比书籍的目录，简单来说就是用于快速检索数据的数据结构)&lt;/p&gt;
+&lt;h4 id=&#34;不同存储引擎支持的索引结构&#34;&gt;不同存储引擎支持的索引结构
+&lt;/h4&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;索引&lt;/th&gt;
+          &lt;th&gt;InnoDB&lt;/th&gt;
+          &lt;th&gt;MyISAM&lt;/th&gt;
+          &lt;th&gt;Memory&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;B+tree索引&lt;/td&gt;
+          &lt;td&gt;支持&lt;/td&gt;
+          &lt;td&gt;支持&lt;/td&gt;
+          &lt;td&gt;支持&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Hash 索引&lt;/td&gt;
+          &lt;td&gt;不支持&lt;/td&gt;
+          &lt;td&gt;不支持&lt;/td&gt;
+          &lt;td&gt;支持&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;R-tree 索引&lt;/td&gt;
+          &lt;td&gt;不支持&lt;/td&gt;
+          &lt;td&gt;支持&lt;/td&gt;
+          &lt;td&gt;不支持&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Full-text&lt;/td&gt;
+          &lt;td&gt;5.6版本之后支持&lt;/td&gt;
+          &lt;td&gt;支持&lt;/td&gt;
+          &lt;td&gt;不支持&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;索引分类&#34;&gt;索引分类
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;按照数据结构分类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;索引结构&lt;/th&gt;
+          &lt;th&gt;描述&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;B+Tree索引&lt;/td&gt;
+          &lt;td&gt;最常见的索引类型，大部分引擎都支持 B+ 树索引&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Hash索引&lt;/td&gt;
+          &lt;td&gt;底层数据结构是用哈希表实现的, 只有精确匹配索引列的查询才有效, 不支持范围查询&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;R-tree (空间索引）&lt;/td&gt;
+          &lt;td&gt;空间索引是MyISAM引擎的一个特殊索引类型，主要用于地理空间数据类型，通常使用较少&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Full-text(全文索引)&lt;/td&gt;
+          &lt;td&gt;是一种通过建立倒排索引,快速匹配文档的方式。类似于Lucene,Solr,ES&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;按照物理存储分类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;分类&lt;/th&gt;
+          &lt;th&gt;含义&lt;/th&gt;
+          &lt;th&gt;特点&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;聚集索引(ClusteredIndex)&lt;/td&gt;
+          &lt;td&gt;将数据存储与索引放到了一块，索引结构的叶子节点保存了行数据&lt;/td&gt;
+          &lt;td&gt;必须有,而且只有一个&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;二级索引(SecondaryIndex)&lt;/td&gt;
+          &lt;td&gt;将数据与索引分开存储，索引结构的叶子节点关联的是对应的主键&lt;/td&gt;
+          &lt;td&gt;可以存在多个&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;按照字段特性分类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;分类&lt;/th&gt;
+          &lt;th&gt;含义&lt;/th&gt;
+          &lt;th&gt;特点&lt;/th&gt;
+          &lt;th&gt;关键字&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;主键索引&lt;/td&gt;
+          &lt;td&gt;针对于表中主键创建的索引&lt;/td&gt;
+          &lt;td&gt;默认自动创建, 只能有一个&lt;/td&gt;
+          &lt;td&gt;PRIMARY&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;唯一索引&lt;/td&gt;
+          &lt;td&gt;避免同一个表中某数据列中的值重复&lt;/td&gt;
+          &lt;td&gt;可以有多个&lt;/td&gt;
+          &lt;td&gt;UNIQUE&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;常规索引&lt;/td&gt;
+          &lt;td&gt;快速定位特定数据&lt;/td&gt;
+          &lt;td&gt;可以有多个&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;全文索引&lt;/td&gt;
+          &lt;td&gt;全文索引查找的是文本中的关键词，而不是比较索引中的值&lt;/td&gt;
+          &lt;td&gt;可以有多个&lt;/td&gt;
+          &lt;td&gt;FULLTEXT&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;按照字段个数分类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;分为单列索引和联合索引&lt;/p&gt;
+&lt;h4 id=&#34;索引设计原则&#34;&gt;索引设计原则
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;1 针对于数据量较大，且查询比较频繁的表建立索引。&lt;/li&gt;
+&lt;li&gt;2 针对于常作为查询条件（where）、排序（order by）、分组（group by）操作的字段建立索
+引。&lt;/li&gt;
+&lt;li&gt;3 尽量选择区分度高的列作为索引，尽量建立唯一索引，区分度越高，使用索引的效率越高。&lt;/li&gt;
+&lt;li&gt;4 如果是字符串类型的字段，字段的长度较长，可以针对于字段的特点，建立前缀索引。&lt;/li&gt;
+&lt;li&gt;5 尽量使用联合索引，减少单列索引，查询时，联合索引很多时候可以覆盖索引，节省存储空间，
+避免回表，提高查询效率。&lt;/li&gt;
+&lt;li&gt;6 要控制索引的数量，索引并不是多多益善，索引越多，维护索引结构的代价也就越大，会影响增
+删改的效率。&lt;/li&gt;
+&lt;li&gt;7 如果索引列不能存储NULL值，请在创建表时使用NOT NULL约束它。当优化器知道每列是否包含NULL值时，它可以更好地确定哪个索引最有效地用于查询。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;mysql单表不要超过2000w行靠谱吗&#34;&gt;MySQL单表不要超过2000W行，靠谱吗？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;这个不是靠谱的，因为MySQL的行数与这个数据的大小有关系，对于不同的数据大小自然有不同的评判标准，我们应该根据B+树不能超过3层和具体的业务等等来进行判断。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;哪种count性能最好&#34;&gt;哪种count性能最好？
+&lt;/h4&gt;&lt;p&gt;count(*) = count(1) &amp;gt; count(主键字段) &amp;gt; count(普通字段)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;count(1)、 count(*)、 count(主键字段)在执行的时候，如果表里存在二级索引，优化器就会选择二级索引进行扫描。&lt;/li&gt;
+&lt;li&gt;count(1) == count(*)的原因是 InnoDB handles SELECT COUNT(*) and SELECT COUNT(1) operations in the same way. There is no performance difference.&lt;/li&gt;
+&lt;li&gt;count(1) 和count(*) 比count(主键字段)高效的原因是前两者不用判断是否为null&lt;/li&gt;
+&lt;li&gt;不要使用 count(字段) 来统计记录个数，因为它的效率是最差的，会采用全表扫描的方式来统计。如果你非要统计表中该字段不为 NULL 的记录个数，建议给这个字段建立一个二级索引。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;为啥innodb要通过遍历的方式来计数&#34;&gt;为啥InnoDB要通过遍历的方式来计数？
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;因为InnoDBInnoDB 存储引擎是支持事务的，同一个时刻的多个查询，由于多版本并发控制（MVCC）的原因，InnoDB 表“应该返回多少行”也是不确定的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;如何优化count&#34;&gt;如何优化count(*)?
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;可以采用近似值。
+浏览器的搜索就是采用这个的。&lt;/li&gt;
+&lt;li&gt;采用额外表保存计数值。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
         </item>
         <item>
         <title>MySql基础</title>
