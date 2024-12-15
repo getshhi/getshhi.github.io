@@ -7,7 +7,74 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>JZH-letere</copyright>
-        <lastBuildDate>Thu, 05 Dec 2024 13:11:20 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 15 Dec 2024 16:07:41 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>MySql锁</title>
+        <link>https://getshhi.github.io/p/mysql%E9%94%81/</link>
+        <pubDate>Sun, 15 Dec 2024 16:07:41 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/mysql%E9%94%81/</guid>
+        <description>&lt;img src="https://getshhi.github.io/ff.png" alt="Featured image of post MySql锁" /&gt;</description>
+        </item>
+        <item>
+        <title>MySql事务</title>
+        <link>https://getshhi.github.io/p/mysql%E4%BA%8B%E5%8A%A1/</link>
+        <pubDate>Fri, 13 Dec 2024 12:13:39 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/mysql%E4%BA%8B%E5%8A%A1/</guid>
+        <description>&lt;img src="https://getshhi.github.io/ff.png" alt="Featured image of post MySql事务" /&gt;&lt;h4 id=&#34;事务有哪些特性&#34;&gt;事务有哪些特性?
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;原子性，类似于操作系统中的原语，要不全部完成，要不全部不完成，不会结束在中间某个环节。
+原子性是通过undo log(回滚日志)实现的。&lt;/li&gt;
+&lt;li&gt;一致性，是指事务操作前和操作后，数据满足完整性约束，数据库保持一致性状态。比如你买了个东西花了200元，卖家赚了200元，但这个200元还在数据库中。一致性是通过持久性，原子性，隔离性共同实现的。&lt;/li&gt;
+&lt;li&gt;隔离性，是指数据库允许多个并发事务同时对其数据进行读写和修改的能力，也就是说消费者买东西是不影响另一个消费者的。隔离性是通过MVCC(多版本并发控制)或锁机制来保证的。&lt;/li&gt;
+&lt;li&gt;持久性，是指事务结束后，对数据的修改就是永久的，即使系统故障也不会丢失。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;并行事务会引发啥问题&#34;&gt;并行事务会引发啥问题?
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;脏读，脏读就是一个事务读的数据是另一个未提交事务修改得到的数据。&lt;/li&gt;
+&lt;li&gt;不可重复读，不可重复读就是在一个事务内多次读取同一个数据，如果出现前后两次读到的数据不一样的情况，就代表着发生了不可重复读。&lt;/li&gt;
+&lt;li&gt;幻读，幻读就是在一个事务内多次查询某个符合查询条件的记录数量，如果出现前后两次查询到的记录数量不一样的情况，就意味着产生了幻读现象。(是不是幻读很懵逼的感觉，哈哈😁)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;事务的隔离级别有哪些&#34;&gt;事务的隔离级别有哪些
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;读未提交，指一个事务还没提交时，它做的变更就能被其他事务看到。这个的话，会出现幻读，不可重复读，脏读。&lt;/li&gt;
+&lt;li&gt;读提交，指一个事务提交时，它做的变才能被其他事务看到。这个的话，会出现不可重复读，脏读。&lt;/li&gt;
+&lt;li&gt;可重复读，指一个事务执行中中看到的数据，一直跟这个事务启动看到的数据是一致的，也就是MySQL InnoDB引擎的默认隔离级别。&lt;/li&gt;
+&lt;li&gt;串行锁; 会对记录加上读写锁，在多个事务对这条记录进行读写操作时，如果发生了读写冲突的时候，后访问的事务必须等前一个事务执行完成，才能执行。(是不是跟操作系统的p-v操作很像呢)。这个不会出现问题，但会性能较低。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;read-vied-在mvcc里如何工作的&#34;&gt;Read Vied 在MVCC里如何工作的?
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;首先我们需要了解Read Vied 的四个字段的作用
+&lt;ul&gt;
+&lt;li&gt;creator_trx_id就是创建该Reda View的事务的事务id。&lt;/li&gt;
+&lt;li&gt;m_ids是指当前活跃并且未提交的事务id列表。&lt;/li&gt;
+&lt;li&gt;min_trx_id，是指m_ids中最小事务的事务id。&lt;/li&gt;
+&lt;li&gt;max_trx_id，是指该事务中这个事务中的id+1。
+一般会出现几种情况&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;如果一个事务的id小于min_trx_id的话，那说明这个事务对于当前的事务是个旧的记录，所存在的是当前事务可见的。&lt;/li&gt;
+&lt;li&gt;如果一个事务的id不小于min_trx_id的话，并且不大于max_trx_id，并且在m_ids中，说明该版本的记录对当前的事务不可见，如果不在max_trx_id中，说明该版本的记录对当前的事务可见。&lt;/li&gt;
+&lt;li&gt;如果一个事务的id大于max_trx_id的话，说明该版本的记录对当前的事务不可见。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;可重复度读读底层原理是啥&#34;&gt;可重复度读读底层原理是啥？
+&lt;/h4&gt;&lt;p&gt;可重复读隔离级别是启动事务时生成一个Read View，然后整个事务期间都在用这个Read View。&lt;/p&gt;
+&lt;p&gt;「可重复读」隔离级别下在事务期间读到的记录都是事务启动前的记录。&lt;/p&gt;
+&lt;h4 id=&#34;读提交的底层原理是啥&#34;&gt;读提交的底层原理是啥?
+&lt;/h4&gt;&lt;p&gt;读提交隔离级别是在每次读取数据时，都会生成一个新的 Read View。&lt;/p&gt;
+&lt;h4 id=&#34;mysql-innodb-引擎的可重复读隔离级别默认隔离级根据不同的查询方式分别提出了避免幻读的方案&#34;&gt;MySQL InnoDB 引擎的可重复读隔离级别（默认隔离级），根据不同的查询方式，分别提出了避免幻读的方案:
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;针对快照读（普通 select 语句），是通过 MVCC 方式解决了幻读。&lt;/li&gt;
+&lt;li&gt;针对当前读（select &amp;hellip; for update 等语句），是通过 next-key lock（记录锁+间隙锁）方式解决了幻读。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;会发生幻读的例子&#34;&gt;会发生幻读的例子
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;对于快照读，MVCC并不能完全避免幻读现象，因为当一个事务更新了另一条事务插入的记录，那么事务前后查询的记录条目就不一样的，所以就发生幻读。&lt;/li&gt;
+&lt;li&gt;对于当前读，如果事务开启后，并没有执行当前读，而是先快照读，然后这期间如果其他数据插入了一条数据，那么事务后续使用当前进行查询的时候，就会发现前后查询的记录条目就不一样的。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>MySql索引</title>
         <link>https://getshhi.github.io/p/mysql%E7%B4%A2%E5%BC%95/</link>
         <pubDate>Thu, 05 Dec 2024 13:11:20 +0800</pubDate>

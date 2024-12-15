@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="为啥MySQL InnoDB 选择B+tree作为索引的数据结构？ B+Tree vs B Tree: B+Tree只有叶子节点存储数据，而B Tree索引和数据都存，这样会导致在相同的条件下，B Tree的一个数据节点能够存储的索引减少，导致B Tree的深度会较长，从而造成IO时间较长，性能较差。 B+Tree 的叶子节点是用双链表进行连接的，进行范围查询较为方便。 B+Tree vs 二叉树 对于二叉树来说，有可能会退化成时间复杂度为O(n)的(对于插入操作一直插入大的或一直小的)。 对于二叉树来说，仅仅能存储一个索引，会导致层数增加，从而导致IO时间较长。 B+Tree vs Hash 对于Hash来说，Hash不能进行范围查询 啥时候使用索引？ 字段有限制的，适合当索引。 经常用于WHERE查询条件的字段。 经常用ORDER BY 和GROUP BY的字段。 尽量使用联合索引，减少单列索引，查询时，联合索引很多时候可以覆盖索引，节省存储空间， 避免回表，提高查询效率。 啥时候不使用索引？ 字段中存在大量重复数据，不需要创建索引。 WHERE条件，GROUP BY，ORDER BY 里用不到的字段。 经常需要更新的表，查询频率较小的表。 字段中存在大量重复数据，不需要创建索引。 表数据较少的不用创建索引，数据较少时全表查询效率已经很高了，如果加入索引会增加存储压力。 啥时候索引会失效？ 不符合最左匹配原则的。 模糊查询用%x和%x%的。 将索引加入计算的表达式中。 将索引加入函数中。 在WHERE从句中的输入为字符串，但是字段的属性为INT类型。 WHERE 子句中的 OR 在 WHERE 子句中，如果在 OR 前的条件列是索引列，而在 OR 后的条件列不是索引列，那么索引会失效。(解决方案:可以采让全部都是)\n">
-<title>MySql索引</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="事务有哪些特性? 原子性，类似于操作系统中的原语，要不全部完成，要不全部不完成，不会结束在中间某个环节。 原子性是通过undo log(回滚日志)实现的。 一致性，是指事务操作前和操作后，数据满足完整性约束，数据库保持一致性状态。比如你买了个东西花了200元，卖家赚了200元，但这个200元还在数据库中。一致性是通过持久性，原子性，隔离性共同实现的。 隔离性，是指数据库允许多个并发事务同时对其数据进行读写和修改的能力，也就是说消费者买东西是不影响另一个消费者的。隔离性是通过MVCC(多版本并发控制)或锁机制来保证的。 持久性，是指事务结束后，对数据的修改就是永久的，即使系统故障也不会丢失。 并行事务会引发啥问题? 脏读，脏读就是一个事务读的数据是另一个未提交事务修改得到的数据。 不可重复读，不可重复读就是在一个事务内多次读取同一个数据，如果出现前后两次读到的数据不一样的情况，就代表着发生了不可重复读。 幻读，幻读就是在一个事务内多次查询某个符合查询条件的记录数量，如果出现前后两次查询到的记录数量不一样的情况，就意味着产生了幻读现象。(是不是幻读很懵逼的感觉，哈哈😁) 事务的隔离级别有哪些 读未提交，指一个事务还没提交时，它做的变更就能被其他事务看到。这个的话，会出现幻读，不可重复读，脏读。 读提交，指一个事务提交时，它做的变才能被其他事务看到。这个的话，会出现不可重复读，脏读。 可重复读，指一个事务执行中中看到的数据，一直跟这个事务启动看到的数据是一致的，也就是MySQL InnoDB引擎的默认隔离级别。 串行锁; 会对记录加上读写锁，在多个事务对这条记录进行读写操作时，如果发生了读写冲突的时候，后访问的事务必须等前一个事务执行完成，才能执行。(是不是跟操作系统的p-v操作很像呢)。这个不会出现问题，但会性能较低。 Read Vied 在MVCC里如何工作的? 首先我们需要了解Read Vied 的四个字段的作用 creator_trx_id就是创建该Reda View的事务的事务id。 m_ids是指当前活跃并且未提交的事务id列表。 min_trx_id，是指m_ids中最小事务的事务id。 max_trx_id，是指该事务中这个事务中的id+1。 一般会出现几种情况 如果一个事务的id小于min_trx_id的话，那说明这个事务对于当前的事务是个旧的记录，所存在的是当前事务可见的。 如果一个事务的id不小于min_trx_id的话，并且不大于max_trx_id，并且在m_ids中，说明该版本的记录对当前的事务不可见，如果不在max_trx_id中，说明该版本的记录对当前的事务可见。 如果一个事务的id大于max_trx_id的话，说明该版本的记录对当前的事务不可见。 可重复度读读底层原理是啥？ 可重复读隔离级别是启动事务时生成一个Read View，然后整个事务期间都在用这个Read View。\n">
+<title>MySql事务</title>
 
-<link rel='canonical' href='https://getshhi.github.io/p/mysql%E7%B4%A2%E5%BC%95/'>
+<link rel='canonical' href='https://getshhi.github.io/p/mysql%E4%BA%8B%E5%8A%A1/'>
 
-<link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="MySql索引">
-<meta property='og:description' content="为啥MySQL InnoDB 选择B+tree作为索引的数据结构？ B+Tree vs B Tree: B+Tree只有叶子节点存储数据，而B Tree索引和数据都存，这样会导致在相同的条件下，B Tree的一个数据节点能够存储的索引减少，导致B Tree的深度会较长，从而造成IO时间较长，性能较差。 B+Tree 的叶子节点是用双链表进行连接的，进行范围查询较为方便。 B+Tree vs 二叉树 对于二叉树来说，有可能会退化成时间复杂度为O(n)的(对于插入操作一直插入大的或一直小的)。 对于二叉树来说，仅仅能存储一个索引，会导致层数增加，从而导致IO时间较长。 B+Tree vs Hash 对于Hash来说，Hash不能进行范围查询 啥时候使用索引？ 字段有限制的，适合当索引。 经常用于WHERE查询条件的字段。 经常用ORDER BY 和GROUP BY的字段。 尽量使用联合索引，减少单列索引，查询时，联合索引很多时候可以覆盖索引，节省存储空间， 避免回表，提高查询效率。 啥时候不使用索引？ 字段中存在大量重复数据，不需要创建索引。 WHERE条件，GROUP BY，ORDER BY 里用不到的字段。 经常需要更新的表，查询频率较小的表。 字段中存在大量重复数据，不需要创建索引。 表数据较少的不用创建索引，数据较少时全表查询效率已经很高了，如果加入索引会增加存储压力。 啥时候索引会失效？ 不符合最左匹配原则的。 模糊查询用%x和%x%的。 将索引加入计算的表达式中。 将索引加入函数中。 在WHERE从句中的输入为字符串，但是字段的属性为INT类型。 WHERE 子句中的 OR 在 WHERE 子句中，如果在 OR 前的条件列是索引列，而在 OR 后的条件列不是索引列，那么索引会失效。(解决方案:可以采让全部都是)\n">
-<meta property='og:url' content='https://getshhi.github.io/p/mysql%E7%B4%A2%E5%BC%95/'>
+<link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="MySql事务">
+<meta property='og:description' content="事务有哪些特性? 原子性，类似于操作系统中的原语，要不全部完成，要不全部不完成，不会结束在中间某个环节。 原子性是通过undo log(回滚日志)实现的。 一致性，是指事务操作前和操作后，数据满足完整性约束，数据库保持一致性状态。比如你买了个东西花了200元，卖家赚了200元，但这个200元还在数据库中。一致性是通过持久性，原子性，隔离性共同实现的。 隔离性，是指数据库允许多个并发事务同时对其数据进行读写和修改的能力，也就是说消费者买东西是不影响另一个消费者的。隔离性是通过MVCC(多版本并发控制)或锁机制来保证的。 持久性，是指事务结束后，对数据的修改就是永久的，即使系统故障也不会丢失。 并行事务会引发啥问题? 脏读，脏读就是一个事务读的数据是另一个未提交事务修改得到的数据。 不可重复读，不可重复读就是在一个事务内多次读取同一个数据，如果出现前后两次读到的数据不一样的情况，就代表着发生了不可重复读。 幻读，幻读就是在一个事务内多次查询某个符合查询条件的记录数量，如果出现前后两次查询到的记录数量不一样的情况，就意味着产生了幻读现象。(是不是幻读很懵逼的感觉，哈哈😁) 事务的隔离级别有哪些 读未提交，指一个事务还没提交时，它做的变更就能被其他事务看到。这个的话，会出现幻读，不可重复读，脏读。 读提交，指一个事务提交时，它做的变才能被其他事务看到。这个的话，会出现不可重复读，脏读。 可重复读，指一个事务执行中中看到的数据，一直跟这个事务启动看到的数据是一致的，也就是MySQL InnoDB引擎的默认隔离级别。 串行锁; 会对记录加上读写锁，在多个事务对这条记录进行读写操作时，如果发生了读写冲突的时候，后访问的事务必须等前一个事务执行完成，才能执行。(是不是跟操作系统的p-v操作很像呢)。这个不会出现问题，但会性能较低。 Read Vied 在MVCC里如何工作的? 首先我们需要了解Read Vied 的四个字段的作用 creator_trx_id就是创建该Reda View的事务的事务id。 m_ids是指当前活跃并且未提交的事务id列表。 min_trx_id，是指m_ids中最小事务的事务id。 max_trx_id，是指该事务中这个事务中的id+1。 一般会出现几种情况 如果一个事务的id小于min_trx_id的话，那说明这个事务对于当前的事务是个旧的记录，所存在的是当前事务可见的。 如果一个事务的id不小于min_trx_id的话，并且不大于max_trx_id，并且在m_ids中，说明该版本的记录对当前的事务不可见，如果不在max_trx_id中，说明该版本的记录对当前的事务可见。 如果一个事务的id大于max_trx_id的话，说明该版本的记录对当前的事务不可见。 可重复度读读底层原理是啥？ 可重复读隔离级别是启动事务时生成一个Read View，然后整个事务期间都在用这个Read View。\n">
+<meta property='og:url' content='https://getshhi.github.io/p/mysql%E4%BA%8B%E5%8A%A1/'>
 <meta property='og:site_name' content='JZH-letere'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='MySql' /><meta property='article:published_time' content='2024-12-05T13:11:20&#43;08:00'/><meta property='article:modified_time' content='2024-12-05T13:11:20&#43;08:00'/><meta property='og:image' content='https://getshhi.github.io/bk.png' />
-<meta name="twitter:title" content="MySql索引">
-<meta name="twitter:description" content="为啥MySQL InnoDB 选择B+tree作为索引的数据结构？ B+Tree vs B Tree: B+Tree只有叶子节点存储数据，而B Tree索引和数据都存，这样会导致在相同的条件下，B Tree的一个数据节点能够存储的索引减少，导致B Tree的深度会较长，从而造成IO时间较长，性能较差。 B+Tree 的叶子节点是用双链表进行连接的，进行范围查询较为方便。 B+Tree vs 二叉树 对于二叉树来说，有可能会退化成时间复杂度为O(n)的(对于插入操作一直插入大的或一直小的)。 对于二叉树来说，仅仅能存储一个索引，会导致层数增加，从而导致IO时间较长。 B+Tree vs Hash 对于Hash来说，Hash不能进行范围查询 啥时候使用索引？ 字段有限制的，适合当索引。 经常用于WHERE查询条件的字段。 经常用ORDER BY 和GROUP BY的字段。 尽量使用联合索引，减少单列索引，查询时，联合索引很多时候可以覆盖索引，节省存储空间， 避免回表，提高查询效率。 啥时候不使用索引？ 字段中存在大量重复数据，不需要创建索引。 WHERE条件，GROUP BY，ORDER BY 里用不到的字段。 经常需要更新的表，查询频率较小的表。 字段中存在大量重复数据，不需要创建索引。 表数据较少的不用创建索引，数据较少时全表查询效率已经很高了，如果加入索引会增加存储压力。 啥时候索引会失效？ 不符合最左匹配原则的。 模糊查询用%x和%x%的。 将索引加入计算的表达式中。 将索引加入函数中。 在WHERE从句中的输入为字符串，但是字段的属性为INT类型。 WHERE 子句中的 OR 在 WHERE 子句中，如果在 OR 前的条件列是索引列，而在 OR 后的条件列不是索引列，那么索引会失效。(解决方案:可以采让全部都是)\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://getshhi.github.io/bk.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='MySql' /><meta property='article:published_time' content='2024-12-13T12:13:39&#43;08:00'/><meta property='article:modified_time' content='2024-12-13T12:13:39&#43;08:00'/><meta property='og:image' content='https://getshhi.github.io/ff.png' />
+<meta name="twitter:title" content="MySql事务">
+<meta name="twitter:description" content="事务有哪些特性? 原子性，类似于操作系统中的原语，要不全部完成，要不全部不完成，不会结束在中间某个环节。 原子性是通过undo log(回滚日志)实现的。 一致性，是指事务操作前和操作后，数据满足完整性约束，数据库保持一致性状态。比如你买了个东西花了200元，卖家赚了200元，但这个200元还在数据库中。一致性是通过持久性，原子性，隔离性共同实现的。 隔离性，是指数据库允许多个并发事务同时对其数据进行读写和修改的能力，也就是说消费者买东西是不影响另一个消费者的。隔离性是通过MVCC(多版本并发控制)或锁机制来保证的。 持久性，是指事务结束后，对数据的修改就是永久的，即使系统故障也不会丢失。 并行事务会引发啥问题? 脏读，脏读就是一个事务读的数据是另一个未提交事务修改得到的数据。 不可重复读，不可重复读就是在一个事务内多次读取同一个数据，如果出现前后两次读到的数据不一样的情况，就代表着发生了不可重复读。 幻读，幻读就是在一个事务内多次查询某个符合查询条件的记录数量，如果出现前后两次查询到的记录数量不一样的情况，就意味着产生了幻读现象。(是不是幻读很懵逼的感觉，哈哈😁) 事务的隔离级别有哪些 读未提交，指一个事务还没提交时，它做的变更就能被其他事务看到。这个的话，会出现幻读，不可重复读，脏读。 读提交，指一个事务提交时，它做的变才能被其他事务看到。这个的话，会出现不可重复读，脏读。 可重复读，指一个事务执行中中看到的数据，一直跟这个事务启动看到的数据是一致的，也就是MySQL InnoDB引擎的默认隔离级别。 串行锁; 会对记录加上读写锁，在多个事务对这条记录进行读写操作时，如果发生了读写冲突的时候，后访问的事务必须等前一个事务执行完成，才能执行。(是不是跟操作系统的p-v操作很像呢)。这个不会出现问题，但会性能较低。 Read Vied 在MVCC里如何工作的? 首先我们需要了解Read Vied 的四个字段的作用 creator_trx_id就是创建该Reda View的事务的事务id。 m_ids是指当前活跃并且未提交的事务id列表。 min_trx_id，是指m_ids中最小事务的事务id。 max_trx_id，是指该事务中这个事务中的id+1。 一般会出现几种情况 如果一个事务的id小于min_trx_id的话，那说明这个事务对于当前的事务是个旧的记录，所存在的是当前事务可见的。 如果一个事务的id不小于min_trx_id的话，并且不大于max_trx_id，并且在m_ids中，说明该版本的记录对当前的事务不可见，如果不在max_trx_id中，说明该版本的记录对当前的事务可见。 如果一个事务的id大于max_trx_id的话，说明该版本的记录对当前的事务不可见。 可重复度读读底层原理是啥？ 可重复读隔离级别是启动事务时生成一个Read View，然后整个事务期间都在用这个Read View。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://getshhi.github.io/ff.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -232,9 +232,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/mysql%E7%B4%A2%E5%BC%95/">
+            <a href="/p/mysql%E4%BA%8B%E5%8A%A1/">
                 
-                    <img src="/bk.png" loading="lazy" alt="Featured image of post MySql索引" />
+                    <img src="/ff.png" loading="lazy" alt="Featured image of post MySql事务" />
                 
             </a>
         </div>
@@ -257,7 +257,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/mysql%E7%B4%A2%E5%BC%95/">MySql索引</a>
+            <a href="/p/mysql%E4%BA%8B%E5%8A%A1/">MySql事务</a>
         </h2>
     
         
@@ -278,7 +278,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2024-12-05</time>
+                <time class="article-time--published">2024-12-13</time>
             </div>
         
         
@@ -292,11 +292,11 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 6 分钟
+                    阅读时长: 4 分钟
                 </time>
             </div>
         
-        <span class="post-word-count">2892 words</span>
+        <span class="post-word-count">1530 words</span>
     </footer>
     
     
@@ -307,247 +307,56 @@
     <section class="article-content">
     
     
-    <h4 id="为啥mysql-innodb-选择btree作为索引的数据结构">为啥MySQL InnoDB 选择B+tree作为索引的数据结构？
+    <h4 id="事务有哪些特性">事务有哪些特性?
 </h4><ul>
-<li>B+Tree vs B Tree:
+<li>原子性，类似于操作系统中的原语，要不全部完成，要不全部不完成，不会结束在中间某个环节。
+原子性是通过undo log(回滚日志)实现的。</li>
+<li>一致性，是指事务操作前和操作后，数据满足完整性约束，数据库保持一致性状态。比如你买了个东西花了200元，卖家赚了200元，但这个200元还在数据库中。一致性是通过持久性，原子性，隔离性共同实现的。</li>
+<li>隔离性，是指数据库允许多个并发事务同时对其数据进行读写和修改的能力，也就是说消费者买东西是不影响另一个消费者的。隔离性是通过MVCC(多版本并发控制)或锁机制来保证的。</li>
+<li>持久性，是指事务结束后，对数据的修改就是永久的，即使系统故障也不会丢失。</li>
+</ul>
+<h4 id="并行事务会引发啥问题">并行事务会引发啥问题?
+</h4><ul>
+<li>脏读，脏读就是一个事务读的数据是另一个未提交事务修改得到的数据。</li>
+<li>不可重复读，不可重复读就是在一个事务内多次读取同一个数据，如果出现前后两次读到的数据不一样的情况，就代表着发生了不可重复读。</li>
+<li>幻读，幻读就是在一个事务内多次查询某个符合查询条件的记录数量，如果出现前后两次查询到的记录数量不一样的情况，就意味着产生了幻读现象。(是不是幻读很懵逼的感觉，哈哈😁)</li>
+</ul>
+<h4 id="事务的隔离级别有哪些">事务的隔离级别有哪些
+</h4><ul>
+<li>读未提交，指一个事务还没提交时，它做的变更就能被其他事务看到。这个的话，会出现幻读，不可重复读，脏读。</li>
+<li>读提交，指一个事务提交时，它做的变才能被其他事务看到。这个的话，会出现不可重复读，脏读。</li>
+<li>可重复读，指一个事务执行中中看到的数据，一直跟这个事务启动看到的数据是一致的，也就是MySQL InnoDB引擎的默认隔离级别。</li>
+<li>串行锁; 会对记录加上读写锁，在多个事务对这条记录进行读写操作时，如果发生了读写冲突的时候，后访问的事务必须等前一个事务执行完成，才能执行。(是不是跟操作系统的p-v操作很像呢)。这个不会出现问题，但会性能较低。</li>
+</ul>
+<h4 id="read-vied-在mvcc里如何工作的">Read Vied 在MVCC里如何工作的?
+</h4><ul>
+<li>首先我们需要了解Read Vied 的四个字段的作用
 <ul>
-<li>B+Tree只有叶子节点存储数据，而B Tree索引和数据都存，这样会导致在相同的条件下，B Tree的一个数据节点能够存储的索引减少，导致B Tree的深度会较长，从而造成IO时间较长，性能较差。</li>
-<li>B+Tree 的叶子节点是用双链表进行连接的，进行范围查询较为方便。</li>
+<li>creator_trx_id就是创建该Reda View的事务的事务id。</li>
+<li>m_ids是指当前活跃并且未提交的事务id列表。</li>
+<li>min_trx_id，是指m_ids中最小事务的事务id。</li>
+<li>max_trx_id，是指该事务中这个事务中的id+1。
+一般会出现几种情况</li>
 </ul>
 </li>
-<li>B+Tree vs 二叉树
-<ul>
-<li>对于二叉树来说，有可能会退化成时间复杂度为O(n)的(对于插入操作一直插入大的或一直小的)。</li>
-<li>对于二叉树来说，仅仅能存储一个索引，会导致层数增加，从而导致IO时间较长。</li>
+<li>如果一个事务的id小于min_trx_id的话，那说明这个事务对于当前的事务是个旧的记录，所存在的是当前事务可见的。</li>
+<li>如果一个事务的id不小于min_trx_id的话，并且不大于max_trx_id，并且在m_ids中，说明该版本的记录对当前的事务不可见，如果不在max_trx_id中，说明该版本的记录对当前的事务可见。</li>
+<li>如果一个事务的id大于max_trx_id的话，说明该版本的记录对当前的事务不可见。</li>
 </ul>
-</li>
-<li>B+Tree vs Hash
-<ul>
-<li>对于Hash来说，Hash不能进行范围查询</li>
-</ul>
-</li>
-</ul>
-<h4 id="啥时候使用索引">啥时候使用索引？
+<h4 id="可重复度读读底层原理是啥">可重复度读读底层原理是啥？
+</h4><p>可重复读隔离级别是启动事务时生成一个Read View，然后整个事务期间都在用这个Read View。</p>
+<p>「可重复读」隔离级别下在事务期间读到的记录都是事务启动前的记录。</p>
+<h4 id="读提交的底层原理是啥">读提交的底层原理是啥?
+</h4><p>读提交隔离级别是在每次读取数据时，都会生成一个新的 Read View。</p>
+<h4 id="mysql-innodb-引擎的可重复读隔离级别默认隔离级根据不同的查询方式分别提出了避免幻读的方案">MySQL InnoDB 引擎的可重复读隔离级别（默认隔离级），根据不同的查询方式，分别提出了避免幻读的方案:
 </h4><ul>
-<li>字段有限制的，适合当索引。</li>
-<li>经常用于WHERE查询条件的字段。</li>
-<li>经常用ORDER BY 和GROUP BY的字段。</li>
-<li>尽量使用联合索引，减少单列索引，查询时，联合索引很多时候可以覆盖索引，节省存储空间，
-避免回表，提高查询效率。</li>
+<li>针对快照读（普通 select 语句），是通过 MVCC 方式解决了幻读。</li>
+<li>针对当前读（select &hellip; for update 等语句），是通过 next-key lock（记录锁+间隙锁）方式解决了幻读。</li>
 </ul>
-<h4 id="啥时候不使用索引">啥时候不使用索引？
+<h4 id="会发生幻读的例子">会发生幻读的例子
 </h4><ul>
-<li>字段中存在大量重复数据，不需要创建索引。</li>
-<li>WHERE条件，GROUP BY，ORDER BY 里用不到的字段。</li>
-<li>经常需要更新的表，查询频率较小的表。</li>
-<li>字段中存在大量重复数据，不需要创建索引。</li>
-<li>表数据较少的不用创建索引，数据较少时全表查询效率已经很高了，如果加入索引会增加存储压力。</li>
-</ul>
-<h4 id="啥时候索引会失效">啥时候索引会失效？
-</h4><ul>
-<li>不符合最左匹配原则的。</li>
-<li>模糊查询用%x和%x%的。</li>
-<li>将索引加入计算的表达式中。</li>
-<li>将索引加入函数中。</li>
-<li>在WHERE从句中的输入为字符串，但是字段的属性为INT类型。</li>
-<li>WHERE 子句中的 OR</li>
-</ul>
-<p>在 WHERE 子句中，如果在 OR 前的条件列是索引列，而在 OR 后的条件列不是索引列，那么索引会失效。(解决方案:可以采让全部都是)</p>
-<h4 id="有啥优化索引的方法">有啥优化索引的方法？
-</h4><ul>
-<li>前缀索引优化</li>
-</ul>
-<p>使用前缀索引是为了减小索引字段大小，可以增加一个索引页中存储的索引值，有效提高索引的查询速度。在一些大字符串的字段作为索引时，使用前缀索引可以帮助我们减小索引项的大小。</p>
-<ul>
-<li>覆盖索引优化</li>
-</ul>
-<p>我们可以建立一个联合索引，即「分组ID、名称、价格」作为一个联合索引。如果索引中存在这些数据，查询将不会再次检索主键索引，从而避免回表。</p>
-<ul>
-<li>主键索引最好是自增的</li>
-</ul>
-<p>如果我们使用自增主键，那么每次插入的新数据就会按顺序添加到当前索引节点的位置，不需要移动已有的数据，当页面写满，就会自动开辟一个新页面。因为每次插入一条新记录，都是追加操作，不需要重新移动数据，因此这种插入数据的方法效率非常高。</p>
-<p>如果我们使用非自增主键，由于每次插入主键的索引值都是随机的，因此每次插入新的数据时，就可能会插入到现有数据页中间的某个位置，这将不得不移动其它数据来满足新数据的插入，甚至需要从一个页面复制数据到另外一个页面，我们通常将这种情况称为页分裂。页分裂还有可能会造成大量的内存碎片，导致索引结构不紧凑，从而影响查询效率。</p>
-<ul>
-<li>防止索引失效</li>
-</ul>
-<p>如果索引失效的话，那么这个索引将会失效，这个索引将会不起作用。</p>
-<ul>
-<li>索引最好设置为NOT NULL</li>
-</ul>
-<p>第一原因：索引列存在 NULL 就会导致优化器在做索引选择的时候更加复杂，更加难以优化，因为可为 NULL 的列会使索引、索引统计和值比较都更复杂，比如进行索引统计时，count 会省略值为NULL 的行。</p>
-<p>第二个原因：NULL 值是一个没意义的值，但是它会占用物理空间，所以会带来的存储空间的问题，因为 InnoDB 存储记录的时候，如果表中存在允许为 NULL 的字段，那么行格式 (opens new window)中至少会用 1 字节空间存储 NULL 值列表。</p>
-<h4 id="啥是索引">啥是索引？
-</h4><p>索引（index）是帮助MySQL高效获取数据的数据结构(有序)。在数据之外，数据库系统还维护着满足
-特定查找算法的数据结构，这些数据结构以某种方式引用（指向）数据， 这样就可以在这些数据结构
-上实现高级查找算法，这种数据结构就是索引。(可以类比书籍的目录，简单来说就是用于快速检索数据的数据结构)</p>
-<h4 id="不同存储引擎支持的索引结构">不同存储引擎支持的索引结构
-</h4><div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th>索引</th>
-          <th>InnoDB</th>
-          <th>MyISAM</th>
-          <th>Memory</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>B+tree索引</td>
-          <td>支持</td>
-          <td>支持</td>
-          <td>支持</td>
-      </tr>
-      <tr>
-          <td>Hash 索引</td>
-          <td>不支持</td>
-          <td>不支持</td>
-          <td>支持</td>
-      </tr>
-      <tr>
-          <td>R-tree 索引</td>
-          <td>不支持</td>
-          <td>支持</td>
-          <td>不支持</td>
-      </tr>
-      <tr>
-          <td>Full-text</td>
-          <td>5.6版本之后支持</td>
-          <td>支持</td>
-          <td>不支持</td>
-      </tr>
-  </tbody>
-</table></div>
-<h4 id="索引分类">索引分类
-</h4><ul>
-<li>按照数据结构分类</li>
-</ul>
-<div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th>索引结构</th>
-          <th>描述</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>B+Tree索引</td>
-          <td>最常见的索引类型，大部分引擎都支持 B+ 树索引</td>
-      </tr>
-      <tr>
-          <td>Hash索引</td>
-          <td>底层数据结构是用哈希表实现的, 只有精确匹配索引列的查询才有效, 不支持范围查询</td>
-      </tr>
-      <tr>
-          <td>R-tree (空间索引）</td>
-          <td>空间索引是MyISAM引擎的一个特殊索引类型，主要用于地理空间数据类型，通常使用较少</td>
-      </tr>
-      <tr>
-          <td>Full-text(全文索引)</td>
-          <td>是一种通过建立倒排索引,快速匹配文档的方式。类似于Lucene,Solr,ES</td>
-      </tr>
-  </tbody>
-</table></div>
-<ul>
-<li>按照物理存储分类</li>
-</ul>
-<div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th>分类</th>
-          <th>含义</th>
-          <th>特点</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>聚集索引(ClusteredIndex)</td>
-          <td>将数据存储与索引放到了一块，索引结构的叶子节点保存了行数据</td>
-          <td>必须有,而且只有一个</td>
-      </tr>
-      <tr>
-          <td>二级索引(SecondaryIndex)</td>
-          <td>将数据与索引分开存储，索引结构的叶子节点关联的是对应的主键</td>
-          <td>可以存在多个</td>
-      </tr>
-  </tbody>
-</table></div>
-<ul>
-<li>按照字段特性分类</li>
-</ul>
-<div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th>分类</th>
-          <th>含义</th>
-          <th>特点</th>
-          <th>关键字</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>主键索引</td>
-          <td>针对于表中主键创建的索引</td>
-          <td>默认自动创建, 只能有一个</td>
-          <td>PRIMARY</td>
-      </tr>
-      <tr>
-          <td>唯一索引</td>
-          <td>避免同一个表中某数据列中的值重复</td>
-          <td>可以有多个</td>
-          <td>UNIQUE</td>
-      </tr>
-      <tr>
-          <td>常规索引</td>
-          <td>快速定位特定数据</td>
-          <td>可以有多个</td>
-          <td></td>
-      </tr>
-      <tr>
-          <td>全文索引</td>
-          <td>全文索引查找的是文本中的关键词，而不是比较索引中的值</td>
-          <td>可以有多个</td>
-          <td>FULLTEXT</td>
-      </tr>
-  </tbody>
-</table></div>
-<ul>
-<li>按照字段个数分类</li>
-</ul>
-<p>分为单列索引和联合索引</p>
-<h4 id="索引设计原则">索引设计原则
-</h4><ul>
-<li>1 针对于数据量较大，且查询比较频繁的表建立索引。</li>
-<li>2 针对于常作为查询条件（where）、排序（order by）、分组（group by）操作的字段建立索
-引。</li>
-<li>3 尽量选择区分度高的列作为索引，尽量建立唯一索引，区分度越高，使用索引的效率越高。</li>
-<li>4 如果是字符串类型的字段，字段的长度较长，可以针对于字段的特点，建立前缀索引。</li>
-<li>5 尽量使用联合索引，减少单列索引，查询时，联合索引很多时候可以覆盖索引，节省存储空间，
-避免回表，提高查询效率。</li>
-<li>6 要控制索引的数量，索引并不是多多益善，索引越多，维护索引结构的代价也就越大，会影响增
-删改的效率。</li>
-<li>7 如果索引列不能存储NULL值，请在创建表时使用NOT NULL约束它。当优化器知道每列是否包含NULL值时，它可以更好地确定哪个索引最有效地用于查询。</li>
-</ul>
-<h4 id="mysql单表不要超过2000w行靠谱吗">MySQL单表不要超过2000W行，靠谱吗？
-</h4><ul>
-<li>这个不是靠谱的，因为MySQL的行数与这个数据的大小有关系，对于不同的数据大小自然有不同的评判标准，我们应该根据B+树不能超过3层和具体的业务等等来进行判断。</li>
-</ul>
-<h4 id="哪种count性能最好">哪种count性能最好？
-</h4><p>count(*) = count(1) &gt; count(主键字段) &gt; count(普通字段)</p>
-<ul>
-<li>count(1)、 count(*)、 count(主键字段)在执行的时候，如果表里存在二级索引，优化器就会选择二级索引进行扫描。</li>
-<li>count(1) == count(*)的原因是 InnoDB handles SELECT COUNT(*) and SELECT COUNT(1) operations in the same way. There is no performance difference.</li>
-<li>count(1) 和count(*) 比count(主键字段)高效的原因是前两者不用判断是否为null</li>
-<li>不要使用 count(字段) 来统计记录个数，因为它的效率是最差的，会采用全表扫描的方式来统计。如果你非要统计表中该字段不为 NULL 的记录个数，建议给这个字段建立一个二级索引。</li>
-</ul>
-<h4 id="为啥innodb要通过遍历的方式来计数">为啥InnoDB要通过遍历的方式来计数？
-</h4><ul>
-<li>因为InnoDBInnoDB 存储引擎是支持事务的，同一个时刻的多个查询，由于多版本并发控制（MVCC）的原因，InnoDB 表“应该返回多少行”也是不确定的</li>
-</ul>
-<h4 id="如何优化count">如何优化count(*)?
-</h4><ul>
-<li>可以采用近似值。
-浏览器的搜索就是采用这个的。</li>
-<li>采用额外表保存计数值。</li>
+<li>对于快照读，MVCC并不能完全避免幻读现象，因为当一个事务更新了另一条事务插入的记录，那么事务前后查询的记录条目就不一样的，所以就发生幻读。</li>
+<li>对于当前读，如果事务开启后，并没有执行当前读，而是先快照读，然后这期间如果其他数据插入了一条数据，那么事务后续使用当前进行查询的时候，就会发现前后查询的记录条目就不一样的。</li>
 </ul>
 
 </section>
@@ -622,18 +431,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/mysql%E4%BA%8B%E5%8A%A1/">
+    <a href="/p/mysql%E7%B4%A2%E5%BC%95/">
         
         
             <div class="article-image">
                 
-                    <img src="/ff.png" loading="lazy" data-key="" data-hash="/ff.png"/>
+                    <img src="/bk.png" loading="lazy" data-key="" data-hash="/bk.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">MySql事务</h2>
+            <h2 class="article-title">MySql索引</h2>
         </div>
     </a>
 </article>
