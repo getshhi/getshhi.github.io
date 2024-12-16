@@ -13,7 +13,7 @@
         <pubDate>Sun, 15 Dec 2024 16:07:41 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/mysql%E9%94%81/</guid>
-        <description>&lt;img src="https://getshhi.github.io/ff.png" alt="Featured image of post MySql锁" /&gt;</description>
+        <description>&lt;img src="https://getshhi.github.io/f2.png" alt="Featured image of post MySql锁" /&gt;</description>
         </item>
         <item>
         <title>MySql事务</title>
@@ -21,7 +21,7 @@
         <pubDate>Fri, 13 Dec 2024 12:13:39 +0800</pubDate>
         
         <guid>https://getshhi.github.io/p/mysql%E4%BA%8B%E5%8A%A1/</guid>
-        <description>&lt;img src="https://getshhi.github.io/ff.png" alt="Featured image of post MySql事务" /&gt;&lt;h4 id=&#34;事务有哪些特性&#34;&gt;事务有哪些特性?
+        <description>&lt;img src="https://getshhi.github.io/f5.png" alt="Featured image of post MySql事务" /&gt;&lt;h4 id=&#34;事务有哪些特性&#34;&gt;事务有哪些特性?
 &lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;原子性，类似于操作系统中的原语，要不全部完成，要不全部不完成，不会结束在中间某个环节。
 原子性是通过undo log(回滚日志)实现的。&lt;/li&gt;
