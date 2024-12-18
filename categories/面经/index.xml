@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>面经 on JZH-letere</title>
+        <link>https://getshhi.github.io/categories/%E9%9D%A2%E7%BB%8F/</link>
+        <description>Recent content in 面经 on JZH-letere</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>JZH-letere</copyright>
+        <lastBuildDate>Tue, 17 Dec 2024 19:25:15 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/categories/%E9%9D%A2%E7%BB%8F/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>郑州小厂面经</title>
+        <link>https://getshhi.github.io/p/%E9%83%91%E5%B7%9E%E5%B0%8F%E5%8E%82%E9%9D%A2%E7%BB%8F/</link>
+        <pubDate>Tue, 17 Dec 2024 19:25:15 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/%E9%83%91%E5%B7%9E%E5%B0%8F%E5%8E%82%E9%9D%A2%E7%BB%8F/</guid>
+        <description>&lt;img src="https://getshhi.github.io/dp.png" alt="Featured image of post 郑州小厂面经" /&gt;&lt;h3 id=&#34;spring有几种设计模式&#34;&gt;Spring有几种设计模式？
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;责任链模式: Spring 中的&lt;strong&gt;过滤器&lt;/strong&gt;和&lt;strong&gt;拦截器&lt;/strong&gt;使用了责任链模式，多个过滤器和拦截器按照一定顺序执行，每个过滤器和拦截器可以拦截请求或者响应并做出相应的处理。&lt;/li&gt;
+&lt;li&gt;单例模式: Spring 的 &lt;strong&gt;Bean&lt;/strong&gt; 默认是单例模式，通过 Spring 容器管理 &lt;strong&gt;Bean&lt;/strong&gt; 的生命周期，保证每个 Bean 只被创建一次，并在整个应用程序中重用。&lt;/li&gt;
+&lt;li&gt;观察者模式: Spring 中的事件机制基于观察者模式，通过 &lt;strong&gt;ApplicationEventPublisher&lt;/strong&gt; 发布事件，由 &lt;strong&gt;ApplicationListener&lt;/strong&gt; 监听事件，实现了对象间的松耦合。&lt;/li&gt;
+&lt;li&gt;工厂模式: Spring 使用工厂模式通过 &lt;strong&gt;BeanFactory&lt;/strong&gt; 和 &lt;strong&gt;ApplicationContext&lt;/strong&gt; 创建并管理 Bean 对象。&lt;/li&gt;
+&lt;li&gt;代理模式: Spring AOP 基于动态代理技术，使用代理模式实现&lt;strong&gt;切面编程&lt;/strong&gt;，提供了对 AOP 编程的支持。&lt;/li&gt;
+&lt;li&gt;模板方法模式: Spring 中的&lt;strong&gt;JdbcTemplate&lt;/strong&gt;使用了模板方法模式，将一些固定的流程封装在父类中，子类只需实现一些抽象方法即可。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;mysql主从复制了解吗&#34;&gt;MySQL主从复制了解吗？
+&lt;/h3&gt;&lt;p&gt;MySQL的主从复制依赖于binlog，也就是记录MySQL的所有变化以二进制形式保存在磁盘上。复制的过程就是将binlog中的数据从主库传输到从库中。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;写入Binlog: 主库写binlog日志，提交事务，并更新本地存储数据。&lt;/li&gt;
+&lt;li&gt;同步Binlog: 把binlog复制到所有从库中，每个从库把binlog写到暂存日志中。&lt;/li&gt;
+&lt;li&gt;回放Binlog: 回放binlog，并更新存储引擎中的数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;具体详细过程如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MySQL 主库在收到客户端提交事务的请求之后，会先写入 binlog，再提交事务，更新存储引擎中的数据，事务提交完成后，返回给客户端“操作成功”的响应。&lt;/li&gt;
+&lt;li&gt;从库会创建一个专门的 I/O 线程，连接主库的 log dump 线程，来接收主库的 binlog 日志，再把 binlog 信息写入 relay log 的中继日志里，再返回给主库“复制成功”的响应。&lt;/li&gt;
+&lt;li&gt;从库会创建一个用于回放 binlog 的线程，去读 relay log 中继日志，然后回放 binlog 更新存储引擎中的数据，最终实现主从的数据一致性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在完成主从复制之后，你就可以在写数据时只写主库，在读数据时只读从库，这样即使写请求会锁表或者锁记录，也不会影响读请求的执行。&lt;/p&gt;
+&lt;h3 id=&#34;mybatis的执行原理&#34;&gt;Mybatis的执行原理
+&lt;/h3&gt;&lt;p&gt;MyBatis的执行原理基于:通过映射文件(XML或注解)将SQL语句与Java对象进行绑定。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;初始化‌：加载配置文件和xxxMapper.xml文件。创建全局配置对象Configuration，在其中保存配置信息、注册Mapper接口和创建sql语句对象MappedStatement。另创建 SqlSessionFactory。&lt;/li&gt;
+&lt;li&gt;‌获取 SqlSession‌：通过 SqlSessionFactory 获取 SqlSession 实例。&lt;/li&gt;
+&lt;li&gt;‌获取 Mapper 代理对象‌：通过 SqlSession 获取 Mapper 接口的代理对象。&lt;/li&gt;
+&lt;li&gt;‌执行代理对象中的方法‌：调用 Mapper 方法时， MapperProxy 代理对象的invoke方法根据传来的方法名和参数类型，找到对应的sql语句对象 MappedStatement，并创建 Executor 执行器执行 SQL 语句。&lt;/li&gt;
+&lt;li&gt;返回结果‌：将执行结果映射到java对象中返回给调用者。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;spring的启动过程&#34;&gt;Spring的启动过程
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;(1)加载配置文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Spring 启动时首先会读取配置文件（如 XML 配置文件、Java Config 类等），包括配置数据库连接、事务管理、AOP 配置等。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(2)实例化容器。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Spring 根据配置文件中的信息创建容器 ApplicationContext，在容器启动阶段实例化 BeanFactory，并加载容器中的 BeanDefinitions。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(3)解析BeanDefinitions。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Spring 容器会解析配置文件中的 BeanDefinitions，即声明的 Bean 元数据，包括 Bean 的作用域、依赖关系等信息。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(4)实例化Bean。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Spring 根据 BeanDefinitions 实例化 Bean 对象，将其放入容器管理。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(5)注入依赖。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Spring 进行依赖注入，将 Bean 之间的依赖关系进行注入，包括构造函数注入、属性注入等。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(6)处理Bean生命周期初始化方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Spring 调用 Bean 初始化方法（如果有定义的话），对 Bean 进行初始化。&lt;/p&gt;
+&lt;p&gt;如果 Bean 实现了 InitializingBean 接口，Spring 会调用其 afterPropertiesSet 方法。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(7)处理BeanPostProcessors方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;容器定义了很多 BeanPostProcessor，处理其中的自定义逻辑，例如 postProcessBeforeInitialization 会在 Bean 初始化前调用， postProcessAfterInitialization 则在之后调用。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(8)代理切面处理。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Spring AOP 代理在这个阶段生成。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(9)发布事件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Spring 可能会在启动过程中发布一些事件，比如容器启动事件。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(10)完成启动。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当所有 Bean 初始化完毕、依赖注入完成、AOP 配置生效等都准备就绪时，Spring 容器启动完成。&lt;/p&gt;
+&lt;h3 id=&#34;mysql如何配置主从复制&#34;&gt;MySQL如何配置主从复制？
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;(1)配置主服务器&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(2)配置从服务器&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(3)启动主从复制
+主要原理:&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(1)主服务器将对数据库的更新操作记录到二进制日志中(Binary Log)中&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(2)从服务器从主服务器取这些二进制日志，并将它们重新播放，即执行这些更新操作，从而使得从服务器的数据与主服务器保持一致。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;线上发现redis机器爆了如何优化&#34;&gt;线上发现Redis机器爆了，如何优化？
+&lt;/h3&gt;&lt;p&gt;(1) 首先需要排查并确定根因(通过线上的监控工具来进行分析)，判断是哪里出错了(比如内存，CPU，带宽)等等。&lt;/p&gt;
+&lt;p&gt;(2) 依据根源来解决问题&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果是内存的话，先临时增加机器的内存量，然后在分析代码去了解业务，判断哪些缓存哪里需要缓存，哪里不需要缓存，通过设置缓存的过期时间和设置缓存在哪个位置开始删除。&lt;/li&gt;
+&lt;li&gt;如果是CPU的话，可以看看那些读写命令和排序的命令，此时需要回退或下架相关有影响的代码。后续在进行优化，看是否可以通过将大KEY变为小之类的，使用集群分片来解决这个问题。&lt;/li&gt;
+&lt;li&gt;如果是带宽的问题的话，可以增大带宽来解决这个问题。&lt;/li&gt;
+&lt;li&gt;还可以将热点数据存储到本地缓存来解决这个问题，减轻Redis的压力。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;(3)必须配置监控报警系统。(可以对某个指标设置阈值)，如果过了这个阈值，就可以通知开发者，避免问题的进一步扩大。&lt;/p&gt;
+&lt;h3 id=&#34;java的注解是啥ai面试&#34;&gt;Java的注解是啥？(AI面试)
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;1.注解其实就是一个标记，可以标记在类上、方法上、属性上等，标记自身也可以设置一些值。&lt;/li&gt;
+&lt;li&gt;2.有了标记之后，就可以在解析的时候获取标记，然后做特别处理。&lt;/li&gt;
+&lt;li&gt;3.注解的使用可以通过编译时、类加载时或者运行时的反射机制来实现特殊的处理逻辑。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;java的集合框架是啥ai面试&#34;&gt;Java的集合框架是啥?(AI面试)
+&lt;/h3&gt;&lt;p&gt;Java集合分为Collection和Map，其中Collection接口分为Set，List，Queue，用来存储单一元素，而Map接口用来存储键值对。
+&lt;img src=&#34;https://getshhi.github.io/JavaContainer.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;java都有哪些锁ai面试&#34;&gt;Java都有哪些锁?(AI面试)
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;独占锁(Exclusive Lock): 如synchronized和ReentrantLock，同一时间仅仅允许一个线程持有锁。&lt;/li&gt;
+&lt;li&gt;读写锁(ReadWriteLock): 允许多个线程并发读，但写时需要独占锁，适合读多写少的场景。&lt;/li&gt;
+&lt;li&gt;乐观锁和悲观锁:悲观锁会有并发冲突，每次操作都加锁；而乐观锁不会有冲突，通过版本号或CAS实现冲突检测。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;java的三大特性ai面试&#34;&gt;Java的三大特性(AI面试)
+&lt;/h3&gt;&lt;p&gt;封装&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;简单来说就是将一个对象的属性封装在一起，对外仅仅暴露方法调用。(比如你用空调遥控器时，空调遥控器内部的细节不知道，但你可以通过它提供的按钮来使用)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;继承&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;子类拥有父类的属性和方法(私有方法和私有属性有但不能继承)。提高代码的复用性，程序的可维护性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;多态&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个对象可以有多种状态，即父类引用指向子类的多种实例。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
