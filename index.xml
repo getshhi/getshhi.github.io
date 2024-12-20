@@ -89,22 +89,14 @@
 &lt;p&gt;当所有 Bean 初始化完毕、依赖注入完成、AOP 配置生效等都准备就绪时，Spring 容器启动完成。&lt;/p&gt;
 &lt;h3 id=&#34;mysql如何配置主从复制&#34;&gt;MySQL如何配置主从复制？
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;(1)配置主服务器&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;(2)配置从服务器&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;(3)启动主从复制
-主要原理:&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;(1)主服务器将对数据库的更新操作记录到二进制日志中(Binary Log)中&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;(2)从服务器从主服务器取这些二进制日志，并将它们重新播放，即执行这些更新操作，从而使得从服务器的数据与主服务器保持一致。&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;(1)配置主服务器&lt;/li&gt;
+&lt;li&gt;(2)配置从服务器&lt;/li&gt;
+&lt;li&gt;(3)启动主从复制&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;主要原理:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(1)主服务器将对数据库的更新操作记录到二进制日志中(Binary Log)中&lt;/li&gt;
+&lt;li&gt;(2)从服务器从主服务器取这些二进制日志，并将它们重新播放，即执行这些更新操作，从而使得从服务器的数据与主服务器保持一致。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;线上发现redis机器爆了如何优化&#34;&gt;线上发现Redis机器爆了，如何优化？
 &lt;/h3&gt;&lt;p&gt;(1) 首先需要排查并确定根因(通过线上的监控工具来进行分析)，判断是哪里出错了(比如内存，CPU，带宽)等等。&lt;/p&gt;
