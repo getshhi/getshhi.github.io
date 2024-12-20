@@ -151,6 +151,12 @@
 &lt;ul&gt;
 &lt;li&gt;一个对象可以有多种状态，即父类引用指向子类的多种实例。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h3 id=&#34;java的线程是指啥ai面试&#34;&gt;Java的线程是指啥?(AI面试)
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Java中的线程是指Java语言里的线程，它们是操作系统中的线程中的一种封装。&lt;/li&gt;
+&lt;li&gt;在Java中，线程是程序执行的基本单位，每个线程都有自己的堆栈，程序计数器和本地变量表。&lt;/li&gt;
+&lt;li&gt;Java中的线程可以通过继承Thread类或Runnable接口来创建。&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>
