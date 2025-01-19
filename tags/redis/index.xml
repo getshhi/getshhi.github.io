@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Redis on JZH-letere</title>
+        <link>https://getshhi.github.io/tags/redis/</link>
+        <description>Recent content in Redis on JZH-letere</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>JZH-letere</copyright>
+        <lastBuildDate>Mon, 23 Dec 2024 22:31:04 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/tags/redis/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Redis常见数据类型和应用场景</title>
+        <link>https://getshhi.github.io/p/redis%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</link>
+        <pubDate>Mon, 23 Dec 2024 22:31:04 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/redis%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</guid>
+        <description>&lt;img src="https://getshhi.github.io/lm.png" alt="Featured image of post Redis常见数据类型和应用场景" /&gt;&lt;h2 id=&#34;string&#34;&gt;String
+&lt;/h2&gt;&lt;h3 id=&#34;介绍&#34;&gt;介绍
+&lt;/h3&gt;&lt;p&gt;String 是最基本的 key-value 结构，key 是唯一标识，value 是具体的值，value其实不仅是字符串， 也可以是数字（整数或浮点数），value 最多可以容纳的数据长度是 512M。&lt;/p&gt;
+&lt;h4 id=&#34;内部实现&#34;&gt;内部实现
+&lt;/h4&gt;&lt;p&gt;String类型的底层的数据结构实现主要是int和SDS(简单动态字符串)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SDS不仅可以保存文本数据，还可以保存二进制数据。因为 SDS 使用 len 属性的值而不是空字符来判断字符串是否结束，并且 SDS 的所有 API 都会以处理二进制的方式来处理 SDS 存放在 buf[] 数组里的数据。所以 SDS 不光能存放文本数据，而且能保存图片、音频、视频、压缩文件这样的二进制数据。&lt;/li&gt;
+&lt;li&gt;SDS获取字符串的时间复杂度为O(1)。因为SDS靠len属性直接获取字符串长度。&lt;/li&gt;
+&lt;li&gt;Redis的SDS API是安全的，拼接字符串不会造成缓冲区溢出。y因为在拼接前会检查SDS空间是否满足要求，如果空间不够会自动扩容，所以不会导致缓冲区溢出的问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;字符串对象的内部编码（encoding）有 3 种 ：int、raw和 embstr。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/string%E7%BB%93%E6%9E%84.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;embstr和raw编码的相同之处和不同之处&#34;&gt;embstr和raw编码的相同之处和不同之处
+&lt;/h4&gt;&lt;p&gt;embstr和raw编码都会使用SDS来保存值，但不同之处在于embstr会通过一次内存分配函数来分配一块连续的内存空间来保存redisObject和SDS，而raw编码会通过调用两次内存分配函数来分别分配两块空间来保存redisObject和SDS。&lt;/p&gt;
+&lt;p&gt;Redis这样做会有很多好处：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;embstr编码将创建字符串对象所需的内存分配次数从 raw 编码的两次降低为一次；&lt;/li&gt;
+&lt;li&gt;释放 embstr编码的字符串对象同样只需要调用一次内存释放函数；&lt;/li&gt;
+&lt;li&gt;因为embstr编码的字符串对象的所有数据都保存在一块连续的内存里面可以更好的利用 CPU 缓存提升性能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是 embstr 也有缺点的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果字符串的长度增加需要重新分配内存时，整个redisObject和sds都需要重新分配空间，所以&lt;strong&gt;embstr编码的字符串对象实际上是只读的&lt;/strong&gt;，redis没有为embstr编码的字符串对象编写任何相应的修改程序。当我们对embstr编码的字符串对象执行任何修改命令（例如append）时，程序会先将对象的编码从embstr转换成raw，然后再执行修改命令。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/embstr.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/raw.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;应用场景&#34;&gt;应用场景
+&lt;/h3&gt;&lt;h4 id=&#34;缓存对象&#34;&gt;缓存对象
+&lt;/h4&gt;&lt;p&gt;有两种方式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;直接缓存整个对象的 JSON，命令例子： SET user:1 &amp;lsquo;{&amp;ldquo;name&amp;rdquo;:&amp;ldquo;wanli&amp;rdquo;, &amp;ldquo;age&amp;rdquo;:18}&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;采用将 key 进行分离为 user:ID:属性，采用 MSET 存储，用 MGET 获取各属性值，命令例子： MSET user:1:name xiaolin user:1:age 18 user:2:name xiaomei user:2:age 20。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;常规计数&#34;&gt;常规计数
+&lt;/h4&gt;&lt;p&gt;因为 Redis 处理命令是单线程，所以执行命令的过程是原子的。因此 String 数据类型适合计数场景，比如计算访问次数、点赞、转发、库存数量等等。&lt;/p&gt;
+&lt;h4 id=&#34;分布式锁&#34;&gt;分布式锁
+&lt;/h4&gt;&lt;p&gt;SET 命令有个 NX 参数可以实现「key不存在才插入」，可以用它来实现分布式锁：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果 key 不存在，则显示插入成功，可以用来表示加锁成功；&lt;/li&gt;
+&lt;li&gt;如果 key 存在，则会显示插入失败，可以用来表示加锁失败。
+一般而言，还会对分布式锁加上过期时间，分布式锁的命令如下：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;SET lock_key unique_value NX PX 10000
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;lock_key 就是 key 键；&lt;/li&gt;
+&lt;li&gt;unique_value 是客户端生成的唯一的标识；&lt;/li&gt;
+&lt;li&gt;NX 代表只在 lock_key 不存在时，才对 lock_key 进行设置操作；&lt;/li&gt;
+&lt;li&gt;PX 10000 表示设置 lock_key 的过期时间为 10s，这是为了避免客户端发生异常而无法释放锁。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而解锁的操作必须由操作的客户端进行，所以解锁的时候，我们要先判断锁的unique_value是否为加锁客户端，是的话，才将lock_key键删除。&lt;/p&gt;
+&lt;p&gt;可以看到，是先判断锁，然后再进行解锁之类的操作，这时就需要Lua脚本来保证解锁的原子性，因为Redis在执行Lua脚本时，可以以原子性的方式执行，保证了锁释放操作的原子性。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;// 释放锁时，先比较 unique_value 是否相等，避免锁的误释放
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;if redis.call(&amp;#34;get&amp;#34;,KEYS[1]) == ARGV[1] then
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    return redis.call(&amp;#34;del&amp;#34;,KEYS[1])
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;else
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    return 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;end
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;共享session信息&#34;&gt;共享Session信息
+&lt;/h4&gt;&lt;p&gt;分布式系统单独存储Session流程图
+&lt;img src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/Session2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;list&#34;&gt;List
+&lt;/h2&gt;&lt;h4 id=&#34;介绍-1&#34;&gt;介绍
+&lt;/h4&gt;&lt;p&gt;List 列表是简单的字符串列表，按照插入顺序排序，可以从头部或尾部向 List 列表添加元素。&lt;/p&gt;
+&lt;p&gt;列表的最大长度为 2^32 - 1，也即每个列表支持超过 40 亿个元素。&lt;/p&gt;
+&lt;h4 id=&#34;内部实现-1&#34;&gt;内部实现
+&lt;/h4&gt;&lt;p&gt;List 类型的底层数据结构是由双向链表或压缩列表实现的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果列表的元素个数小于 512 个（默认值，可由 list-max-ziplist-entries 配置），列表每个元素的值都小于 64 字节（默认值，可由 list-max-ziplist-value 配置），Redis 会使用压缩列表作为 List 类型的底层数据结构；&lt;/li&gt;
+&lt;li&gt;如果列表的元素不满足上面的条件，Redis 会使用&lt;strong&gt;双向链表&lt;/strong&gt;作为 List 类型的底层数据结构；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是&lt;strong&gt;在 Redis 3.2 版本之后，List 数据类型底层数据结构就只由 quicklist 实现了，替代了双向链表和压缩列表&lt;/strong&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;应用场景-1&#34;&gt;应用场景
+&lt;/h3&gt;&lt;h4 id=&#34;消息队列&#34;&gt;消息队列
+&lt;/h4&gt;&lt;p&gt;消息队列在存取消息时，必须要满足三个需求，分别是&lt;strong&gt;消息保序，处理重复的消息和保证消息可靠性&lt;/strong&gt;&lt;/p&gt;
+&lt;h5 id=&#34;如何满足消息保序需求&#34;&gt;如何满足消息保序需求
+&lt;/h5&gt;&lt;p&gt;List 本身就是按先进先出的顺序对数据进行存取的，所以，如果使用 List 作为消息队列保存消息的话，就已经能满足消息保序的需求了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/list%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;生产者使用 LPUSH key value[value&amp;hellip;] 将消息插入到队列的头部，如果 key 不存在则会创建一个空的队列再插入消息。&lt;/li&gt;
+&lt;li&gt;消费者使用 RPOP key 依次读取队列的消息，先进先出。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;如何处理重复的消息&#34;&gt;如何处理重复的消息
+&lt;/h5&gt;&lt;p&gt;消费者要实现重复消息的判断，需要2个方面的要求:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个消息都有一个全局的 ID。&lt;/li&gt;
+&lt;li&gt;消费者要记录已经处理过的消息的 ID。当收到一条消息后，消费者程序就可以对比收到的消息 ID 和记录的已处理过的消息 ID，来判断当前收到的消息有没有经过处理。如果已经处理过，那么，消费者程序就不再进行处理了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是 List 并不会为每个消息生成 ID 号，所以我们需要自行为每个消息生成一个全局唯一ID，生成之后，我们在用 LPUSH 命令把消息插入 List 时，需要在消息中包含这个全局唯一 ID。&lt;/p&gt;
+&lt;p&gt;例如，我们执行以下命令，就把一条全局 ID 为 111000102、库存量为 100 的消息插入了消息队列：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;gt; LPUSH mq &amp;#34;111000102:stock:100&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;(integer) 1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h5 id=&#34;如何保证消息可靠性&#34;&gt;如何保证消息可靠性
+&lt;/h5&gt;&lt;p&gt;当消费者程序从 List 中读取一条消息后，List 就不会再留存这条消息了。所以，如果消费者程序在处理消息的过程出现了故障或宕机，就会导致消息没有处理完成，那么，消费者程序再次启动后，就没法再次从 List 中读取消息了。&lt;/p&gt;
+&lt;p&gt;为了留存消息，List 类型提供了 BRPOPLPUSH 命令，这个命令的作用是让&lt;strong&gt;消费者程序从一个 List 中读取消息，同时，Redis 会把这个消息再插入到另一个 List（可以叫作备份 List）留存&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这样一来，如果消费者程序读了消息但没能正常处理，等它重启后，就可以从备份 List 中重新读取消息并进行处理了。&lt;/p&gt;
+&lt;p&gt;好了，到这里可以知道基于 List 类型的消息队列，满足消息队列的三大需求（消息保序、处理重复的消息和保证消息可靠性）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;消息保序：使用 LPUSH + RPOP；&lt;/li&gt;
+&lt;li&gt;阻塞读取：使用 BRPOP；&lt;/li&gt;
+&lt;li&gt;重复消息处理：生产者自行实现全局唯一 ID；&lt;/li&gt;
+&lt;li&gt;消息的可靠性：使用 BRPOPLPUSH&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;list-作为消息队列有什么缺陷&#34;&gt;List 作为消息队列有什么缺陷？
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;List 只支持一个消费者消费同一条消息&lt;/strong&gt;，因为一旦消费者拉取一条消息后，这条消息就从 List 中删除了，无法被其它消费者再次消费。&lt;/li&gt;
+&lt;li&gt;要实现一条消息可以被多个消费者消费，那么就要将多个消费者组成一个&lt;strong&gt;消费组&lt;/strong&gt;，使得多个消费者可以消费同一条消息，但是 List 类型并不支持消费组的实现。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;hash&#34;&gt;Hash
+&lt;/h2&gt;&lt;h3 id=&#34;介绍-2&#34;&gt;介绍
+&lt;/h3&gt;&lt;p&gt;Hash 是一个键值对（key - value）集合，其中 value 的形式如： value=[{field1，value1}，&amp;hellip;{fieldN，valueN}]。Hash 特别适合用于存储对象。
+Hash 与 String 对象的区别如下图所示:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/hash.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;内部实现-2&#34;&gt;内部实现
+&lt;/h3&gt;&lt;p&gt;Hash类型的底层数据结构是由&lt;strong&gt;压缩列表或哈希表&lt;/strong&gt;实现的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果哈希类型元素个数小于 512 个（默认值，可由 hash-max-ziplist-entries 配置），所有值小于 64 字节（默认值，可由 hash-max-ziplist-value 配置）的话，Redis 会使用压缩列表作为 Hash 类型的底层数据结构；&lt;/li&gt;
+&lt;li&gt;如果哈希类型元素不满足上面条件，Redis 会使用哈希表作为 Hash 类型的 底层数据结构。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在 Redis 7.0 中，压缩列表数据结构已经废弃了，交由 listpack 数据结构来实现了。&lt;/p&gt;
+&lt;h3 id=&#34;应用场景-2&#34;&gt;应用场景
+&lt;/h3&gt;&lt;h4 id=&#34;缓存对象-1&#34;&gt;缓存对象
+&lt;/h4&gt;&lt;p&gt;Hash 类型的 （key，field， value） 的结构与对象的（对象id， 属性， 值）的结构相似，也可以用来存储对象。
+&lt;img src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;
+Redis Hash 存储其结构如下图：
+&lt;img src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/hash%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;
+在介绍 String 类型的应用场景时有所介绍，String + Json也是存储对象的一种方式，那么存储对象时，到底用 String + json 还是用 Hash 呢？&lt;/p&gt;
+&lt;p&gt;一般对象用 String + Json 存储，对象中某些频繁变化的属性可以考虑抽出来用 Hash 类型存储。&lt;/p&gt;
+&lt;h2 id=&#34;set&#34;&gt;set
+&lt;/h2&gt;&lt;h3 id=&#34;介绍-3&#34;&gt;介绍
+&lt;/h3&gt;&lt;p&gt;Set 类型是一个无序并唯一的键值集合，它的存储顺序不会按照插入的先后顺序进行存储。&lt;/p&gt;
+&lt;p&gt;一个集合最多可以存储 2^32-1 个元素。概念和数学中个的集合基本类似，可以交集，并集，差集等等，所以 Set 类型除了支持集合内的增删改查，同时还支持多个集合取交集、并集、差集。
+&lt;img src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/set.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;set-类型和-list-类型的区别如下&#34;&gt;Set 类型和 List 类型的区别如下：
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;List 可以存储重复元素，Set 只能存储非重复元素；&lt;/li&gt;
+&lt;li&gt;List 是按照元素的先后顺序存储元素的，而 Set 则是无序方式存储元素的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;内部实现-3&#34;&gt;内部实现
+&lt;/h3&gt;&lt;p&gt;Set 类型的底层数据结构是由&lt;strong&gt;哈希表或整数集合&lt;/strong&gt;实现的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果集合中的元素都是整数且元素个数小于 512 （默认值，set-maxintset-entries配置）个，Redis 会使用&lt;strong&gt;整数集合&lt;/strong&gt;作为 Set 类型的底层数据结构；&lt;/li&gt;
+&lt;li&gt;如果集合中的元素不满足上面条件，则 Redis 使用哈希表作为 Set 类型的底层数据结构。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;应用场景-3&#34;&gt;应用场景
+&lt;/h3&gt;&lt;p&gt;集合的主要几个特性，无序、不可重复、支持并交差等操作。&lt;/p&gt;
+&lt;p&gt;因此 Set 类型比较适合用来数据去重和保障数据的唯一性，还可以用来统计多个集合的交集、错集和并集等，当我们存储的数据是无序并且需要去重的情况下，比较适合使用集合类型进行存储。&lt;/p&gt;
+&lt;p&gt;但是这里有一个潜在的风险。&lt;strong&gt;Set 的差集、并集和交集的计算复杂度较高，在数据量较大的情况下，如果直接执行这些计算，会导致 Redis 实例阻塞&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;在主从集群中，为了避免主库因为 Set 做聚合计算（交集、差集、并集）时导致主库被阻塞，我们可以选择一个从库完成聚合统计，或者把数据返回给客户端，由客户端来完成聚合统计。&lt;/p&gt;
+&lt;p&gt;可以用做点赞，抽奖活动，共同关注等应用场景。&lt;/p&gt;
+&lt;h3 id=&#34;zset&#34;&gt;Zset
+&lt;/h3&gt;&lt;h4 id=&#34;介绍-4&#34;&gt;介绍
+&lt;/h4&gt;&lt;p&gt;Zset 类型（有序集合类型）相比于 Set 类型多了一个排序属性 score（分值），对于有序集合 ZSet 来说，每个存储元素相当于有两个值组成的，一个是有序集合的元素值，一个是排序值。&lt;/p&gt;
+&lt;p&gt;有序集合保留了集合不能有重复成员的特性（分值可以重复），但不同的是，有序集合中的元素可以排序。&lt;/p&gt;
+&lt;h3 id=&#34;内部实现-4&#34;&gt;内部实现
+&lt;/h3&gt;&lt;p&gt;Zset 类型的底层数据结构是由压缩列表或跳表实现的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果有序集合的元素个数小于 128 个，并且每个元素的值小于 64 字节时，Redis 会使用压缩列表作为 Zset 类型的底层数据结构；&lt;/li&gt;
+&lt;li&gt;如果有序集合的元素不满足上面的条件，Redis 会使用跳表作为 Zset 类型的底层数据结构；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在 Redis 7.0 中，压缩列表数据结构已经废弃了，交由 listpack 数据结构来实现了&lt;/p&gt;
+&lt;h3 id=&#34;应用场景-4&#34;&gt;应用场景
+&lt;/h3&gt;&lt;p&gt;Zset 类型（Sorted Set，有序集合） 可以根据元素的权重来排序，我们可以自己来决定每个元素的权重值。比如说，我们可以根据元素插入 Sorted Set 的时间确定权重值，先插入的元素权重小，后插入的元素权重大。&lt;/p&gt;
+&lt;p&gt;在面对需要展示最新列表、排行榜等场景时，如果数据更新频繁或者需要分页显示，可以优先考虑使用 Sorted Set。&lt;/p&gt;
+&lt;h4 id=&#34;排行榜&#34;&gt;排行榜
+&lt;/h4&gt;&lt;p&gt;有序集合比较典型的使用场景就是排行榜。例如学生成绩的排名榜、游戏积分排行榜、视频播放排名、电商系统中商品的销量排名等。&lt;/p&gt;
+&lt;h4 id=&#34;电话-姓名排序&#34;&gt;电话 姓名排序
+&lt;/h4&gt;&lt;p&gt;使用有序集合的 ZRANGEBYLEX 或 ZREVRANGEBYLEX 可以帮助我们实现电话号码或姓名的排序，我们以 ZRANGEBYLEX （返回指定成员区间内的成员，按 key 正序排列，分数必须相同）为例。&lt;/p&gt;
+&lt;h2 id=&#34;bitmap&#34;&gt;BitMap
+&lt;/h2&gt;&lt;h3 id=&#34;介绍-5&#34;&gt;介绍
+&lt;/h3&gt;&lt;p&gt;Bitmap，即位图，是一串连续的二进制数组（0和1），可以通过偏移量（offset）定位元素。BitMap通过最小的单位bit来进行0|1的设置，表示某个元素的值或者状态，时间复杂度为O(1)。&lt;/p&gt;
+&lt;p&gt;由于 bit 是计算机中最小的单位，使用它进行储存将非常节省空间，特别适合一些数据量大且使用二值统计的场景。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Redis的简单介绍</title>
+        <link>https://getshhi.github.io/p/redis%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/</link>
+        <pubDate>Mon, 23 Dec 2024 21:41:16 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/redis%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nj.png" alt="Featured image of post Redis的简单介绍" /&gt;&lt;h3 id=&#34;redis简介&#34;&gt;Redis简介
+&lt;/h3&gt;&lt;p&gt;Redis 是完全开源免费的，遵守BSD协议，是一个高性能的key-value数据库。&lt;/p&gt;
+&lt;p&gt;Redis 与其他 key - value 缓存产品有以下三个特点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Redis支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用。&lt;/li&gt;
+&lt;li&gt;Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。&lt;/li&gt;
+&lt;li&gt;Redis支持数据的备份，即master-slave模式的数据备份。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;redis-优势&#34;&gt;Redis 优势
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。&lt;/li&gt;
+&lt;li&gt;丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。&lt;/li&gt;
+&lt;li&gt;原子 – Redis的所有操作都是原子性的，同时Redis还支持对几个操作全并后的原子性执行。&lt;/li&gt;
+&lt;li&gt;丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;redis与其他key-value存储有什么不同&#34;&gt;Redis与其他key-value存储有什么不同？
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Redis有着更为复杂的数据结构并且提供对他们的原子性操作，这是一个不同于其他数据库的进化路径。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Redis的数据类型都是基于基本数据结构的同时对程序员透明，无需进行额外的抽象。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Redis运行在内存中但是可以持久化到磁盘，所以在对不同数据集进行高速读写时需要权衡内存，应为数据量不能大于硬件内存。在内存数据库方面的另一个优点是， 相比在磁盘上相同的复杂的数据结构，在内存中操作起来非常简单，这样Redis可以做很多内部复杂性很强的事情。 同时，在磁盘格式方面他们是紧凑的以追加的方式产生的，因为他们并不需要进行随机访问。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

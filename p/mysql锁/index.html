@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="MySql的锁有哪些? MySql的锁可以分为三部分\n全局锁(一旦使用数据库就处于只读的状态) 主要用来进行 全库逻辑备份 加上全局锁的缺点是因为是只读状态，可能会导致业务只能读数据，从而导致业务停滞。 表级锁 表锁 一旦实现，本线程就只能读本线程所在的表，不能访问其他的线程，其他线程的只能读该线程所在的表。 1 2 3 4 5 6 //表级别的共享锁，也就是读锁； //允许当前会话读取被锁定的表，但阻止其他会话对这些表进行写操作。 lock tables t_student read; //表级别的独占锁，也就是写锁； //允许当前会话对表进行读写操作，但阻止其他会话对这些表进行任何操作（读或写）。 lock tables t_stuent write; 元数据锁(MDL) 分为MDL读锁和MDL写锁(都是数据库自动加的MDL)对一张表进行CRUD操作时，加的是MDL读锁，对一张表做结构变更操作的时候，加的是MDL写锁。 MDL在事务执行期间，MDL是一直持有的。 MDL写锁获取优先级高于MDL读锁。 意向锁 意向锁简单来说就是提前说明记录是否存在共享锁和独占锁。 意向共享锁和意向独占锁是表级锁，不会和行级的共享锁和独占锁发生冲突，而且意向锁之间也不会发生冲突，只会和共享锁和独占表锁发生冲突。 意向锁的目的就是为了判断表里是否有记录被加锁。 AUTO-INC锁 AUTO-INC锁的作用就是自动增加主键的值。 锁不是在一个事务提交后才释放，而是在执行完插入语句后就会立即释放。 在插入数据时，会加一个表级别的AUTO-INC锁。 从MySql5.1.22版本开始，InnoDB存储引擎提供了一种轻量级的锁来实现自增。 对于解决InnoDB的数据库一致性问题，可以采用innodb_autoinc_lock_mode = 2，并且binlog_format = row，既能提高并发性，又不会出现数据一致性问题 行级锁(基于InnoDB) Record Lock(记录锁) S型记录锁(S型与S型兼容，S型与X型不兼容，X型与X型也不兼容) X型记录锁(S型与S型兼容，S型与X型不兼容，X型与X型也不兼容) Gap Lock(间隙锁) 间隙锁只存在可重复读隔离级别，间隙锁之间是兼容的，即两个事务可以同时持有包含共同间隙范围的间隙锁，并不存在互斥关系，因为间隙锁的目的是防止插入缓影记录而提出的。 Next-Key Lock(间隙锁加记录锁-临键锁) Next-key lock是包含间隙锁+记录锁的，如果一个事务获取了X型的next-key lock,那么另外一个事务在获取相同范围的X型的间隙锁时，是会被阻塞的。 插入意向锁 插入意向锁不是意向锁，它是一种特殊的间隙锁，属于行级别锁。 一个事务在插入一条记录的时候，需要判断插入位置是否已被其他事务加了间隙锁，如果有的话，插入操作就会发生阻塞，直到有间隙锁的那个事务提交为止，在此期间会生成一个插入意向锁。 MySql是咋加锁的？ 啥SQL语句会加行级锁？ 首先对于支持加行级锁的只有InnoDB，而对于InnoDB存储引擎加锁的语句为\n">
 <title>MySql锁</title>
 
 <link rel='canonical' href='https://getshhi.github.io/p/mysql%E9%94%81/'>
 
 <link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="MySql锁">
-<meta property='og:description' content="">
+<meta property='og:description' content="MySql的锁有哪些? MySql的锁可以分为三部分\n全局锁(一旦使用数据库就处于只读的状态) 主要用来进行 全库逻辑备份 加上全局锁的缺点是因为是只读状态，可能会导致业务只能读数据，从而导致业务停滞。 表级锁 表锁 一旦实现，本线程就只能读本线程所在的表，不能访问其他的线程，其他线程的只能读该线程所在的表。 1 2 3 4 5 6 //表级别的共享锁，也就是读锁； //允许当前会话读取被锁定的表，但阻止其他会话对这些表进行写操作。 lock tables t_student read; //表级别的独占锁，也就是写锁； //允许当前会话对表进行读写操作，但阻止其他会话对这些表进行任何操作（读或写）。 lock tables t_stuent write; 元数据锁(MDL) 分为MDL读锁和MDL写锁(都是数据库自动加的MDL)对一张表进行CRUD操作时，加的是MDL读锁，对一张表做结构变更操作的时候，加的是MDL写锁。 MDL在事务执行期间，MDL是一直持有的。 MDL写锁获取优先级高于MDL读锁。 意向锁 意向锁简单来说就是提前说明记录是否存在共享锁和独占锁。 意向共享锁和意向独占锁是表级锁，不会和行级的共享锁和独占锁发生冲突，而且意向锁之间也不会发生冲突，只会和共享锁和独占表锁发生冲突。 意向锁的目的就是为了判断表里是否有记录被加锁。 AUTO-INC锁 AUTO-INC锁的作用就是自动增加主键的值。 锁不是在一个事务提交后才释放，而是在执行完插入语句后就会立即释放。 在插入数据时，会加一个表级别的AUTO-INC锁。 从MySql5.1.22版本开始，InnoDB存储引擎提供了一种轻量级的锁来实现自增。 对于解决InnoDB的数据库一致性问题，可以采用innodb_autoinc_lock_mode = 2，并且binlog_format = row，既能提高并发性，又不会出现数据一致性问题 行级锁(基于InnoDB) Record Lock(记录锁) S型记录锁(S型与S型兼容，S型与X型不兼容，X型与X型也不兼容) X型记录锁(S型与S型兼容，S型与X型不兼容，X型与X型也不兼容) Gap Lock(间隙锁) 间隙锁只存在可重复读隔离级别，间隙锁之间是兼容的，即两个事务可以同时持有包含共同间隙范围的间隙锁，并不存在互斥关系，因为间隙锁的目的是防止插入缓影记录而提出的。 Next-Key Lock(间隙锁加记录锁-临键锁) Next-key lock是包含间隙锁+记录锁的，如果一个事务获取了X型的next-key lock,那么另外一个事务在获取相同范围的X型的间隙锁时，是会被阻塞的。 插入意向锁 插入意向锁不是意向锁，它是一种特殊的间隙锁，属于行级别锁。 一个事务在插入一条记录的时候，需要判断插入位置是否已被其他事务加了间隙锁，如果有的话，插入操作就会发生阻塞，直到有间隙锁的那个事务提交为止，在此期间会生成一个插入意向锁。 MySql是咋加锁的？ 啥SQL语句会加行级锁？ 首先对于支持加行级锁的只有InnoDB，而对于InnoDB存储引擎加锁的语句为\n">
 <meta property='og:url' content='https://getshhi.github.io/p/mysql%E9%94%81/'>
 <meta property='og:site_name' content='JZH-letere'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='MySql' /><meta property='article:published_time' content='2024-12-15T16:07:41&#43;08:00'/><meta property='article:modified_time' content='2024-12-15T16:07:41&#43;08:00'/><meta property='og:image' content='https://getshhi.github.io/f2.png' />
 <meta name="twitter:title" content="MySql锁">
-<meta name="twitter:description" content=""><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="MySql的锁有哪些? MySql的锁可以分为三部分\n全局锁(一旦使用数据库就处于只读的状态) 主要用来进行 全库逻辑备份 加上全局锁的缺点是因为是只读状态，可能会导致业务只能读数据，从而导致业务停滞。 表级锁 表锁 一旦实现，本线程就只能读本线程所在的表，不能访问其他的线程，其他线程的只能读该线程所在的表。 1 2 3 4 5 6 //表级别的共享锁，也就是读锁； //允许当前会话读取被锁定的表，但阻止其他会话对这些表进行写操作。 lock tables t_student read; //表级别的独占锁，也就是写锁； //允许当前会话对表进行读写操作，但阻止其他会话对这些表进行任何操作（读或写）。 lock tables t_stuent write; 元数据锁(MDL) 分为MDL读锁和MDL写锁(都是数据库自动加的MDL)对一张表进行CRUD操作时，加的是MDL读锁，对一张表做结构变更操作的时候，加的是MDL写锁。 MDL在事务执行期间，MDL是一直持有的。 MDL写锁获取优先级高于MDL读锁。 意向锁 意向锁简单来说就是提前说明记录是否存在共享锁和独占锁。 意向共享锁和意向独占锁是表级锁，不会和行级的共享锁和独占锁发生冲突，而且意向锁之间也不会发生冲突，只会和共享锁和独占表锁发生冲突。 意向锁的目的就是为了判断表里是否有记录被加锁。 AUTO-INC锁 AUTO-INC锁的作用就是自动增加主键的值。 锁不是在一个事务提交后才释放，而是在执行完插入语句后就会立即释放。 在插入数据时，会加一个表级别的AUTO-INC锁。 从MySql5.1.22版本开始，InnoDB存储引擎提供了一种轻量级的锁来实现自增。 对于解决InnoDB的数据库一致性问题，可以采用innodb_autoinc_lock_mode = 2，并且binlog_format = row，既能提高并发性，又不会出现数据一致性问题 行级锁(基于InnoDB) Record Lock(记录锁) S型记录锁(S型与S型兼容，S型与X型不兼容，X型与X型也不兼容) X型记录锁(S型与S型兼容，S型与X型不兼容，X型与X型也不兼容) Gap Lock(间隙锁) 间隙锁只存在可重复读隔离级别，间隙锁之间是兼容的，即两个事务可以同时持有包含共同间隙范围的间隙锁，并不存在互斥关系，因为间隙锁的目的是防止插入缓影记录而提出的。 Next-Key Lock(间隙锁加记录锁-临键锁) Next-key lock是包含间隙锁+记录锁的，如果一个事务获取了X型的next-key lock,那么另外一个事务在获取相同范围的X型的间隙锁时，是会被阻塞的。 插入意向锁 插入意向锁不是意向锁，它是一种特殊的间隙锁，属于行级别锁。 一个事务在插入一条记录的时候，需要判断插入位置是否已被其他事务加了间隙锁，如果有的话，插入操作就会发生阻塞，直到有间隙锁的那个事务提交为止，在此期间会生成一个插入意向锁。 MySql是咋加锁的？ 啥SQL语句会加行级锁？ 首先对于支持加行级锁的只有InnoDB，而对于InnoDB存储引擎加锁的语句为\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://getshhi.github.io/f2.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
@@ -292,11 +292,11 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 0 分钟
+                    阅读时长: 8 分钟
                 </time>
             </div>
         
-        <span class="post-word-count">0 words</span>
+        <span class="post-word-count">3914 words</span>
     </footer>
     
     
@@ -307,7 +307,218 @@
     <section class="article-content">
     
     
-    
+    <h3 id="mysql的锁有哪些">MySql的锁有哪些?
+</h3><p>MySql的锁可以分为三部分</p>
+<ul>
+<li>全局锁(<strong>一旦使用数据库就处于只读的状态</strong>)
+<ul>
+<li>主要用来进行 <strong>全库逻辑备份</strong></li>
+<li>加上全局锁的缺点是因为是只读状态，可能会导致业务只能读数据，从而导致业务<strong>停滞</strong>。</li>
+</ul>
+</li>
+<li>表级锁
+<ul>
+<li>表锁
+<ul>
+<li>一旦实现，本线程就只能读本线程所在的表，不能访问其他的线程，其他线程的只能读该线程所在的表。</li>
+<li></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="w">     </span><span class="o">//</span><span class="err">表级别的共享锁，也就是读锁；</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="o">//</span><span class="err">允许当前会话读取被锁定的表，但阻止其他会话对这些表进行写操作。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="k">lock</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="n">t_student</span><span class="w"> </span><span class="k">read</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="o">//</span><span class="err">表级别的独占锁，也就是写锁；</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="o">//</span><span class="err">允许当前会话对表进行读写操作，但阻止其他会话对这些表进行任何操作（读或写）。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="k">lock</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="n">t_stuent</span><span class="w"> </span><span class="k">write</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>元数据锁(<strong>MDL</strong>)
+<ul>
+<li>分为MDL读锁和MDL写锁(都是数据库自动加的MDL)对一张表进行CRUD操作时，加的是MDL读锁，对一张表做结构变更操作的时候，加的是MDL写锁。</li>
+<li>MDL在事务执行期间，MDL是一直持有的。</li>
+<li>MDL写锁获取优先级高于MDL读锁。</li>
+</ul>
+</li>
+<li>意向锁
+<ul>
+<li>意向锁简单来说就是提前说明记录是否存在共享锁和独占锁。</li>
+<li>意向共享锁和意向独占锁是表级锁，不会和行级的共享锁和独占锁发生冲突，而且意向锁之间也不会发生冲突，只会和共享锁和独占表锁发生冲突。</li>
+<li>意向锁的目的就是为了判断表里是否有记录被加锁。</li>
+</ul>
+</li>
+<li>AUTO-INC锁
+<ul>
+<li>AUTO-INC锁的作用就是自动增加主键的值。</li>
+<li>锁不是在一个事务提交后才释放，而是在执行完插入语句后就会立即释放。</li>
+<li>在插入数据时，会加一个表级别的AUTO-INC锁。</li>
+<li>从MySql5.1.22版本开始，InnoDB存储引擎提供了一种轻量级的锁来实现自增。</li>
+<li>对于解决InnoDB的数据库一致性问题，可以采用<strong>innodb_autoinc_lock_mode = 2</strong>，并且<strong>binlog_format = row</strong>，既能提高并发性，又不会出现数据一致性问题</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>行级锁(基于InnoDB)
+<ul>
+<li>Record Lock(<strong>记录锁</strong>)
+<ul>
+<li>S型记录锁(S型与S型兼容，S型与X型不兼容，X型与X型也不兼容)</li>
+<li>X型记录锁(S型与S型兼容，S型与X型不兼容，X型与X型也不兼容)</li>
+</ul>
+</li>
+<li>Gap Lock(<strong>间隙锁</strong>)
+<ul>
+<li>间隙锁只存在可重复读隔离级别，间隙锁之间是兼容的，即两个事务可以同时持有包含共同间隙范围的间隙锁，并不存在互斥关系，因为间隙锁的目的是防止插入缓影记录而提出的。</li>
+</ul>
+</li>
+<li>Next-Key Lock(<strong>间隙锁加记录锁-临键锁</strong>)
+Next-key lock是包含间隙锁+记录锁的，如果一个事务获取了X型的next-key lock,那么另外一个事务在获取相同范围的X型的间隙锁时，是会被阻塞的。</li>
+<li>插入意向锁
+<ul>
+<li>插入意向锁不是意向锁，它是一种特殊的间隙锁，属于行级别锁。</li>
+<li>一个事务在插入一条记录的时候，需要判断插入位置是否已被其他事务加了间隙锁，如果有的话，插入操作就会发生阻塞，直到有间隙锁的那个事务提交为止，在此期间会生成一个插入意向锁。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="mysql是咋加锁的">MySql是咋加锁的？
+</h3><h4 id="啥sql语句会加行级锁">啥SQL语句会加行级锁？
+</h4><p>首先对于支持加行级锁的只有InnoDB，而对于InnoDB存储引擎加锁的语句为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="o">//</span><span class="err">对读取的记录加共享锁</span><span class="p">(</span><span class="n">S型锁</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">lock</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">share</span><span class="w"> </span><span class="k">mode</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="err">对读取的记录加独占锁</span><span class="p">(</span><span class="n">X型锁</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">update</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="err">对操作的记录加独占锁</span><span class="p">(</span><span class="n">X型锁</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">update</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="p">....</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="err">对操作的记录加独占锁</span><span class="p">(</span><span class="n">X型锁</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">delete</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>update和delete</strong>操作都会加行级锁，且锁的类型都是独占锁(X型锁)</p>
+<h3 id="mysql是咋加行级锁">MySql是咋加行级锁？
+</h3><p>MySQL行级锁的加锁规则</p>
+<ul>
+<li>唯一索引等值查询
+<ul>
+<li>当查询的记录是存在的，在索引树上定位到这一条记录后，将该记录的索引中的next-key lock会退化成<strong>记录锁</strong>。</li>
+<li>当查询的记录是不存在的，在索引树上找到第一条大于该记录的记录后，将该记录的索引中的next-key lock 会退化成<strong>间隙锁</strong>。</li>
+</ul>
+</li>
+<li>唯一索引范围查询
+<ul>
+<li>针对<strong>大于等于</strong>的范围查询，因为存在等值的查询，那么等值查询的记录存在的话，那么该记录的索引中的next-key锁会退化成记录锁</li>
+<li>针对<strong>小于或者小于等于</strong>的范围查询，要看条件值的记录是否存在于表中:
+<ul>
+<li>当条件值得记录不在表中，那么不管是小于还是小于等于条件的范围查询，扫描到<strong>终止范围查询的记录</strong>时，该记录的索引的next-key锁会退化成<strong>间隙锁</strong>，其他扫描的记录，都是在这些记录的索引上加next-key锁。</li>
+<li>当条件值的记录在表中，如果是<strong>小于</strong>条件的范围查询，扫描到<strong>终止范围查询的记录</strong>时，该记录的索引的 next-key 锁会退化成间隙锁，其他扫描到的记录，都是在这些记录的索引上加 next-key 锁；如果<strong>小于等于</strong>条件的范围查询，扫描到<strong>终止范围查询的记录</strong>时，该记录的索引 next-key 锁不会退化成间隙锁。其他扫描到的记录，都是在这些记录的索引上加 next-key 锁。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>因为存在两个索引，一个是主键索引，一个是非唯一索引(二级索引)，所以在加锁的时候，同时会对这两个索引都加锁，但是对主键索引加锁的时候，只有满足查询条件的记录才会对它们的主键索引加锁。</p>
+<ul>
+<li>非唯一索引等值查询
+<ul>
+<li>当查询的记录存在时，由于不是唯一索引，所以肯定存在索引值相同的记录，于是非唯一索引等值查询的过程是一个扫描的过程，直到扫描到第一个不符合条件的二级索引记录就停止扫描，然后在扫描的过程中，对扫描的二级索引记录加的是next-key锁，而对于<strong>第一个不符合条件的二级索引记录</strong>，该二级索引的<strong>next-key锁</strong>会退化成<strong>间隙锁</strong>，同时，在符合查询条件的记录的主键索引上加<strong>记录锁</strong>。</li>
+<li>当查询的记录不存在时，扫描到<strong>第一条不符合条件的二级索引记录</strong>，该二级索引的<strong>next-key锁</strong>会退化成<strong>间隙锁</strong>。因为不存在满足查询条件的记录，所以<strong>不会</strong>对<strong>主键索引加锁</strong>。</li>
+</ul>
+</li>
+<li>非唯一索引范围查询
+<ul>
+<li>该查询进行时，索引的next-key lock <strong>不会有退化</strong>为间隙锁和记录锁的情况。</li>
+</ul>
+</li>
+<li>没有加索引的查询
+<ul>
+<li>如果锁定读查询语句，没有使用<strong>索引</strong>列作为查询条件，或者查询语句没有走<strong>索引查询</strong>，导致扫描是全表扫描。那么，每一条记录的索引上都会加<strong>next-key锁</strong>，这样就相当于锁住的全表，这时如果其他事务对该表进行增、删、改操作的时候，都会被阻塞。</li>
+<li>在线上在执行 update、delete、select &hellip; for update 等具有加锁性质的语句，一定要检查语句是否走了索引，如果是全表扫描的话，会对每一个索引加 next-key 锁，相当于把整个表锁住了</li>
+</ul>
+</li>
+</ul>
+<h3 id="update没加索引会锁全表">update没加索引会锁全表？
+</h3><p>为啥会发生这种事故？</p>
+<ul>
+<li>可能是在update语句的where条件没有使用索引，就会全表扫描，于是就会对所有记录加上next-key锁，相当于加的是表锁。(相当于把整个表锁住了)</li>
+<li>上面的情况为啥是可能，因为决定全表扫描的是MySql中的优化器决定的。</li>
+</ul>
+<p>如何避免这种事故？</p>
+<p>主观做法</p>
+<ul>
+<li>一定要为需要经常更新的字段加上索引，且执行update语句必须加上where条件。
+客观做法</li>
+<li>我们可以将 MySQL 里的 sql_safe_updates 参数设置为 1，开启安全更新模式。</li>
+<li>MySQL 里的 sql_safe_updates的原理和作用</li>
+</ul>
+<ol>
+<li><strong>防止意外的大规模数据修改</strong>
+<ul>
+<li><strong>原理</strong>：在<code>sql_safe_updates</code>设置为非0值（通常为1）时，MySQL对于<code>UPDATE</code>和<code>DELETE</code>操作有更严格的限制。这是为了避免因错误的<code>WHERE</code>条件或者缺少合适的限制条件而导致大量数据被意外修改或删除。</li>
+<li><strong>示例</strong>：假设你有一个包含100万条客户记录的<code>customers</code>表。如果<code>sql_safe_updates</code>为0，执行<code>UPDATE customers SET status = 'inactive'</code>这样没有<code>WHERE</code>条件的语句，会将表中所有客户的状态都更新为<code>inactive</code>。但如果<code>sql_safe_updates</code>为1，这个操作就会被阻止，因为它既没有使用键（例如<code>customer_id</code>）来限制更新范围，也没有<code>LIMIT</code>子句。</li>
+</ul>
+</li>
+<li><strong>提高数据安全性和稳定性</strong>
+<ul>
+<li><strong>对于开发环境</strong>：在开发过程中，开发人员可能会频繁地编写和测试<code>UPDATE</code>和<code>DELETE</code>语句。开启<code>sql_safe_updates</code>可以作为一种安全机制，减少因代码错误而对数据造成不可逆损坏的风险。例如，新手开发人员可能在测试<code>UPDATE</code>语句时，忘记添加<code>WHERE</code>条件，有了这个设置可以避免这种错误操作。</li>
+<li><strong>对于生产环境</strong>：虽然在生产环境中通常会有更严格的代码审查和测试流程，但意外情况仍可能发生。开启<code>sql_safe_updates</code>可以作为额外的一层保护，防止恶意或误操作对重要数据的破坏。比如，防止有人在数据库管理工具中不小心执行了无限制的<code>DELETE</code>语句。</li>
+</ul>
+</li>
+<li><strong>强制使用合适的更新和删除策略</strong>
+<ul>
+<li><strong>促进正确的SQL编写习惯</strong>：要求<code>UPDATE</code>语句在<code>WHERE</code>子句中使用键或者有<code>LIMIT</code>子句，以及<code>DELETE</code>语句同时具备这两个条件，有助于开发人员养成更谨慎、更精确的SQL编写习惯。例如，开发人员会更加注意在<code>UPDATE</code>语句中使用索引列作为<code>WHERE</code>条件，这样不仅能避免大规模的数据修改，还能提高查询性能。</li>
+<li><strong>与索引使用的关联</strong>：通过强制使用键（索引），间接鼓励开发人员合理利用索引来优化<code>UPDATE</code>和<code>DELETE</code>操作。这与数据库的性能优化是紧密相关的，因为正确使用索引可以减少锁的范围，提高数据库的并发处理能力。</li>
+</ul>
+</li>
+</ol>
+<h3 id="mysql记录锁间隙锁可以防止删除操作而导致的吗">MySQL记录锁+间隙锁可以防止删除操作而导致的吗?
+</h3><ul>
+<li>可以的，对于MySql的可重复读隔离级别下，针对当前读的语句不会出现幻读的现象，因为MVCC机制，对于在快照读的情况下，next-key锁可以避免幻读的现象，因为锁不让进行插入，删除，更新等操作(该锁是X型独占锁)</li>
+</ul>
+<h3 id="mysql死锁了咋办">MySQL死锁了，咋办？
+</h3><ul>
+<li>啥是死锁？
+<ul>
+<li>根据<strong>操作系统</strong>的官方定义来讲的话，就是多个进程互相拥有对方的所需的资源，但是都不放弃自己的资源，从而形成循环等待链，形成僵局。</li>
+<li>从数据库的角度来看的话就是一个业务或多个业务在进行<strong>幂等性校验</strong>时，进行快照读，然后互相占有锁，这样就造成了死锁。</li>
+</ul>
+</li>
+<li>如何避免死锁？
+<ul>
+<li>死锁的四个必要条件:<strong>互斥</strong>，<strong>占有且等待</strong>，<strong>不可强占用</strong>，<strong>循环等待</strong>。对于这四个条件只要破坏其中任意一个条件就行。</li>
+</ul>
+</li>
+<li><strong>设置事务等待锁的超时时间</strong>，这个是破坏了占有且等待的条件。</li>
+<li><strong>开启主动死锁检测</strong>，破坏了<strong>循环等待</strong>的条件。</li>
+</ul>
+
 </section>
 
 
@@ -361,6 +572,63 @@
             
                 
 <article class="has-image">
+    <a href="/p/mysql%E4%BC%98%E5%8C%96/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/nv4.png" loading="lazy" data-key="" data-hash="/nv4.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MySql优化</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/mysql%E5%86%85%E5%AD%98/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/ok.png" loading="lazy" data-key="" data-hash="/ok.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MySql内存</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/mysql%E6%97%A5%E5%BF%97/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/gg.png" loading="lazy" data-key="" data-hash="/gg.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MySql日志</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/p/mysql%E4%BA%8B%E5%8A%A1/">
         
         
@@ -392,63 +660,6 @@
 
         <div class="article-details">
             <h2 class="article-title">MySql索引</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/mysql%E5%9F%BA%E7%A1%80/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/kj4.png" loading="lazy" data-key="" data-hash="/kj4.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">MySql基础</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/mysql%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/jk1.png" loading="lazy" data-key="" data-hash="/jk1.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">MySql的基本用法</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/lru%E7%AE%97%E6%B3%95%E7%9A%84%E5%8A%9B%E6%89%A3%E5%AE%9E%E7%8E%B0/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/nh.png" loading="lazy" data-key="" data-hash="/nh.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">LRU算法的力扣实现</h2>
         </div>
     </a>
 </article>
@@ -514,7 +725,9 @@ window.addEventListener('onColorSchemeChange', (e) => {
     <section class="copyright">
         &copy; 
         
-        2024 JZH-letere
+            2024 - 
+        
+        2025 JZH-letere
     </section>
     
     <section class="powerby">

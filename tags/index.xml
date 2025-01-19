@@ -7,7 +7,31 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>JZH-letere</copyright>
-        <lastBuildDate>Tue, 17 Dec 2024 19:25:15 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 05 Jan 2025 15:44:26 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Linux</title>
+        <link>https://getshhi.github.io/tags/linux/</link>
+        <pubDate>Sun, 05 Jan 2025 15:44:26 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/tags/linux/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Redis</title>
+        <link>https://getshhi.github.io/tags/redis/</link>
+        <pubDate>Mon, 23 Dec 2024 22:31:04 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/tags/redis/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>MySql</title>
+        <link>https://getshhi.github.io/tags/mysql/</link>
+        <pubDate>Sun, 22 Dec 2024 18:26:46 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/tags/mysql/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>面试</title>
         <link>https://getshhi.github.io/tags/%E9%9D%A2%E8%AF%95/</link>
         <pubDate>Tue, 17 Dec 2024 19:25:15 +0800</pubDate>
@@ -21,14 +45,6 @@
         <pubDate>Mon, 16 Dec 2024 18:18:50 +0800</pubDate>
         
         <guid>https://getshhi.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>MySql</title>
-        <link>https://getshhi.github.io/tags/mysql/</link>
-        <pubDate>Sun, 15 Dec 2024 16:07:41 +0800</pubDate>
-        
-        <guid>https://getshhi.github.io/tags/mysql/</guid>
         <description></description>
         </item>
         <item>

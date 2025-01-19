@@ -1,0 +1,1758 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Linux on JZH-letere</title>
+        <link>https://getshhi.github.io/tags/linux/</link>
+        <description>Recent content in Linux on JZH-letere</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>JZH-letere</copyright>
+        <lastBuildDate>Sun, 05 Jan 2025 15:44:26 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Linux的目录复制/重命名</title>
+        <link>https://getshhi.github.io/p/linux%E7%9A%84%E7%9B%AE%E5%BD%95%E5%A4%8D%E5%88%B6/%E9%87%8D%E5%91%BD%E5%90%8D/</link>
+        <pubDate>Sun, 05 Jan 2025 15:44:26 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E7%9A%84%E7%9B%AE%E5%BD%95%E5%A4%8D%E5%88%B6/%E9%87%8D%E5%91%BD%E5%90%8D/</guid>
+        <description>&lt;img src="https://getshhi.github.io/op6.png" alt="Featured image of post Linux的目录复制/重命名" /&gt;&lt;h3 id=&#34;linux-拷贝目录&#34;&gt;Linux 拷贝目录
+&lt;/h3&gt;&lt;p&gt;Linux中使用cp -r命令将一个或多个源目录复制到指定的目录下。它可以将单个源目录复制成一个指定目录名的具体的目录或一个已经存在的目录下。&lt;/p&gt;
+&lt;p&gt;具体命令如下：cp 参数 源目录 目的目录&lt;/p&gt;
+&lt;p&gt;常用参数如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;-r 是递归把源目录下的目录递归进行移动；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;-f：强行复制文件或目录，不论目标文件或目录是否已存在；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;-i：覆盖既有文件之前先询问用户；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;-p：保留源文件或目录的属性。
+具体说明：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;cp命令支持同时复制多个目录，当一次复制多个目录时，目的目录参数必须是一个已经存在的目录，否则将出现错误；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;cp命令支持同时复制多个目录，当一次复制多个目录时，多个目录名用空格分隔；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;cp命令拷贝目录和拷贝文件大致用法相似，最大差别就是拷贝目录的时候必须加上-r参数，而拷贝文件的时候不需要加-r参数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;应用示例一:&lt;/p&gt;
+&lt;p&gt;将当前目录下的一个目录拷贝到指定的目录下，被拷贝目录名为：Dir1，指定目录名为：Dir2，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;cp -r Dir1 Dir2&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/aU02NkUzbXYxSEdNV2FpQkt3UHFYQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看目录是否拷贝成功。&lt;/p&gt;
+&lt;p&gt;应用示例二:&lt;/p&gt;
+&lt;p&gt;将当前目录下的一个目录拷贝到一个指定的目录下并重命名为Dir1Cpy，被拷贝目录名为：Dir1，指定目录名为：Dir2，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;cp -r Dir1 Dir2/Dir1Cpy&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/Y3QwYm5RVmJsNFVDTjJXMTBnUC8xdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看目录是否拷贝成功。&lt;/p&gt;
+&lt;p&gt;应用示例三:&lt;/p&gt;
+&lt;p&gt;将当前目录下的两个目录拷贝到一个指定的目录下，被拷贝目录名为：Dir1和Dir2，指定目录名为：Dir3，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;cp -r Dir1 Dir2 Dir3&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/dkh6SmtkTmFJVlRvU1h5RVozeHZlQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看目录是否拷贝成功。&lt;/p&gt;
+&lt;h3 id=&#34;linux-重命名目录&#34;&gt;Linux 重命名目录
+&lt;/h3&gt;&lt;p&gt;Linux中使用mv命令来重命名一个目录名。&lt;/p&gt;
+&lt;p&gt;mv命令还可以用来移动目录，类似于Windows上的剪切功能。&lt;/p&gt;
+&lt;p&gt;具体命令如下：mv 参数 源目录 目的目录&lt;/p&gt;
+&lt;p&gt;常用参数如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;-f：若目标目录与现有的目录重复，则直接合并现有的目录；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;-i：交互式操作，覆盖前先行询问用户，如果源目录与目标目录同名，则询问用户是否合并目标目录。用户输入”y”，表示将合并目标目录；输入”n”，表示取消对源目录的移动。这样可以避免误将目录覆盖。
+具体说明：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果一次想移动多个目录，则每个目录名用空格隔开。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mv命令可以使用通配符来移动目录。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mv命令移动目录和移动文件的使用大致一样，唯一不同的是如果出现源目录和目标目录重名，则采用合并的方式，而对于文件则是直接覆盖。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;应用示例一:&lt;/p&gt;
+&lt;p&gt;将当前目录下的目录newDir重命名为newDirCpy，则可以使用如下命令:&lt;/p&gt;
+&lt;p&gt;mv newDir newDirCpy&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/Y2xPUEI2N2Y2Y21WSWhoai91OHFLZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看目录是否重命名成功。&lt;/p&gt;
+&lt;p&gt;应用示例二:&lt;/p&gt;
+&lt;p&gt;将当前目录下的目录newDirCpy移动到一个指定的目录下，指定目录名为：Dir，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;mv newDirCpy Dir&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/SFB3M3BEQmlaalBJS09iSXJDTHl6dz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看目录是否移动成功。&lt;/p&gt;
+&lt;p&gt;应用示例三:&lt;/p&gt;
+&lt;p&gt;将当前目录下的目录newDirCpy移动到一个指定的目录下并重命名为newDir，指定目录名为：Dir，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;mv newDirCpy Dir/newDir&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/bjlvNnMyeFpFY2g5b1gwRm1ZL0dyZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看目录是否移动和重命名成功。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux的复制文件复制/重命名</title>
+        <link>https://getshhi.github.io/p/linux%E7%9A%84%E5%A4%8D%E5%88%B6%E6%96%87%E4%BB%B6%E5%A4%8D%E5%88%B6/%E9%87%8D%E5%91%BD%E5%90%8D/</link>
+        <pubDate>Sat, 04 Jan 2025 15:44:08 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E7%9A%84%E5%A4%8D%E5%88%B6%E6%96%87%E4%BB%B6%E5%A4%8D%E5%88%B6/%E9%87%8D%E5%91%BD%E5%90%8D/</guid>
+        <description>&lt;img src="https://getshhi.github.io/op5.png" alt="Featured image of post Linux的复制文件复制/重命名" /&gt;&lt;h3 id=&#34;linux-拷贝文件&#34;&gt;Linux 拷贝文件
+&lt;/h3&gt;&lt;p&gt;Linux中使用cp命令将一个或多个源文件复制到指定的目的目录下。它可以将单个源文件复制成一个指定文件名的具体的文件或一个已经存在的目录下。&lt;/p&gt;
+&lt;p&gt;具体命令如下：cp 参数 源文件 目的目录&lt;/p&gt;
+&lt;p&gt;常用参数如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;-f：强行复制文件或目录，不论目标文件或目录是否已存在；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;-i：覆盖既有文件之前先询问用户；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;-p：保留源文件或目录的属性。
+具体说明：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;cp命令支持同时复制多个文件，当一次复制多个文件时，目的目录参数必须是一个已经存在的目录，否则将出现错误；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;cp命令支持同时复制多个文件，当一次复制多个文件时，多个文件用空格分隔。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;应用示例一：&lt;/p&gt;
+&lt;p&gt;将当前目录下的一个文件拷贝到一个指定的目录下，文件名为：newFile，目录名为：newDir，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;cp newFile newDir&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/bEdpZW1GZlRwUnEwclMrZTBwamMrQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看文件是否拷贝成功。&lt;/p&gt;
+&lt;p&gt;应用示例二:&lt;/p&gt;
+&lt;p&gt;将当前目录下的一个文件拷贝到一个指定的目录下并重命名为newFileCpy，文件名为：newFile，目录名为：newDir，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;cp newFile newDir/newFileCpy&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/MVQzbWI1bzNTZFJaQnN4T2cvTFR2UT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看文件是否拷贝成功。&lt;/p&gt;
+&lt;p&gt;应用示例三:&lt;/p&gt;
+&lt;p&gt;将当前目录下的两个文件拷贝到一个指定的目录下，文件名为：newFile1和newFile2，目录名为：newDir1，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;cp newFile1 newFile2 newDir1&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/YXBxTjdpL241ZEVNRjdmNnFxYmdrUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看文件是否拷贝成功。&lt;/p&gt;
+&lt;h3 id=&#34;linux-重命名文件&#34;&gt;Linux 重命名文件
+&lt;/h3&gt;&lt;p&gt;Linux中使用mv命令来重命名一个文件名。&lt;/p&gt;
+&lt;p&gt;mv命令还可以用来移动文件，类似于Windows上的剪切功能。&lt;/p&gt;
+&lt;p&gt;具体命令如下：mv 参数 目录名&lt;/p&gt;
+&lt;p&gt;常用参数如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-f：若目标文件与现有的文件重复，则直接覆盖现有的文件；&lt;/li&gt;
+&lt;li&gt;-i：交互式操作，覆盖前先行询问用户，如果源文件与目标文件或目标目录中的文件同名，则询问用户是否覆盖目标文件。用户输入”y”，表示将覆盖目标文件；输入”n”，表示取消对源文件的移动。这样可以避免误将文件覆盖。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;具体说明：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;如果一次想移动多个文件，则每个文件名用空格隔开；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mv命令可以使用通配符来移动目录。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;应用示例一:&lt;/p&gt;
+&lt;p&gt;将当前目录下的文件newFile重命名为newFileRename，则可以使用如下命令:&lt;/p&gt;
+&lt;p&gt;mv newFile newFileRename&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/OXl1N0JYSUVrd2w1ZWhPSGhqQkFIZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看文件是否重命名成功。&lt;/p&gt;
+&lt;p&gt;应用示例二:&lt;/p&gt;
+&lt;p&gt;将当前目录下的文件newFileRename移动到一个指定的目录下，目录名为：Dir，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;mv newFileRename Dir&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/Mm9GeWtEL1ZLVTFaMU5KVVdVbDdVdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看文件是否移动成功。&lt;/p&gt;
+&lt;p&gt;应用示例三:&lt;/p&gt;
+&lt;p&gt;将当前目录下的文件newFileRename移动到一个指定的目录下并重命名为newFile，目录名为：Dir，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;mv newFileRename Dir/newFile&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/UUJuYndmaVlJckU2T3FSOUoxQTJpdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看文件是否移动和重命名成功。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux的目录创建/删除</title>
+        <link>https://getshhi.github.io/p/linux%E7%9A%84%E7%9B%AE%E5%BD%95%E5%88%9B%E5%BB%BA/%E5%88%A0%E9%99%A4/</link>
+        <pubDate>Fri, 03 Jan 2025 15:44:00 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E7%9A%84%E7%9B%AE%E5%BD%95%E5%88%9B%E5%BB%BA/%E5%88%A0%E9%99%A4/</guid>
+        <description>&lt;img src="https://getshhi.github.io/op4.png" alt="Featured image of post Linux的目录创建/删除" /&gt;&lt;h3 id=&#34;linux-创建目录&#34;&gt;Linux 创建目录
+&lt;/h3&gt;&lt;p&gt;Linux中使用mkdir命令来创建一个空目录。&lt;/p&gt;
+&lt;p&gt;具体命令如下：mkdir 参数 目录名&lt;/p&gt;
+&lt;p&gt;常用参数如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;-p或&amp;ndash;parents：若所要建立目录的上层目录目前尚未建立，则会一并建立上层目录。
+具体说明：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果一次想创建多个目录，则每个目录名用空格隔开；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mkdir命令创建一个指定的目录，并将当前登录用户作为目录所有者；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mkdir命令创建一个空目录后，该目录下只存在两个特殊的目录，分别是.和..。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;应用示例一:&lt;/p&gt;
+&lt;p&gt;在Linux系统命令行下创建一个新的目录，目录名为：newDir，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;mkdir newDir&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/MllvdmhzbVgwUHU1M1g1YXd2NW1GQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看目录是否创建成功。&lt;/p&gt;
+&lt;p&gt;应用示例二:&lt;/p&gt;
+&lt;p&gt;在Linux系统命令行下一次创建2个目录，目录名分别为：newDir1和newDir2，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;mkdir newDir1 newDir2&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/dHRrN1hjc3VPanlEejlxZlBQZ25Qdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看目录是否创建成功。&lt;/p&gt;
+&lt;p&gt;应用示例三:&lt;/p&gt;
+&lt;p&gt;在Linux系统命令行下创建一个目录如果上层目录目前尚未建立则一并将其创建，目录名分别为：Dir1/Dir2，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;mkdir -p Dir1/Dir2&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/cUpJK2ZSSUIvZ2JaVFlZUVpkSXdDUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;首先查看Dir1目录是否存在，如果不存在直接创建Dir1/Dir2，使用ls命令查看目录是否创建成功。&lt;/p&gt;
+&lt;h3 id=&#34;linux-删除目录&#34;&gt;Linux 删除目录
+&lt;/h3&gt;&lt;p&gt;Linux中使用rmdir命令来删除一个已经存在的空目录。&lt;/p&gt;
+&lt;p&gt;具体命令如下：rmdir 参数 目录名&lt;/p&gt;
+&lt;p&gt;常用参数如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-p或&amp;ndash;parents：删除指定目录后，若该目录的上层目录已变成空目录，则将其一并删除。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;具体说明：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;如果一次想删除多个空目录，则每个目录名用空格隔开；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;rmdir命令可以使用通配符来删除目录。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果想删除的目录不为空，则先使用rm命令将目录下的所有文件都清空，然后再使用rmdir将目录删除，或者直接使用rm -r命令直接递归的删除整个目录。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;应用示例一:&lt;/p&gt;
+&lt;p&gt;在Linux系统命令行下删除一个空目录，目录名为：newDir，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;rmdir newDir&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/ZWVLVlEramx4ZVkyZkMvdkI0MnNSdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看目录是否删除成功。&lt;/p&gt;
+&lt;p&gt;应用示例二:&lt;/p&gt;
+&lt;p&gt;在Linux系统命令行下一次删除2个空目录，目录名分别为：newDir1和newDir2，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;rmdir newDir1 newDir2&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/Z0dWT1Flbks3dEM0elF2TEExcVNDZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看目录是否删除成功。&lt;/p&gt;
+&lt;p&gt;应用示例三:&lt;/p&gt;
+&lt;p&gt;在Linux系统命令行下删除一个目录如果上层目录为空则一并将其删除，目录名分别为：Dir1/Dir2，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;rmdir -p Dir1/Dir2&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/NGxvU2lLT2JCS2YzYlMrRXlrRDNrdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看目录是否删除成4。&lt;/p&gt;
+&lt;p&gt;应用示例四:&lt;/p&gt;
+&lt;p&gt;在Linux系统命令行下删除一个不为空的目录，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;rm -r Dir&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/OVRVcW9QNFJMdmE2Z0w5UEtWMWJXdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看目录是否删除成功。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux的文件创建/删除</title>
+        <link>https://getshhi.github.io/p/linux%E7%9A%84%E6%96%87%E4%BB%B6%E5%88%9B%E5%BB%BA/%E5%88%A0%E9%99%A4/</link>
+        <pubDate>Thu, 02 Jan 2025 13:54:37 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E7%9A%84%E6%96%87%E4%BB%B6%E5%88%9B%E5%BB%BA/%E5%88%A0%E9%99%A4/</guid>
+        <description>&lt;img src="https://getshhi.github.io/op3.png" alt="Featured image of post Linux的文件创建/删除" /&gt;&lt;h3 id=&#34;linux-创建文件&#34;&gt;Linux 创建文件
+&lt;/h3&gt;&lt;p&gt;Linux中使用touch命令来创建一个空文件。&lt;/p&gt;
+&lt;p&gt;具体命令如下：touch 文件名&lt;/p&gt;
+&lt;p&gt;具体说明：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;如果一次想创建多个文件，则每个文件名用空格隔开；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;touch命令创建一个指定的新文件，并将当前登录用户作为文件所有者；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;由于touch命令创建的文件为空，所以文件的大小为0；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;touch命令还可以用于更改文件的访问时间和修改时间，而不改变文件的内容。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;应用示例一：&lt;/p&gt;
+&lt;p&gt;在Linux系统命令行下创建一个新的文件，文件名为：newFile，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;touch newFile&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/QjdDcEVYM1RkUFoxR0djcDhLeTlLdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看文件是否创建成功。&lt;/p&gt;
+&lt;p&gt;应用示例二：&lt;/p&gt;
+&lt;p&gt;在Linux系统命令行下一次创建2个文件，文件名分别为：newFile1和newFile2，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;touch newFile1 newFile2&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/dkpIYmRMWDJHVHE4bWZyb0hPUFlnQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看文件是否创建成功。&lt;/p&gt;
+&lt;h3 id=&#34;linux-删除文件&#34;&gt;Linux 删除文件
+&lt;/h3&gt;&lt;p&gt;Linux中使用rm命令来删除一个已经存在的文件。&lt;/p&gt;
+&lt;p&gt;具体命令如下：rm 参数 文件名&lt;/p&gt;
+&lt;p&gt;常用参数如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;-f：强制删除文件或目录；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;-i：删除已有文件或目录之前先询问用户；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;-r或-R：递归处理，将指定目录下的所有文件与子目录一并处理。
+具体说明：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果一次想删除多个文件，则每个文件名用空格隔开；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;rm命令可以使用通配符来删除文件。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;应用示例一：&lt;/p&gt;
+&lt;p&gt;在Linux系统命令行下删除一个文件，文件名为：newFile，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;rm newFile&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/ZWhkYzVPemVvN2dHd0M3VGdTWHV3QT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看文件是否删除成功。&lt;/p&gt;
+&lt;p&gt;应用示例2：&lt;/p&gt;
+&lt;p&gt;在Linux系统命令行下一次删除2个文件，文件名分别为：newFile1和newFile2，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;rm newFile1 newFile2
+&lt;img src=&#34;https://data.educoder.net/api/attachments/SkROdnIyQnJxV0lpbCtkVmE2VktEdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用ls命令来查看文件是否删除成功。&lt;/p&gt;
+&lt;p&gt;应用示例三：&lt;/p&gt;
+&lt;p&gt;在Linux系统命令行下删除一个文件同时删除前询问用户，文件名分别为：newFile，则可以使用如下命令：&lt;/p&gt;
+&lt;p&gt;rm -i newFile&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/YVB0VFNEN09WQUprWVBMTkNpQWRpQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linuxmkfs的使用</title>
+        <link>https://getshhi.github.io/p/linuxmkfs%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+        <pubDate>Wed, 01 Jan 2025 11:15:07 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linuxmkfs%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+        <description>&lt;img src="https://getshhi.github.io/op2.png" alt="Featured image of post Linuxmkfs的使用" /&gt;&lt;h3 id=&#34;mkfs的作用&#34;&gt;mkfs的作用
+&lt;/h3&gt;&lt;p&gt; mkfs 命令用于在特定的分区上建立 linux 文件系统&lt;/p&gt;
+&lt;p&gt; mkfs 本身并不执行建立文件系统的工作,而是去调用相关的程序来执行。&lt;/p&gt;
+&lt;p&gt; mkfs 命令通常用于在设备硬件分区上创建 linux 文件系统。&lt;/p&gt;
+&lt;p&gt; mkfs 命令支持建立多种 Linux 文件系统，如 ext 系列，xfs 等等。实际上 mkfs 是支持多种文件系统构建命令 mkfs. TYPE 的前部分，mkfs 命令通常执行的时候也是调用mkfs. TYPE 来执行，如 mkfs.ext2， mkfs.ext3， mkfs.ext4，mkfs.vfs，mkfs.vfat 等等。&lt;/p&gt;
+&lt;h3 id=&#34;mkfs的使用&#34;&gt;mkfs的使用
+&lt;/h3&gt;&lt;p&gt;使用格式：&lt;/p&gt;
+&lt;p&gt;mkfs [-V] [-t fstype] [fs-options] filesys [blocks]&lt;/p&gt;
+&lt;p&gt;参数 ：&lt;/p&gt;
+&lt;p&gt;device ： 预备检查的硬盘分区，例如：/dev/sda1&lt;/p&gt;
+&lt;p&gt;-V : 详细显示模式&lt;/p&gt;
+&lt;p&gt;-t : 给定档案系统的型式，Linux 的预设值为 ext2&lt;/p&gt;
+&lt;p&gt;-c : 在制做档案系统前，检查该 partition 是否有坏轨&lt;/p&gt;
+&lt;p&gt;-l bad_blocks_file : 将有坏轨的 block 资料加到 bad_blocks_file 里面&lt;/p&gt;
+&lt;p&gt;例如将新创建的分区格式化为 exit4 格式：
+&lt;img src=&#34;https://data.educoder.net/api/attachments/R2Juc05UYk9DMkpaRjlROGdKYi83UT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;
+&lt;strong&gt;只有将创建的分区格式化之后才能够使用，否则创建的分区是不能使用的，经过格式化之后的分区虽然可以使用了，但是这个分区格式化后需要挂载到一个文件内才可以使用&lt;/strong&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linuxfdisk的使用</title>
+        <link>https://getshhi.github.io/p/linuxfdisk%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+        <pubDate>Tue, 31 Dec 2024 11:15:00 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linuxfdisk%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nq3.png" alt="Featured image of post Linuxfdisk的使用" /&gt;&lt;h3 id=&#34;fdisk基本介绍&#34;&gt;fdisk基本介绍
+&lt;/h3&gt;&lt;p&gt; fdisk 是 Linux 中常用的硬盘管理工具，是一个创建和维护分区表的程序，它兼容 DOS 类型的分区表、BSD 或者 SUN 类型的磁盘列表。&lt;/p&gt;
+&lt;p&gt; fdisk 是常用的 Linux 系统分区工具，使用 fdisk 可以对硬盘分区进行各种操作。&lt;/p&gt;
+&lt;h3 id=&#34;fdisk具体使用&#34;&gt;fdisk具体使用
+&lt;/h3&gt;&lt;p&gt;语法：fdisk (选项) (参数)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;选项：
+-b：&amp;lt;分区大小&amp;gt;：指定每个分区的大小；
+-l：列出指定的外围设备的分区表状况；
+-s：&amp;lt;分区编号&amp;gt;：将指定的分区大小输出到标准输出上，单位为区块；
+-u：搭配&amp;quot;-l&amp;quot;参数列表，会用分区数目取代柱面数目，来表示每个分区的起始地址；
+-v：显示版本信息。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;例如：对新增加的硬盘进行分区&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/dWdja0tNUnJqaFlHc3NqWDNNSnNzQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;通过上面的图片可以看到目前 sdb 并没有进行分区，也没有被使用过，而硬盘 sda 已经被使用，我们将通过使用 fdisk 命令学会对硬盘进行管理，在 Linux 系统中 dev 是设备 (device) 的英文缩写，而 Linux 系统之中将设备认成一个文件，所以可以在目录 dev 中看到 sda 以及 sdb ，在Linux系统中 /dev/sda 指的是第一块硬盘， /dev/sdb 指的是第二快硬盘，以此类推。&lt;/p&gt;
+&lt;p&gt;可以直接使用 fdisk /dev/sdb 对硬盘 sdb 进行操作。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/WWFJWlJyVlNhSkhET1JXOVIrUURGZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;输入 m 列出可以执行的命令：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/ajI2VzYwREJOeWtIUzJZeUxoVCthZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;输入 n 可以建立新的磁盘分区：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/Y2tLeWNFd20xM0JOd2I1T1ArZTBiZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;选择 p 建立主分区，主分区最多可以建四个。&lt;/p&gt;
+&lt;p&gt;Partition number 选择分区号，可以不输入直接使用默认的分区号，&lt;/p&gt;
+&lt;p&gt;First sector 指的是选择分区的起始位置，可以直接回车选择默认的分区号，&lt;/p&gt;
+&lt;p&gt;Last sector 指的是选择结尾的扇区，也可以直接输想创建的分区的大小加单位。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/UXBvM0FlUWp5ZmRUTDhXNXVMS2NXQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;创建完成之后要输入 w 保存，否则系统不会对硬盘进行操作，保存之后会自动退出程序。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/RCthS0pVZExsUldGMXBQd1gyaVdCdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;保存之后可以继续使用 fdisk 命令查看分区情况：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/aUJyRFFiNGhRcXYxR1k3Vmkvd2NuQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;在创建完分区之后是不能直接使用的，必须经过格式化之后才能够使用。&lt;/strong&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux常见的存储架构</title>
+        <link>https://getshhi.github.io/p/linux%E5%B8%B8%E8%A7%81%E7%9A%84%E5%AD%98%E5%82%A8%E6%9E%B6%E6%9E%84/</link>
+        <pubDate>Mon, 30 Dec 2024 11:12:49 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E5%B8%B8%E8%A7%81%E7%9A%84%E5%AD%98%E5%82%A8%E6%9E%B6%E6%9E%84/</guid>
+        <description>&lt;img src="https://getshhi.github.io/op1.png" alt="Featured image of post Linux常见的存储架构" /&gt;&lt;h3 id=&#34;直接附加的存储das&#34;&gt;直接附加的存储DAS
+&lt;/h3&gt;&lt;p&gt; Linux 支持种类繁多的 DAS 界面，包括像并行高级技术附件的旧标准 — 电子集成驱动器 IDE/ATA — 并行 SCSI 和光纤通道以及新的存储界面，例如串行连接的 SCSI、串行 ATA 和外部 SATA 。您还将发现高级存储技术，例如 USB3（可扩展的主机控制器界面）和 Firewire 。&lt;/p&gt;
+&lt;h3 id=&#34;存储区域网络san&#34;&gt;存储区域网络SAN
+&lt;/h3&gt;&lt;p&gt; SAN 提供块级存储合并，以便在一些服务器中共享它。存储对服务器显示为是本地的，其中端点存储设备可以为客户端设备实现附加服务（例如备份和复制）。&lt;/p&gt;
+&lt;p&gt; SAN 的协议和界面是广泛和多样的。可以在 Linux 中发现典型的 SAN 协议，例如光纤通道以及其通过 IP 的扩展 (iFCP)。还存在更新的协议，例如 SAS、以太网光纤通道以及 iSCSI 。&lt;/p&gt;
+&lt;p&gt; 作为存储协议出现的以太网已经在 Linux 中完全实现，其说明了这些方法的力量和灵活性。
+ Linux 完全支持 10 千兆位以太网，并允许构造高性能 SAN 。&lt;/p&gt;
+&lt;h3 id=&#34;网络附加存储nas&#34;&gt;网络附加存储NAS
+&lt;/h3&gt;&lt;p&gt; NAS 是通过网络的存储合并，以便不同类型客户端在文件级别进行访问。Linux 中完全支持的两种最流行协议是网络文件系统 NFS 和服务器消息块/通用互联网文件系统 SMB/CIFS 。&lt;/p&gt;
+&lt;p&gt; 虽然原始的 SMB 实现是专有的，但是它被逆向设计以便在 Linux 中受到支持。后来的 SMB 修订版被公开记录以便允许在 Linux 中进行更简单的开发。&lt;/p&gt;
+&lt;p&gt; Linux 继续发展针对 NFS 的各种增强和扩展。NFS 现在是一个状态协议并包括对数据和元数据分离的优化以及数据访问并行。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux用户/用户组编辑</title>
+        <link>https://getshhi.github.io/p/linux%E7%94%A8%E6%88%B7/%E7%94%A8%E6%88%B7%E7%BB%84%E7%BC%96%E8%BE%91/</link>
+        <pubDate>Sun, 29 Dec 2024 17:46:37 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E7%94%A8%E6%88%B7/%E7%94%A8%E6%88%B7%E7%BB%84%E7%BC%96%E8%BE%91/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nq4.png" alt="Featured image of post Linux用户/用户组编辑" /&gt;&lt;h2 id=&#34;linux查看用户属性命令&#34;&gt;Linux查看用户属性命令
+&lt;/h2&gt;&lt;p&gt;Linux中使用id命令可以查看用户的大多数信息。具体使用方法请参看上一关的实训。&lt;/p&gt;
+&lt;p&gt;Linux中还可以通过查看/etc/passwd文件来获取用户的信息。具体方法可以参考背景知识。&lt;/p&gt;
+&lt;p&gt;Linux中还可以使用finger命令来查询用户的信息。&lt;/p&gt;
+&lt;p&gt;注意：Ubuntu系统中默认没有安装finger命令，用户可以通过以下命令来安装finger，然后就可以使用finger。&lt;/p&gt;
+&lt;p&gt;sudo apt-get install finger&lt;/p&gt;
+&lt;p&gt;具体使用方法如下：&lt;/p&gt;
+&lt;p&gt;命令格式：finger [命令参数] 参数&lt;/p&gt;
+&lt;p&gt;常见命令参数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-l：多行显示；&lt;/li&gt;
+&lt;li&gt;-s：单行显示。这个选项只显示登入名称、真实姓名、终端机名称、闲置时间、登入时间、办公室号码及电话号码。如果所查询的使用者是远端服务器的使用者，这个选项无效。
+案例演示:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;使用finger命令查看用户信息。&lt;/p&gt;
+&lt;p&gt;例如，查看系统中已经存在的用户newUser信息。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/RjZ6NW1vd09jaE9pZWtKQVZmMnBuZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;linux用户信息修改命令&#34;&gt;Linux用户信息修改命令
+&lt;/h2&gt;&lt;p&gt;Linux 中usermod命令是最强大的用户账户修改实用工具。&lt;/p&gt;
+&lt;p&gt;usermod命令我们在上一关只是简单的用到其-g、-G参数对用户的所属组进行修改，本关我们将进一步使用usermod命令的其它属性进行修改更多的属性。&lt;/p&gt;
+&lt;p&gt;命令格式：usermod [命令参数] 参数&lt;/p&gt;
+&lt;p&gt;常见命令参数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-c&amp;lt;备注&amp;gt;：修改用户帐号的备注文字；&lt;/li&gt;
+&lt;li&gt;-d&amp;lt;登入目录&amp;gt;：修改用户登入时的目录；&lt;/li&gt;
+&lt;li&gt;-e&amp;lt;有效期限&amp;gt;：修改帐号的有效期限；&lt;/li&gt;
+&lt;li&gt;-f&amp;lt;缓冲天数&amp;gt;：修改在密码过期后多少天即关闭该帐号；&lt;/li&gt;
+&lt;li&gt;-g&amp;lt;群组&amp;gt;：修改用户所属的群组；&lt;/li&gt;
+&lt;li&gt;-G&amp;lt;群组&amp;gt;；修改用户所属的附加群组；&lt;/li&gt;
+&lt;li&gt;-l&amp;lt;帐号名称&amp;gt;：修改用户帐号名称；&lt;/li&gt;
+&lt;li&gt;-L：锁定用户密码，使密码无效；&lt;/li&gt;
+&lt;li&gt;-s：修改用户登入后所使用的shell；&lt;/li&gt;
+&lt;li&gt;-u：修改用户ID；&lt;/li&gt;
+&lt;li&gt;-U:解除密码锁定。
+usermod必须以root权限才能执行，如果是普通用户想使用该命令时，需要在命令前加sudo命令来提升权限为root权限。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;案例演示一:&lt;/p&gt;
+&lt;p&gt;使用usermod命令修改用户名。&lt;/p&gt;
+&lt;p&gt;例如，在系统中已经存在一个用户名为oldUser的用户，由于某种原因，现在必须将其修改成newUser。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/a3E2ZGY3UjRQcG5TNUN5WVFRMGRDUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;案例演示二:&lt;/p&gt;
+&lt;p&gt;使用usermod命令修改用户登录目录。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/L25RMmgwRFdKRmhNZGthM2djNVFiQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;首先使用finger命令查看用户newUser的登录目录为/home/oldUser，然后新创建一个/home/newUser，使用usermod将用户newUser的登录目录修改成/home/newUser，最后使用finger命令查看是否修改成功。&lt;/p&gt;
+&lt;h2 id=&#34;linux用户组信息修改命令&#34;&gt;Linux用户组信息修改命令
+&lt;/h2&gt;&lt;p&gt;Linux 中使用groupmod命令来修改用户组信息。&lt;/p&gt;
+&lt;p&gt;命令格式：groupmod [命令参数] 参数&lt;/p&gt;
+&lt;p&gt;常见命令参数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-g&amp;lt;群组识别码&amp;gt;：设置欲使用的群组识别码；&lt;/li&gt;
+&lt;li&gt;-n&amp;lt;新群组名称&amp;gt;：设置欲使用的群组名称。
+groupmod必须以root权限才能执行，如果是普通用户想使用该命令时，需要在命令前加sudo命令来提升权限为root权限。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;案例演示:&lt;/p&gt;
+&lt;p&gt;使用groupmod命令修改已有用户组名称。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/YzhaRWlWTDZudE5uUlVJSkNtNVY3Zz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;首先通过tail命令查看一个已有用户组信息，可以看到该用户组名为oldUser，并且组ID为1004，通过groupmod命令将其名由oldUser修改成renameOldUser，最后使用再查看是否修改成功。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux用户所属组变更</title>
+        <link>https://getshhi.github.io/p/linux%E7%94%A8%E6%88%B7%E6%89%80%E5%B1%9E%E7%BB%84%E5%8F%98%E6%9B%B4/</link>
+        <pubDate>Sat, 28 Dec 2024 17:46:29 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E7%94%A8%E6%88%B7%E6%89%80%E5%B1%9E%E7%BB%84%E5%8F%98%E6%9B%B4/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nq3.png" alt="Featured image of post Linux用户所属组变更" /&gt;&lt;h2 id=&#34;linux查看用户所属组&#34;&gt;Linux查看用户所属组
+&lt;/h2&gt;&lt;p&gt;Linux中查看一个用户所属的组两种方法。&lt;/p&gt;
+&lt;p&gt;使用id命令查看。&lt;/p&gt;
+&lt;p&gt;命令格式：id [命令参数] 参数&lt;/p&gt;
+&lt;p&gt;参数为要查询的用户名，默认是当前登录用户。&lt;/p&gt;
+&lt;p&gt;常见命令参数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-g或&amp;ndash;group：显示用户所属群组的ID；&lt;/li&gt;
+&lt;li&gt;-G或&amp;ndash;groups：显示用户所属附加群组的ID；&lt;/li&gt;
+&lt;li&gt;-n或&amp;ndash;name：显示用户，所属群组或附加群组的名称。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;id命令的执行权限是面向所有用户。&lt;/p&gt;
+&lt;p&gt;案例演示:&lt;/p&gt;
+&lt;p&gt;使用id命令查看用户fzm所属组。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/NjdXN3lKdFBqYzNpNDZwQ1hWbVVxZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用group命令查看。
+命令格式：groups 参数&lt;/p&gt;
+&lt;p&gt;参数为要查询的用户名，默认是当前登录用户。&lt;/p&gt;
+&lt;p&gt;执行权限：groups命令的执行权限是面向所有用户。&lt;/p&gt;
+&lt;p&gt;案例演示:&lt;/p&gt;
+&lt;p&gt;使用groups命令查看用户fzm所属组。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/QlJWQ1I4dFpqMFpVVGNySEF4SUdsQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;一个用户是可以属于多个组的。&lt;/p&gt;
+&lt;h2 id=&#34;linux修改用户所属组&#34;&gt;Linux修改用户所属组
+&lt;/h2&gt;&lt;p&gt;使用usermod命令修改用户组
+如果要一个用户仅仅属于某一个组，而不是同时属于多个组，则使用如下命令：&lt;/p&gt;
+&lt;p&gt;命令格式：usermod -g 组名  用户名&lt;/p&gt;
+&lt;p&gt;如果要给一个用户添加一个新的组，同时保留原来有所的组，则使用如下命令：&lt;/p&gt;
+&lt;p&gt;命令格式：usermod -a -G 组名  用户名&lt;/p&gt;
+&lt;p&gt;usermod必须以root权限才能执行，如果是普通用户想执行usermod时，需要在命令前加sudo命令来提升权限为root权限。&lt;/p&gt;
+&lt;p&gt;案例演示一:&lt;/p&gt;
+&lt;p&gt;新创建一个用户newUser和新创建一个用户组newGroup，使用usermod命令将newUser用户所属组修改为newGroup。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/Q0VvbFM5Vk9JOGVEN1k2aU9LbG4rZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;首先，创建用户newUser和组newGroup，使用groups命令查看用户newUser所属的组，因为默认情况下新创建用户的时候会默认创建一个与用户名同名的私有组，并将新创建的用户所属组设置为私有组。接下来使用usermod命令来修改用户所属组，最后查看修改是否成功。&lt;/p&gt;
+&lt;p&gt;案例演示二:&lt;/p&gt;
+&lt;p&gt;新创建一个用户newUser和新创建一个用户组newGroup，使用usermod命令为newUser用户新添加一个组newGroup。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/U01oVTRWRVdnVktIM0wwM09FanlTdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;首先，创建用户newUser和组newGroup，使用groups命令查看用户newUser所属的组。接下来使用usermod命令来为用户添加一个新的组，最后查看添加是否成功。&lt;/p&gt;
+&lt;p&gt;使用useradd命令创建用户的时候指定用户组
+在创建新用户的同时可以修改默认用户所属组，如果想在创建的时候直接将用户所属组修改成系统中已经存在的一个组，而不是使用默认私有组，则使用如下命令：&lt;/p&gt;
+&lt;p&gt;命令格式：useradd -g 组名 用户名&lt;/p&gt;
+&lt;p&gt;在创建新用户的同时可以为用户添加其它组，如果想在创建新用户的时候为用户添加一个已经存在的组，而不仅只属于默认创建的私有组，则使用如下命令：&lt;/p&gt;
+&lt;p&gt;命令格式：useradd -G 组名 用户名&lt;/p&gt;
+&lt;p&gt;useradd必须以root权限才能执行，如果是普通用户执行时，需要在命令前加sudo命令来提升权限为root权限。&lt;/p&gt;
+&lt;p&gt;案例演示一:&lt;/p&gt;
+&lt;p&gt;新创建一个用户组newGroup，并且使用useradd命令新创建用户newUser同时将其所属组修改为newGroup。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/SWpKMlhtOWJ6UzNObm1sVHY0RE1kQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;首先，创建用户组newGroup，使用useradd命令创建新用户newUser，同时将其所属组修改为newGroup，最后查看修改是否成功。&lt;/p&gt;
+&lt;p&gt;案例演示二:&lt;/p&gt;
+&lt;p&gt;新创建一个用户组newGroup，并且使用useradd命令新创建用户newUser同时为其添加一个新的用户组newGroup。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/RlUwZmRDbWVkQmJwU0psaFpreG45dz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;首先，创建用户组newGroup，使用useradd命令创建新用户newUser，同时为其添加一个新的用户组newGroup，最后查看添加是否成功。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux创建/删除用户组</title>
+        <link>https://getshhi.github.io/p/linux%E5%88%9B%E5%BB%BA/%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E7%BB%84/</link>
+        <pubDate>Fri, 27 Dec 2024 17:46:19 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E5%88%9B%E5%BB%BA/%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E7%BB%84/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nq2.png" alt="Featured image of post Linux创建/删除用户组" /&gt;&lt;h2 id=&#34;linux创建用户组命令&#34;&gt;Linux创建用户组命令
+&lt;/h2&gt;&lt;p&gt;Linux 中使用groupadd命令来创建一个新用户组。&lt;/p&gt;
+&lt;p&gt;命令格式：groupadd [命令参数] 参数&lt;/p&gt;
+&lt;p&gt;常见命令参数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-g：指定新建工作组的id；&lt;/li&gt;
+&lt;li&gt;-r：创建系统工作组，系统工作组的组ID小于500；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;groupadd必须以root权限才能执行，如果是普通用户想使用该命令，需要在命令前加sudo命令来提升权限为root权限。&lt;/p&gt;
+&lt;h4 id=&#34;案例演示一&#34;&gt;案例演示一
+&lt;/h4&gt;&lt;p&gt;使用groupadd命令新创建一个用户组testGroup&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/aFFUTEk3SEJxMG0vWm5PaGJ2b0tjUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;在背景介绍中，我们了解到，Linux中用户组信息是保存在/etc/group文件中，我们可以使用命令tail /etc/group命令查看/etc/group文件最后10行中是否存在刚刚新创建的testGroup用户信息。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/bnI2SjRuK1NrM21TUjF3TXRXalQ2UT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;案例演示二&#34;&gt;案例演示二
+&lt;/h4&gt;&lt;p&gt;使用groupadd命令新创建一个用户组testGroupID，并且指定组的ID&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/eVpDbW41aXZZWGRpcVY5TGhEMXVjQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;注意：我们可以看到有时执行sudo命令就不需要输入密码，这是因为每次都输入密码比较麻烦，所以Linux会设置一个sudo的会话时间，就是说我们在第一次执行sudo的时候是要输入密码，那么在接下来的一段时间内在执行sudo的时候就不需要输入密码，这个会话时间默认是5分钟，用户也可以通过编辑/etc/sudoers来修改这个会话时间的大小。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/c0JlK0Z6U0ZrNklFZEkvUUU2TitnQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;同样我们可以使用命令tail /etc/group命令查看/etc/group文件最后10行中是否存在刚刚新创建的testGroupID用户信息。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/c0JlK0Z6U0ZrNklFZEkvUUU2TitnQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;linux删除用户组命令&#34;&gt;Linux删除用户组命令
+&lt;/h3&gt;&lt;p&gt;Linux 中使用groupdel命令来删除一个已经存在的用户组。&lt;/p&gt;
+&lt;p&gt;命令格式：groupdel 参数&lt;/p&gt;
+&lt;p&gt;参数为要删除的用户组名&lt;/p&gt;
+&lt;p&gt;groupdel必须以root权限才能执行，如果是普通用户想使用该命令，需要在命令前加sudo命令来提升权限为root权限。&lt;/p&gt;
+&lt;h4 id=&#34;案例演示一-1&#34;&gt;案例演示一
+&lt;/h4&gt;&lt;p&gt;使用groupdel命令删除上面创建的testGroup和testGroupID组&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/Q3hDbUR1TU5DMG1RbWg4UngyTDIrZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux用户权限切换</title>
+        <link>https://getshhi.github.io/p/linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E5%88%87%E6%8D%A2/</link>
+        <pubDate>Thu, 26 Dec 2024 17:24:00 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E5%88%87%E6%8D%A2/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nq1.png" alt="Featured image of post Linux用户权限切换" /&gt;&lt;h2 id=&#34;图形化界面登录&#34;&gt;图形化界面登录
+&lt;/h2&gt;&lt;p&gt;Linux中添加用户后，用户在图形界面登录系统的方式和Windows一样，都是选择要登录的用户后直接输入登录密码即可。&lt;/p&gt;
+&lt;h2 id=&#34;案例演示&#34;&gt;案例演示
+&lt;/h2&gt;&lt;p&gt;1:  添加一个新用户，并且设置登录密码，然后在图形界面登录。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/cXFXNCtlWTdrdFB1bFBkdGdmTVNxdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用login命令登录
+login命令是让用户登录系统，可通过它的功能随时更换登入身份。当/etc目录里含名称为nologin的文件时，系统只允许root帐号登入系统，其他用户一律不准登入。&lt;/p&gt;
+&lt;p&gt;当使用login命令登录系统后，可以使用logout命令或者exit命令来退出当前用户登录，返回到登录前的用户状态。&lt;/p&gt;
+&lt;p&gt;命令格式：login [命令参数] 参数&lt;/p&gt;
+&lt;p&gt;参数为登录的用户名，可以不输入登录的用户名，直接输入login命令后回车，然后根据提示再输入用户名和密码。&lt;/p&gt;
+&lt;h2 id=&#34;常见命令参数&#34;&gt;常见命令参数
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;-p：告诉login指令不销毁环境变量；&lt;/li&gt;
+&lt;li&gt;-h：指定远程服务器的主机名。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;login必须以root权限才能执行，如果是普通用户执行时，需要在命令前加sudo命令来提升权限为root权限。&lt;/p&gt;
+&lt;p&gt;案例演示
+1: 使用login命令来登录系统(文件/etc/nologin不存在)。&lt;/p&gt;
+&lt;p&gt;首先查看当前登录的用户名是fzm。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/TWtrVk5xclUwVEI3ODJuakJWd1hOdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用newUser用户来登录系统，然后查看当前登录的用户名。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/UWRHUjBjWUtSY3dYYVNoUnlINjdFdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用logout或者exit命令退出newUser用户，然后在查看当前登录用户是否为fzm。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/YlVsb01GOEptTDY5ZFZJQ0J0cUljdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;2: 使用login命令来登录系统(文件/etc/nologin存在)。&lt;/p&gt;
+&lt;p&gt;首先查看当前登录的用户名是fzm。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/TWtrVk5xclUwVEI3ODJuakJWd1hOdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;在/etc目录下新创建一个nologin文件，使用如下命令创建：&lt;/p&gt;
+&lt;p&gt;sudo touch /etc/nologin&lt;/p&gt;
+&lt;p&gt;使用普通用户newUser来登录系统，查看是否可以登录成功。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/R2V6UXhaQkpoS2pucG1ucHBTb2JSdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;发现使用newUser用户是无法登录系统的，只有使用root用户才能登录系统。&lt;/p&gt;
+&lt;h2 id=&#34;使用su命令切换用户身份&#34;&gt;使用su命令切换用户身份
+&lt;/h2&gt;&lt;p&gt;su命令用于切换当前用户身份到其他用户身份，变更时须输入所要变更的用户帐号的密码。&lt;/p&gt;
+&lt;p&gt;当使用su命令切换用户后，使用exit命令退出当前身份，返回原有登录用户身份。&lt;/p&gt;
+&lt;p&gt;注：如果当前用户身份是root，则使用su命令切换到其他用户的时候不需要相应用户的密码&lt;/p&gt;
+&lt;p&gt;命令格式：su [命令参数] 参数&lt;/p&gt;
+&lt;p&gt;参数为登录的用户名，如果没有参数，则默认切换为root用户。&lt;/p&gt;
+&lt;p&gt;常见命令参数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-c&amp;lt;指令&amp;gt;或&amp;ndash;command=&amp;lt;指令&amp;gt;：执行完指定的指令后，即恢复原来的身份；&lt;/li&gt;
+&lt;li&gt;-l或&amp;ndash;login：改变身份时，也同时变更工作目录，以及HOME,SHELL,USER,logname。此外，也会变更PATH变量；&lt;/li&gt;
+&lt;li&gt;-m,-p或&amp;ndash;preserve-environment：变更身份时，不要变更环境变量；&lt;/li&gt;
+&lt;li&gt;-s&lt;shell&gt;或&amp;ndash;shell=&lt;shell&gt;：指定要执行的shell。
+su命令所有使用者都可以执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;案例演示-1&#34;&gt;案例演示
+&lt;/h3&gt;&lt;p&gt;1: 使用su命令切换当前用户身份(不改变当前工作目录)。&lt;/p&gt;
+&lt;p&gt;首先查看当前登录的用户名是fzm，当前工作目录是/home/fzm。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/dEN6Y0ZVOXdBL2JRNmszM3MzWUFXZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;切换当前用户为newUser用户，然后查看当前用户身份和当前工作目录。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/V1VVbUs0aU02ZFhwYkdHMWFUekM2QT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用exit命令退出newUser用户，然后在查看当前登录用户身份和当前工作目录。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/cVBNMldzSkoxYlk2bmViR3VrSXRwdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;2: 使用su命令切换当前用户身份(改变当前工作目录)。&lt;/p&gt;
+&lt;p&gt;首先查看当前登录的用户名是fzm，当前工作目录是/home/fzm。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/dEN6Y0ZVOXdBL2JRNmszM3MzWUFXZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;切换当前用户为newUser用户，然后查看当前用户身份和当前工作目录。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/RllkdVIwSEJYNGVoZHZPUVZPV0lGZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用exit命令退出newUser用户，然后在查看当前登录用户身份和当前工作目录。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/NFh5bWVaYWZlVjJnM3VhQ0JXRjFoZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux用户密码管理</title>
+        <link>https://getshhi.github.io/p/linux%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86/</link>
+        <pubDate>Wed, 25 Dec 2024 17:23:48 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nq.png" alt="Featured image of post Linux用户密码管理" /&gt;&lt;h2 id=&#34;用户密码存放地及方式&#34;&gt;用户密码存放地及方式
+&lt;/h2&gt;&lt;p&gt;Linux中用户的登录密码是存放在/etc/shadow文件中，/etc/shadow文件中存放的是加密过后的密码，所以在/etc/shadow文件中看到的密码是加密过后的密文。&lt;/p&gt;
+&lt;p&gt;看下我的电脑中/etc/shadow文件存放的内容格式。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/cHlsT0VjYldLOS9Cc01LcGduNlZxUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以看到第一个冒号前是用户名，用户名是以明文的方式存放。&lt;/p&gt;
+&lt;p&gt;在第一个冒号和第二个冒号之间存放的是加密过后的密码，密码是以密文的方式存放，其中密文是由用户密码和其它信息加密后组成的，这里不做详细讲解，我们只需要知道如果第一个冒号和第二个冒号之间是*或者!或者空，则表示该用户没有密码，否则，则表示该用户是有密码。&lt;/p&gt;
+&lt;p&gt;例如：用户名fzm是存在密码，而mysql是不存在密码的。&lt;/p&gt;
+&lt;h2 id=&#34;使用passwd命令修改用户密码&#34;&gt;使用passwd命令修改用户密码
+&lt;/h2&gt;&lt;p&gt;命令格式：passwd [命令参数] 参数&lt;/p&gt;
+&lt;p&gt;常见命令参数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-d 删除密码；&lt;/li&gt;
+&lt;li&gt;-l 停止账号使用；&lt;/li&gt;
+&lt;li&gt;-S 显示密码信息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;passwd必须以root权限才能执行，如果是普通用户想执行passwd时，需要在命令前加sudo命令来提升权限为root权限。&lt;/p&gt;
+&lt;p&gt;案例演示
+1:  使用useradd命令来新创建一个用户，使用passwd命令来设置登录密码。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/MW81S21maWNMQW9NRWNOb1AyWTdSdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用useradd命令创建一个新用户(test)，此时test用户是没有密码的，所以使用tail -n 1 /etc/shadow命令查看/etc/shadow文件的最后一行可以看出test用户密码部分为!。&lt;/p&gt;
+&lt;p&gt;使用passwd命令为test用户设置密码时，可以看到需要输入两次密码，目的是为了确保两次输入的密码一致。当设置完密码后，可以看到/etc/shadow文件中test用户的密码部分已经为加密过后的密文。&lt;/p&gt;
+&lt;p&gt;2: 使用passwd命令来清除用户的密码。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/b2dSSUZkREdnNlZ3cFFabWNRTTBHZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用passwd命令清除用户test的登录密码，使用tail -n 1 /etc/shadow命令查看/etc/shadow文件的最后一行可以看出test用户密码部分为空，此时test用户是没有密码的。&lt;/p&gt;
+&lt;h2 id=&#34;使用chpasswd命令修改用户密码&#34;&gt;使用chpasswd命令修改用户密码
+&lt;/h2&gt;&lt;p&gt;chpasswd命令通常是用于批量修改用户密码，从标准输入批量读取成对的用户名和密码，其中输入的用户名和密码的格式为&lt;strong&gt;用户名:密码&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;例如要批量更新用户密码，将用户名和密码写入到一个文件中，格式如下所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/cHJvQXBlZFhkSWxYV2RoNzhVRmxOZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后执行执行如下命令来更新密码：&lt;/p&gt;
+&lt;p&gt;sudo chpasswd &amp;lt; batch.txt&lt;/p&gt;
+&lt;p&gt;&amp;lt;符号表示输入重定向，接下来的实训中我们会详细的介绍。&lt;/p&gt;
+&lt;p&gt;命令格式：chpasswd [命令参数] 参数&lt;/p&gt;
+&lt;p&gt;常见命令参数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-e：输入的密码是加密后的密文；&lt;/li&gt;
+&lt;li&gt;-h：显示帮助信息并退出。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;chpasswd必须以root权限才能执行，如果是普通用户执行时，需要在命令前加sudo命令来提升权限为root权限。&lt;/p&gt;
+&lt;p&gt;案例演示
+1: 使用chpasswd命令来更新用户登录密码。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/b3ZuMlZZRG4rR3NJMm1Dekt4ZXdJZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;chpasswd是从键盘不断的读入指令，我们可以使用Ctrl+D组合键来结束键盘输入。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux创建/删除新用户</title>
+        <link>https://getshhi.github.io/p/linux%E5%88%9B%E5%BB%BA/%E5%88%A0%E9%99%A4%E6%96%B0%E7%94%A8%E6%88%B7/</link>
+        <pubDate>Tue, 24 Dec 2024 17:20:51 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E5%88%9B%E5%BB%BA/%E5%88%A0%E9%99%A4%E6%96%B0%E7%94%A8%E6%88%B7/</guid>
+        <description>&lt;img src="https://getshhi.github.io/mk.png" alt="Featured image of post Linux创建/删除新用户" /&gt;&lt;h3 id=&#34;linux创建用户命令&#34;&gt;Linux创建用户命令
+&lt;/h3&gt;&lt;p&gt;Linux中使用useradd命令来创建一个新用户。&lt;/p&gt;
+&lt;p&gt;命令格式格式：useradd [命令参数] 参数&lt;/p&gt;
+&lt;p&gt;常见命令参数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-d&amp;lt;登入目录&amp;gt;：指定用户登入时的启始目录；&lt;/li&gt;
+&lt;li&gt;-D：查看或变更预设值；&lt;/li&gt;
+&lt;li&gt;-g&amp;lt;群组&amp;gt;：指定用户所属的群组；&lt;/li&gt;
+&lt;li&gt;-m：自动建立用户的登入目录；&lt;/li&gt;
+&lt;li&gt;-M：不要自动建立用户的登入目录；&lt;/li&gt;
+&lt;li&gt;-s：指定用户登入后所使用的shell。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;useradd必须以root权限才能执行，如果是普通用户想创建一个新用户时，需要在命令前加sudo命令来提升权限为root权限。&lt;/p&gt;
+&lt;h3 id=&#34;案例演示&#34;&gt;案例演示
+&lt;/h3&gt;&lt;p&gt;1 .查看useradd系统默认属性值，使用命令useradd -D。&lt;/p&gt;
+&lt;p&gt;我使用的系统是Ubuntu16.04，useradd系统默认值如下所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/SC9KWldCbXlTWjd1dzlnaUNJWGJ5Zz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;2 .  使用useradd命令新创建一个用户test，并且自动建立用户的登入目录。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/ZWlmcVlvU2NhK1QrY01tZktkZTM2UT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;在背景介绍中，我们了解到，Linux中用户信息是保存在/etc/passwd文件中，我们可以使用命令tail /etc/passwd命令查看/etc/passwd文件最后10行中是否存在刚刚新创建的test用户信息。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/TVVFSTgwb1R5MjJoWXVnd255MXVOdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;linux删除用户命令&#34;&gt;Linux删除用户命令
+&lt;/h3&gt;&lt;p&gt;Linux中使用userdel命令来删除一个已经存在的用户。&lt;/p&gt;
+&lt;p&gt;命令格式：userdel [命令参数] 参数&lt;/p&gt;
+&lt;p&gt;常见命令参数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-f：强制删除用户，即使用户当前已登录；&lt;/li&gt;
+&lt;li&gt;-r：删除用户的同时，删除与用户相关的所有文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;userdel必须以root权限才能执行，如果是普通用户想使用该命令时，需要在命令前加sudo命令来提升权限为root权限。&lt;/p&gt;
+&lt;p&gt;案例演示
+1 . 使用userdel命令删除一个已经存在的用户test，并且自动删除其家目录文件。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/NERRdXN6UnhoYVBZcHBlVHlVSCttQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;因为系统默认是不会给新创建的用户自动创建一个文件夹用于用户账户接收邮件，所以在使用userdel -r命令删除的时候会提醒/var/mail/test文件夹不存在。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux 查询命令帮助语句</title>
+        <link>https://getshhi.github.io/p/linux-%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4%E5%B8%AE%E5%8A%A9%E8%AF%AD%E5%8F%A5/</link>
+        <pubDate>Sat, 21 Dec 2024 13:31:17 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux-%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4%E5%B8%AE%E5%8A%A9%E8%AF%AD%E5%8F%A5/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nv3.png" alt="Featured image of post Linux 查询命令帮助语句" /&gt;&lt;h3 id=&#34;linux-man命令&#34;&gt;Linux man命令
+&lt;/h3&gt;&lt;p&gt;linux中使用man命令来查询命令的帮助文件,命令格式如下:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;man [章节] command
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;常用命令如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;d, Ctrl+D: 向文件尾部翻半屏；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;u, Ctrl+U: 向文件首部翻半屏； 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;q: 退出； 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#：跳转至第#行； 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;home: 回到文件首部； 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;end：翻至文件尾部。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;命令的帮助文件通常存放在/usr/share/man目录下。&lt;/p&gt;
+&lt;p&gt;man包含9个章节，章节用数字表示，分别是：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;用户命令 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;系统调用 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;C库调用
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;设备文件及特殊文件 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;配置文件格式 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;游戏
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;杂项 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;管理类的命令
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Linux 内核API
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果查询命令的时候不追加章节，则默认从第一个章节开始查询，以此类推，直到找到对应要查询的命令为止。&lt;/p&gt;
+&lt;p&gt;例如：使用man命令查询open命令的使用方法。&lt;/p&gt;
+&lt;p&gt;man open&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/R1BvMERSUDZ1RHFZallhd2ljT3ZhZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;如果想查询系统库函数的open函数的使用方法，则使用如下命令：&lt;/p&gt;
+&lt;p&gt;man 2 open&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/R1BvMERSUDZ1RHFZallhd2ljT3ZhZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用man搜索命令
+以KEYWORD指定的字符串为关键字，从当前位置向文件首部搜索，不区分字符大小写；&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;n: 下一个 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;N：上一个 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;linux-info命令&#34;&gt;Linux info命令
+&lt;/h3&gt;&lt;p&gt;linux中使用info命令来查询命令的帮助文件。info页面比man page编写得要更好、更容易理解，也更友好，但man page使用起来确实要更容易得多。一个man page只有一页，而info页面几乎总是将它们的内容组织成多个区段（称为节点），每个区段也可能包含子区段（称为子节点）。&lt;/p&gt;
+&lt;p&gt;命令格式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;info [命令参数] command
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;常用命令参数选项：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-d：添加包含info格式帮助文档的目录；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-f：指定要读取的info格式的帮助文档；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-n：指定首先访问的info帮助文件的节点；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-o：输出被选择的节点内容到指定文件。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;常见命令如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;?键：它就会显示info的常用快捷键；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;N键：显示（相对于本节点的）下一节点的文档内容；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;P键：显示（相对于本节点的）前一节点的文档内容；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;U键：进入当前命令所在的主题；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;M键：敲M键后输入命令的名称就可以查看该命令的帮助文档了；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;G键：敲G键后输入主题名称，进入该主题；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;L键：回到上一个访问的页面；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;SPACE键：向前滚动一页；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;BACKUP或DEL键：向后滚动一页；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Q：退出info。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;例如：我们使用info来查询info的帮助手册。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;info info
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/VzRzbFJPQ2JEcmg2Nkx1bEVEa255QT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;linux-whatis命令&#34;&gt;Linux whatis命令
+&lt;/h3&gt;&lt;p&gt;whatis用来显示命令的简短描述。&lt;/p&gt;
+&lt;p&gt;命令格式如下：&lt;/p&gt;
+&lt;p&gt;whatis command&lt;/p&gt;
+&lt;p&gt;例如：我们使用whatis来查询ls的使用方法。
+&lt;img src=&#34;https://data.educoder.net/api/attachments/SWgwaVdmSXUxNmVtZEoybHhibHhCdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux常用命令</title>
+        <link>https://getshhi.github.io/p/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+        <pubDate>Fri, 20 Dec 2024 13:31:17 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nv2.png" alt="Featured image of post Linux常用命令" /&gt;&lt;h3 id=&#34;linux文件操作&#34;&gt;Linux文件操作
+&lt;/h3&gt;&lt;p&gt;Linux系统中最常用的文件操作有创建、删除文件等。&lt;/p&gt;
+&lt;p&gt;创建文件&lt;/p&gt;
+&lt;p&gt;linux中创建文件的常用命令是touch，命令格式如下:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch filename
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;有时可能需要创建一个空的文件的情况。在这种情况下，可以使用touch命令来轻松创建一个空文件。&lt;/p&gt;
+&lt;p&gt;例如：创建一个新的文件testfile可以使用如下命令。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch testfile
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/eVA0TVcwMHd3MFEzaVZLV2ZKcWd0Zz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;如果想同时创建多个文件也可以使用touch命令完成，具体格式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch file1 file2 ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;只需将不同的文件名用空格分隔即可完成创建多个文件。&lt;/p&gt;
+&lt;p&gt;删除文件&lt;/p&gt;
+&lt;p&gt;Linux中常用的删除文件的命令是rm，使用格式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm [命令选项] filename
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;常用命令选项：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -f：强制删除文件或目录；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -r或-R：递归处理，将指定目录下的所有文件与子目录一并处理；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -i：删除已有文件或目录之前先询问用户。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;例如，删除我们刚刚创建的文件testfile可以使用如下命令。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm -f testfile
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/czF5Y3JpUHFxWW1KU0daK3ZKbFJlZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;linux文件夹操作&#34;&gt;Linux文件夹操作
+&lt;/h3&gt;&lt;p&gt;Linux中关于文件夹的操作主要包括创建和删除等。&lt;/p&gt;
+&lt;p&gt;创建文件夹
+Linux中创建文件夹命令是mkdir，命令格式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir [命令选项] dirname
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;常用命令选项： -p或&amp;ndash;parents 若所要建立目录的上层目录目前尚未建立，则会一并建立上层目录；&lt;/p&gt;
+&lt;p&gt;例如：我们新创建一个文件夹testdir可以使用如下命令。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir testdir
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;因为新创建的文件夹是一个空的文件夹，所以使用ls -l显示的结果是空。&lt;/p&gt;
+&lt;p&gt;删除文件夹&lt;/p&gt;
+&lt;p&gt;Linux中删除文件夹的命令是rmdir或者rm -r，命令格式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rmdir [命令选项] dirname
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;常用命令选项：-p或&amp;ndash;parents：删除指定目录后，若该目录的上层目录已变成空目录，则将其一并删除；&lt;/p&gt;
+&lt;p&gt;例如：将刚刚新创建的文件夹testdir删除可以使用如下命令。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rmdir testdir
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/NCthK2FFcTh6UFBxUFhFdmx1WXZEUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Linux文件和文件夹拷贝&lt;/p&gt;
+&lt;p&gt;Linux使用cp命令用来将一个或多个源文件或者目录复制到指定的目录中，命令格式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp [命令选项] 源文件 目的文件
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;常用命令选项：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-f：强行复制文件或目录，不论目标文件或目录是否已存在；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-i：覆盖既有文件之前先询问用户；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-p：保留源文件或目录的属性；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-R/r：递归处理，将指定目录下的所有文件与子目录一并处理。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;例如：新建一个文件newfile和一个文件夹newdir，将newfile复制到newdir目录下。具体命令如下。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch newfile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir newdir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp newfile newdir
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Linux文件和文件夹移动/重命名&lt;/p&gt;
+&lt;p&gt;Linux使用mv命令用来对文件或目录重新命名，或者将文件从一个目录移到另一个目录中，命令格式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mv [命令选项] 源文件 目标文件
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;常用命令选项：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-f：强行复制文件或目录，不论目标文件或目录是否已存在； 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-i：覆盖既有文件之前先询问用户；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-p：保留源文件或目录的属性；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-R/r：递归处理，将指定目录下的所有文件与子目录一并处理&amp;#39;。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;例如：新建一个文件newfile和一个文件夹newdir，将newfile剪切到newdir目录下，并重新命名为newfileCpy。具体命令如下。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch newfile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir newdir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mv newfile newdir/newfileCpy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>Linux初体验</title>
+        <link>https://getshhi.github.io/p/linux%E5%88%9D%E4%BD%93%E9%AA%8C/</link>
+        <pubDate>Thu, 19 Dec 2024 13:31:17 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nv.png" alt="Featured image of post Linux初体验" /&gt;&lt;h3 id=&#34;linux目录结构介绍&#34;&gt;Linux目录结构介绍
+&lt;/h3&gt;&lt;p&gt;对Linux文件系统目录结构的了解是学习和掌握Linux系统的基础。Linux 文件系统是树形层次结构，具体如下图所示。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/TG1FeThaMEUwSk05ZU5aOW1kcVd3Zz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;linux用户介绍&#34;&gt;Linux用户介绍
+&lt;/h3&gt;&lt;p&gt;Linux用户通常分为两类:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;管理员用户(root)；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;普通用户(类似Windows上的普通用户)。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Linux登录系统后，默认当前所在目录为用户主目录，类似Windows登录系统后，默认的所在目录为桌面。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;管理员(root)登录系统后默认目录为/root；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;普通用户登录系统后默认目录为/home/username， username为用户名。 例如：笔者用普通用户fzm登录系统后，那么当前所在目录为。/home/fzm。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;linux-常用命令介绍&#34;&gt;Linux 常用命令介绍
+&lt;/h3&gt;&lt;p&gt;pwd命令&lt;/p&gt;
+&lt;p&gt;pwd(Print Working Directory )：显示当前所在目录。&lt;/p&gt;
+&lt;p&gt;例如：笔者用普通用户fzm登录系统后，那么当前所在目录为/home/fzm。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/Qm9EOHJkcnh1K3RJOFhiemY0Snoydz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;cd命令&lt;/p&gt;
+&lt;p&gt;cd(Change Directory): 切换当前目录。&lt;/p&gt;
+&lt;p&gt;常用特殊目录表示：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;cd 进入用户主目录；&lt;/li&gt;
+&lt;li&gt;cd ~ 进入用户主目录；&lt;/li&gt;
+&lt;li&gt;cd - 返回进入此目录之前所在的目录；&lt;/li&gt;
+&lt;li&gt;cd .. 返回上级目录(若当前目录为&amp;quot;/&amp;quot;，则执行完后还在&amp;quot;/&amp;quot;；&amp;quot;..&amp;ldquo;为上级目录的意思)；&lt;/li&gt;
+&lt;li&gt;cd ../.. 返回上两级目录；&lt;/li&gt;
+&lt;li&gt;cd !$ 把上个命令的参数作为cd参数使用。
+例如：切换当前目录为/bin目录。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/UlIyYmY0VW9rY1NWQ1haWG4rWElPZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ls命令&lt;/p&gt;
+&lt;p&gt;ls(list): 列出指定目录列表信息，如果没有参数默认列出当前目录下的所有文件和文件夹(隐藏文件和文件夹除外)。&lt;/p&gt;
+&lt;p&gt;常见ls命令选项:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;-l：以长格式显示目录下的内容列表。输出的信息从左到右依次包括文件名，文件类型、权限模式、硬连接数、所有者、组、文件大小和文件的最后修改时间等；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;-a：显示所有文件和文件夹(包括隐藏文件/文件夹)。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例如：显示根目录下所有文件和文件夹。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
