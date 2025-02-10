@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Redis的数据概览 Redis为啥这么快? 除了它是内存数据库，使得所有的操作都在内存上进行之外，还有一个重要因素，就是它实现的数据结构，使得我们对数据进行增删改查操作时，Redis能高效的处理。\n">
+<title>Redis数据结构</title>
+
+<link rel='canonical' href='https://getshhi.github.io/p/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/'>
+
+<link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="Redis数据结构">
+<meta property='og:description' content="Redis的数据概览 Redis为啥这么快? 除了它是内存数据库，使得所有的操作都在内存上进行之外，还有一个重要因素，就是它实现的数据结构，使得我们对数据进行增删改查操作时，Redis能高效的处理。\n">
+<meta property='og:url' content='https://getshhi.github.io/p/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/'>
+<meta property='og:site_name' content='JZH-letere'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Redis' /><meta property='article:published_time' content='2025-01-14T10:52:04&#43;08:00'/><meta property='article:modified_time' content='2025-01-14T10:52:04&#43;08:00'/><meta property='og:image' content='https://getshhi.github.io/wq.png' />
+<meta name="twitter:title" content="Redis数据结构">
+<meta name="twitter:description" content="Redis的数据概览 Redis为啥这么快? 除了它是内存数据库，使得所有的操作都在内存上进行之外，还有一个重要因素，就是它实现的数据结构，使得我们对数据进行增删改查操作时，Redis能高效的处理。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://getshhi.github.io/wq.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu5331494558346596945.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">😀</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">JZH-letere</a></h1>
+            <h2 class="site-description">欢迎来到我的小家</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/getshhi'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%AD%A6%E4%B9%A0%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>学习链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                
+                    <img src="/wq.png" loading="lazy" alt="Featured image of post Redis数据结构" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E5%8D%9A%E5%AE%A2/" >
+                博客
+            </a>
+        
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" >
+                数据库
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">Redis数据结构</a>
+        </h2>
+    
+        
+    </div>
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-01-14</time>
+            </div>
+        
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+        <span class="post-word-count">1830 words</span>
+    </footer>
+    
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="redis的数据概览">Redis的数据概览
+</h1><p><img src="https://cdn.xiaolincoding.com//mysql/other/a9c3e7dc4ac79363d8eb8eb2290a58e6.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片"
+	
+	
+></p>
+<h2 id="redis为啥这么快">Redis为啥这么快?
+</h2><p>除了它是内存数据库，使得所有的操作都在内存上进行之外，还有一个重要因素，就是它实现的数据结构，使得我们对数据进行增删改查操作时，Redis能高效的处理。</p>
+<h2 id="键值对数据库是怎么实现的">键值对数据库是怎么实现的？
+</h2><p>Redis 的键值对中的 key 就是<strong>字符串对象</strong>，而 value 可以是字符串对象，也可以是<strong>集合数据类型</strong>的对象，比如 List 对象、Hash 对象、Set 对象和 Zset 对象。</p>
+<p>大致图
+<img src="https://cdn.xiaolincoding.com//mysql/other/3c386666e4e7638a07b230ba14b400fe.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片"
+	
+	
+></p>
+<h2 id="sds">SDS
+</h2><p>字符串在 Redis 中是很常用的，键值对中的键是字符串类型，值有时也是字符串类型。</p>
+<p>Redis 是用 C 语言实现的，但是它没有直接使用 C 语言的 char* 字符数组来实现字符串，而是自己封装了一个名为简单动态字符串（simple dynamic string，SDS） 的数据结构来表示字符串，也就是 Redis 的 String 数据类型的底层数据结构是 SDS。</p>
+<h2 id="c语言字符串的缺陷">C语言字符串的缺陷
+</h2><ul>
+<li>首先的话，因为C语言是通过判断是否有&rsquo;\0&rsquo;来决定字符串是否结束，所以C语言获取字符串长度的时间复杂度是O(N)(这是第一点)</li>
+<li>因为C语言的字符串是不会记录自身的缓冲区大小，所以字符串操作函数不高效且不安全，会有缓存区溢出的风险，可能会造成程序综止。</li>
+<li>因为C语言是通过判断是否有&rsquo;\0&rsquo;来决定字符串是否结束，字符串里面不能含有 “\0” 字符，所以不能保存图片，音频，视频文化这样的二进制数据。</li>
+</ul>
+<h2 id="sds结构设计">SDS结构设计
+</h2><p>Redis 5.0 的 SDS 的数据结构：</p>
+<p><img src="https://cdn.xiaolincoding.com//mysql/other/516738c4058cdf9109e40a7812ef4239.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片"
+	
+	
+></p>
+<p>结构中的每个成员变量分别介绍下：</p>
+<ul>
+<li>len，记录了字符串长度。这样获取字符串长度的时候，只需要返回这个成员变量值就行，时间复杂度只需要 O（1）。</li>
+<li>alloc，分配给字符数组的空间长度。这样在修改字符串的时候，可以通过 alloc - len 计算出剩余的空间大小，可以用来判断空间是否满足修改需求，如果不满足的话，就会自动将 SDS 的空间扩展至执行修改所需的大小，然后才执行实际的修改操作，所以使用 SDS 既不需要手动修改 SDS 的空间大小，也不会出现前面所说的缓冲区溢出的问题。</li>
+<li>flags，用来表示不同类型的 SDS。一共设计了 5 种类型，分别是 sdshdr5、sdshdr8、sdshdr16、sdshdr32 和 sdshdr64，后面在说明区别之处。</li>
+<li>buf[]，字节数组，用来保存实际数据。不仅可以保存字符串，也可以保存二进制数据。</li>
+</ul>
+<h3 id="扩容的机制">扩容的机制
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="n">hisds</span> <span class="nf">hi_sdsMakeRoomFor</span><span class="p">(</span><span class="n">hisds</span> <span class="n">s</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">addlen</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span> <span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// s目前的剩余空间已足够，无需扩展，直接返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">avail</span> <span class="o">&gt;=</span> <span class="n">addlen</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//获取目前s的长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">len</span> <span class="o">=</span> <span class="nf">hi_sdslen</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sh</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">-</span> <span class="nf">hi_sdsHdrSize</span><span class="p">(</span><span class="n">oldtype</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//扩展之后 s 至少需要的长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">newlen</span> <span class="o">=</span> <span class="p">(</span><span class="n">len</span> <span class="o">+</span> <span class="n">addlen</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//根据新长度，为s分配新空间所需要的大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">newlen</span> <span class="o">&lt;</span> <span class="n">HI_SDS_MAX_PREALLOC</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//新长度&lt;HI_SDS_MAX_PREALLOC 则分配所需空间*2的空间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">newlen</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//否则，分配长度为目前长度+1MB
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">newlen</span> <span class="o">+=</span> <span class="n">HI_SDS_MAX_PREALLOC</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">       <span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>如果所需的 sds 长度小于 1 MB，那么最后的扩容是按照翻倍扩容来执行的，即 2 倍的newlen</li>
+<li>如果所需的 sds 长度超过 1 MB，那么最后的扩容长度应该是 newlen + 1MB。</li>
+</ul>
+<p>并且从这个扩容机制来看，SDS不仅会获得修改所必要的空间，还会得到额外的空间，这样的话可以有效的减少内存分配次数。</p>
+<h3 id="节省内存空间">节省内存空间
+</h3><p>Redis 一共设计了 5 种类型，分别是 sdshdr5、sdshdr8、sdshdr16、sdshdr32 和 sdshdr64。</p>
+<p>这 5 种类型的主要区别就在于，它们数据结构中的<strong>len 和 alloc 成员变量的数据类型不同。</strong></p>
+<p>之所以 SDS 设计不同类型的结构体，是为了能**灵活保存不同大小的字符串，**从而有效节省内存空间。</p>
+<p>还使用了专门的编译优化来节省内存空间，告诉编译器<strong>取消结构体在编译过程中的优化对齐</strong>，按照<strong>实际占用字节数进行对齐</strong>。</p>
+<h2 id="链表">链表
+</h2><p><img src="https://cdn.xiaolincoding.com//mysql/other/4fecbf7f63c73ec284a4821e0bfe2843.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片"
+	
+	
+></p>
+<p><img src="https://cdn.xiaolincoding.com//mysql/other/cadf797496816eb343a19c2451437f1e.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片"
+	
+	
+></p>
+<h3 id="链表的优势和劣势">链表的优势和劣势
+</h3><p>Redis 的链表实现优点如下：</p>
+<ul>
+<li>listNode 链表节点的结构里带有 prev 和 next 指针，获取某个节点的前置节点或后置节点的时间复杂度只需O(1)，而且这两个指针都可以指向 NULL，所以链表是<strong>无环链表</strong>；</li>
+<li>list 结构因为提供了表头指针 head 和表尾节点 tail，所以获取链表的表头节点和表尾节点的时间复杂度只需O(1)；</li>
+<li>list 结构因为提供了链表节点数量 len，所以获取链表中的节点数量的时间复杂度只需O(1)；</li>
+<li>listNode 链表节点使用 void* 指针保存节点值，并且可以通过 list 结构的 dup、free、match 函数指针为节点设置该节点类型特定的函数，因此链表节点可以保存各种不同类型的值；</li>
+</ul>
+<p>链表的缺陷也是有的：</p>
+<ul>
+<li>
+<p>链表每个节点之间的内存都是不连续的，意味着无法很好利用 CPU 缓存。能很好利用 CPU 缓存的数据结构就是数组，因为数组的内存是连续的，这样就可以充分利用 CPU 缓存来加速访问。</p>
+</li>
+<li>
+<p>还有一点，保存一个链表节点的值都需要一个链表节点结构头的分配，内存利用率较低。</p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/redis/">Redis</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/redis%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/lm.png" loading="lazy" data-key="" data-hash="/lm.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Redis常见数据类型和应用场景</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/redis%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/nj.png" loading="lazy" data-key="" data-hash="/nj.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Redis的简单介绍</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/mysql%E4%BC%98%E5%8C%96/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/nv4.png" loading="lazy" data-key="" data-hash="/nv4.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MySql优化</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/mysql%E5%86%85%E5%AD%98/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/ok.png" loading="lazy" data-key="" data-hash="/ok.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MySql内存</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/mysql%E6%97%A5%E5%BF%97/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/gg.png" loading="lazy" data-key="" data-hash="/gg.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MySql日志</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="getshhi/hugoblogcomments"
+        issue-term="title"
+        
+        label="留下你的足迹吧😁"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+let utterancesLoaded = false;
+function setUtterancesTheme(theme) {
+    let utterances = document.querySelector('.utterances iframe');
+    if (utterances) {
+        utterances.contentWindow.postMessage(
+            {
+                type: 'set-theme',
+                theme: `github-${theme}`
+            },
+            'https://utteranc.es'
+        );
+    }
+}
+
+addEventListener('message', event => {
+    if (event.origin !== 'https://utteranc.es') return;
+
+    
+    utterancesLoaded = true;
+    setUtterancesTheme(document.documentElement.dataset.scheme); 
+});
+
+window.addEventListener('onColorSchemeChange', (e) => {
+    if (!utterancesLoaded) return;
+    setUtterancesTheme(e.detail); 
+});
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 JZH-letere
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.27.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<div id="aplayer"></div>
+
+<script>
+	const home = "https://getshhi.github.io/" + 'music/';
+	console.log(home);
+	const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: [{
+        name: '光るなら',
+        artist: 'Goose House',
+        url: home + '光るなら-Goose House/song.mp3',
+        cover: home + '光るなら-Goose House/cover.jpg',
+        lrc: home + '光るなら-Goose House/lyric.lrc'
+    },{
+        name: '反方向的钟',
+        artist: '周杰伦',
+        url: home + '反方向的钟-周杰伦/song.mp3',
+        cover: home + '反方向的钟-周杰伦/cover.jpg',
+        lrc: home + '反方向的钟-周杰伦/lyric.lrc'
+    },{
+        name: '告白气球',
+        artist: '周杰伦',
+        url: home + '告白气球-周杰伦/song.mp3',
+        cover: home + '告白气球-周杰伦/cover.jpg',
+        lrc: home + '告白气球-周杰伦/lyric.lrc'
+    },{
+        name: '红尘客栈',
+        artist: '周杰伦',
+        url: home + '红尘客栈-周杰伦/song.mp3',
+        cover: home + '红尘客栈-周杰伦/cover.jpg',
+        lrc: home + '红尘客栈-周杰伦/lyric.lrc'
+    },{
+        name: '七里香',
+        artist: '周杰伦',
+        url: home + '七里香-周杰伦/song.mp3',
+        cover: home + '七里香-周杰伦/cover.jpg',
+        lrc: home + '七里香-周杰伦/lyric.lrc'
+    },{
+        name: '青花瓷',
+        artist: '周杰伦',
+        url: home + '青花瓷-周杰伦/song.mp3',
+        cover: home + '青花瓷-周杰伦/cover.jpg',
+        lrc: home + '青花瓷-周杰伦/lyric.lrc'
+    },{
+        name: '晴天',
+        artist: '周杰伦',
+        url: home + '晴天-周杰伦/song.mp3',
+        cover: home + '晴天-周杰伦/cover.jpg',
+        lrc: home + '晴天-周杰伦/lyric.lrc'
+    }]
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/pjax/pjax.js"></script>
+
+    
+    <script src=https://getshhi.github.io/js/topbar.min.js></script>
+
+<script>
+    var pjax = new Pjax({
+  selectors: [".main-container"]
+})
+pjax._handleResponse = pjax.handleResponse;
+
+pjax.handleResponse = function(responseText, request, href, options) {
+  if (request.responseText.match("<html")) {
+    
+    let newDom = new DOMParser().parseFromString(responseText, 'text/html');
+            
+            let bodyClass = newDom.body.className;
+            document.body.setAttribute("class", bodyClass)
+            
+            setTimeout(() => {pjax._handleResponse(responseText, request, href, options);},1000)
+  } else {
+    
+  }
+}
+document.addEventListener('pjax:send', () => {
+  topbar.show();
+})
+document.addEventListener('pjax:complete', () => {
+    window.Stack.init();
+    topbar.hide();
+})
+</script>
+    </body>
+</html>

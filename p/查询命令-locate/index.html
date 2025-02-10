@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="locate locate命令用来查找文件或目录。\nlocate命令要比其他查找文件命令（例如:find）快得多，原因在于它不搜索具体目录，而是搜索一个数据库/var/lib/mlocate/mlocate.db。\n">
+<title>查询命令-locate</title>
+
+<link rel='canonical' href='https://getshhi.github.io/p/%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4-locate/'>
+
+<link rel="stylesheet" href="/scss/style.min.c45f33b2d5456850d4a2c5e8f11abe041a8b1c80fe99647671f39e824f830b7f.css"><meta property='og:title' content="查询命令-locate">
+<meta property='og:description' content="locate locate命令用来查找文件或目录。\nlocate命令要比其他查找文件命令（例如:find）快得多，原因在于它不搜索具体目录，而是搜索一个数据库/var/lib/mlocate/mlocate.db。\n">
+<meta property='og:url' content='https://getshhi.github.io/p/%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4-locate/'>
+<meta property='og:site_name' content='JZH-letere'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux' /><meta property='article:published_time' content='2025-01-18T18:06:06&#43;08:00'/><meta property='article:modified_time' content='2025-01-18T18:06:06&#43;08:00'/><meta property='og:image' content='https://getshhi.github.io/nb6.png' />
+<meta name="twitter:title" content="查询命令-locate">
+<meta name="twitter:description" content="locate locate命令用来查找文件或目录。\nlocate命令要比其他查找文件命令（例如:find）快得多，原因在于它不搜索具体目录，而是搜索一个数据库/var/lib/mlocate/mlocate.db。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://getshhi.github.io/nb6.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu5331494558346596945.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">😀</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">JZH-letere</a></h1>
+            <h2 class="site-description">欢迎来到我的小家</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/getshhi'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%AD%A6%E4%B9%A0%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>学习链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4-locate/">
+                
+                    <img src="/nb6.png" loading="lazy" alt="Featured image of post 查询命令-locate" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E5%8D%9A%E5%AE%A2/" >
+                博客
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4-locate/">查询命令-locate</a>
+        </h2>
+    
+        
+    </div>
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-01-18</time>
+            </div>
+        
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+        <span class="post-word-count">1120 words</span>
+    </footer>
+    
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="locate">locate
+</h2><p>locate<strong>命令用来查找文件或目录。</strong></p>
+<p>locate命令要比其他查找文件命令（例如:find）快得多，原因在于它不搜索具体目录，而是搜索一个数据库/var/lib/mlocate/mlocate.db。</p>
+<p>/var/lib/mlocate/mlocate.db这个数据库中含有本地所有文件信息。Linux 系统自动创建这个数据库，并且每天自动更新一次，因此，我们在用locate查找文件时，有时会找到已经被删除的数据，或者刚刚建立文件，却无法查找到，原因就是因为数据库文件没有被更新。为了避免这种情况，可以在使用locate之前，先使用updatedb命令，手动更新数据库。</p>
+<p>接下让我们详细的学习locate和updatedb的使用方法。</p>
+<p>locate具体命令如下：</p>
+<p>locate　命令参数　文件/目录</p>
+<p>常用命令参数如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">-</span><span class="n">c</span><span class="p">,</span> <span class="o">--</span><span class="n">count</span>            <span class="err">只输出找到的数量；</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">--</span><span class="n">database</span> <span class="n">DBPATH</span>  <span class="err">使用</span><span class="n">DBPATH指定的数据库</span><span class="err">，而不是默认数据库</span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">mlocate</span><span class="o">/</span><span class="n">mlocate</span><span class="o">.</span><span class="n">db</span><span class="err">；</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">i</span><span class="p">,</span> <span class="o">--</span><span class="n">ignore</span><span class="o">-</span><span class="k">case</span>      <span class="err">忽略大小写；</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">q</span><span class="p">,</span> <span class="o">--</span><span class="n">quiet</span>            <span class="err">安静模式，不会显示任何错误讯息；</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">e</span><span class="p">,</span> <span class="o">--</span><span class="n">existing</span>         <span class="err">只显示当前存在的文件条目；</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>案例演示1：</p>
+<p>搜索etc目录下以pass开头的文件或目录，具体使用如下命令：</p>
+<p>locate /etc/pass</p>
+<p><img src="https://data.educoder.net/api/attachments/OE9VR1BnYWZ5Sm1hd2tSMVZ1VXMyUT09"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片"
+	
+	
+></p>
+<p>案例演示２：</p>
+<p>搜索包含passwd字母的文件或目录总个数，具体使用如下命令：</p>
+<p>locate -c passwd</p>
+<p><img src="https://data.educoder.net/api/attachments/ZUFnb3BSeEE5WG9rNkNwZGlpVTduQT09"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片"
+	
+	
+></p>
+<h2 id="updatedb">updatedb
+</h2><p>updatedb命令用来创建或更新locate命令所必需的数据库文件。</p>
+<p>updatedb命令的执行过程较长，因为在执行时它会遍历整个系统的目录树，并将所有的文件信息写入locate数据库文件中。</p>
+<p>具体命令如下：</p>
+<p>updatedb　命令参数</p>
+<p>常用参数如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">-o&lt;文件&gt;：忽略默认的数据库文件，使用指定的slocate数据库文件；
+</span></span><span class="line"><span class="cl">-U&lt;目录&gt;：更新指定目录的slocate数据库；
+</span></span><span class="line"><span class="cl">-v：显示执行的详细过程;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行权限：updatedb必须以root权限才能执行，如果是普通用户想执行updatedb时，需要在命令前加sudo命令来提升权限为root权限。</p>
+<p>案例演示1：</p>
+<p>新创建一个testFile文件，更新locate数据库后使用locate命令定位该文件，具体使用如下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">touch testFile
+</span></span><span class="line"><span class="cl">locate testFile
+</span></span><span class="line"><span class="cl">sudo updatedb
+</span></span><span class="line"><span class="cl">locate testFile
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://data.educoder.net/api/attachments/allvVHpOYUdDTTNTbGNoeW1keXdjQT09"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片"
+	
+	
+></p>
+<p>可以看到新创建文件后直接使用locate去查找是没有任何结果的，只有更新数据库后才能查找到新创建的文件。</p>
+<p>案例演示2：</p>
+<p>删除testFile文件，更新locate数据库后使用locate命令定位该文件，具体使用如下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">rm testFile
+</span></span><span class="line"><span class="cl">locate testFile
+</span></span><span class="line"><span class="cl">sudo updatedb -U ./
+</span></span><span class="line"><span class="cl">locate testFile
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://data.educoder.net/api/attachments/allvVHpOYUdDTTNTbGNoeW1keXdjQT09"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片"
+	
+	
+></p>
+<p>第三条命令是只更新testFile所在目录的数据库，这样速度比较快，如果不使用该参数，则会更新整个文件系统的内容。</p>
+<p>可以看到删除文件后直接使用locate去查找是可以定位到的，但是此时文件已经不存在了，原因是没有马上更新数据库。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/linux/">Linux</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4-find/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/nb8.png" loading="lazy" data-key="" data-hash="/nb8.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">查询命令-find</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4-which/whereis/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/nb7.png" loading="lazy" data-key="" data-hash="/nb7.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">查询命令-which/whereis</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E6%96%87%E4%BB%B6%E8%A7%A3%E5%8E%8B%E7%BC%A9%E5%91%BD%E4%BB%A4/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/nb5.png" loading="lazy" data-key="" data-hash="/nb5.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">文件解压缩命令</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9%E5%91%BD%E4%BB%A4/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/nb4.png" loading="lazy" data-key="" data-hash="/nb4.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">文件压缩命令</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/tar%E6%89%93%E5%8C%85%E5%91%BD%E4%BB%A4/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/nb10.png" loading="lazy" data-key="" data-hash="/nb10.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">tar打包命令</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="getshhi/hugoblogcomments"
+        issue-term="title"
+        
+        label="留下你的足迹吧😁"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+let utterancesLoaded = false;
+function setUtterancesTheme(theme) {
+    let utterances = document.querySelector('.utterances iframe');
+    if (utterances) {
+        utterances.contentWindow.postMessage(
+            {
+                type: 'set-theme',
+                theme: `github-${theme}`
+            },
+            'https://utteranc.es'
+        );
+    }
+}
+
+addEventListener('message', event => {
+    if (event.origin !== 'https://utteranc.es') return;
+
+    
+    utterancesLoaded = true;
+    setUtterancesTheme(document.documentElement.dataset.scheme); 
+});
+
+window.addEventListener('onColorSchemeChange', (e) => {
+    if (!utterancesLoaded) return;
+    setUtterancesTheme(e.detail); 
+});
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 JZH-letere
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.27.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<div id="aplayer"></div>
+
+<script>
+	const home = "https://getshhi.github.io/" + 'music/';
+	console.log(home);
+	const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    lrcType: 3,
+    audio: [{
+        name: '光るなら',
+        artist: 'Goose House',
+        url: home + '光るなら-Goose House/song.mp3',
+        cover: home + '光るなら-Goose House/cover.jpg',
+        lrc: home + '光るなら-Goose House/lyric.lrc'
+    },{
+        name: '反方向的钟',
+        artist: '周杰伦',
+        url: home + '反方向的钟-周杰伦/song.mp3',
+        cover: home + '反方向的钟-周杰伦/cover.jpg',
+        lrc: home + '反方向的钟-周杰伦/lyric.lrc'
+    },{
+        name: '告白气球',
+        artist: '周杰伦',
+        url: home + '告白气球-周杰伦/song.mp3',
+        cover: home + '告白气球-周杰伦/cover.jpg',
+        lrc: home + '告白气球-周杰伦/lyric.lrc'
+    },{
+        name: '红尘客栈',
+        artist: '周杰伦',
+        url: home + '红尘客栈-周杰伦/song.mp3',
+        cover: home + '红尘客栈-周杰伦/cover.jpg',
+        lrc: home + '红尘客栈-周杰伦/lyric.lrc'
+    },{
+        name: '七里香',
+        artist: '周杰伦',
+        url: home + '七里香-周杰伦/song.mp3',
+        cover: home + '七里香-周杰伦/cover.jpg',
+        lrc: home + '七里香-周杰伦/lyric.lrc'
+    },{
+        name: '青花瓷',
+        artist: '周杰伦',
+        url: home + '青花瓷-周杰伦/song.mp3',
+        cover: home + '青花瓷-周杰伦/cover.jpg',
+        lrc: home + '青花瓷-周杰伦/lyric.lrc'
+    },{
+        name: '晴天',
+        artist: '周杰伦',
+        url: home + '晴天-周杰伦/song.mp3',
+        cover: home + '晴天-周杰伦/cover.jpg',
+        lrc: home + '晴天-周杰伦/lyric.lrc'
+    }]
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/pjax/pjax.js"></script>
+
+    
+    <script src=https://getshhi.github.io/js/topbar.min.js></script>
+
+<script>
+    var pjax = new Pjax({
+  selectors: [".main-container"]
+})
+pjax._handleResponse = pjax.handleResponse;
+
+pjax.handleResponse = function(responseText, request, href, options) {
+  if (request.responseText.match("<html")) {
+    
+    let newDom = new DOMParser().parseFromString(responseText, 'text/html');
+            
+            let bodyClass = newDom.body.className;
+            document.body.setAttribute("class", bodyClass)
+            
+            setTimeout(() => {pjax._handleResponse(responseText, request, href, options);},1000)
+  } else {
+    
+  }
+}
+document.addEventListener('pjax:send', () => {
+  topbar.show();
+})
+document.addEventListener('pjax:complete', () => {
+    window.Stack.init();
+    topbar.hide();
+})
+</script>
+    </body>
+</html>

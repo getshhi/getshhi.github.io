@@ -7,7 +7,1510 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>JZH-letere</copyright>
-        <lastBuildDate>Fri, 10 Jan 2025 16:35:54 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 20 Jan 2025 18:06:06 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>查询命令-find</title>
+        <link>https://getshhi.github.io/p/%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4-find/</link>
+        <pubDate>Mon, 20 Jan 2025 18:06:06 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4-find/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nb8.png" alt="Featured image of post 查询命令-find" /&gt;&lt;h2 id=&#34;find&#34;&gt;find
+&lt;/h2&gt;&lt;p&gt;find命令用来在指定目录下查找文件。任何位于参数之前的字符串都将被视为欲查找的目录名。如果使用该命令时，不设置任何参数，则find命令将在当前目录下查找子目录与文件。并且将查找到的子目录和文件全部进行显示。&lt;/p&gt;
+&lt;p&gt;具体命令如下：&lt;/p&gt;
+&lt;p&gt;find　查找目录　查找参数　查找内容&lt;/p&gt;
+&lt;p&gt;常用查找参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-amin&amp;lt;+|-分钟&amp;gt;：查找在指定时间曾被存取过的文件或目录，单位以分钟计算；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-atime&amp;lt;+|-24小时数&amp;gt;：查找在指定时间曾被存取过的文件或目录，单位以24小时计算；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-cmin&amp;lt;+|-分钟&amp;gt;：查找在指定时间之时被更改过的文件或目录；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-ctime&amp;lt;+|-24小时数&amp;gt;：查找在指定时间之时被更改的文件或目录，单位以24小时计算；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-mmin&amp;lt;+|-分钟&amp;gt;：查找在指定时间曾被更改过的文件或目录，单位以分钟计算；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-mtime&amp;lt;+|-24小时数&amp;gt;：查找在指定时间曾被更改过的文件或目录，单位以24小时计算；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-depth：从指定目录下最深层的子目录开始查找；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-exec&amp;lt;执行指令&amp;gt;：假设find指令的回传值为True，就执行该指令；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-follow：排除符号连接；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-gid&amp;lt;群组识别码&amp;gt;：查找符合指定群组识别码的文件或目录；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-group&amp;lt;群组名称&amp;gt;：查找符合指定群组名称的文件或目录；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-uid&amp;lt;用户识别码&amp;gt;：查找符合指定的用户识别码的文件或目录；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-user&amp;lt;拥有者名称&amp;gt;：查找符和指定的拥有者名称的文件或目录；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-name&amp;lt;范本样式&amp;gt;：指定字符串作为寻找文件或目录的范本样式；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-iname&amp;lt;范本样式&amp;gt;：此参数的效果和指定“-name”参数类似，但忽略字符大小写的差别；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-inum&amp;lt;inode编号&amp;gt;：查找符合指定的inode编号的文件或目录；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-newer&amp;lt;参考文件或目录&amp;gt;：查找其更改时间较指定文件或目录的更改时间更接近现在的文件或目录；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-size&amp;lt;+|-|=文件大小&amp;gt;：查找符合指定的文件大小的文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-type&amp;lt;文件类型&amp;gt;：只寻找符合指定的文件类型的文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-a：是前后条件都要满足；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-o ：是满足一个条件就好；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+：表示大于设置值的文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- ：表示小于设置值的文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;= ：表示等于设置值的文件；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：通常使用find命令的时候使用root权限，这样就有权限查找任何目录下的内容，本平台默认权限是root权限，所有在本平台上执行find命令时不需要加sudo。&lt;/p&gt;
+&lt;p&gt;案例演示1：&lt;/p&gt;
+&lt;p&gt;查找/etc目录下以my开头以.conf结尾的文件或目录，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;sudo find /etc -name &amp;ldquo;my*.conf&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/WVVtT3NORDZrNStlVTdtak5WQWZIQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;*表示任意字母。&lt;/p&gt;
+&lt;p&gt;案例演示2：&lt;/p&gt;
+&lt;p&gt;查找/etc目录下在超过7天前被访问的文件或目录，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;sudo find /etc -atime +7&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/RjVlb0FuRERMazZ6OWFCcGRaSTdlQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;案例演示3：&lt;/p&gt;
+&lt;p&gt;查找/etc目录下恰好在7天前被访问的文件或目录，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;sudo find /etc -atime 7&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/WjlibG9rOVlrb21kczdOdE0vWDREUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;案例演示4：&lt;/p&gt;
+&lt;p&gt;查找/etc目录下在5分钟内被访问的文件或目录，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;sudo find /etc -amin -5&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/ak1OMEFQZlE4Q3VmNG92emZjb3dUUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;-type 文件类型 使用方法
+常见文件类型：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;f：普通文件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;l：符号链接
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;d：目录
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;c：字符设备
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;b：块设备
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;s：套接字
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;p：Fifo
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;案例演示：&lt;/p&gt;
+&lt;p&gt;查找/etc目录下以my开头的目录，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;sudo find /etc -name &amp;ldquo;my*&amp;rdquo; -a -type d&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/REM3dmswU1pIdjJOR2ZBZm1pVUJNZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;size--文件大小-使用方法&#34;&gt;size &amp;lt;+|-|=文件大小&amp;gt; 使用方法
+&lt;/h2&gt;&lt;p&gt;常见文件大小单位：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;b —— 块（512字节）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;c —— 字节
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;w —— 字（2字节）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;k —— 千字节
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;M —— 兆字节
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;G —— 吉字节
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;案例演示：&lt;/p&gt;
+&lt;p&gt;查找/etc目录下大于1M的文件，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;sudo find /etc -size +1M&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/YzAvUy95ZU1oQ2g5dU5xZ3lCbUhTQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;-exec-使用方法&#34;&gt;-exec 使用方法
+&lt;/h2&gt;&lt;p&gt;具体使用方法如下：&lt;/p&gt;
+&lt;p&gt;find　…　-exec 要执行的命令  {} ;&lt;/p&gt;
+&lt;p&gt;-exec选项后面跟随着所要执行的命令或脚本，然后是一个空格一对儿{}一个空格和一个;。&lt;/p&gt;
+&lt;p&gt;注意：要执行的命令和{之间以及}与;之间的空格是不能省略的。&lt;/p&gt;
+&lt;p&gt;案例演示：&lt;/p&gt;
+&lt;p&gt;查找/etc目录下大于1M的文件/目录的详细信息，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;sudo find /etc -size 1M -exec ls -l {} ;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/SGEreU1VTXl0VTQ1b0VuWm83a1FnUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>查询命令-which/whereis</title>
+        <link>https://getshhi.github.io/p/%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4-which/whereis/</link>
+        <pubDate>Sun, 19 Jan 2025 18:06:06 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4-which/whereis/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nb7.png" alt="Featured image of post 查询命令-which/whereis" /&gt;&lt;h2 id=&#34;which&#34;&gt;which
+&lt;/h2&gt;&lt;p&gt;which命令用于查找并显示给定命令的绝对路径，环境变量PATH中保存了查找命令时需要遍历的目录。which指令会在环境变量$PATH设置的目录里查找符合条件的文件。也就是说，使用which命令，就可以看到某个系统命令是否存在，以及执行的到底是哪一个位置的命令。&lt;/p&gt;
+&lt;p&gt;which是shell内建命令，内建命令要比系统论命令有比较高的执行效率。&lt;/p&gt;
+&lt;p&gt;具体命令如下：&lt;/p&gt;
+&lt;p&gt;which　命令&lt;/p&gt;
+&lt;p&gt;案例演示：&lt;/p&gt;
+&lt;p&gt;使用which命令定位passwd命令的位置，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;which passwd&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/WFNFcitpYjd3NHVkQmlJTnFHSVNuZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以看到passwd命令是存放在/usr/bin目录下。&lt;/p&gt;
+&lt;h2 id=&#34;whereis&#34;&gt;whereis
+&lt;/h2&gt;&lt;p&gt;whereis命令用来定位指令的二进制程序、源代码文件和man手册页等相关文件的路径。&lt;/p&gt;
+&lt;p&gt;具体命令如下：&lt;/p&gt;
+&lt;p&gt;whereis　命令参数　文件名&lt;/p&gt;
+&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-b：只查找二进制文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-B&amp;lt;目录&amp;gt;：只在设置的目录下查找二进制文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-m：只查找说明文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-M&amp;lt;目录&amp;gt;：只在设置的目录下查找说明文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-s：只查找原始代码文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-S&amp;lt;目录&amp;gt;只在设置的目录下查找原始代码文件；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;案例演示1：&lt;/p&gt;
+&lt;p&gt;使用whereis命令查找passwd命令所有信息，包括二进制文件位置、说明文件位置和源码文件位置，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;whereis passwd&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/Sm52SjZqTkc5bWhRdWh2elFJdkZoZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;案例演示2：&lt;/p&gt;
+&lt;p&gt;使用whereis命令仅查找passwd命令二进制文件位置，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;whereis -b passwd&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/bjVzTUhtR25GY1d4MDM2MFJCbTl5UT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以看到passwd命令存在的位置有两处，分别是/usr/bin/passwd和/usr/bin/X11/passwd，那么在我们执行passwd时，如何确定是执行的哪一个，此时我们就可以使用which命令来定位首先被执行的命令位置。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>查询命令-locate</title>
+        <link>https://getshhi.github.io/p/%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4-locate/</link>
+        <pubDate>Sat, 18 Jan 2025 18:06:06 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4-locate/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nb6.png" alt="Featured image of post 查询命令-locate" /&gt;&lt;h2 id=&#34;locate&#34;&gt;locate
+&lt;/h2&gt;&lt;p&gt;locate&lt;strong&gt;命令用来查找文件或目录。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;locate命令要比其他查找文件命令（例如:find）快得多，原因在于它不搜索具体目录，而是搜索一个数据库/var/lib/mlocate/mlocate.db。&lt;/p&gt;
+&lt;p&gt;/var/lib/mlocate/mlocate.db这个数据库中含有本地所有文件信息。Linux 系统自动创建这个数据库，并且每天自动更新一次，因此，我们在用locate查找文件时，有时会找到已经被删除的数据，或者刚刚建立文件，却无法查找到，原因就是因为数据库文件没有被更新。为了避免这种情况，可以在使用locate之前，先使用updatedb命令，手动更新数据库。&lt;/p&gt;
+&lt;p&gt;接下让我们详细的学习locate和updatedb的使用方法。&lt;/p&gt;
+&lt;p&gt;locate具体命令如下：&lt;/p&gt;
+&lt;p&gt;locate　命令参数　文件/目录&lt;/p&gt;
+&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;            &lt;span class=&#34;err&#34;&gt;只输出找到的数量；&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;database&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DBPATH&lt;/span&gt;  &lt;span class=&#34;err&#34;&gt;使用&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DBPATH指定的数据库&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，而不是默认数据库&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;var&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lib&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mlocate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mlocate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;db&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ignore&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;case&lt;/span&gt;      &lt;span class=&#34;err&#34;&gt;忽略大小写；&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;quiet&lt;/span&gt;            &lt;span class=&#34;err&#34;&gt;安静模式，不会显示任何错误讯息；&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;existing&lt;/span&gt;         &lt;span class=&#34;err&#34;&gt;只显示当前存在的文件条目；&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;案例演示1：&lt;/p&gt;
+&lt;p&gt;搜索etc目录下以pass开头的文件或目录，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;locate /etc/pass&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/OE9VR1BnYWZ5Sm1hd2tSMVZ1VXMyUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;案例演示２：&lt;/p&gt;
+&lt;p&gt;搜索包含passwd字母的文件或目录总个数，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;locate -c passwd&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/ZUFnb3BSeEE5WG9rNkNwZGlpVTduQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;updatedb&#34;&gt;updatedb
+&lt;/h2&gt;&lt;p&gt;updatedb命令用来创建或更新locate命令所必需的数据库文件。&lt;/p&gt;
+&lt;p&gt;updatedb命令的执行过程较长，因为在执行时它会遍历整个系统的目录树，并将所有的文件信息写入locate数据库文件中。&lt;/p&gt;
+&lt;p&gt;具体命令如下：&lt;/p&gt;
+&lt;p&gt;updatedb　命令参数&lt;/p&gt;
+&lt;p&gt;常用参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-o&amp;lt;文件&amp;gt;：忽略默认的数据库文件，使用指定的slocate数据库文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-U&amp;lt;目录&amp;gt;：更新指定目录的slocate数据库；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-v：显示执行的详细过程;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;执行权限：updatedb必须以root权限才能执行，如果是普通用户想执行updatedb时，需要在命令前加sudo命令来提升权限为root权限。&lt;/p&gt;
+&lt;p&gt;案例演示1：&lt;/p&gt;
+&lt;p&gt;新创建一个testFile文件，更新locate数据库后使用locate命令定位该文件，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch testFile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;locate testFile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo updatedb
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;locate testFile
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/allvVHpOYUdDTTNTbGNoeW1keXdjQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以看到新创建文件后直接使用locate去查找是没有任何结果的，只有更新数据库后才能查找到新创建的文件。&lt;/p&gt;
+&lt;p&gt;案例演示2：&lt;/p&gt;
+&lt;p&gt;删除testFile文件，更新locate数据库后使用locate命令定位该文件，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm testFile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;locate testFile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo updatedb -U ./
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;locate testFile
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/allvVHpOYUdDTTNTbGNoeW1keXdjQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;第三条命令是只更新testFile所在目录的数据库，这样速度比较快，如果不使用该参数，则会更新整个文件系统的内容。&lt;/p&gt;
+&lt;p&gt;可以看到删除文件后直接使用locate去查找是可以定位到的，但是此时文件已经不存在了，原因是没有马上更新数据库。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>文件解压缩命令</title>
+        <link>https://getshhi.github.io/p/%E6%96%87%E4%BB%B6%E8%A7%A3%E5%8E%8B%E7%BC%A9%E5%91%BD%E4%BB%A4/</link>
+        <pubDate>Fri, 17 Jan 2025 18:06:06 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/%E6%96%87%E4%BB%B6%E8%A7%A3%E5%8E%8B%E7%BC%A9%E5%91%BD%E4%BB%A4/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nb5.png" alt="Featured image of post 文件解压缩命令" /&gt;&lt;h2 id=&#34;bunzip2&#34;&gt;bunzip2
+&lt;/h2&gt;&lt;p&gt;bunzip2命令解压缩由bzip2指令创建的.bz2压缩包。使用bzip2 -d命令也可以将.bz2压缩包进行解压。&lt;/p&gt;
+&lt;p&gt;具体命令如下：&lt;/p&gt;
+&lt;p&gt;bunzip2　命令参数　指定要解压的文件&lt;/p&gt;
+&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-f或--force：解压缩时，若输出的文件与现有文件同名时，预设不会覆盖现有的文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-k或——keep：在解压缩后，预设会删除原来的压缩文件。若要保留压缩文件，请使用此参数；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-v或——verbose：解压缩文件时，显示详细的信息；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;案例演示：&lt;/p&gt;
+&lt;p&gt;使用bunzip2命令对当前目录下的new.tar.bz2文件进行解压操作，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;bunzip2  new.tar.bz2 或 bzip2 -d new.tar.bz2&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/U3BtdzRxZFQ3Nm81L0tkTXJpNnBLQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：这里解压生成了一个tar包，如果想得到tar包里的内容，则需要对tar包进行解包操作&lt;/p&gt;
+&lt;h2 id=&#34;gunzip&#34;&gt;gunzip
+&lt;/h2&gt;&lt;p&gt;gunzip命令解压缩由gzip指令创建的.gz压缩包。使用gzip -d命令也可以将.gz压缩包进行解压。&lt;/p&gt;
+&lt;p&gt;具体命令如下：&lt;/p&gt;
+&lt;p&gt;gunzip　命令参数　指定要解压的文件&lt;/p&gt;
+&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-f或-force：强行解开压缩文件，不理会文件名称或硬连接是否存在以及该文件是否为符号连接；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-l或-list：列出压缩文件的相关信息；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-q或-quiet：不显示警告信息；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-r或-recursive：递归处理，将指定目录下的所有文件及子目录一并处理；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-v或-verbose：显示指令执行过程；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;案例演示：&lt;/p&gt;
+&lt;p&gt;使用gunzip命令对当前目录下的new.tar.gz文件进行解压操作，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;gunzip  new.tar.gz 或 gzip -d new.tar.gz&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/dTk3QmlWNnB2bFcwNUYvRFBzcENYQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;注意：这里解压生成了一个tar包，如果想得到tar包里的内容，则需要对tar包进行解包操作&lt;/p&gt;
+&lt;h2 id=&#34;unzip&#34;&gt;unzip
+&lt;/h2&gt;&lt;p&gt;unzip命令用于解压缩由zip命令压缩的.zip压缩包。&lt;/p&gt;
+&lt;p&gt;具体命令如下：&lt;/p&gt;
+&lt;p&gt;unzip　命令参数　指定要解压的文件&lt;/p&gt;
+&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-q：执行时不显示任何信息；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-n：解压缩时不要覆盖原有的文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-d&amp;lt;目录&amp;gt;：指定文件解压缩后所要存储的目录；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;案例演示：&lt;/p&gt;
+&lt;p&gt;使用unzip命令对当前目录下的newDir.zip文件进行解压操作，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;unzip newDir.zip&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/K2UyYzA5RWVQSnZ6eTRiSEZ5TG0wdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;tar命令进行解压缩&#34;&gt;tar命令进行解压缩
+&lt;/h2&gt;&lt;p&gt;在上一关的学习中，我们学会了使用tar命令对多个文件/目录进行打包压缩操作，本关将继续讲解使用tar命令对文件进行解压缩操作。&lt;/p&gt;
+&lt;p&gt;采用bunzip2进行解压缩的具体命令如下：&lt;/p&gt;
+&lt;p&gt;tar　-jxvf　指定要解压的文件&lt;/p&gt;
+&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-x 或--ext\fract或--get：从备份文件中还原文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-v 处理过程中输出相关信息；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-f 对普通文件操作；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-j 以bunzip2进行解压缩；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;采用gzip进行压缩的具体命令如下：&lt;/p&gt;
+&lt;p&gt;tar　-zxvf　指定要解压的文件&lt;/p&gt;
+&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-x 或--ext\fract或--get：从备份文件中还原文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-v 处理过程中输出相关信息；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-f 对普通文件操作；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-z 以gunzip进行解压缩；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;案例演示1：&lt;/p&gt;
+&lt;p&gt;使用tar命令对当前目录下的new.tar.bz2文件进行解压，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;tar -jxvf new.tar.bz2&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/T1hQNHc2VlpCdndHMnUxaXByaU05Zz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这里也可以分为两步进行操作，首先是使用bunzip2进行解压生成tar包，然后对tar包进行解包操作。&lt;/p&gt;
+&lt;p&gt;案例演示2：&lt;/p&gt;
+&lt;p&gt;使用tar命令对当前目录下的 new.tar.gz文件进行解压，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;tar -zxvf new.tar.gz&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/OUFzZmdvajRjdG9NajFpV0FsdXdJdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这里也可以分为两步进行操作，首先是使用gunzip进行解压生成tar包，然后对tar包进行解包操作。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>文件压缩命令</title>
+        <link>https://getshhi.github.io/p/%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9%E5%91%BD%E4%BB%A4/</link>
+        <pubDate>Thu, 16 Jan 2025 17:44:40 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9%E5%91%BD%E4%BB%A4/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nb4.png" alt="Featured image of post 文件压缩命令" /&gt;&lt;h2 id=&#34;bzip2&#34;&gt;bzip2
+&lt;/h2&gt;&lt;p&gt;bzip2命令用于创建和管理（包括解压缩）.bz2格式的压缩包。&lt;/p&gt;
+&lt;p&gt;具体命令如下：&lt;/p&gt;
+&lt;p&gt;bzip2　命令参数　指定要压缩的文件&lt;/p&gt;
+&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-z或——compress：强制执行压缩；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-d或——decompress：执行解压缩；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-f或-force：bzip2在压缩或解压缩时，若输出文件与现有文件同名，预设不会覆盖现有文件。若要覆盖。请使用此参数；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-v或——verbose：压缩或解压缩文件时，显示详细的信息；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;案例演示：&lt;/p&gt;
+&lt;p&gt;使用bzip2命令对当前目录下的new.tar文件进行压缩，具体使用如下命令：
+bzip2  new.tar&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/Z1lIbUhvZGprOXBkbG9SWTdlVEtWUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;gzip&#34;&gt;gzip
+&lt;/h2&gt;&lt;p&gt;gzip命令用于创建和管理（包括解压缩）.gz格式的压缩包。&lt;/p&gt;
+&lt;p&gt;具体命令如下：&lt;/p&gt;
+&lt;p&gt;gzip　命令参数　指定要压缩的文件&lt;/p&gt;
+&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-d或--decompress或----uncompress：解开压缩文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-f或——force：强行压缩文件。不理会文件名称或硬连接是否存在以及该文件是否为符号连接；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-l或——list：列出压缩文件的相关信息；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-r或——recursive：递归处理，将指定目录下的所有文件及子目录一并处理；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-v或——verbose：显示指令执行过程；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;案例演示：&lt;/p&gt;
+&lt;p&gt;使用gzip命令对当前目录下的new.tar文件进行压缩，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gzip  new.tar
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/RWV1YUpDOTl4dzVVK0UrbU9xOFZMQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;zip&#34;&gt;zip
+&lt;/h2&gt;&lt;p&gt;zip命令对文件进行打包操作。zip是个使用广泛的压缩程序，文件经它压缩后会另外产生具有.zip扩展名的压缩文件。&lt;/p&gt;
+&lt;p&gt;具体命令如下：&lt;/p&gt;
+&lt;p&gt;zip　命令参数　指定生成的压缩文件名　要被压缩的文件/目录列表&lt;/p&gt;
+&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-d：从压缩文件内删除指定的文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-q：不显示指令执行过程；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-r：递归处理，将指定目录下的所有文件和子目录一并处理；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-v：显示指令执行过程或显示版本信息；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-u：更换较新的文件到压缩文件内；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-x&amp;lt;范本样式&amp;gt;：压缩时排除符合条件的文件；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;案例演示：&lt;/p&gt;
+&lt;p&gt;使用zip命令将newDir目录下的所有文件/目录压缩生成newDir.zip，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;zip -r newDir.zip newDir&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/YTNwcjA0WFNQUHVodVFEaGV5ZnZIdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;tar命令进行压缩&#34;&gt;tar命令进行压缩
+&lt;/h2&gt;&lt;p&gt;在上一关的学习中，我们学会了使用tar命令对多个文件/目录进行打包操作，如果针对多文件/目录进行压缩操作时，首先使用tar将其打包生成一个文件，然后使用bzip2和gzip对其进行压缩，那么这里也可以使用tar命令一步就实现对多文件/目录进行压缩操作。&lt;/p&gt;
+&lt;p&gt;采用bzip2方式执行tar命令进行压缩的具体命令如下：&lt;/p&gt;
+&lt;p&gt;tar -jcvf　指定生成的压缩文件名　要被压缩的文件/目录列表&lt;/p&gt;
+&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-c 建立新的归档文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-v 处理过程中输出相关信息；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-f 对普通文件操作；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-j 以bzip2对文件/目录进行压缩；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;采用gzip进行压缩的具体命令如下：&lt;/p&gt;
+&lt;p&gt;tar　-zcvf　指定生成的压缩文件名　要被压缩的文件/目录列表&lt;/p&gt;
+&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-c 建立新的归档文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-v 处理过程中输出相关信息；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-f 对普通文件操作；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-z 以gzip对文件/目录进行压缩；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;案例演示1:&lt;/p&gt;
+&lt;p&gt;使用tar命令将当前目录下的a.txt、b.txt和c.txt文件压缩生成new.tar.bz2，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;tar -jcvf new.tar.bz2 a.txt b.txt c.txt&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/MUFlRndTQ2k3SlFiK2JyV2RqajBqQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这里也可以分为两步进行操作，首先是创建tar包，然后对tar包使用bzip2进行压缩操作。&lt;/p&gt;
+&lt;p&gt;案例演示2：&lt;/p&gt;
+&lt;p&gt;使用tar命令将当前目录下的a.txt、b.txt和c.txt文件压缩生成new.tar.gz，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;tar -zcvf new.tar.gz a.txt b.txt c.txt&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/T29mdC9LRktzcGIxWnhaU09NN05ldz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这里也可以分为两步进行操作，首先是创建tar包，然后对tar包使用gzip进行压缩操作。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>tar打包命令</title>
+        <link>https://getshhi.github.io/p/tar%E6%89%93%E5%8C%85%E5%91%BD%E4%BB%A4/</link>
+        <pubDate>Wed, 15 Jan 2025 17:24:00 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/tar%E6%89%93%E5%8C%85%E5%91%BD%E4%BB%A4/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nb10.png" alt="Featured image of post tar打包命令" /&gt;&lt;h2 id=&#34;打包&#34;&gt;打包
+&lt;/h2&gt;&lt;p&gt;tar命令可以将多个文件/目录进行打包，将多个文件生成一个文件，生成的文件后缀为.tar。&lt;/p&gt;
+&lt;p&gt;具体打包命令如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tar　-cvf　生成的tar包名　要打包的文件/目录列表
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-c 建立新的归档文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-v 处理过程中输出相关信息；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-f 对普通文件操作；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;案例演示1：&lt;/p&gt;
+&lt;p&gt;在当前目录下创建a.txt、b.txt和c.txt文件，将其打包成一个new.tar，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch a.txt b.txt c.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tar -cvf new.tar a.txt b.txt c.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/eForWm1IVjRIL0t2STVjeExuVXRDQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;案例演示２：&lt;/p&gt;
+&lt;p&gt;在当前目录下创建dirA、dirB和dirC目录，将其打包成一个newDir.tar，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir dirA dirB dirC
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tar -cvf newDir.tar dirA dirB dirC
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/VzVjZUZDRkJyem9mamtEQ3RaOGgzQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;解包&#34;&gt;解包
+&lt;/h2&gt;&lt;p&gt;tar命令可以将已经打包好的文件解压出来。&lt;/p&gt;
+&lt;p&gt;具体打包命令如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tar　-xvf　解压包名 -C 解压到指定目录
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-x 或--ext\fract或--get：从备份文件中还原文件；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-v 处理过程中输出相关信息；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-f  对普通文件操作；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-C &amp;lt;目的目录&amp;gt; 切换到指定的目录；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果不使用-C(大写)参数，则默认解压到当前目录下。&lt;/p&gt;
+&lt;p&gt;案例演示1：&lt;/p&gt;
+&lt;p&gt;将当前目录下的a.txt、b.txt和c.txt文件删除，将打包好的new.tar文件解压到当前目录，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm -fr a.txt b.txt c.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tar -xvf new.tar
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/VzVjZUZDRkJyem9mamtEQ3RaOGgzQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;案例演示2：&lt;/p&gt;
+&lt;p&gt;在当前目录下创建newDir目录，将打包好的newDir.tar文件解压到newDir目录下，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir newDir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tar xvf newDir.tar -C ./newDir
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/RDQydEV5Y0t0Z1RoQTE3RmZxZFJkdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Redis数据结构</title>
+        <link>https://getshhi.github.io/p/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+        <pubDate>Tue, 14 Jan 2025 10:52:04 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+        <description>&lt;img src="https://getshhi.github.io/wq.png" alt="Featured image of post Redis数据结构" /&gt;&lt;h1 id=&#34;redis的数据概览&#34;&gt;Redis的数据概览
+&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com//mysql/other/a9c3e7dc4ac79363d8eb8eb2290a58e6.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;redis为啥这么快&#34;&gt;Redis为啥这么快?
+&lt;/h2&gt;&lt;p&gt;除了它是内存数据库，使得所有的操作都在内存上进行之外，还有一个重要因素，就是它实现的数据结构，使得我们对数据进行增删改查操作时，Redis能高效的处理。&lt;/p&gt;
+&lt;h2 id=&#34;键值对数据库是怎么实现的&#34;&gt;键值对数据库是怎么实现的？
+&lt;/h2&gt;&lt;p&gt;Redis 的键值对中的 key 就是&lt;strong&gt;字符串对象&lt;/strong&gt;，而 value 可以是字符串对象，也可以是&lt;strong&gt;集合数据类型&lt;/strong&gt;的对象，比如 List 对象、Hash 对象、Set 对象和 Zset 对象。&lt;/p&gt;
+&lt;p&gt;大致图
+&lt;img src=&#34;https://cdn.xiaolincoding.com//mysql/other/3c386666e4e7638a07b230ba14b400fe.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;sds&#34;&gt;SDS
+&lt;/h2&gt;&lt;p&gt;字符串在 Redis 中是很常用的，键值对中的键是字符串类型，值有时也是字符串类型。&lt;/p&gt;
+&lt;p&gt;Redis 是用 C 语言实现的，但是它没有直接使用 C 语言的 char* 字符数组来实现字符串，而是自己封装了一个名为简单动态字符串（simple dynamic string，SDS） 的数据结构来表示字符串，也就是 Redis 的 String 数据类型的底层数据结构是 SDS。&lt;/p&gt;
+&lt;h2 id=&#34;c语言字符串的缺陷&#34;&gt;C语言字符串的缺陷
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;首先的话，因为C语言是通过判断是否有&amp;rsquo;\0&amp;rsquo;来决定字符串是否结束，所以C语言获取字符串长度的时间复杂度是O(N)(这是第一点)&lt;/li&gt;
+&lt;li&gt;因为C语言的字符串是不会记录自身的缓冲区大小，所以字符串操作函数不高效且不安全，会有缓存区溢出的风险，可能会造成程序综止。&lt;/li&gt;
+&lt;li&gt;因为C语言是通过判断是否有&amp;rsquo;\0&amp;rsquo;来决定字符串是否结束，字符串里面不能含有 “\0” 字符，所以不能保存图片，音频，视频文化这样的二进制数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;sds结构设计&#34;&gt;SDS结构设计
+&lt;/h2&gt;&lt;p&gt;Redis 5.0 的 SDS 的数据结构：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com//mysql/other/516738c4058cdf9109e40a7812ef4239.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;结构中的每个成员变量分别介绍下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;len，记录了字符串长度。这样获取字符串长度的时候，只需要返回这个成员变量值就行，时间复杂度只需要 O（1）。&lt;/li&gt;
+&lt;li&gt;alloc，分配给字符数组的空间长度。这样在修改字符串的时候，可以通过 alloc - len 计算出剩余的空间大小，可以用来判断空间是否满足修改需求，如果不满足的话，就会自动将 SDS 的空间扩展至执行修改所需的大小，然后才执行实际的修改操作，所以使用 SDS 既不需要手动修改 SDS 的空间大小，也不会出现前面所说的缓冲区溢出的问题。&lt;/li&gt;
+&lt;li&gt;flags，用来表示不同类型的 SDS。一共设计了 5 种类型，分别是 sdshdr5、sdshdr8、sdshdr16、sdshdr32 和 sdshdr64，后面在说明区别之处。&lt;/li&gt;
+&lt;li&gt;buf[]，字节数组，用来保存实际数据。不仅可以保存字符串，也可以保存二进制数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;扩容的机制&#34;&gt;扩容的机制
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;hisds&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;hi_sdsMakeRoomFor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hisds&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;addlen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;...&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;// s目前的剩余空间已足够，无需扩展，直接返回
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;avail&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;addlen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;//获取目前s的长度
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;hi_sdslen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;sh&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;hi_sdsHdrSize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;oldtype&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;//扩展之后 s 至少需要的长度
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;newlen&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;addlen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;//根据新长度，为s分配新空间所需要的大小
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;newlen&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HI_SDS_MAX_PREALLOC&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;c1&#34;&gt;//新长度&amp;lt;HI_SDS_MAX_PREALLOC 则分配所需空间*2的空间
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;newlen&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;c1&#34;&gt;//否则，分配长度为目前长度+1MB
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;newlen&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HI_SDS_MAX_PREALLOC&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;如果所需的 sds 长度小于 1 MB，那么最后的扩容是按照翻倍扩容来执行的，即 2 倍的newlen&lt;/li&gt;
+&lt;li&gt;如果所需的 sds 长度超过 1 MB，那么最后的扩容长度应该是 newlen + 1MB。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;并且从这个扩容机制来看，SDS不仅会获得修改所必要的空间，还会得到额外的空间，这样的话可以有效的减少内存分配次数。&lt;/p&gt;
+&lt;h3 id=&#34;节省内存空间&#34;&gt;节省内存空间
+&lt;/h3&gt;&lt;p&gt;Redis 一共设计了 5 种类型，分别是 sdshdr5、sdshdr8、sdshdr16、sdshdr32 和 sdshdr64。&lt;/p&gt;
+&lt;p&gt;这 5 种类型的主要区别就在于，它们数据结构中的&lt;strong&gt;len 和 alloc 成员变量的数据类型不同。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;之所以 SDS 设计不同类型的结构体，是为了能**灵活保存不同大小的字符串，**从而有效节省内存空间。&lt;/p&gt;
+&lt;p&gt;还使用了专门的编译优化来节省内存空间，告诉编译器&lt;strong&gt;取消结构体在编译过程中的优化对齐&lt;/strong&gt;，按照&lt;strong&gt;实际占用字节数进行对齐&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;链表&#34;&gt;链表
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com//mysql/other/4fecbf7f63c73ec284a4821e0bfe2843.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com//mysql/other/cadf797496816eb343a19c2451437f1e.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;链表的优势和劣势&#34;&gt;链表的优势和劣势
+&lt;/h3&gt;&lt;p&gt;Redis 的链表实现优点如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;listNode 链表节点的结构里带有 prev 和 next 指针，获取某个节点的前置节点或后置节点的时间复杂度只需O(1)，而且这两个指针都可以指向 NULL，所以链表是&lt;strong&gt;无环链表&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;list 结构因为提供了表头指针 head 和表尾节点 tail，所以获取链表的表头节点和表尾节点的时间复杂度只需O(1)；&lt;/li&gt;
+&lt;li&gt;list 结构因为提供了链表节点数量 len，所以获取链表中的节点数量的时间复杂度只需O(1)；&lt;/li&gt;
+&lt;li&gt;listNode 链表节点使用 void* 指针保存节点值，并且可以通过 list 结构的 dup、free、match 函数指针为节点设置该节点类型特定的函数，因此链表节点可以保存各种不同类型的值；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;链表的缺陷也是有的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;链表每个节点之间的内存都是不连续的，意味着无法很好利用 CPU 缓存。能很好利用 CPU 缓存的数据结构就是数组，因为数组的内存是连续的，这样就可以充分利用 CPU 缓存来加速访问。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;还有一点，保存一个链表节点的值都需要一个链表节点结构头的分配，内存利用率较低。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux文件/目录特殊属性</title>
+        <link>https://getshhi.github.io/p/linux%E6%96%87%E4%BB%B6/%E7%9B%AE%E5%BD%95%E7%89%B9%E6%AE%8A%E5%B1%9E%E6%80%A7/</link>
+        <pubDate>Mon, 13 Jan 2025 15:20:41 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E6%96%87%E4%BB%B6/%E7%9B%AE%E5%BD%95%E7%89%B9%E6%AE%8A%E5%B1%9E%E6%80%A7/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nb3.png" alt="Featured image of post Linux文件/目录特殊属性" /&gt;&lt;h2 id=&#34;chattr&#34;&gt;chattr
+&lt;/h2&gt;&lt;p&gt;chattr的作用是修改文件/目录的特殊属性。&lt;/p&gt;
+&lt;p&gt;具体命令如下：&lt;/p&gt;
+&lt;p&gt;chattr　[+|-|=] 属性标示符　命令参数　文件/目录&lt;/p&gt;
+&lt;p&gt;常用命令参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-R：递归处理，将指令目录下的所有文件及子目录一并处理；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-V：显示指令执行过程；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+&amp;lt;属性标示符&amp;gt;：开启文件或目录的该项属性；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-&amp;lt;属性标示符&amp;gt;：关闭文件或目录的该项属性；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;=&amp;lt;属性标示符&amp;gt;：指定文件或目录的该项属性。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;常用属性标示符：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;a：让文件或目录仅供附加用途；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;A：不更新文件或目录的最后存取时间；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;c：将文件或目录压缩后存放；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;d：将文件或目录排除在倾倒操作之外；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;i：不得任意更动文件或目录；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;s：保密性删除文件或目录；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;S：即时更新文件或目录；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;u：预防意外删除。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;执行权限：chattr必须以root权限才能执行，如果是普通用户想执行chattr时，需要在命令前加sudo命令来提升权限为root权限。&lt;/p&gt;
+&lt;p&gt;案例演示1：&lt;/p&gt;
+&lt;p&gt;为文件testFile设置为不得任意更动，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;sudo chattr +i testFile&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/Y3pPYWRMTjByZGlTbUxnbUFNN1RNZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;将文件testFile设置为i隐藏属性后，试图删除，可以看到无法对其进行删除操作。&lt;/p&gt;
+&lt;p&gt;案例演示２：&lt;/p&gt;
+&lt;p&gt;将目录testDir以及目录下所有内容一并设置为不得任意更动，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;sudo chattr +i -R testDir&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/cnhqRk8zMUlpcU5xdzhUV1FwVjFWUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;试图删除testDir目录下的file1文件，可以看到无法删除。&lt;/p&gt;
+&lt;p&gt;案例演示３：&lt;/p&gt;
+&lt;p&gt;将testFile文件的i属性取消，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;sudo chattr -i testFile&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/WmV1OEMzSW5MRjh1SERzaVpyMkdtZz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以看到删除i属性后，既可以删除该文件。&lt;/p&gt;
+&lt;h2 id=&#34;lsattr&#34;&gt;lsattr
+&lt;/h2&gt;&lt;p&gt;lsattr的作用查看文件/目录的特殊属性设置情况。&lt;/p&gt;
+&lt;p&gt;具体命令如下：&lt;/p&gt;
+&lt;p&gt;lsattr　命令参数　文件/目录&lt;/p&gt;
+&lt;p&gt;常用参数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-R：递归的操作方式；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-V：显示指令的版本信息；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-a：列出目录中的所有文件，包括隐藏文件。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;案例演示1：&lt;/p&gt;
+&lt;p&gt;查看目录testDir下所有内容的特殊属性，具体使用如下命令：&lt;/p&gt;
+&lt;p&gt;lsattr -Ra testFile&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/dUpFVFRPcFRTcUdlbGw1NjVrS0t2Zz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux目录stick bit</title>
+        <link>https://getshhi.github.io/p/linux%E7%9B%AE%E5%BD%95stick-bit/</link>
+        <pubDate>Sun, 12 Jan 2025 15:20:36 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E7%9B%AE%E5%BD%95stick-bit/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nb2.png" alt="Featured image of post Linux目录stick bit" /&gt;&lt;h2 id=&#34;stick-bit&#34;&gt;stick bit
+&lt;/h2&gt;&lt;p&gt;stick  bit的作用是让具有stick  bit位的目录下的所有文件/目录只有创建者和root才能对其删除和修改，其他用户一律不能删除和修改。&lt;/p&gt;
+&lt;p&gt;例如：Linux的/tmp目录就具有stick  bit权限，详细权限如下所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/aUkxaUt4S2hRNm1NaEtjSWpsbFM5dz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以看到/tmp目录的其他用户的可执行位是t，则说明/tmp目录被设置了stick  bit权限。&lt;/p&gt;
+&lt;p&gt;设置stick  bit命令有两种方法，一种是数字设置，另一种是通过助记语法。建议使用助记语法设置stick  bit权限。&lt;/p&gt;
+&lt;p&gt;数字设置命令：chmod　1xxx　目录&lt;/p&gt;
+&lt;p&gt;其中xxx表示目录的所有者、同组用户和其他用户的权限（读写执行）。&lt;/p&gt;
+&lt;p&gt;助记语法设置命令：chmod　o [+|-] t　目录&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 添加stick  bit权限；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- 取消stick  bit权限；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chmod命令的其他参数都可以与stick  bit权限设置结合使用。
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;在设置stick  bit前必须保证目录的其他用户具有可执行权限，否则设置则无效。
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;stick  bit权限只能用于设置目录，不能用于设置文件。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;执行权限：&lt;/p&gt;
+&lt;p&gt;chmod必须以root权限才能执行，如果是普通用户想执行chmod时，需要在命令前加sudo命令来提升权限为root权限。&lt;/p&gt;
+&lt;p&gt;案例演示１：&lt;/p&gt;
+&lt;p&gt;创建一个新目录testDir，使用助记语法设置方法为目录testDir添加stick  bit权限，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir testDir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod o+t testDir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -l .
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/Sy9hcDF1YVErdTY0ZklmRmhmejBIdz09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;如果不给目录testDir设置可执行权限直接设置stick  bit权限后，标记为是T而不是t，详细结果如下图所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/SEtQTFUzMlNHT3lkN3ZKUlY2elQ2QT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;案例演示２：&lt;/p&gt;
+&lt;p&gt;创建一个新目录testDir，使用数字设置方法为目录testDir添加stick  bit权限，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir testDir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -l ./
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod 1775 testDir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -l ./
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;第一条命令是创建新目录testDir；&lt;/p&gt;
+&lt;p&gt;第二条命令是查看testDir现有的权限；&lt;/p&gt;
+&lt;p&gt;第三条命令是在保证testDir原有权限的情况下为其添加stick bit权限；&lt;/p&gt;
+&lt;p&gt;第四条命令是查看是否添加成功。&lt;/p&gt;
+&lt;p&gt;案例演示３：&lt;/p&gt;
+&lt;p&gt;将目录testDir取消stick  bit权限，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod o-t testDir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -l .
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/alZIK1I4VVYxRW9VdkNHZXVRbUpzUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux文件/目录setuid和setgid</title>
+        <link>https://getshhi.github.io/p/linux%E6%96%87%E4%BB%B6/%E7%9B%AE%E5%BD%95setuid%E5%92%8Csetgid/</link>
+        <pubDate>Sat, 11 Jan 2025 15:20:30 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/linux%E6%96%87%E4%BB%B6/%E7%9B%AE%E5%BD%95setuid%E5%92%8Csetgid/</guid>
+        <description>&lt;img src="https://getshhi.github.io/nb1.png" alt="Featured image of post Linux文件/目录setuid和setgid" /&gt;&lt;h2 id=&#34;setuid&#34;&gt;setuid
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;setuid的作用是让执行该命令的用户以该命令拥有者的权限去执行。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;例如：普通用户执行passwd时会拥有root的权限，这样就可以修改/etc/passwd这个文件，正是因为passwd命令被设置了setuid权限，passwd命令的详细权限如下所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/OERDRWtsdndlbXhMU08wUnpCY3dVUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以看到passwd命令的拥有者的可执行位是s，则说明passwd命令被设置了setuid权限。&lt;/p&gt;
+&lt;p&gt;设置setuid命令有两种方法，一种是数字设置，另一种是通过助记语法。（建议使用助记语法设置）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数字设置命令：chmod　4xxx　文件/目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其中xxx表示文件/目录的所有者、同组用户和其他用户的权限(读写执行)。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;助记语法设置命令：chmod　u [+|-] s　文件/目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 添加setuid权限；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- 取消setuid权限；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;注意:&lt;/strong&gt; chmod命令的其他参数都可以与setuid权限设置结合使用。
+在设置setuid前必须保证文件/目录的所有者具有可执行权限，否则设置则无效。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;执行权限：&lt;/strong&gt; chmod必须以root权限才能执行，如果是普通用户想执行chmod时，需要在命令前加sudo命令来提升权限为root权限。&lt;/p&gt;
+&lt;p&gt;案例演示1：&lt;/p&gt;
+&lt;p&gt;创建一个新文件testFile，使用数字设置方法为文件testFile添加setuid权限，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch testFile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -l testFile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod 4764 testFile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -l testFile
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;第一条命令是创建新文件testFile；&lt;/p&gt;
+&lt;p&gt;第二条命令是查看testFile现有的权限；&lt;/p&gt;
+&lt;p&gt;第三条命令是在保证testFile原有权限的情况下为其添加setuid权限；&lt;/p&gt;
+&lt;p&gt;第四条命令是查看是否添加成功。&lt;/p&gt;
+&lt;p&gt;案例演示2：&lt;/p&gt;
+&lt;p&gt;创建一个新目录testDir，使用助记语法设置方法为目录testDir添加setuid权限，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir testDir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod u+s testDir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -l .
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/T3FOQzFKMjAzQ0hFdGdvUzVvZk5IQT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;案例演示3：&lt;/p&gt;
+&lt;p&gt;创建一个新文件testFile，使用助记语法为文件testFile添加setuid权限，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch testFile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod u+x,u+s testFile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -l testFile
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;第一条命令是创建新文件testFile；&lt;/p&gt;
+&lt;p&gt;第二条命令是在设置testFile为可执行权限并为其添加setuid权限；&lt;/p&gt;
+&lt;p&gt;第三条命令是查看是否添加成功。&lt;/p&gt;
+&lt;p&gt;如果不给文件testFile设置可执行权限直接设置setuid权限后，标记为是S而不是s，详细结果如下图所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/alZIK1I4VVYxRW9VdkNHZXVRbUpzUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;setgid&#34;&gt;setgid
+&lt;/h2&gt;&lt;p&gt;setgid的作用是让执行该命令的用户以该命令所有者的同组用户的权限去执行。&lt;/p&gt;
+&lt;p&gt;设置setgid命令有两种方法，一种是数字设置，另一种是通过助记语法。建议使用助记语法设置setgid权限。&lt;/p&gt;
+&lt;p&gt;数字设置命令：&lt;/p&gt;
+&lt;p&gt;chmod　2xxx　文件/目录&lt;/p&gt;
+&lt;p&gt;其中xxx表示文件/目录的所有者、同组用户和其他用户的权限(读写执行)。&lt;/p&gt;
+&lt;p&gt;助记语法设置命令：&lt;/p&gt;
+&lt;p&gt;chmod　g [+|-] s　文件/目录&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 添加setgid权限；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-  取消setgid权限；
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; chmod命令的其他参数都可以与setgid权限设置结合使用。在设置setgid前必须保证文件/目录的同组用户具有可执行权限，否则设置则无效。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;执行权限：&lt;/strong&gt; chmod必须以root权限才能执行，如果是普通用户想执行chmod时，需要在命令前加sudo命令来提升权限为root权限。&lt;/p&gt;
+&lt;p&gt;案例演示1：&lt;/p&gt;
+&lt;p&gt;创建一个新文件testFile，使用数字设置方法为文件testFile添加setgid权限，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch testFile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -l testFile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod 2674 testFile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -l testFile
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;第一条命令是创建新文件testFile；&lt;/p&gt;
+&lt;p&gt;第二条命令是查看testFile现有的权限；&lt;/p&gt;
+&lt;p&gt;第三条命令是在保证testFile原有权限的情况下为其添加setgid权限；&lt;/p&gt;
+&lt;p&gt;第四条命令是查看是否添加成功。&lt;/p&gt;
+&lt;p&gt;案例演示2：&lt;/p&gt;
+&lt;p&gt;创建一个新目录testDir，使用助记语法设置方法为目录testDir添加setgid权限，具体使用如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir testDir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod g+s testDir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -l .
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://data.educoder.net/api/attachments/ellJN2k3Nm1LaVVaSjdSZVBxZWxOUT09&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Linux文件/目录所属组修改</title>
         <link>https://getshhi.github.io/p/linux%E6%96%87%E4%BB%B6/%E7%9B%AE%E5%BD%95%E6%89%80%E5%B1%9E%E7%BB%84%E4%BF%AE%E6%94%B9/</link>
         <pubDate>Fri, 10 Jan 2025 16:35:54 +0800</pubDate>
@@ -2333,7 +3836,78 @@ Redis Hash 存储其结构如下图：
 &lt;h2 id=&#34;bitmap&#34;&gt;BitMap
 &lt;/h2&gt;&lt;h3 id=&#34;介绍-5&#34;&gt;介绍
 &lt;/h3&gt;&lt;p&gt;Bitmap，即位图，是一串连续的二进制数组（0和1），可以通过偏移量（offset）定位元素。BitMap通过最小的单位bit来进行0|1的设置，表示某个元素的值或者状态，时间复杂度为O(1)。&lt;/p&gt;
-&lt;p&gt;由于 bit 是计算机中最小的单位，使用它进行储存将非常节省空间，特别适合一些数据量大且使用二值统计的场景。&lt;/p&gt;
+&lt;p&gt;由于 bit 是计算机中最小的单位，使用它进行储存将非常节省空间，特别适合一些数据量大且使用&lt;strong&gt;二值统计的场景。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/bitmap.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;内部实现-5&#34;&gt;内部实现
+&lt;/h3&gt;&lt;p&gt;Bitmap 本身是用 &lt;strong&gt;String 类型作为底层数据结构&lt;/strong&gt;实现的一种统计二值状态的数据类型。&lt;/p&gt;
+&lt;p&gt;String 类型是会保存为二进制的字节数组，所以，Redis 就把字节数组的每个 bit 位利用起来，用来表示一个元素的二值状态，你可以把 Bitmap 看作是一个 bit 数组。&lt;/p&gt;
+&lt;h3 id=&#34;应用场景-5&#34;&gt;应用场景
+&lt;/h3&gt;&lt;p&gt;Bitmap 类型非常适合二值状态统计的场景，这里的二值状态就是指集合元素的取值就只有 0 和 1 两种，在记录海量数据时，Bitmap 能够有效地节省内存空间。&lt;/p&gt;
+&lt;h4 id=&#34;签到统计&#34;&gt;签到统计
+&lt;/h4&gt;&lt;p&gt;在签到打卡的场景中，我们可以只用记录签到或者未签到，所以它就是非常典型的二值状态。&lt;/p&gt;
+&lt;h4 id=&#34;判断用户登录状态&#34;&gt;判断用户登录状态
+&lt;/h4&gt;&lt;p&gt;Bitmap 提供了 GETBIT、SETBIT 操作，通过一个偏移值 offset 对 bit 数组的 offset 位置的 bit 位进行读写操作，需要注意的是 offset 从 0 开始。&lt;/p&gt;
+&lt;h4 id=&#34;连续签到总数&#34;&gt;连续签到总数
+&lt;/h4&gt;&lt;p&gt;把每天的日期作为 Bitmap 的 key，userId 作为 offset，若是打卡则将 offset 位置的 bit 设置成 1。&lt;/p&gt;
+&lt;p&gt;key 对应的集合的每个 bit 位的数据则是一个用户在该日期的打卡记录。&lt;/p&gt;
+&lt;h2 id=&#34;hyperloglog&#34;&gt;HyperLogLog
+&lt;/h2&gt;&lt;h3 id=&#34;介绍-6&#34;&gt;介绍
+&lt;/h3&gt;&lt;p&gt;Redis HyperLogLog 是 Redis 2.8.9 版本新增的数据类型，是一种用于「统计基数」的数据集合类型，基数统计就是指统计一个集合中不重复的元素个数。但要注意，HyperLogLog 是统计规则是基于概率完成的，不是非常准确，标准误算率是 0.81%。&lt;/p&gt;
+&lt;p&gt;所以，简单来说 HyperLogLog&lt;strong&gt;提供不精确的去重计数。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的内存空间总是固定的、并且是很小的。&lt;/p&gt;
+&lt;p&gt;在 Redis 里面，每个 HyperLogLog 键只需要花费 12 KB 内存，就可以计算接近 2^64 个不同元素的基数，和元素越多就越耗费内存的 Set 和 Hash 类型相比，HyperLogLog 就非常节省空间。&lt;/p&gt;
+&lt;h3 id=&#34;内部实现-6&#34;&gt;内部实现
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://juejin.cn/post/6844903785744056333&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;HyperLogLog算法的原理讲解&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;应用场景-6&#34;&gt;应用场景
+&lt;/h3&gt;&lt;h4 id=&#34;百万级网页uv计数&#34;&gt;百万级网页UV计数
+&lt;/h4&gt;&lt;p&gt;Redis HyperLogLog 优势在于只需要花费 12 KB 内存，就可以计算接近 2^64 个元素的基数，和元素越多就越耗费内存的 Set 和 Hash 类型相比，HyperLogLog 就非常节省空间。&lt;/p&gt;
+&lt;p&gt;不过，有一点需要你注意一下，HyperLogLog 的统计规则是基于概率完成的，所以它给出的统计结果是有一定误差的，标准误算率是 0.81%。&lt;/p&gt;
+&lt;p&gt;这也就意味着，你使用 HyperLogLog 统计的 UV 是 100 万，但实际的 UV 可能是 101 万。虽然误差率不算大，但是，如果你需要精确统计结果的话，最好还是继续用 Set 或 Hash 类型。&lt;/p&gt;
+&lt;h2 id=&#34;geo&#34;&gt;GEO
+&lt;/h2&gt;&lt;p&gt;Redis GEO 是 Redis 3.2 版本新增的数据类型，主要用于存储地理位置信息，并对存储的信息进行操作。&lt;/p&gt;
+&lt;p&gt;在日常生活中，我们越来越依赖搜索“附近的餐馆”、在打车软件上叫车，这些都离不开基于位置信息服务（Location-Based Service，LBS）的应用。LBS 应用访问的数据是和人或物关联的一组经纬度信息，而且要能查询相邻的经纬度范围，GEO 就非常适合应用在 LBS 服务的场景中。&lt;/p&gt;
+&lt;h3 id=&#34;内部实现-7&#34;&gt;内部实现
+&lt;/h3&gt;&lt;p&gt;GEO 本身并没有设计新的底层数据结构，而是直接使用了 Sorted Set 集合类型。&lt;/p&gt;
+&lt;p&gt;GEO 类型使用 GeoHash 编码方法实现了经纬度到 Sorted Set 中元素权重分数的转换，这其中的两个关键机制就是「对二维地图做区间划分」和「对区间进行编码」。一组经纬度落在某个区间后，就用区间的编码值来表示，并把编码值作为 Sorted Set 元素的权重分数。&lt;/p&gt;
+&lt;p&gt;这样一来，我们就可以把经纬度保存到 Sorted Set 中，利用 Sorted Set 提供的“按权重进行有序范围查找”的特性，实现 LBS 服务中频繁使用的“搜索附近”的需求。&lt;/p&gt;
+&lt;h3 id=&#34;应用场景-7&#34;&gt;应用场景
+&lt;/h3&gt;&lt;p&gt;可以用做滴滴打车&lt;/p&gt;
+&lt;h2 id=&#34;stream&#34;&gt;Stream
+&lt;/h2&gt;&lt;p&gt;Redis Stream 是 Redis 5.0 版本新增加的数据类型，Redis 专门为消息队列设计的数据类型。&lt;/p&gt;
+&lt;p&gt;在 Redis 5.0 Stream 没出来之前，消息队列的实现方式都有着各自的缺陷，例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;发布订阅模式，不能持久化也就无法可靠的保存消息，并且对于离线重连的客户端不能读取历史消息的缺陷；&lt;/li&gt;
+&lt;li&gt;List 实现消息队列的方式不能重复消费，一个消息消费完就会被删除，而且生产者需要自行实现全局唯一 ID。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;基于以上问题，Redis 5.0 便推出了 Stream 类型也是此版本最重要的功能，用于完美地实现消息队列，它支持消息的持久化、支持自动生成全局唯一 ID、支持 ack 确认消息的模式、支持消费组模式等，让消息队列更加的稳定和可靠。&lt;/p&gt;
+&lt;h3 id=&#34;应用场景-8&#34;&gt;应用场景
+&lt;/h3&gt;&lt;p&gt;相较于基于List类型实现的消息队列，有两个特有的特性:自动生成全局唯一消息ID，支持以消息组形式消息数据。&lt;/p&gt;
+&lt;h1 id=&#34;总结&#34;&gt;总结
+&lt;/h1&gt;&lt;p&gt;Redis 常见的五种数据类型：&lt;strong&gt;String（字符串），Hash（哈希），List（列表），Set（集合）及 Zset(sorted set：有序集合)。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Redis 五种数据类型的应用场景:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;String 类型的应用场景：缓存对象、常规计数、分布式锁、共享session信息等。&lt;/p&gt;
+&lt;p&gt;List 类型的应用场景：消息队列（有两个问题：1. 生产者需要自行实现全局唯一 ID；2. 不能以消费组形式消费数据）等。&lt;/p&gt;
+&lt;p&gt;Hash 类型：缓存对象、购物车等。&lt;/p&gt;
+&lt;p&gt;Set 类型：聚合计算（并集、交集、差集）场景，比如点赞、共同关注、抽奖活动等。&lt;/p&gt;
+&lt;p&gt;Zset 类型：排序场景，比如排行榜、电话和姓名排序等。&lt;/p&gt;
+&lt;p&gt;Redis 后续版本又支持四种数据类型，它们的应用场景如下：&lt;/p&gt;
+&lt;p&gt;BitMap（2.2 版新增）：二值状态统计的场景，比如签到、判断用户登陆状态、连续签到用户总数等；&lt;/p&gt;
+&lt;p&gt;HyperLogLog（2.8 版新增）：海量数据基数统计的场景，比如百万级网页 UV 计数等；&lt;/p&gt;
+&lt;p&gt;GEO（3.2 版新增）：存储地理位置信息的场景，比如滴滴叫车；&lt;/p&gt;
+&lt;p&gt;Stream（5.0 版新增）：消息队列，相比于基于 List 类型实现的消息队列，有这两个特有的特性：自动生成全局唯一消息ID，支持以消费组形式消费数据。&lt;/p&gt;
+&lt;p&gt;针对 Redis 是否适合做消息队列，关键看你的业务场景：&lt;/p&gt;
+&lt;p&gt;如果你的业务场景足够简单，对于数据丢失不敏感，而且消息积压概率比较小的情况下，把 Redis 当作队列是完全可以的。&lt;/p&gt;
+&lt;p&gt;如果你的业务有海量消息，消息积压的概率比较大，并且不能接受数据丢失，那么还是用专业的消息队列中间件吧。&lt;/p&gt;
 </description>
         </item>
         <item>

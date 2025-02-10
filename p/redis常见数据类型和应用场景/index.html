@@ -292,11 +292,11 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 9 分钟
+                    阅读时长: 14 分钟
                 </time>
             </div>
         
-        <span class="post-word-count">4469 words</span>
+        <span class="post-word-count">6657 words</span>
     </footer>
     
     
@@ -567,7 +567,78 @@ Redis Hash 存储其结构如下图：
 <h2 id="bitmap">BitMap
 </h2><h3 id="介绍-5">介绍
 </h3><p>Bitmap，即位图，是一串连续的二进制数组（0和1），可以通过偏移量（offset）定位元素。BitMap通过最小的单位bit来进行0|1的设置，表示某个元素的值或者状态，时间复杂度为O(1)。</p>
-<p>由于 bit 是计算机中最小的单位，使用它进行储存将非常节省空间，特别适合一些数据量大且使用二值统计的场景。</p>
+<p>由于 bit 是计算机中最小的单位，使用它进行储存将非常节省空间，特别适合一些数据量大且使用<strong>二值统计的场景。</strong></p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/bitmap.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片"
+	
+	
+></p>
+<h3 id="内部实现-5">内部实现
+</h3><p>Bitmap 本身是用 <strong>String 类型作为底层数据结构</strong>实现的一种统计二值状态的数据类型。</p>
+<p>String 类型是会保存为二进制的字节数组，所以，Redis 就把字节数组的每个 bit 位利用起来，用来表示一个元素的二值状态，你可以把 Bitmap 看作是一个 bit 数组。</p>
+<h3 id="应用场景-5">应用场景
+</h3><p>Bitmap 类型非常适合二值状态统计的场景，这里的二值状态就是指集合元素的取值就只有 0 和 1 两种，在记录海量数据时，Bitmap 能够有效地节省内存空间。</p>
+<h4 id="签到统计">签到统计
+</h4><p>在签到打卡的场景中，我们可以只用记录签到或者未签到，所以它就是非常典型的二值状态。</p>
+<h4 id="判断用户登录状态">判断用户登录状态
+</h4><p>Bitmap 提供了 GETBIT、SETBIT 操作，通过一个偏移值 offset 对 bit 数组的 offset 位置的 bit 位进行读写操作，需要注意的是 offset 从 0 开始。</p>
+<h4 id="连续签到总数">连续签到总数
+</h4><p>把每天的日期作为 Bitmap 的 key，userId 作为 offset，若是打卡则将 offset 位置的 bit 设置成 1。</p>
+<p>key 对应的集合的每个 bit 位的数据则是一个用户在该日期的打卡记录。</p>
+<h2 id="hyperloglog">HyperLogLog
+</h2><h3 id="介绍-6">介绍
+</h3><p>Redis HyperLogLog 是 Redis 2.8.9 版本新增的数据类型，是一种用于「统计基数」的数据集合类型，基数统计就是指统计一个集合中不重复的元素个数。但要注意，HyperLogLog 是统计规则是基于概率完成的，不是非常准确，标准误算率是 0.81%。</p>
+<p>所以，简单来说 HyperLogLog<strong>提供不精确的去重计数。</strong></p>
+<p>HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的内存空间总是固定的、并且是很小的。</p>
+<p>在 Redis 里面，每个 HyperLogLog 键只需要花费 12 KB 内存，就可以计算接近 2^64 个不同元素的基数，和元素越多就越耗费内存的 Set 和 Hash 类型相比，HyperLogLog 就非常节省空间。</p>
+<h3 id="内部实现-6">内部实现
+</h3><p><a class="link" href="https://juejin.cn/post/6844903785744056333"  target="_blank" rel="noopener"
+    >HyperLogLog算法的原理讲解</a></p>
+<h3 id="应用场景-6">应用场景
+</h3><h4 id="百万级网页uv计数">百万级网页UV计数
+</h4><p>Redis HyperLogLog 优势在于只需要花费 12 KB 内存，就可以计算接近 2^64 个元素的基数，和元素越多就越耗费内存的 Set 和 Hash 类型相比，HyperLogLog 就非常节省空间。</p>
+<p>不过，有一点需要你注意一下，HyperLogLog 的统计规则是基于概率完成的，所以它给出的统计结果是有一定误差的，标准误算率是 0.81%。</p>
+<p>这也就意味着，你使用 HyperLogLog 统计的 UV 是 100 万，但实际的 UV 可能是 101 万。虽然误差率不算大，但是，如果你需要精确统计结果的话，最好还是继续用 Set 或 Hash 类型。</p>
+<h2 id="geo">GEO
+</h2><p>Redis GEO 是 Redis 3.2 版本新增的数据类型，主要用于存储地理位置信息，并对存储的信息进行操作。</p>
+<p>在日常生活中，我们越来越依赖搜索“附近的餐馆”、在打车软件上叫车，这些都离不开基于位置信息服务（Location-Based Service，LBS）的应用。LBS 应用访问的数据是和人或物关联的一组经纬度信息，而且要能查询相邻的经纬度范围，GEO 就非常适合应用在 LBS 服务的场景中。</p>
+<h3 id="内部实现-7">内部实现
+</h3><p>GEO 本身并没有设计新的底层数据结构，而是直接使用了 Sorted Set 集合类型。</p>
+<p>GEO 类型使用 GeoHash 编码方法实现了经纬度到 Sorted Set 中元素权重分数的转换，这其中的两个关键机制就是「对二维地图做区间划分」和「对区间进行编码」。一组经纬度落在某个区间后，就用区间的编码值来表示，并把编码值作为 Sorted Set 元素的权重分数。</p>
+<p>这样一来，我们就可以把经纬度保存到 Sorted Set 中，利用 Sorted Set 提供的“按权重进行有序范围查找”的特性，实现 LBS 服务中频繁使用的“搜索附近”的需求。</p>
+<h3 id="应用场景-7">应用场景
+</h3><p>可以用做滴滴打车</p>
+<h2 id="stream">Stream
+</h2><p>Redis Stream 是 Redis 5.0 版本新增加的数据类型，Redis 专门为消息队列设计的数据类型。</p>
+<p>在 Redis 5.0 Stream 没出来之前，消息队列的实现方式都有着各自的缺陷，例如：</p>
+<ul>
+<li>发布订阅模式，不能持久化也就无法可靠的保存消息，并且对于离线重连的客户端不能读取历史消息的缺陷；</li>
+<li>List 实现消息队列的方式不能重复消费，一个消息消费完就会被删除，而且生产者需要自行实现全局唯一 ID。</li>
+</ul>
+<p>基于以上问题，Redis 5.0 便推出了 Stream 类型也是此版本最重要的功能，用于完美地实现消息队列，它支持消息的持久化、支持自动生成全局唯一 ID、支持 ack 确认消息的模式、支持消费组模式等，让消息队列更加的稳定和可靠。</p>
+<h3 id="应用场景-8">应用场景
+</h3><p>相较于基于List类型实现的消息队列，有两个特有的特性:自动生成全局唯一消息ID，支持以消息组形式消息数据。</p>
+<h1 id="总结">总结
+</h1><p>Redis 常见的五种数据类型：<strong>String（字符串），Hash（哈希），List（列表），Set（集合）及 Zset(sorted set：有序集合)。</strong></p>
+<p><strong>Redis 五种数据类型的应用场景:</strong></p>
+<p>String 类型的应用场景：缓存对象、常规计数、分布式锁、共享session信息等。</p>
+<p>List 类型的应用场景：消息队列（有两个问题：1. 生产者需要自行实现全局唯一 ID；2. 不能以消费组形式消费数据）等。</p>
+<p>Hash 类型：缓存对象、购物车等。</p>
+<p>Set 类型：聚合计算（并集、交集、差集）场景，比如点赞、共同关注、抽奖活动等。</p>
+<p>Zset 类型：排序场景，比如排行榜、电话和姓名排序等。</p>
+<p>Redis 后续版本又支持四种数据类型，它们的应用场景如下：</p>
+<p>BitMap（2.2 版新增）：二值状态统计的场景，比如签到、判断用户登陆状态、连续签到用户总数等；</p>
+<p>HyperLogLog（2.8 版新增）：海量数据基数统计的场景，比如百万级网页 UV 计数等；</p>
+<p>GEO（3.2 版新增）：存储地理位置信息的场景，比如滴滴叫车；</p>
+<p>Stream（5.0 版新增）：消息队列，相比于基于 List 类型实现的消息队列，有这两个特有的特性：自动生成全局唯一消息ID，支持以消费组形式消费数据。</p>
+<p>针对 Redis 是否适合做消息队列，关键看你的业务场景：</p>
+<p>如果你的业务场景足够简单，对于数据丢失不敏感，而且消息积压概率比较小的情况下，把 Redis 当作队列是完全可以的。</p>
+<p>如果你的业务有海量消息，消息积压的概率比较大，并且不能接受数据丢失，那么还是用专业的消息队列中间件吧。</p>
 
 </section>
 
@@ -619,6 +690,25 @@ Redis Hash 存储其结构如下图：
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/wq.png" loading="lazy" data-key="" data-hash="/wq.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Redis数据结构</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="has-image">
@@ -691,25 +781,6 @@ Redis Hash 存储其结构如下图：
 
         <div class="article-details">
             <h2 class="article-title">MySql日志</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/mysql%E9%94%81/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/f2.png" loading="lazy" data-key="" data-hash="/f2.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">MySql锁</h2>
         </div>
     </a>
 </article>

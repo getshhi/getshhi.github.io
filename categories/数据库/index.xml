@@ -7,7 +7,164 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>JZH-letere</copyright>
-        <lastBuildDate>Mon, 23 Dec 2024 22:31:04 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 14 Jan 2025 10:52:04 +0800</lastBuildDate><atom:link href="https://getshhi.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Redis数据结构</title>
+        <link>https://getshhi.github.io/p/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+        <pubDate>Tue, 14 Jan 2025 10:52:04 +0800</pubDate>
+        
+        <guid>https://getshhi.github.io/p/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+        <description>&lt;img src="https://getshhi.github.io/wq.png" alt="Featured image of post Redis数据结构" /&gt;&lt;h1 id=&#34;redis的数据概览&#34;&gt;Redis的数据概览
+&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com//mysql/other/a9c3e7dc4ac79363d8eb8eb2290a58e6.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;redis为啥这么快&#34;&gt;Redis为啥这么快?
+&lt;/h2&gt;&lt;p&gt;除了它是内存数据库，使得所有的操作都在内存上进行之外，还有一个重要因素，就是它实现的数据结构，使得我们对数据进行增删改查操作时，Redis能高效的处理。&lt;/p&gt;
+&lt;h2 id=&#34;键值对数据库是怎么实现的&#34;&gt;键值对数据库是怎么实现的？
+&lt;/h2&gt;&lt;p&gt;Redis 的键值对中的 key 就是&lt;strong&gt;字符串对象&lt;/strong&gt;，而 value 可以是字符串对象，也可以是&lt;strong&gt;集合数据类型&lt;/strong&gt;的对象，比如 List 对象、Hash 对象、Set 对象和 Zset 对象。&lt;/p&gt;
+&lt;p&gt;大致图
+&lt;img src=&#34;https://cdn.xiaolincoding.com//mysql/other/3c386666e4e7638a07b230ba14b400fe.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;sds&#34;&gt;SDS
+&lt;/h2&gt;&lt;p&gt;字符串在 Redis 中是很常用的，键值对中的键是字符串类型，值有时也是字符串类型。&lt;/p&gt;
+&lt;p&gt;Redis 是用 C 语言实现的，但是它没有直接使用 C 语言的 char* 字符数组来实现字符串，而是自己封装了一个名为简单动态字符串（simple dynamic string，SDS） 的数据结构来表示字符串，也就是 Redis 的 String 数据类型的底层数据结构是 SDS。&lt;/p&gt;
+&lt;h2 id=&#34;c语言字符串的缺陷&#34;&gt;C语言字符串的缺陷
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;首先的话，因为C语言是通过判断是否有&amp;rsquo;\0&amp;rsquo;来决定字符串是否结束，所以C语言获取字符串长度的时间复杂度是O(N)(这是第一点)&lt;/li&gt;
+&lt;li&gt;因为C语言的字符串是不会记录自身的缓冲区大小，所以字符串操作函数不高效且不安全，会有缓存区溢出的风险，可能会造成程序综止。&lt;/li&gt;
+&lt;li&gt;因为C语言是通过判断是否有&amp;rsquo;\0&amp;rsquo;来决定字符串是否结束，字符串里面不能含有 “\0” 字符，所以不能保存图片，音频，视频文化这样的二进制数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;sds结构设计&#34;&gt;SDS结构设计
+&lt;/h2&gt;&lt;p&gt;Redis 5.0 的 SDS 的数据结构：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com//mysql/other/516738c4058cdf9109e40a7812ef4239.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;结构中的每个成员变量分别介绍下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;len，记录了字符串长度。这样获取字符串长度的时候，只需要返回这个成员变量值就行，时间复杂度只需要 O（1）。&lt;/li&gt;
+&lt;li&gt;alloc，分配给字符数组的空间长度。这样在修改字符串的时候，可以通过 alloc - len 计算出剩余的空间大小，可以用来判断空间是否满足修改需求，如果不满足的话，就会自动将 SDS 的空间扩展至执行修改所需的大小，然后才执行实际的修改操作，所以使用 SDS 既不需要手动修改 SDS 的空间大小，也不会出现前面所说的缓冲区溢出的问题。&lt;/li&gt;
+&lt;li&gt;flags，用来表示不同类型的 SDS。一共设计了 5 种类型，分别是 sdshdr5、sdshdr8、sdshdr16、sdshdr32 和 sdshdr64，后面在说明区别之处。&lt;/li&gt;
+&lt;li&gt;buf[]，字节数组，用来保存实际数据。不仅可以保存字符串，也可以保存二进制数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;扩容的机制&#34;&gt;扩容的机制
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;hisds&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;hi_sdsMakeRoomFor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hisds&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;addlen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;...&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;// s目前的剩余空间已足够，无需扩展，直接返回
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;avail&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;addlen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;//获取目前s的长度
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;hi_sdslen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;sh&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;hi_sdsHdrSize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;oldtype&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;//扩展之后 s 至少需要的长度
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;newlen&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;addlen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;//根据新长度，为s分配新空间所需要的大小
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;newlen&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HI_SDS_MAX_PREALLOC&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;c1&#34;&gt;//新长度&amp;lt;HI_SDS_MAX_PREALLOC 则分配所需空间*2的空间
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;newlen&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;c1&#34;&gt;//否则，分配长度为目前长度+1MB
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;newlen&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HI_SDS_MAX_PREALLOC&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;如果所需的 sds 长度小于 1 MB，那么最后的扩容是按照翻倍扩容来执行的，即 2 倍的newlen&lt;/li&gt;
+&lt;li&gt;如果所需的 sds 长度超过 1 MB，那么最后的扩容长度应该是 newlen + 1MB。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;并且从这个扩容机制来看，SDS不仅会获得修改所必要的空间，还会得到额外的空间，这样的话可以有效的减少内存分配次数。&lt;/p&gt;
+&lt;h3 id=&#34;节省内存空间&#34;&gt;节省内存空间
+&lt;/h3&gt;&lt;p&gt;Redis 一共设计了 5 种类型，分别是 sdshdr5、sdshdr8、sdshdr16、sdshdr32 和 sdshdr64。&lt;/p&gt;
+&lt;p&gt;这 5 种类型的主要区别就在于，它们数据结构中的&lt;strong&gt;len 和 alloc 成员变量的数据类型不同。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;之所以 SDS 设计不同类型的结构体，是为了能**灵活保存不同大小的字符串，**从而有效节省内存空间。&lt;/p&gt;
+&lt;p&gt;还使用了专门的编译优化来节省内存空间，告诉编译器&lt;strong&gt;取消结构体在编译过程中的优化对齐&lt;/strong&gt;，按照&lt;strong&gt;实际占用字节数进行对齐&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;链表&#34;&gt;链表
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com//mysql/other/4fecbf7f63c73ec284a4821e0bfe2843.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com//mysql/other/cadf797496816eb343a19c2451437f1e.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;链表的优势和劣势&#34;&gt;链表的优势和劣势
+&lt;/h3&gt;&lt;p&gt;Redis 的链表实现优点如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;listNode 链表节点的结构里带有 prev 和 next 指针，获取某个节点的前置节点或后置节点的时间复杂度只需O(1)，而且这两个指针都可以指向 NULL，所以链表是&lt;strong&gt;无环链表&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;list 结构因为提供了表头指针 head 和表尾节点 tail，所以获取链表的表头节点和表尾节点的时间复杂度只需O(1)；&lt;/li&gt;
+&lt;li&gt;list 结构因为提供了链表节点数量 len，所以获取链表中的节点数量的时间复杂度只需O(1)；&lt;/li&gt;
+&lt;li&gt;listNode 链表节点使用 void* 指针保存节点值，并且可以通过 list 结构的 dup、free、match 函数指针为节点设置该节点类型特定的函数，因此链表节点可以保存各种不同类型的值；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;链表的缺陷也是有的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;链表每个节点之间的内存都是不连续的，意味着无法很好利用 CPU 缓存。能很好利用 CPU 缓存的数据结构就是数组，因为数组的内存是连续的，这样就可以充分利用 CPU 缓存来加速访问。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;还有一点，保存一个链表节点的值都需要一个链表节点结构头的分配，内存利用率较低。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>Redis常见数据类型和应用场景</title>
         <link>https://getshhi.github.io/p/redis%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</link>
         <pubDate>Mon, 23 Dec 2024 22:31:04 +0800</pubDate>
@@ -273,7 +430,78 @@ Redis Hash 存储其结构如下图：
 &lt;h2 id=&#34;bitmap&#34;&gt;BitMap
 &lt;/h2&gt;&lt;h3 id=&#34;介绍-5&#34;&gt;介绍
 &lt;/h3&gt;&lt;p&gt;Bitmap，即位图，是一串连续的二进制数组（0和1），可以通过偏移量（offset）定位元素。BitMap通过最小的单位bit来进行0|1的设置，表示某个元素的值或者状态，时间复杂度为O(1)。&lt;/p&gt;
-&lt;p&gt;由于 bit 是计算机中最小的单位，使用它进行储存将非常节省空间，特别适合一些数据量大且使用二值统计的场景。&lt;/p&gt;
+&lt;p&gt;由于 bit 是计算机中最小的单位，使用它进行储存将非常节省空间，特别适合一些数据量大且使用&lt;strong&gt;二值统计的场景。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/bitmap.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;内部实现-5&#34;&gt;内部实现
+&lt;/h3&gt;&lt;p&gt;Bitmap 本身是用 &lt;strong&gt;String 类型作为底层数据结构&lt;/strong&gt;实现的一种统计二值状态的数据类型。&lt;/p&gt;
+&lt;p&gt;String 类型是会保存为二进制的字节数组，所以，Redis 就把字节数组的每个 bit 位利用起来，用来表示一个元素的二值状态，你可以把 Bitmap 看作是一个 bit 数组。&lt;/p&gt;
+&lt;h3 id=&#34;应用场景-5&#34;&gt;应用场景
+&lt;/h3&gt;&lt;p&gt;Bitmap 类型非常适合二值状态统计的场景，这里的二值状态就是指集合元素的取值就只有 0 和 1 两种，在记录海量数据时，Bitmap 能够有效地节省内存空间。&lt;/p&gt;
+&lt;h4 id=&#34;签到统计&#34;&gt;签到统计
+&lt;/h4&gt;&lt;p&gt;在签到打卡的场景中，我们可以只用记录签到或者未签到，所以它就是非常典型的二值状态。&lt;/p&gt;
+&lt;h4 id=&#34;判断用户登录状态&#34;&gt;判断用户登录状态
+&lt;/h4&gt;&lt;p&gt;Bitmap 提供了 GETBIT、SETBIT 操作，通过一个偏移值 offset 对 bit 数组的 offset 位置的 bit 位进行读写操作，需要注意的是 offset 从 0 开始。&lt;/p&gt;
+&lt;h4 id=&#34;连续签到总数&#34;&gt;连续签到总数
+&lt;/h4&gt;&lt;p&gt;把每天的日期作为 Bitmap 的 key，userId 作为 offset，若是打卡则将 offset 位置的 bit 设置成 1。&lt;/p&gt;
+&lt;p&gt;key 对应的集合的每个 bit 位的数据则是一个用户在该日期的打卡记录。&lt;/p&gt;
+&lt;h2 id=&#34;hyperloglog&#34;&gt;HyperLogLog
+&lt;/h2&gt;&lt;h3 id=&#34;介绍-6&#34;&gt;介绍
+&lt;/h3&gt;&lt;p&gt;Redis HyperLogLog 是 Redis 2.8.9 版本新增的数据类型，是一种用于「统计基数」的数据集合类型，基数统计就是指统计一个集合中不重复的元素个数。但要注意，HyperLogLog 是统计规则是基于概率完成的，不是非常准确，标准误算率是 0.81%。&lt;/p&gt;
+&lt;p&gt;所以，简单来说 HyperLogLog&lt;strong&gt;提供不精确的去重计数。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的内存空间总是固定的、并且是很小的。&lt;/p&gt;
+&lt;p&gt;在 Redis 里面，每个 HyperLogLog 键只需要花费 12 KB 内存，就可以计算接近 2^64 个不同元素的基数，和元素越多就越耗费内存的 Set 和 Hash 类型相比，HyperLogLog 就非常节省空间。&lt;/p&gt;
+&lt;h3 id=&#34;内部实现-6&#34;&gt;内部实现
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://juejin.cn/post/6844903785744056333&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;HyperLogLog算法的原理讲解&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;应用场景-6&#34;&gt;应用场景
+&lt;/h3&gt;&lt;h4 id=&#34;百万级网页uv计数&#34;&gt;百万级网页UV计数
+&lt;/h4&gt;&lt;p&gt;Redis HyperLogLog 优势在于只需要花费 12 KB 内存，就可以计算接近 2^64 个元素的基数，和元素越多就越耗费内存的 Set 和 Hash 类型相比，HyperLogLog 就非常节省空间。&lt;/p&gt;
+&lt;p&gt;不过，有一点需要你注意一下，HyperLogLog 的统计规则是基于概率完成的，所以它给出的统计结果是有一定误差的，标准误算率是 0.81%。&lt;/p&gt;
+&lt;p&gt;这也就意味着，你使用 HyperLogLog 统计的 UV 是 100 万，但实际的 UV 可能是 101 万。虽然误差率不算大，但是，如果你需要精确统计结果的话，最好还是继续用 Set 或 Hash 类型。&lt;/p&gt;
+&lt;h2 id=&#34;geo&#34;&gt;GEO
+&lt;/h2&gt;&lt;p&gt;Redis GEO 是 Redis 3.2 版本新增的数据类型，主要用于存储地理位置信息，并对存储的信息进行操作。&lt;/p&gt;
+&lt;p&gt;在日常生活中，我们越来越依赖搜索“附近的餐馆”、在打车软件上叫车，这些都离不开基于位置信息服务（Location-Based Service，LBS）的应用。LBS 应用访问的数据是和人或物关联的一组经纬度信息，而且要能查询相邻的经纬度范围，GEO 就非常适合应用在 LBS 服务的场景中。&lt;/p&gt;
+&lt;h3 id=&#34;内部实现-7&#34;&gt;内部实现
+&lt;/h3&gt;&lt;p&gt;GEO 本身并没有设计新的底层数据结构，而是直接使用了 Sorted Set 集合类型。&lt;/p&gt;
+&lt;p&gt;GEO 类型使用 GeoHash 编码方法实现了经纬度到 Sorted Set 中元素权重分数的转换，这其中的两个关键机制就是「对二维地图做区间划分」和「对区间进行编码」。一组经纬度落在某个区间后，就用区间的编码值来表示，并把编码值作为 Sorted Set 元素的权重分数。&lt;/p&gt;
+&lt;p&gt;这样一来，我们就可以把经纬度保存到 Sorted Set 中，利用 Sorted Set 提供的“按权重进行有序范围查找”的特性，实现 LBS 服务中频繁使用的“搜索附近”的需求。&lt;/p&gt;
+&lt;h3 id=&#34;应用场景-7&#34;&gt;应用场景
+&lt;/h3&gt;&lt;p&gt;可以用做滴滴打车&lt;/p&gt;
+&lt;h2 id=&#34;stream&#34;&gt;Stream
+&lt;/h2&gt;&lt;p&gt;Redis Stream 是 Redis 5.0 版本新增加的数据类型，Redis 专门为消息队列设计的数据类型。&lt;/p&gt;
+&lt;p&gt;在 Redis 5.0 Stream 没出来之前，消息队列的实现方式都有着各自的缺陷，例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;发布订阅模式，不能持久化也就无法可靠的保存消息，并且对于离线重连的客户端不能读取历史消息的缺陷；&lt;/li&gt;
+&lt;li&gt;List 实现消息队列的方式不能重复消费，一个消息消费完就会被删除，而且生产者需要自行实现全局唯一 ID。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;基于以上问题，Redis 5.0 便推出了 Stream 类型也是此版本最重要的功能，用于完美地实现消息队列，它支持消息的持久化、支持自动生成全局唯一 ID、支持 ack 确认消息的模式、支持消费组模式等，让消息队列更加的稳定和可靠。&lt;/p&gt;
+&lt;h3 id=&#34;应用场景-8&#34;&gt;应用场景
+&lt;/h3&gt;&lt;p&gt;相较于基于List类型实现的消息队列，有两个特有的特性:自动生成全局唯一消息ID，支持以消息组形式消息数据。&lt;/p&gt;
+&lt;h1 id=&#34;总结&#34;&gt;总结
+&lt;/h1&gt;&lt;p&gt;Redis 常见的五种数据类型：&lt;strong&gt;String（字符串），Hash（哈希），List（列表），Set（集合）及 Zset(sorted set：有序集合)。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Redis 五种数据类型的应用场景:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;String 类型的应用场景：缓存对象、常规计数、分布式锁、共享session信息等。&lt;/p&gt;
+&lt;p&gt;List 类型的应用场景：消息队列（有两个问题：1. 生产者需要自行实现全局唯一 ID；2. 不能以消费组形式消费数据）等。&lt;/p&gt;
+&lt;p&gt;Hash 类型：缓存对象、购物车等。&lt;/p&gt;
+&lt;p&gt;Set 类型：聚合计算（并集、交集、差集）场景，比如点赞、共同关注、抽奖活动等。&lt;/p&gt;
+&lt;p&gt;Zset 类型：排序场景，比如排行榜、电话和姓名排序等。&lt;/p&gt;
+&lt;p&gt;Redis 后续版本又支持四种数据类型，它们的应用场景如下：&lt;/p&gt;
+&lt;p&gt;BitMap（2.2 版新增）：二值状态统计的场景，比如签到、判断用户登陆状态、连续签到用户总数等；&lt;/p&gt;
+&lt;p&gt;HyperLogLog（2.8 版新增）：海量数据基数统计的场景，比如百万级网页 UV 计数等；&lt;/p&gt;
+&lt;p&gt;GEO（3.2 版新增）：存储地理位置信息的场景，比如滴滴叫车；&lt;/p&gt;
+&lt;p&gt;Stream（5.0 版新增）：消息队列，相比于基于 List 类型实现的消息队列，有这两个特有的特性：自动生成全局唯一消息ID，支持以消费组形式消费数据。&lt;/p&gt;
+&lt;p&gt;针对 Redis 是否适合做消息队列，关键看你的业务场景：&lt;/p&gt;
+&lt;p&gt;如果你的业务场景足够简单，对于数据丢失不敏感，而且消息积压概率比较小的情况下，把 Redis 当作队列是完全可以的。&lt;/p&gt;
+&lt;p&gt;如果你的业务有海量消息，消息积压的概率比较大，并且不能接受数据丢失，那么还是用专业的消息队列中间件吧。&lt;/p&gt;
 </description>
         </item>
         <item>
